@@ -58,6 +58,20 @@ public class SlickGame extends BasicGame {
         if (input.isKeyDown(Input.KEY_DOWN)) {
             player_sprite = player_down;
             player_y += player_speed*delta;
+        } else {
+            
+        }
+        if (input.isKeyDown(Input.KEY_RIGHT)) {
+            player_sprite = player_right;
+            player_x += player_speed*delta;
+        } else {
+            
+        }
+        if (input.isKeyDown(Input.KEY_LEFT)) {
+            player_sprite = player_down;
+            player_x -= player_speed*delta;
+        } else {
+            
         }
     }
 
