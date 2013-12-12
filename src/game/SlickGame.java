@@ -4,6 +4,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class SlickGame extends BasicGame {
@@ -25,6 +26,14 @@ public class SlickGame extends BasicGame {
     @Override
     public void init(GameContainer container) throws SlickException {
         
+        try {
+            Image player_forward_img = new Image("player_forward.png");
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
+        
+        //SpriteSheet player_forward_sheet = new SpriteSheet();
+        //Animation player_forward_anim = new Animation();
     }
 
     @Override
