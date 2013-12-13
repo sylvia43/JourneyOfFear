@@ -7,7 +7,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 public class SlickGame extends BasicGame {
-        
+    
+    Options options;
+    
     public SlickGame() {
         super("Slick Game");
     }
@@ -26,7 +28,8 @@ public class SlickGame extends BasicGame {
 
     @Override
     public void init(GameContainer container) throws SlickException {
-        Player.init(container);
+        options = new Options();
+        Player.init(container, options);
     }
 
     @Override
