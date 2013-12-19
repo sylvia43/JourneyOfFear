@@ -9,6 +9,7 @@ import org.newdawn.slick.SlickException;
 public class SlickGame extends BasicGame {
     
     Options options;
+    public static final boolean DEBUG_MODE = true;
     
     public SlickGame() {
         super("Slick Game");

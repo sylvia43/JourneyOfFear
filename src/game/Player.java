@@ -17,6 +17,15 @@ public class Player {
     private static final double player_speed = 0.25;
     private static Options keybind;
     
+    private static boolean _downHeld;
+    private static boolean _upHeld;
+    private static boolean _leftHeld;
+    private static boolean _rightHeld;
+    private static boolean _downPressed;
+    private static boolean _upPressed;
+    private static boolean _leftPressed;
+    private static boolean _rightPressed;
+    
     public static void init(GameContainer container, Options options) throws SlickException {
         player_down = ResourceLoader.initializeAnimation("player_forward.png",4,166);
         player_up = ResourceLoader.initializeAnimation("player_backward.png",4,166);
@@ -44,19 +53,28 @@ public class Player {
                 player_sprite = player_right;
                 break;
         }
+        if (SlickGame.DEBUG_MODE)
+            g.drawString((_downHeld?"dh ":"")
+                    + (_upHeld?"uh ":"")
+                    + (_leftHeld?"lh ":"")
+                    + (_rightHeld?"rh ":"")
+                    + (_downPressed?"dp ":"")
+                    + (_upPressed?"up ":"")
+                    + (_leftPressed?"lp ":"")
+                    + (_rightPressed?"rp ":""), 50, 50);
         player_sprite.draw((int)player_x,(int)player_y);
     }
     
     public static void movePlayer(Input input,int delta) {
-        boolean downHeld = input.isKeyDown(keybind.KEY_DOWN);
-        boolean downPressed = input.isKeyPressed(keybind.KEY_DOWN);
-        boolean upHeld = input.isKeyDown(keybind.KEY_UP);
-        boolean upPressed = input.isKeyPressed(keybind.KEY_UP);
-        boolean leftHeld = input.isKeyDown(keybind.KEY_LEFT);
-        boolean leftPressed = input.isKeyPressed(keybind.KEY_LEFT);
-        boolean rightHeld = input.isKeyDown(keybind.KEY_RIGHT);
-        boolean rightPressed = input.isKeyPressed(keybind.KEY_RIGHT);
-
+        boolean downHeld = _downHeld = input.isKeyDown(keybind.KEY_DOWN);
+        boolean downPressed = _downPressed  = input.isKeyPressed(keybind.KEY_DOWN);
+        boolean upHeld = _upHeld  = input.isKeyDown(keybind.KEY_UP);
+        boolean upPressed = _upPressed  = input.isKeyPressed(keybind.KEY_UP);
+        boolean leftHeld = _leftHeld  = input.isKeyDown(keybind.KEY_LEFT);
+        boolean leftPressed = _leftPressed  = input.isKeyPressed(keybind.KEY_LEFT);
+        boolean rightHeld = _rightHeld = input.isKeyDown(keybind.KEY_RIGHT);
+        boolean rightPressed = _rightPressed  = input.isKeyPressed(keybind.KEY_RIGHT);
+        
         if ((downHeld || downPressed) && (upHeld || upPressed)) {
             upHeld = false;
             downHeld = false;
