@@ -57,12 +57,12 @@ public class Player {
         boolean rightHeld = input.isKeyDown(keybind.KEY_RIGHT);
         boolean rightPressed = input.isKeyPressed(keybind.KEY_RIGHT);
 
-        if (downHeld && upHeld) {
+        if ((downHeld || downPressed) && (upHeld || upPressed)) {
             upHeld = false;
             downHeld = false;
         }
         
-        if (leftHeld && rightHeld) {
+        if ((leftHeld || leftPressed) && (rightHeld || rightPressed)) {
             leftHeld = false;
             rightHeld = false;
         }
