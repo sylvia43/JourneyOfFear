@@ -38,7 +38,7 @@ public class Player {
         spr_player_up = ResourceLoader.initializeAnimation("player_backward.png",4,16,166);
         spr_player_right = ResourceLoader.initializeAnimation("player_right.png",4,16,166);
         spr_player_left = ResourceLoader.initializeAnimation("player_left.png",4,16,166);
-        spr_sword = ResourceLoader.initializeAnimation("sword_slash.png",4,48,166);
+        spr_sword = ResourceLoader.initializeAnimation("sword_slash.png",4,48,83);
         spr_sword.stop();
         player_sprite_pointer = "player_down";
         keybind = options;
@@ -128,7 +128,7 @@ public class Player {
             //int direction = _direction = (int) (8 * Math.atan2((player_y+Mouse.getY()-height),(Mouse.getX()-player_x))/Math.PI);
         }
         attackTimer+=delta;
-        if (attackTimer > 332) {
+        if (attackTimer > spr_sword.getDuration(0)*2) {
             attacking = false;
             spr_sword.stop();
         }
