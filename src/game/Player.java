@@ -38,7 +38,7 @@ public class Player {
         spr_player_up = ResourceLoader.initializeAnimation("player_backward.png",4,16,166);
         spr_player_right = ResourceLoader.initializeAnimation("player_right.png",4,16,166);
         spr_player_left = ResourceLoader.initializeAnimation("player_left.png",4,16,166);
-        spr_sword = ResourceLoader.initializeAnimation("spr_sword.png",1,192,166);
+        spr_sword = ResourceLoader.initializeAnimation("sword_slash.png",4,48,166);
         spr_sword.stop();
         player_sprite_pointer = "player_down";
         keybind = options;
