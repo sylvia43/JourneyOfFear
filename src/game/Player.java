@@ -8,10 +8,11 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class Player {
-    private static Animation player_up;
-    private static Animation player_down;
-    private static Animation player_left;
-    private static Animation player_right;
+    private static Animation spr_player_up;
+    private static Animation spr_player_down;
+    private static Animation spr_player_left;
+    private static Animation spr_player_right;
+    private static Animation spr_sword;
     private static String player_sprite_pointer;
     private static double player_x = 128;
     private static double player_y = 128;
@@ -33,12 +34,15 @@ public class Player {
     private static int attackTimer;
     
     public static void init(GameContainer container, Options options) throws SlickException {
-        player_down = ResourceLoader.initializeAnimation("player_forward.png",4,166);
-        player_up = ResourceLoader.initializeAnimation("player_backward.png",4,166);
-        player_right = ResourceLoader.initializeAnimation("player_right.png",4,166);
-        player_left = ResourceLoader.initializeAnimation("player_left.png",4,166);
+        spr_player_down = ResourceLoader.initializeAnimation("player_forward.png",4,16,166);
+        spr_player_up = ResourceLoader.initializeAnimation("player_backward.png",4,16,166);
+        spr_player_right = ResourceLoader.initializeAnimation("player_right.png",4,16,166);
+        spr_player_left = ResourceLoader.initializeAnimation("player_left.png",4,16,166);
+        spr_sword = ResourceLoader.initializeAnimation("spr_sword.png",1,192,166);
+        spr_sword.stop();
         player_sprite_pointer = "player_down";
         keybind = options;
+        attacking = false;
     }
     public static void update(GameContainer container, int delta) {
         movePlayer(container.getInput(), delta);
@@ -48,16 +52,16 @@ public class Player {
         Animation player_sprite = null;
         switch(player_sprite_pointer) {
             case "player_down":
-                player_sprite = player_down;
+                player_sprite = spr_player_down;
                 break;
             case "player_up":
-                player_sprite = player_up;
+                player_sprite = spr_player_up;
                 break;
             case "player_left":
-                player_sprite = player_left;
+                player_sprite = spr_player_left;
                 break;
             case "player_right":
-                player_sprite = player_right;
+                player_sprite = spr_player_right;
                 break;
         }
         Input input = container.getInput();
@@ -77,13 +81,19 @@ public class Player {
             g.drawString("my: " + Mouse.getY(), 50, 175);
             g.drawString("dx: " + String.valueOf(Mouse.getX()-player_x), 50, 200);
             g.drawString("dy: " + String.valueOf(Mouse.getY()+player_y-container.getHeight()), 50, 225);
+            g.drawString(attacking?"Attacking":"Not attacking",50,250);
+            g.drawString(String.valueOf(attackTimer),50,275);
+            g.drawString(String.valueOf(spr_sword.getFrame()),50,300);
 
         }
         player_sprite.draw((int)player_x-32,(int)player_y-32);
+        if (attacking) {
+            spr_sword.draw((int)player_x-96,(int)player_y-96);
+        }
     }
     
     public static void resolveAttack(Input input, int delta, int height) {
-        if (/*input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && */!attacking) {
+        if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && !attacking) {
             double dy = player_y+Mouse.getY()-height;
             double dx = Mouse.getX()-player_x;
             int direction;
@@ -114,9 +124,21 @@ public class Player {
                         direction = _direction = 5;
                 }
             }
-            //attack(direction);
+            attack(direction);
             //int direction = _direction = (int) (8 * Math.atan2((player_y+Mouse.getY()-height),(Mouse.getX()-player_x))/Math.PI);
         }
+        attackTimer+=delta;
+        if (attackTimer > 332) {
+            attacking = false;
+            spr_sword.stop();
+        }
+    }
+    
+    public static void attack(int direction) {
+        attacking = true;
+        attackTimer = 0;
+        spr_sword.restart();
+        spr_sword.setCurrentFrame(direction);
     }
     
     public static void movePlayer(Input input, int delta) {
@@ -142,61 +164,61 @@ public class Player {
         if (downPressed) {
             player_sprite_pointer = "player_down";
         } else {
-            player_down.stop();
+            spr_player_down.stop();
         }
         if (downHeld) {
-            player_down.start();
+            spr_player_down.start();
             player_y += player_speed*delta;
             if (!upHeld && !leftHeld && !rightHeld) {
                 player_sprite_pointer = "player_down";
             }
         } else {
-            player_down.setCurrentFrame(1);
+            spr_player_down.setCurrentFrame(1);
         }
         
         if (rightPressed) {
             player_sprite_pointer = "player_right";
         } else {
-            player_right.stop();
+            spr_player_right.stop();
         }
         if (rightHeld) {
-            player_right.start();
+            spr_player_right.start();
             player_x += player_speed*delta;
             if (!upHeld && !leftHeld && !downHeld) {
                 player_sprite_pointer = "player_right";
             }
         } else {
-            player_right.setCurrentFrame(1);
+            spr_player_right.setCurrentFrame(1);
         }
         
         if (upPressed) {
             player_sprite_pointer = "player_up";
         } else {
-            player_up.stop();
+            spr_player_up.stop();
         }
         if (upHeld) {
-            player_up.start();
+            spr_player_up.start();
             player_y -= player_speed*delta;
             if (!downHeld && !leftHeld && !rightHeld) {
                 player_sprite_pointer = "player_up";
             }
         } else {
-            player_up.setCurrentFrame(1);
+            spr_player_up.setCurrentFrame(1);
         }
         
         if (leftPressed) {
             player_sprite_pointer = "player_left";
         } else {
-            player_left.stop();
+            spr_player_left.stop();
         }
         if (leftHeld) {
-            player_left.start();
+            spr_player_left.start();
             player_x -= player_speed*delta;
             if (!upHeld && !downHeld && !rightHeld) {
                 player_sprite_pointer = "player_left";
             }
         } else {
-            player_left.setCurrentFrame(1);
+            spr_player_left.setCurrentFrame(1);
         }
     }
 }
