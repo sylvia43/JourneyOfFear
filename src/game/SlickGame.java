@@ -24,10 +24,12 @@ public class SlickGame extends BasicGame {
             app.setShowFPS(DEBUG_MODE);
             app.setVSync(true);
             app.setForceExit(true);
+            app.setVerbose(DEBUG_MODE);
             app.start();
         } catch (SlickException e) {
             e.printStackTrace();
         }
+        System.out.println("asd");
     }
 
     @Override

@@ -109,14 +109,14 @@ public class Player {
             double dx = Mouse.getX()-player_x;
             //getMouseDirection(dx, dy);
             getKeyboardDirection(input);
-            int direction = _direction;
+            int direction = _direction = (_direction+6)%8;
             attack(direction);
         }
         attackTimer+=delta;
         attackDelay-=delta;
         if (attackTimer > swordDuration*4.5) {
             attacking = false;
-        } else if (attackTimer > swordDuration*3) {
+        } else if (spr_sword.getFrame()==(_direction+10)%8) {
             spr_sword.stop();
         }
     }
