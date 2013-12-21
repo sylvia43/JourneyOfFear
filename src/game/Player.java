@@ -15,23 +15,25 @@ public class Player {
     private static Animation spr_player_right;
     private static Animation spr_sword;
     private static String player_sprite_pointer;
+    
     private static double player_x = 128;
     private static double player_y = 128;
     private static final double player_speed = 0.25;
+    
     private static Options keybind;
     
-    private static boolean _downHeld;
-    private static boolean _upHeld;
-    private static boolean _leftHeld;
-    private static boolean _rightHeld;
-    private static boolean _downPressed;
-    private static boolean _upPressed;
-    private static boolean _leftPressed;
-    private static boolean _rightPressed;
+    private static boolean downHeld;
+    private static boolean upHeld;
+    private static boolean leftHeld;
+    private static boolean rightHeld;
+    private static boolean downPressed;
+    private static boolean upPressed;
+    private static boolean leftPressed;
+    private static boolean rightPressed;
     
     private static int swordDuration = 48;
     
-    private static int _direction;
+    private static int direction;
     
     private static boolean attacking;
     private static int attackTimer;
@@ -73,15 +75,15 @@ public class Player {
         }
         Input input = container.getInput();
         if (SlickGame.DEBUG_MODE) {
-            g.drawString((_downHeld?"dh ":"")
-                    + (_upHeld?"uh ":"")
-                    + (_leftHeld?"lh ":"")
-                    + (_rightHeld?"rh ":"")
-                    + (_downPressed?"dp ":"")
-                    + (_upPressed?"up ":"")
-                    + (_leftPressed?"lp ":"")
-                    + (_rightPressed?"rp ":""), 50, 50);
-            g.drawString(String.valueOf(_direction), 50, 75);
+            g.drawString((downHeld?"dh ":"")
+                    + (upHeld?"uh ":"")
+                    + (leftHeld?"lh ":"")
+                    + (rightHeld?"rh ":"")
+                    + (downPressed?"dp ":"")
+                    + (upPressed?"up ":"")
+                    + (leftPressed?"lp ":"")
+                    + (rightPressed?"rp ":""), 50, 50);
+            g.drawString(String.valueOf(direction), 50, 75);
             g.drawString("x: " + String.valueOf(player_x), 50, 100);
             g.drawString("y: " + String.valueOf(player_y), 50, 125);
             g.drawString("mx: " + Mouse.getX(), 50, 150);
@@ -109,55 +111,55 @@ public class Player {
             double dx = Mouse.getX()-player_x;
             //getMouseDirection(dx, dy);
             getKeyboardDirection(input);
-            int direction = _direction = (_direction+6)%8;
+            direction = (direction+6)%8;
             attack(direction);
         }
         attackTimer+=delta;
         attackDelay-=delta;
         if (attackTimer > swordDuration*4.5) {
             attacking = false;
-        } else if (spr_sword.getFrame()==(_direction+10)%8) {
+        } else if (spr_sword.getFrame()==(direction+10)%8) {
             spr_sword.stop();
         }
     }
     
     public static void getKeyboardDirection(Input input) {
         if (input.isKeyDown(Input.KEY_RIGHT))
-            _direction = 0;
+            direction = 0;
         else if (input.isKeyDown(Input.KEY_UP))
-            _direction = 2;
+            direction = 2;
         else if (input.isKeyDown(Input.KEY_LEFT))
-            _direction = 4;
+            direction = 4;
         else if (input.isKeyDown(Input.KEY_DOWN))
-            _direction = 6;
+            direction = 6;
     }
     
     public static void getMouseDirection(double dx, double dy) {
         if (dx>=0) {
             if (dy>0) {
                 if (dx>=dy)
-                    _direction = 0;
+                    direction = 0;
                 else
-                    _direction = 1;
+                    direction = 1;
             }
             else {
                 if (dx>=-dy)
-                    _direction = 7;
+                    direction = 7;
                 else
-                    _direction = 6;
+                    direction = 6;
             }
         } else {
             if (dy>0) {
                 if (-dx>=dy)
-                    _direction = 3;
+                    direction = 3;
                 else
-                    _direction = 2;
+                    direction = 2;
             }
             else {
                 if (-dx>=-dy)
-                    _direction = 4;
+                    direction = 4;
                 else
-                    _direction = 5;
+                    direction = 5;
             }
         }
     }
@@ -171,14 +173,14 @@ public class Player {
     }
     
     public static void movePlayer(Input input, int delta) {
-        boolean downHeld = _downHeld = input.isKeyDown(keybind.KEY_DOWN);
-        boolean downPressed = _downPressed  = input.isKeyPressed(keybind.KEY_DOWN);
-        boolean upHeld = _upHeld  = input.isKeyDown(keybind.KEY_UP);
-        boolean upPressed = _upPressed  = input.isKeyPressed(keybind.KEY_UP);
-        boolean leftHeld = _leftHeld  = input.isKeyDown(keybind.KEY_LEFT);
-        boolean leftPressed = _leftPressed  = input.isKeyPressed(keybind.KEY_LEFT);
-        boolean rightHeld = _rightHeld = input.isKeyDown(keybind.KEY_RIGHT);
-        boolean rightPressed = _rightPressed  = input.isKeyPressed(keybind.KEY_RIGHT);
+        downHeld = input.isKeyDown(keybind.KEY_DOWN);
+        downPressed = input.isKeyPressed(keybind.KEY_DOWN);
+        upHeld = input.isKeyDown(keybind.KEY_UP);
+        upPressed = input.isKeyPressed(keybind.KEY_UP);
+        leftHeld = input.isKeyDown(keybind.KEY_LEFT);
+        leftPressed = input.isKeyPressed(keybind.KEY_LEFT);
+        rightHeld = input.isKeyDown(keybind.KEY_RIGHT);
+        rightPressed = input.isKeyPressed(keybind.KEY_RIGHT);
         
         if ((downHeld || downPressed) && (upHeld || upPressed)) {
             upHeld = false;
