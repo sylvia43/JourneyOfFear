@@ -21,7 +21,7 @@ public class SlickGame extends BasicGame {
         try {
             AppGameContainer app = new AppGameContainer(new SlickGame());
             app.setDisplayMode(600, 480, false);
-            app.setShowFPS(true);
+            app.setShowFPS(DEBUG_MODE);
             app.setVSync(true);
             app.setForceExit(true);
             app.start();

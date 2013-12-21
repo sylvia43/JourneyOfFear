@@ -7,6 +7,7 @@ public class Options {
     public int KEY_DOWN;
     public int KEY_LEFT;
     public int KEY_RIGHT;
+    public boolean MOUSE_ATTACK;
     
     public Options() {
         KEY_UP = Input.KEY_W;

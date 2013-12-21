@@ -28,26 +28,32 @@ public class Player {
     private static boolean _leftPressed;
     private static boolean _rightPressed;
     
+    private static int swordDuration = 48;
+    
     private static int _direction;
     
     private static boolean attacking;
     private static int attackTimer;
+    private static int attackDelay;
     
     public static void init(GameContainer container, Options options) throws SlickException {
         spr_player_down = ResourceLoader.initializeAnimation("player_forward.png",4,16,166);
         spr_player_up = ResourceLoader.initializeAnimation("player_backward.png",4,16,166);
         spr_player_right = ResourceLoader.initializeAnimation("player_right.png",4,16,166);
         spr_player_left = ResourceLoader.initializeAnimation("player_left.png",4,16,166);
-        spr_sword = ResourceLoader.initializeAnimation("sword_slash.png",4,48,83);
+        spr_sword = ResourceLoader.initializeAnimation("sword_slash.png",4,swordDuration,41);
         spr_sword.stop();
         player_sprite_pointer = "player_down";
         keybind = options;
         attacking = false;
+        attackDelay = 0;
     }
+    
     public static void update(GameContainer container, int delta) {
         movePlayer(container.getInput(), delta);
         resolveAttack(container.getInput(), delta, container.getHeight());
     }
+    
     public static void render(GameContainer container, Graphics g) throws SlickException {
         Animation player_sprite = null;
         switch(player_sprite_pointer) {
@@ -84,7 +90,6 @@ public class Player {
             g.drawString(attacking?"Attacking":"Not attacking",50,250);
             g.drawString(String.valueOf(attackTimer),50,275);
             g.drawString(String.valueOf(spr_sword.getFrame()),50,300);
-
         }
         player_sprite.draw((int)player_x-32,(int)player_y-32);
         if (attacking) {
@@ -93,50 +98,73 @@ public class Player {
     }
     
     public static void resolveAttack(Input input, int delta, int height) {
-        if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && !attacking) {
+        if ((input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && keybind.MOUSE_ATTACK)
+                || (input.isKeyDown(Input.KEY_UP)
+                    ||input.isKeyDown(Input.KEY_DOWN)
+                    ||input.isKeyDown(Input.KEY_LEFT)
+                    ||input.isKeyDown(Input.KEY_RIGHT))
+                && !attacking && attackDelay < 1) {
             double dy = player_y+Mouse.getY()-height;
             double dx = Mouse.getX()-player_x;
-            int direction;
-            if (dx>=0) {
-                if (dy>0) {
-                    if (dx>=dy)
-                        direction = _direction = 0;
-                    else
-                        direction = _direction = 1;
-                }
-                else {
-                    if (dx>=-dy)
-                        direction = _direction = 7;
-                    else
-                        direction = _direction = 6;
-                }
-            } else {
-                if (dy>0) {
-                    if (-dx>=dy)
-                        direction = _direction = 3;
-                    else
-                        direction = _direction = 2;
-                }
-                else {
-                    if (-dx>=-dy)
-                        direction = _direction = 4;
-                    else
-                        direction = _direction = 5;
-                }
-            }
-            attack(direction);
-            //int direction = _direction = (int) (8 * Math.atan2((player_y+Mouse.getY()-height),(Mouse.getX()-player_x))/Math.PI);
+            //getMouseDirection(dx, dy);
+            getKeyboardDirection(input);
+            int direction = _direction;
+            attack((direction+7)%8);
         }
         attackTimer+=delta;
-        if (attackTimer > spr_sword.getDuration(0)*2) {
+        attackDelay-=delta;
+        if (attackTimer > swordDuration*4.5) {
             attacking = false;
+        } else if (attackTimer > swordDuration*3) {
             spr_sword.stop();
+        }
+    }
+    
+    public static void getKeyboardDirection(Input input) {
+        if (input.isKeyDown(Input.KEY_RIGHT))
+            _direction = 0;
+        else if (input.isKeyDown(Input.KEY_UP))
+            _direction = 2;
+        else if (input.isKeyDown(Input.KEY_LEFT))
+            _direction = 4;
+        else if (input.isKeyDown(Input.KEY_DOWN))
+            _direction = 6;
+    }
+    
+    public static void getMouseDirection(double dx, double dy) {
+        if (dx>=0) {
+            if (dy>0) {
+                if (dx>=dy)
+                    _direction = 0;
+                else
+                    _direction = 1;
+            }
+            else {
+                if (dx>=-dy)
+                    _direction = 7;
+                else
+                    _direction = 6;
+            }
+        } else {
+            if (dy>0) {
+                if (-dx>=dy)
+                    _direction = 3;
+                else
+                    _direction = 2;
+            }
+            else {
+                if (-dx>=-dy)
+                    _direction = 4;
+                else
+                    _direction = 5;
+            }
         }
     }
     
     public static void attack(int direction) {
         attacking = true;
         attackTimer = 0;
+        attackDelay = spr_sword.getDuration(0)*2 + 500;
         spr_sword.restart();
         spr_sword.setCurrentFrame(direction);
     }
