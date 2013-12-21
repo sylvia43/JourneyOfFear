@@ -3,6 +3,7 @@ package game;
 import org.newdawn.slick.Input;
 
 public class Options {
+    
     public int KEY_UP;
     public int KEY_DOWN;
     public int KEY_LEFT;

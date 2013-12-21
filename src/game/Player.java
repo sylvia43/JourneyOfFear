@@ -8,6 +8,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class Player {
+    
     private static Animation spr_player_up;
     private static Animation spr_player_down;
     private static Animation spr_player_left;
