@@ -109,7 +109,7 @@ public class Player {
             //getMouseDirection(dx, dy);
             getKeyboardDirection(input);
             int direction = _direction;
-            attack((direction+7)%8);
+            attack(direction);
         }
         attackTimer+=delta;
         attackDelay-=delta;
