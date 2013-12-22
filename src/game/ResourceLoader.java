@@ -7,7 +7,7 @@ import org.newdawn.slick.SpriteSheet;
 
 public class ResourceLoader {
     
-    public static Animation initializeAnimation(String filepath, float scale, int size, int delay) throws SlickException {
+    public static Animation initializeAnimation(String filepath, int delay, int size, float scale) throws SlickException {
         Image image = initializeImage(filepath, scale);
         return new Animation(new SpriteSheet(image,(int)(size*scale),(int)(size*scale)),delay);
     }
@@ -16,5 +16,21 @@ public class ResourceLoader {
         Image image = new Image(filepath);
         image.setFilter(Image.FILTER_NEAREST);
         return image.getScaledCopy(scale);
+    }
+    
+    public static Animation initializeAnimation(String filepath, int delay, int size) throws SlickException {
+        return initializeAnimation(filepath, delay, size, 4);
+    }
+    
+    public static Animation initializeAnimation(String filepath, int delay) throws SlickException {
+        return initializeAnimation(filepath, delay, 16);
+    }
+    
+    public static Animation initializeAnimation(String filepath) throws SlickException {
+        return initializeAnimation(filepath, 0, 16, 4);
+    }
+    
+    public static Image initializeImage(String filepath) throws SlickException {
+        return initializeImage(filepath,4);
     }
 }

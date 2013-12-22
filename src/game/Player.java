@@ -9,29 +9,29 @@ import org.newdawn.slick.SlickException;
 
 public class Player {
     
-    private static Animation spr_player_up;
-    private static Animation spr_player_down;
-    private static Animation spr_player_left;
-    private static Animation spr_player_right;
-    private static Animation spr_sword;
-    private static String player_sprite_pointer;
+    private static Animation up;
+    private static Animation down;
+    private static Animation left;
+    private static Animation right;
+    private static Animation sword;
+    private static String spritePointer;
     
-    private static double player_x = 128;
-    private static double player_y = 128;
-    private static final double player_speed = 0.25;
+    private static double x = 128;
+    private static double y = 128;
+    private static final double speed = 0.25;
     
     private static Options keybind;
     
-    private static boolean downHeld;
-    private static boolean upHeld;
-    private static boolean leftHeld;
-    private static boolean rightHeld;
-    private static boolean downPressed;
-    private static boolean upPressed;
-    private static boolean leftPressed;
-    private static boolean rightPressed;
+    private static boolean DnHl;
+    private static boolean UpHl;
+    private static boolean LfHl;
+    private static boolean RiHl;
+    private static boolean DnPr;
+    private static boolean UpPr;
+    private static boolean LfPr;
+    private static boolean RiPr;
     
-    private static int swordDuration = 48;
+    private static final int swordDuration = 48;
     
     private static int direction;
     
@@ -40,13 +40,13 @@ public class Player {
     private static int attackDelay;
     
     public static void init(GameContainer container, Options options) throws SlickException {
-        spr_player_down = ResourceLoader.initializeAnimation("player_forward.png",4,16,166);
-        spr_player_up = ResourceLoader.initializeAnimation("player_backward.png",4,16,166);
-        spr_player_right = ResourceLoader.initializeAnimation("player_right.png",4,16,166);
-        spr_player_left = ResourceLoader.initializeAnimation("player_left.png",4,16,166);
-        spr_sword = ResourceLoader.initializeAnimation("sword_slash.png",4,swordDuration,41);
-        spr_sword.stop();
-        player_sprite_pointer = "player_down";
+        down = ResourceLoader.initializeAnimation("player_forward.png",166);
+        up = ResourceLoader.initializeAnimation("player_backward.png",166);
+        right = ResourceLoader.initializeAnimation("player_right.png",166);
+        left = ResourceLoader.initializeAnimation("player_left.png",166);
+        sword = ResourceLoader.initializeAnimation("sword_slash.png",41,48);
+        sword.stop();
+        spritePointer = "player_down";
         keybind = options;
         attacking = false;
         attackDelay = 0;
@@ -59,56 +59,56 @@ public class Player {
     
     public static void render(GameContainer container, Graphics g) throws SlickException {
         Animation player_sprite = null;
-        switch(player_sprite_pointer) {
+        switch(spritePointer) {
             case "player_down":
-                player_sprite = spr_player_down;
+                player_sprite = down;
                 break;
             case "player_up":
-                player_sprite = spr_player_up;
+                player_sprite = up;
                 break;
             case "player_left":
-                player_sprite = spr_player_left;
+                player_sprite = left;
                 break;
             case "player_right":
-                player_sprite = spr_player_right;
+                player_sprite = right;
                 break;
         }
         Input input = container.getInput();
         if (SlickGame.DEBUG_MODE) {
-            g.drawString((downHeld?"dh ":"")
-                    + (upHeld?"uh ":"")
-                    + (leftHeld?"lh ":"")
-                    + (rightHeld?"rh ":"")
-                    + (downPressed?"dp ":"")
-                    + (upPressed?"up ":"")
-                    + (leftPressed?"lp ":"")
-                    + (rightPressed?"rp ":""), 50, 50);
+            g.drawString((DnHl?"dh ":"")
+                    + (UpHl?"uh ":"")
+                    + (LfHl?"lh ":"")
+                    + (RiHl?"rh ":"")
+                    + (DnPr?"dp ":"")
+                    + (UpPr?"up ":"")
+                    + (LfPr?"lp ":"")
+                    + (RiPr?"rp ":""), 50, 50);
             g.drawString(String.valueOf(direction), 50, 75);
-            g.drawString("x: " + String.valueOf(player_x), 50, 100);
-            g.drawString("y: " + String.valueOf(player_y), 50, 125);
+            g.drawString("x: " + String.valueOf(x), 50, 100);
+            g.drawString("y: " + String.valueOf(y), 50, 125);
             g.drawString("mx: " + Mouse.getX(), 50, 150);
             g.drawString("my: " + Mouse.getY(), 50, 175);
-            g.drawString("dx: " + String.valueOf(Mouse.getX()-player_x), 50, 200);
-            g.drawString("dy: " + String.valueOf(Mouse.getY()+player_y-container.getHeight()), 50, 225);
+            g.drawString("dx: " + String.valueOf(Mouse.getX()-x), 50, 200);
+            g.drawString("dy: " + String.valueOf(Mouse.getY()+y-container.getHeight()), 50, 225);
             g.drawString(attacking?"Attacking":"Not attacking",50,250);
             g.drawString(String.valueOf(attackTimer),50,275);
-            g.drawString(String.valueOf(spr_sword.getFrame()),50,300);
+            g.drawString(String.valueOf(sword.getFrame()),50,300);
         }
-        player_sprite.draw((int)player_x-32,(int)player_y-32);
+        player_sprite.draw((int)x-32,(int)y-32);
         if (attacking) {
-            spr_sword.draw((int)player_x-96,(int)player_y-96);
+            sword.draw((int)x-96,(int)y-96);
         }
     }
     
     public static void resolveAttack(Input input, int delta, int height) {
         if ((input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && keybind.MOUSE_ATTACK)
-                || (input.isKeyDown(Input.KEY_UP)
-                    ||input.isKeyDown(Input.KEY_DOWN)
-                    ||input.isKeyDown(Input.KEY_LEFT)
-                    ||input.isKeyDown(Input.KEY_RIGHT))
+                || (input.isKeyDown(keybind.A_UP)
+                    ||input.isKeyDown(keybind.A_DOWN)
+                    ||input.isKeyDown(keybind.A_LEFT)
+                    ||input.isKeyDown(keybind.A_RIGHT))
                 && !attacking && attackDelay < 1) {
-            double dy = player_y+Mouse.getY()-height;
-            double dx = Mouse.getX()-player_x;
+            double dy = y+Mouse.getY()-height;
+            double dx = Mouse.getX()-x;
             //getMouseDirection(dx, dy);
             getKeyboardDirection(input);
             direction = (direction+6)%8;
@@ -118,19 +118,19 @@ public class Player {
         attackDelay-=delta;
         if (attackTimer > swordDuration*4.5) {
             attacking = false;
-        } else if (spr_sword.getFrame()==(direction+10)%8) {
-            spr_sword.stop();
+        } else if (sword.getFrame()==(direction+10)%8) {
+            sword.stop();
         }
     }
     
     public static void getKeyboardDirection(Input input) {
-        if (input.isKeyDown(Input.KEY_RIGHT))
+        if (input.isKeyDown(keybind.A_RIGHT))
             direction = 0;
-        else if (input.isKeyDown(Input.KEY_UP))
+        else if (input.isKeyDown(keybind.A_UP))
             direction = 2;
-        else if (input.isKeyDown(Input.KEY_LEFT))
+        else if (input.isKeyDown(keybind.A_LEFT))
             direction = 4;
-        else if (input.isKeyDown(Input.KEY_DOWN))
+        else if (input.isKeyDown(keybind.A_DOWN))
             direction = 6;
     }
     
@@ -167,89 +167,89 @@ public class Player {
     public static void attack(int direction) {
         attacking = true;
         attackTimer = 0;
-        attackDelay = spr_sword.getDuration(0)*2 + 500;
-        spr_sword.restart();
-        spr_sword.setCurrentFrame(direction);
+        attackDelay = sword.getDuration(0)*2 + 500;
+        sword.restart();
+        sword.setCurrentFrame(direction);
     }
     
     public static void movePlayer(Input input, int delta) {
-        downHeld = input.isKeyDown(keybind.KEY_DOWN);
-        downPressed = input.isKeyPressed(keybind.KEY_DOWN);
-        upHeld = input.isKeyDown(keybind.KEY_UP);
-        upPressed = input.isKeyPressed(keybind.KEY_UP);
-        leftHeld = input.isKeyDown(keybind.KEY_LEFT);
-        leftPressed = input.isKeyPressed(keybind.KEY_LEFT);
-        rightHeld = input.isKeyDown(keybind.KEY_RIGHT);
-        rightPressed = input.isKeyPressed(keybind.KEY_RIGHT);
+        DnHl = input.isKeyDown(keybind.M_DOWN);
+        DnPr = input.isKeyPressed(keybind.M_DOWN);
+        UpHl = input.isKeyDown(keybind.M_UP);
+        UpPr = input.isKeyPressed(keybind.M_UP);
+        LfHl = input.isKeyDown(keybind.M_LEFT);
+        LfPr = input.isKeyPressed(keybind.M_LEFT);
+        RiHl = input.isKeyDown(keybind.M_RIGHT);
+        RiPr = input.isKeyPressed(keybind.M_RIGHT);
         
-        if ((downHeld || downPressed) && (upHeld || upPressed)) {
-            upHeld = false;
-            downHeld = false;
+        if ((DnHl || DnHl) && (UpHl || UpHl)) {
+            UpHl = false;
+            DnHl = false;
         }
         
-        if ((leftHeld || leftPressed) && (rightHeld || rightPressed)) {
-            leftHeld = false;
-            rightHeld = false;
+        if ((LfHl || LfPr) && (RiHl || RiPr)) {
+            LfHl = false;
+            RiHl = false;
         }
         
-        if (downPressed) {
-            player_sprite_pointer = "player_down";
+        if (DnHl) {
+            spritePointer = "player_down";
         } else {
-            spr_player_down.stop();
+            down.stop();
         }
-        if (downHeld) {
-            spr_player_down.start();
-            player_y += player_speed*delta;
-            if (!upHeld && !leftHeld && !rightHeld) {
-                player_sprite_pointer = "player_down";
+        if (DnHl) {
+            down.start();
+            y += speed*delta;
+            if (!UpHl && !LfHl && !RiHl) {
+                spritePointer = "player_down";
             }
         } else {
-            spr_player_down.setCurrentFrame(1);
+            down.setCurrentFrame(1);
         }
         
-        if (rightPressed) {
-            player_sprite_pointer = "player_right";
+        if (RiPr) {
+            spritePointer = "player_right";
         } else {
-            spr_player_right.stop();
+            right.stop();
         }
-        if (rightHeld) {
-            spr_player_right.start();
-            player_x += player_speed*delta;
-            if (!upHeld && !leftHeld && !downHeld) {
-                player_sprite_pointer = "player_right";
+        if (RiHl) {
+            right.start();
+            x += speed*delta;
+            if (!UpHl && !LfHl && !DnHl) {
+                spritePointer = "player_right";
             }
         } else {
-            spr_player_right.setCurrentFrame(1);
+            right.setCurrentFrame(1);
         }
         
-        if (upPressed) {
-            player_sprite_pointer = "player_up";
+        if (UpPr) {
+            spritePointer = "player_up";
         } else {
-            spr_player_up.stop();
+            up.stop();
         }
-        if (upHeld) {
-            spr_player_up.start();
-            player_y -= player_speed*delta;
-            if (!downHeld && !leftHeld && !rightHeld) {
-                player_sprite_pointer = "player_up";
+        if (UpHl) {
+            up.start();
+            y -= speed*delta;
+            if (!DnHl && !LfHl && !RiHl) {
+                spritePointer = "player_up";
             }
         } else {
-            spr_player_up.setCurrentFrame(1);
+            up.setCurrentFrame(1);
         }
         
-        if (leftPressed) {
-            player_sprite_pointer = "player_left";
+        if (LfPr) {
+            spritePointer = "player_left";
         } else {
-            spr_player_left.stop();
+            left.stop();
         }
-        if (leftHeld) {
-            spr_player_left.start();
-            player_x -= player_speed*delta;
-            if (!upHeld && !downHeld && !rightHeld) {
-                player_sprite_pointer = "player_left";
+        if (LfHl) {
+            left.start();
+            x -= speed*delta;
+            if (!UpHl && !DnHl && !RiHl) {
+                spritePointer = "player_left";
             }
         } else {
-            spr_player_left.setCurrentFrame(1);
+            left.setCurrentFrame(1);
         }
     }
 }
