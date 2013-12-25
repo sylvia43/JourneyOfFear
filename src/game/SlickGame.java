@@ -12,6 +12,7 @@ public class SlickGame extends BasicGame {
     Options options;
     public static final boolean DEBUG_MODE = false;
     public static Image background_grass;
+    public Enemy enemy;
     
     public SlickGame() {
         super("Slick Game");
@@ -29,7 +30,6 @@ public class SlickGame extends BasicGame {
         } catch (SlickException e) {
             e.printStackTrace();
         }
-        System.out.println("asd");
     }
 
     @Override
@@ -37,11 +37,14 @@ public class SlickGame extends BasicGame {
         options = new Options();
         background_grass = ResourceLoader.initializeImage("back_grass.png");
         Player.init(container, options);
+        enemy = new Enemy();
+        enemy.init(container);
     }
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
         Player.update(container,delta);
+        enemy.update(container, delta);
     }
 
     public void render(GameContainer container, Graphics g) throws SlickException {
@@ -49,7 +52,8 @@ public class SlickGame extends BasicGame {
             for(int y = 0; y < container.getHeight(); y += background_grass.getHeight()) {
                  background_grass.draw(x, y);
             }
-       }
+        }
+        enemy.render(container, g);
         Player.render(container,g);
     }
 }

@@ -27,7 +27,7 @@ public class ResourceLoader {
     }
     
     public static Animation initializeAnimation(String filepath) throws SlickException {
-        return initializeAnimation(filepath, 0, 16, 4);
+        return initializeAnimation(filepath, 100, 16, 4);
     }
     
     public static Image initializeImage(String filepath) throws SlickException {
