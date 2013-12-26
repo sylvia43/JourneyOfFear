@@ -48,9 +48,9 @@ public class SlickGame extends BasicGame {
     }
 
     public void render(GameContainer container, Graphics g) throws SlickException {
-        for(int x = 0; x < container.getWidth(); x += background_grass.getWidth()) {
-            for(int y = 0; y < container.getHeight(); y += background_grass.getHeight()) {
-                 background_grass.draw(x, y);
+        for(int x = 0; x < container.getWidth(); x += 64) {
+            for(int y = 0; y < container.getHeight(); y += 64) {
+                 background_grass.draw(x,y,64,64);
             }
         }
         enemy.render(container, g);

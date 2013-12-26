@@ -42,6 +42,6 @@ public class Enemy {
     }
 
     public void render(GameContainer container, Graphics g) throws SlickException {
-        up.draw((float)x,(float)y);
+        up.draw((float)x,(float)y,64,64);
     }
 }

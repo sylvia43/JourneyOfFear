@@ -94,9 +94,9 @@ public class Player {
             g.drawString(String.valueOf(attackTimer),50,275);
             g.drawString(String.valueOf(sword.getFrame()),50,300);
         }
-        player_sprite.draw((int)x-32,(int)y-32);
+        player_sprite.draw((int)x-32,(int)y-32,64,64);
         if (attacking) {
-            sword.draw((int)x-96,(int)y-96);
+            sword.draw((int)x-96,(int)y-96,192,192);
         }
     }
     
