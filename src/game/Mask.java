@@ -1,5 +1,7 @@
 package game;
 
-public class Mask {
+public interface Mask {
     
+    public boolean intersects(EntityMask other);
+    public boolean intersects(AttackMask other);
 }

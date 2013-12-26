@@ -39,6 +39,8 @@ public class Player {
     private static int attackTimer;
     private static int attackDelay;
     
+    private EntityMask[][] mask = new EntityMask[4][4];
+    
     public static void init(GameContainer container, Options options) throws SlickException {
         down = ResourceLoader.initializeAnimation("player_forward.png",166);
         up = ResourceLoader.initializeAnimation("player_backward.png",166);
@@ -50,6 +52,7 @@ public class Player {
         keybind = options;
         attacking = false;
         attackDelay = 0;
+        new EntityMask(up.getImage(1));
     }
     
     public static void update(GameContainer container, int delta) {
