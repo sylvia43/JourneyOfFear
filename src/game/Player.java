@@ -39,23 +39,18 @@ public class Player {
     private static int attackTimer;
     private static int attackDelay;
     
-    private EntityMask[] maskUp = new EntityMask[4];
-    private EntityMask[] maskDown = new EntityMask[4];
-    private EntityMask[] maskLeft = new EntityMask[4];
-    private EntityMask[] maskRight = new EntityMask[4];
+    private static EntityMask[] maskUp = new EntityMask[4];
+    private static EntityMask[] maskDown = new EntityMask[4];
+    private static EntityMask[] maskLeft = new EntityMask[4];
+    private static EntityMask[] maskRight = new EntityMask[4];
     
     public static void init(GameContainer container, Options options) throws SlickException {
-        down = ResourceLoader.initializeAnimation("player_forward.png",166);
-        up = ResourceLoader.initializeAnimation("player_backward.png",166);
-        right = ResourceLoader.initializeAnimation("player_right.png",166);
-        left = ResourceLoader.initializeAnimation("player_left.png",166);
-        sword = ResourceLoader.initializeAnimation("sword_slash.png",41,48);
-        sword.stop();
+        initializeAnimations();
         spritePointer = "player_down";
         keybind = options;
         attacking = false;
         attackDelay = 0;
-        //new EntityMask(up.getImage(1));
+        initializeMasks();
     }
     
     public static void update(GameContainer container, int delta) {
@@ -256,6 +251,28 @@ public class Player {
             }
         } else {
             left.setCurrentFrame(1);
+        }
+    }
+    
+    private static void initializeAnimations() throws SlickException {
+        down = ResourceLoader.initializeAnimation("player_forward.png",166);
+        up = ResourceLoader.initializeAnimation("player_backward.png",166);
+        right = ResourceLoader.initializeAnimation("player_right.png",166);
+        left = ResourceLoader.initializeAnimation("player_left.png",166);
+        sword = ResourceLoader.initializeAnimation("sword_slash.png",41,48);
+        sword.stop();
+    }
+    
+    private static void initializeMasks() {
+        initializeMask(maskUp,up);
+        initializeMask(maskDown,down);
+        initializeMask(maskLeft,left);
+        initializeMask(maskRight,right);
+    }
+    
+    private static void initializeMask(EntityMask[] mask,Animation anim) {
+        for (int i=0;i<4;i++) {
+            mask[i] = new EntityMask(anim.getImage(i));
         }
     }
 }
