@@ -1,4 +1,4 @@
 SlickGame
 =========
 
-See readme.txt and info.txt for details.
+See readme.txt for information and info.txt for details.
