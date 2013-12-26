@@ -12,17 +12,22 @@ public class EntityMask implements Mask {
                 mask[i][j] = image.getColor(i,j).getAlpha() == 255;
             }
         }
-        print(mask);
     }
     
-    private void print(boolean[][] array) {
+    public String toString(boolean[][] array) {
+        String s = null;
         for(int i=0;i<array.length;i++) {
             for(int j=0;j<array[i].length;j++) {
-                System.out.print(array[i][j]?"1":"0");
-                if(j<array[i].length-1) System.out.print(" ");
+                s+=array[i][j]?"1":"0";
+                if(j<array[i].length-1) s+=" ";
             }
-            System.out.println();
+            s+="\n";
         }
+        return s;
+    }
+    
+    public String toString() {
+        return toString(this.getMask());
     }
     
     public boolean intersects(EntityMask other) {
@@ -31,5 +36,9 @@ public class EntityMask implements Mask {
 
     public boolean intersects(AttackMask other) {
         return true;
+    }
+    
+    public boolean[][] getMask() {
+        return mask;
     }
 }
