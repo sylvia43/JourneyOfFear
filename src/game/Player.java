@@ -16,9 +16,9 @@ public class Player {
     private static Animation sword;
     private static String spritePointer;
     
-    private static double x = 128;
-    private static double y = 128;
-    private static final double speed = 0.25;
+    private static double x = 64;
+    private static double y = 64;
+    private static final double speed = 0.1;
     
     private static Options keybind;
     
@@ -94,9 +94,9 @@ public class Player {
             g.drawString(String.valueOf(attackTimer),50,275);
             g.drawString(String.valueOf(sword.getFrame()),50,300);
         }
-        player_sprite.draw((int)x-32,(int)y-32,64,64);
+        player_sprite.draw((int)(x*4)-32,(int)(y*4)-32,64,64);
         if (attacking) {
-            sword.draw((int)x-96,(int)y-96,192,192);
+            sword.draw((int)(x*4)-96,(int)(y*4)-96,192,192);
         }
     }
     

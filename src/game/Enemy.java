@@ -33,8 +33,8 @@ public class Enemy {
     
     public void init(GameContainer container) throws SlickException {
         left = right = up = down = ResourceLoader.initializeAnimation(spritePath);
-        x = (int) (Math.random()*container.getWidth());
-        y = (int) (Math.random()*container.getHeight());
+        x = Math.random()*container.getWidth()/4;
+        y = Math.random()*container.getHeight()/4;
     }
     
     public void update(GameContainer container, int delta) throws SlickException {
@@ -42,6 +42,6 @@ public class Enemy {
     }
 
     public void render(GameContainer container, Graphics g) throws SlickException {
-        up.draw((float)x,(float)y,64,64);
+        up.draw((int)(x*4),(int)(y*4),64,64);
     }
 }
