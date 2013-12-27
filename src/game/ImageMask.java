@@ -2,11 +2,11 @@ package game;
 
 import org.newdawn.slick.Image;
 
-public class EntityMask {
+public class ImageMask {
     
     private boolean[][] mask;
     
-    public EntityMask(Image image) {
+    public ImageMask(Image image) {
         int width = image.getWidth();
         int height = image.getHeight();
         mask = new boolean[width][height];
@@ -33,7 +33,7 @@ public class EntityMask {
         return toString(this.getMask());
     }
     
-    public boolean intersects(EntityMask other) {
+    public boolean intersects(ImageMask other) {
         return true;
     }
 

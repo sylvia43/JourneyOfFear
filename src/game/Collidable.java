@@ -2,5 +2,5 @@ package game;
 
 public interface Collidable {
     
-    public EntityMask getCollisionMask();
+    public ImageMask getCollisionMask();
 }

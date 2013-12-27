@@ -252,14 +252,14 @@ public class Player implements Collidable, Attackable {
     }
     
     private static AnimationMask initializeMask(int index) {
-        EntityMask[] masks = new EntityMask[4];
+        ImageMask[] masks = new ImageMask[4];
         for (int i=0;i<4;i++) {
-            masks[i] = new EntityMask(sprite.getAnim(index).getImage(i));
+            masks[i] = new ImageMask(sprite.getAnim(index).getImage(i));
         }
         return new AnimationMask(masks);
     }
 
-    public EntityMask getCollisionMask() {
+    public ImageMask getCollisionMask() {
         return sprite.getMask(spritePointer).getMask(sprite.getAnim(spritePointer).getFrame());
     }
 

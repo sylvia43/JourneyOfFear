@@ -2,7 +2,7 @@ package game;
 
 public class AttackMask {
 
-    public boolean intersects(EntityMask other) {
+    public boolean intersects(ImageMask other) {
         return true;
     }
 

@@ -21,7 +21,7 @@ public class Enemy implements Collidable, Attackable {
     
     private String spritePath;
     
-    private EntityMask mask;
+    private ImageMask mask;
     private Rectangle attackMask;
     
     public Enemy() {
@@ -36,7 +36,7 @@ public class Enemy implements Collidable, Attackable {
     
     public void init(GameContainer container) throws SlickException {
         left = right = up = down = ResourceLoader.initializeAnimation(spritePath);
-        mask = new EntityMask(ResourceLoader.initializeImage(spritePath));
+        mask = new ImageMask(ResourceLoader.initializeImage(spritePath));
         x = Math.random()*container.getWidth()/4;
         y = Math.random()*container.getHeight()/4;
         attackMask = new Rectangle(x,y,x+16,y+16);
@@ -50,7 +50,7 @@ public class Enemy implements Collidable, Attackable {
         up.draw((int)(x*4),(int)(y*4),64,64);
     }
 
-    public EntityMask getCollisionMask() {
+    public ImageMask getCollisionMask() {
         return mask;
     }
 

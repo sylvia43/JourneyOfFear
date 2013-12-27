@@ -2,11 +2,11 @@ package game;
 
 public class AnimationMask {
     
-    EntityMask[] mask;
+    ImageMask[] mask;
     
-    public AnimationMask(EntityMask[] mask) {
+    public AnimationMask(ImageMask[] mask) {
         this.mask = mask;
     }
     
-    public EntityMask getMask(int index) { return mask[index]; }
+    public ImageMask getMask(int index) { return mask[index]; }
 }
