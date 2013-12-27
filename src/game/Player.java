@@ -234,7 +234,7 @@ public class Player {
     }
     
     private static void initializeSprite() throws SlickException {
-        sprite = new EntitySprite();
+        sprite = new EntitySprite(4);
         sprite.setAnimations(                
                 ResourceLoader.initializeAnimation("player_right.png",166),
                 ResourceLoader.initializeAnimation("player_backward.png",166),
@@ -254,9 +254,7 @@ public class Player {
     private static AnimationMask initializeMask(int index) {
         EntityMask[] masks = new EntityMask[4];
         for (int i=0;i<4;i++) {
-            masks[i] = new EntityMask(sprite
-                    .getAnim(index)
-                    .getImage(i));
+            masks[i] = new EntityMask(sprite.getAnim(index).getImage(i));
         }
         return new AnimationMask(masks);
     }

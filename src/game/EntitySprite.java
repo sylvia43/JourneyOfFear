@@ -4,10 +4,12 @@ import org.newdawn.slick.Animation;
 
 public class EntitySprite {
     
-    private Animation[] animation = new Animation[4];
-    private AnimationMask[] mask = new AnimationMask[4];
+    private Animation[] animation;
+    private AnimationMask[] mask;
     
-    public EntitySprite() {
+    public EntitySprite(int length) {
+        animation = new Animation[length];
+        mask = new AnimationMask[length];
     }
     
     public void setAnimations(Animation right, Animation up, Animation left, Animation down) {

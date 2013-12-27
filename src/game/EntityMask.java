@@ -1,29 +1,17 @@
 package game;
 
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 
 public class EntityMask {
     
-    private boolean[][] mask = new boolean[16][16];
-    
-    public EntityMask() {
-        Image image = null;
-        try {
-            image = ResourceLoader.initializeImage("enemy_blank.png");
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
-        for (int i=0;i<16;i++) {
-            for (int j=0;j<16;j++) {
-                mask[i][j] = image.getColor(i,j).getAlpha() == 255;
-            }
-        }
-    }
+    private boolean[][] mask;
     
     public EntityMask(Image image) {
-        for (int i=0;i<16;i++) {
-            for (int j=0;j<16;j++) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        mask = new boolean[width][height];
+        for (int i=0;i<width;i++) {
+            for (int j=0;j<height;j++) {
                 mask[i][j] = image.getColor(j,i).getAlpha() == 255;
             }
         }
