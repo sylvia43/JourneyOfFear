@@ -17,12 +17,34 @@ public class ImageMask {
         }
     }
     
+    public boolean[][] getMask() { return mask; }
+    
+    public boolean intersects(ImageMask other, double tx, double ty, double ox, double oy) {
+        boolean[][] otherMask = other.getMask();
+        for (int i=0;i<mask.length;i++) {
+            for (int j=0;j<mask[i].length;j++) {
+                for (int k=0;k<otherMask.length;k++) {
+                    for (int l=0;l<otherMask[k].length;l++) {
+                        if (mask[i][j] && otherMask[k][l])
+                            if ((tx+i)>(ox+k-1) && (tx+i)<(ox+k+1)
+                                    && (ty+j)>(oy+l-1) && (ty+j)<(oy+l+1))
+                                return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean intersects(Rectangle other) {
+        return true;
+    }
+    
     public String toString(boolean[][] array) {
         String s = "";
-        for(int i=0;i<array.length;i++) {
-            for(int j=0;j<array[i].length;j++) {
-                s+=array[i][j]?"1":"0";
-                //if(j<array[i].length-1) s+=" ";
+        for (boolean[] inner : array) {
+            for (int j=0;j<inner.length;j++) {
+                s += inner[j]?"1":"0";
             }
             s+="\n";
         }
@@ -30,18 +52,6 @@ public class ImageMask {
     }
     
     public String toString() {
-        return toString(this.getMask());
-    }
-    
-    public boolean intersects(ImageMask other) {
-        return true;
-    }
-
-    public boolean intersects(Rectangle other) {
-        return true;
-    }
-    
-    public boolean[][] getMask() {
-        return mask;
+        return toString(this.mask);
     }
 }

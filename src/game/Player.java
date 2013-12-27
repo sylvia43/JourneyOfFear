@@ -17,7 +17,7 @@ public class Player implements Collidable, Attackable {
     
     private static double x = 64;
     private static double y = 64;
-    private static final double speed = 0.1;
+    private static final double speed = 0.125;
     
     private static Options keybind;
     
@@ -38,22 +38,26 @@ public class Player implements Collidable, Attackable {
     private static int attackTimer;
     private static int attackDelay;
     
-    public static void init(GameContainer container, Options options) throws SlickException {
+    private static Enemy enemy;
+    private static boolean collision;
+    
+    public static void init(GameContainer container, Options options, Enemy enemy) throws SlickException {
         initializeSprite();
         spritePointer = 3;
         keybind = options;
         attacking = false;
         attackDelay = 0;
+        Player.enemy = enemy;
     }
     
     public static void update(GameContainer container, int delta) {
         movePlayer(container.getInput(), delta);
+        resolveCollision();
         resolveAttack(container.getInput(), delta, container.getHeight());
     }
     
     public static void render(GameContainer container, Graphics g) throws SlickException {
         Animation currentSprite = sprite.getAnim(spritePointer);
-        Input input = container.getInput();
         if (SlickGame.DEBUG_MODE) {
             g.drawString((DnHl?"dh ":"")
                     + (UpHl?"uh ":"")
@@ -73,8 +77,10 @@ public class Player implements Collidable, Attackable {
             g.drawString(attacking?"Attacking":"Not attacking",50,250);
             g.drawString(String.valueOf(attackTimer),50,275);
             g.drawString(String.valueOf(sword.getFrame()),50,300);
+            g.drawString(collision?"Colliding":"Not Colliding",50,325);
+        } else {
         }
-        currentSprite.draw((int)(x*4)-32,(int)(y*4)-32,64,64);
+        currentSprite.draw((int)(x*4),(int)(y*4),64,64);
         if (attacking) {
             sword.draw((int)(x*4)-96,(int)(y*4)-96,192,192);
         }
@@ -259,7 +265,15 @@ public class Player implements Collidable, Attackable {
         return new AnimationMask(masks);
     }
 
+    private static void resolveCollision() {
+        collision = getStaticCollisionMask().intersects(enemy.getCollisionMask(),x,y,enemy.getX(),enemy.getY());
+    }
+
     public ImageMask getCollisionMask() {
+        return sprite.getMask(spritePointer).getMask(sprite.getAnim(spritePointer).getFrame());
+    }
+    
+    public static ImageMask getStaticCollisionMask() {
         return sprite.getMask(spritePointer).getMask(sprite.getAnim(spritePointer).getFrame());
     }
 

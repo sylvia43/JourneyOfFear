@@ -10,7 +10,7 @@ import org.newdawn.slick.SlickException;
 public class SlickGame extends BasicGame {
     
     Options options;
-    public static final boolean DEBUG_MODE = false;
+    public static final boolean DEBUG_MODE = true;
     public static Image background_grass;
     public Enemy enemy;
     
@@ -36,9 +36,9 @@ public class SlickGame extends BasicGame {
     public void init(GameContainer container) throws SlickException {
         options = new Options();
         background_grass = ResourceLoader.initializeImage("tiles/back_grass.png");
-        Player.init(container, options);
         enemy = new Enemy();
         enemy.init(container);
+        Player.init(container, options, enemy);
     }
 
     @Override

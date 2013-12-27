@@ -34,6 +34,9 @@ public class Enemy implements Collidable, Attackable {
         this.name = name;
     }
     
+    public double getX() { return x; }
+    public double getY() { return y; }
+    
     public void init(GameContainer container) throws SlickException {
         left = right = up = down = ResourceLoader.initializeAnimation(spritePath);
         mask = new ImageMask(ResourceLoader.initializeImage(spritePath));
