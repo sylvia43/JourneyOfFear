@@ -9,12 +9,11 @@ import org.newdawn.slick.SlickException;
 
 public class Player {
     
-    private static Animation up;
-    private static Animation down;
-    private static Animation left;
-    private static Animation right;
+    private static EntitySprite sprite;
+
     private static Animation sword;
-    private static String spritePointer;
+
+    private static int spritePointer;
     
     private static double x = 64;
     private static double y = 64;
@@ -39,18 +38,12 @@ public class Player {
     private static int attackTimer;
     private static int attackDelay;
     
-    private static EntityMask[] maskUp = new EntityMask[4];
-    private static EntityMask[] maskDown = new EntityMask[4];
-    private static EntityMask[] maskLeft = new EntityMask[4];
-    private static EntityMask[] maskRight = new EntityMask[4];
-    
     public static void init(GameContainer container, Options options) throws SlickException {
-        initializeAnimations();
-        spritePointer = "player_down";
+        initializeSprite();
+        spritePointer = 3;
         keybind = options;
         attacking = false;
         attackDelay = 0;
-        initializeMasks();
     }
     
     public static void update(GameContainer container, int delta) {
@@ -59,21 +52,7 @@ public class Player {
     }
     
     public static void render(GameContainer container, Graphics g) throws SlickException {
-        Animation player_sprite = null;
-        switch(spritePointer) {
-            case "player_down":
-                player_sprite = down;
-                break;
-            case "player_up":
-                player_sprite = up;
-                break;
-            case "player_left":
-                player_sprite = left;
-                break;
-            case "player_right":
-                player_sprite = right;
-                break;
-        }
+        Animation currentSprite = sprite.getAnim(spritePointer);
         Input input = container.getInput();
         if (SlickGame.DEBUG_MODE) {
             g.drawString((DnHl?"dh ":"")
@@ -95,7 +74,7 @@ public class Player {
             g.drawString(String.valueOf(attackTimer),50,275);
             g.drawString(String.valueOf(sword.getFrame()),50,300);
         }
-        player_sprite.draw((int)(x*4)-32,(int)(y*4)-32,64,64);
+        currentSprite.draw((int)(x*4)-32,(int)(y*4)-32,64,64);
         if (attacking) {
             sword.draw((int)(x*4)-96,(int)(y*4)-96,192,192);
         }
@@ -194,85 +173,91 @@ public class Player {
         }
         
         if (DnHl) {
-            spritePointer = "player_down";
+            spritePointer = 3;
         } else {
-            down.stop();
+            sprite.getAnim(3).stop();
         }
         if (DnHl) {
-            down.start();
+            sprite.getAnim(3).start();
             y += speed*delta;
             if (!UpHl && !LfHl && !RiHl) {
-                spritePointer = "player_down";
+                spritePointer = 3;
             }
         } else {
-            down.setCurrentFrame(1);
+            sprite.getAnim(3).setCurrentFrame(1);
         }
         
         if (RiPr) {
-            spritePointer = "player_right";
+            spritePointer = 0;
         } else {
-            right.stop();
+            sprite.getAnim(0).stop();
         }
         if (RiHl) {
-            right.start();
+            sprite.getAnim(0).start();
             x += speed*delta;
             if (!UpHl && !LfHl && !DnHl) {
-                spritePointer = "player_right";
+                spritePointer = 0;
             }
         } else {
-            right.setCurrentFrame(1);
+            sprite.getAnim(0).setCurrentFrame(1);
         }
         
         if (UpPr) {
-            spritePointer = "player_up";
+            spritePointer = 1;
         } else {
-            up.stop();
+            sprite.getAnim(1).stop();
         }
         if (UpHl) {
-            up.start();
+            sprite.getAnim(1).start();
             y -= speed*delta;
             if (!DnHl && !LfHl && !RiHl) {
-                spritePointer = "player_up";
+                spritePointer = 1;
             }
         } else {
-            up.setCurrentFrame(1);
+            sprite.getAnim(1).setCurrentFrame(1);
         }
         
         if (LfPr) {
-            spritePointer = "player_left";
+            spritePointer = 2;
         } else {
-            left.stop();
+            sprite.getAnim(2).stop();
         }
         if (LfHl) {
-            left.start();
+            sprite.getAnim(2).start();
             x -= speed*delta;
             if (!UpHl && !DnHl && !RiHl) {
-                spritePointer = "player_left";
+                spritePointer = 2;
             }
         } else {
-            left.setCurrentFrame(1);
+            sprite.getAnim(2).setCurrentFrame(1);
         }
     }
     
-    private static void initializeAnimations() throws SlickException {
-        down = ResourceLoader.initializeAnimation("player_forward.png",166);
-        up = ResourceLoader.initializeAnimation("player_backward.png",166);
-        right = ResourceLoader.initializeAnimation("player_right.png",166);
-        left = ResourceLoader.initializeAnimation("player_left.png",166);
+    private static void initializeSprite() throws SlickException {
+        sprite = new EntitySprite();
+        sprite.setAnimations(                
+                ResourceLoader.initializeAnimation("player_right.png",166),
+                ResourceLoader.initializeAnimation("player_backward.png",166),
+                ResourceLoader.initializeAnimation("player_left.png",166),
+                ResourceLoader.initializeAnimation("player_forward.png",166)
+        );
+        sprite.setMasks(
+                initializeMask(0),
+                initializeMask(1),
+                initializeMask(2),
+                initializeMask(3)
+        );
         sword = ResourceLoader.initializeAnimation("sword_slash.png",41,48);
         sword.stop();
     }
     
-    private static void initializeMasks() {
-        initializeMask(maskUp,up);
-        initializeMask(maskDown,down);
-        initializeMask(maskLeft,left);
-        initializeMask(maskRight,right);
-    }
-    
-    private static void initializeMask(EntityMask[] mask,Animation anim) {
+    private static AnimationMask initializeMask(int index) {
+        EntityMask[] masks = new EntityMask[4];
         for (int i=0;i<4;i++) {
-            mask[i] = new EntityMask(anim.getImage(i));
+            masks[i] = new EntityMask(sprite
+                    .getAnim(index)
+                    .getImage(i));
         }
+        return new AnimationMask(masks);
     }
 }

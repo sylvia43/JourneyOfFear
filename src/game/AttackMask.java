@@ -1,6 +1,6 @@
 package game;
 
-public class AttackMask implements Mask {
+public class AttackMask {
 
     public boolean intersects(EntityMask other) {
         return true;

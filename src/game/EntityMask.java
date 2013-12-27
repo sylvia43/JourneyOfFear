@@ -3,7 +3,7 @@ package game;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class EntityMask implements Mask {
+public class EntityMask {
     
     private boolean[][] mask = new boolean[16][16];
     
