@@ -7,7 +7,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-public class Player {
+public class Player implements Collidable, Attackable {
     
     private static EntitySprite sprite;
 
@@ -257,5 +257,41 @@ public class Player {
             masks[i] = new EntityMask(sprite.getAnim(index).getImage(i));
         }
         return new AnimationMask(masks);
+    }
+
+    public EntityMask getCollisionMask() {
+        return sprite.getMask(spritePointer).getMask(sprite.getAnim(spritePointer).getFrame());
+    }
+
+    public Rectangle getAttackMask() {
+        int dx = 0;
+        int dy = 0;
+        switch(sword.getFrame()) {
+            case 0:
+                dx = 1;  dy = 0;
+                break;
+            case 1:
+                dx = 1;  dy = 1;
+                break;
+            case 2:
+                dx = 0;  dy = 1;
+                break;
+            case 3:
+                dx = -1; dy = 1;
+                break;
+            case 4:
+                dx = -1; dy = 0;
+                break;
+            case 5:
+                dx = -1; dy = -1;
+                break;
+            case 6:
+                dx = 0;  dy = -1;
+                break;
+            case 7:
+                dx = 1;  dy = -1;
+                break;
+        }
+        return new Rectangle(x+16*dx,y+16*dy,x+16*dx+16,y+16*dy+16);
     }
 }

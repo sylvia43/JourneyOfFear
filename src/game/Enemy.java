@@ -5,7 +5,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class Enemy {
+public class Enemy implements Collidable, Attackable {
     
     private String name;
     private int currentHp;
@@ -21,6 +21,9 @@ public class Enemy {
     
     private String spritePath;
     
+    private EntityMask mask;
+    private Rectangle attackMask;
+    
     public Enemy() {
         this("enemy_blank.png",1,"Block");
     }
@@ -33,8 +36,10 @@ public class Enemy {
     
     public void init(GameContainer container) throws SlickException {
         left = right = up = down = ResourceLoader.initializeAnimation(spritePath);
+        mask = new EntityMask(ResourceLoader.initializeImage(spritePath));
         x = Math.random()*container.getWidth()/4;
         y = Math.random()*container.getHeight()/4;
+        attackMask = new Rectangle(x,y,x+16,y+16);
     }
     
     public void update(GameContainer container, int delta) throws SlickException {
@@ -43,5 +48,13 @@ public class Enemy {
 
     public void render(GameContainer container, Graphics g) throws SlickException {
         up.draw((int)(x*4),(int)(y*4),64,64);
+    }
+
+    public EntityMask getCollisionMask() {
+        return mask;
+    }
+
+    public Rectangle getAttackMask() {
+        return attackMask;
     }
 }
