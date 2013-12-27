@@ -82,7 +82,7 @@ public class Player implements Collidable, Attackable {
         }
         currentSprite.draw((int)(x*4),(int)(y*4),64,64);
         if (attacking) {
-            sword.draw((int)(x*4)-96,(int)(y*4)-96,192,192);
+            sword.draw((int)(x*4)-64,(int)(y*4)-64,192,192);
         }
     }
     
