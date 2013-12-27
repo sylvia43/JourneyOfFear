@@ -35,7 +35,7 @@ public class SlickGame extends BasicGame {
     @Override
     public void init(GameContainer container) throws SlickException {
         options = new Options();
-        background_grass = ResourceLoader.initializeImage("back_grass.png");
+        background_grass = ResourceLoader.initializeImage("tiles/back_grass.png");
         Player.init(container, options);
         enemy = new Enemy();
         enemy.init(container);

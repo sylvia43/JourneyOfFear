@@ -37,7 +37,7 @@ public class ImageMask {
         return true;
     }
 
-    public boolean intersects(AttackMask other) {
+    public boolean intersects(Rectangle other) {
         return true;
     }
     

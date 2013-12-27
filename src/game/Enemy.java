@@ -25,7 +25,7 @@ public class Enemy implements Collidable, Attackable {
     private Rectangle attackMask;
     
     public Enemy() {
-        this("enemy_blank.png",1,"Block");
+        this("misc/enemy_blank.png",1,"Block");
     }
     
     public Enemy(String spritePath, int hp, String name) {
