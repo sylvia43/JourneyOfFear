@@ -223,7 +223,6 @@ public class Player implements Collidable, Attackable {
         ImageMask[] masks = new ImageMask[4];
         for (int i=0;i<4;i++) {
             masks[i] = new ImageMask(sprite.getAnim(index).getImage(i));
-            System.out.println(masks[i]);
         }
         return new AnimationMask(masks);
     }
