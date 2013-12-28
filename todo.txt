@@ -1,0 +1,10 @@
+SlickGame To Do
+===============
+
+[ ] Dungeon tiles.                                                         |
+[ ] Camera and scrolling.                                                  |
+[ ] More graphics (grass, dirt, stone, roads, trees, shrubberies).         |
+[ ] Advanced enemies with full animations and attacks. Think of enemies.   |
+[ ] Optimize collision detection (give it it's own class?).                |
+[ ] Collision Detection between Entities and Attacks.                      |
+[ ] Knockback on collision with enemy or attack.                           |

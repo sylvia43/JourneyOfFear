@@ -25,10 +25,10 @@ public class ImageMask {
             for (int j=0;j<mask[i].length;j++) {
                 for (int k=0;k<otherMask.length;k++) {
                     for (int l=0;l<otherMask[k].length;l++) {
-                        if (mask[i][j] && otherMask[k][l])
-                            if ((tx+i)>(ox+k-1) && (tx+i)<(ox+k+1)
-                                    && (ty+j)>(oy+l-1) && (ty+j)<(oy+l+1))
-                                return true;
+                        if ((tx+j)>(ox+l-0.5) && (tx+j)<(ox+l+0.5)
+                                && (ty+i)>(oy+k-0.5) && (ty+i)<(oy+k+0.5)
+                                && mask[i][j] && otherMask[k][l])
+                            return true;
                     }
                 }
             }
