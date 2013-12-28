@@ -9,12 +9,33 @@ public class ImageMask {
     public ImageMask(Image image) {
         int width = image.getWidth();
         int height = image.getHeight();
-        mask = new boolean[width][height];
+        
+        boolean[][] startMask = new boolean[width][height];
+        
         for (int i=0;i<width;i++) {
             for (int j=0;j<height;j++) {
-                mask[i][j] = image.getColor(j,i).getAlpha() == 255;
+                startMask[i][j] = image.getColor(j,i).getAlpha() == 255;
             }
         }
+        
+        boolean[][] newMask = startMask;
+        /* Broken code to simplify the mask.
+        for (int i=1;i<width-1;i++) {
+            for (int j=1;j<height-1;j++) {
+                if (startMask[i][j]
+                        && (i<16||startMask[i+1][j])
+                        && (i<16&&j>0||startMask[i+1][j-1])
+                        && (i<16&&j<16||startMask[i+1][j+1])
+                        && (j<16||startMask[i][j+1])
+                        && (i>0&&j<16||startMask[i-1][j+1])
+                        && (i>0||startMask[i-1][j])
+                        && (i>0&&j>0||startMask[i-1][j-1])
+                        && (j>0||startMask[i][j-1]))
+                    newMask[i][j] = false;
+            }
+        }
+        */
+        mask = newMask;
     }
     
     public boolean[][] getMask() { return mask; }
