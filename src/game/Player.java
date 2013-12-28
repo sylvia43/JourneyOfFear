@@ -39,10 +39,10 @@ public class Player implements Collidable, Attackable {
     private static int attackTimer;
     private static int attackDelay;
     
-    private static Enemy enemy;
+    private static DumbEnemy enemy;
     private static boolean collision;
     
-    public static void init(GameContainer container, Options options, Enemy enemy) throws SlickException {
+    public static void init(GameContainer container, Options options, DumbEnemy enemy) throws SlickException {
         initializeSprite();
         spritePointer = 3;
         keybind = options;

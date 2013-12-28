@@ -12,7 +12,7 @@ public class SlickGame extends BasicGame {
     Options options;
     public static final boolean DEBUG_MODE = true;
     public static Image background_grass;
-    public Enemy enemy;
+    public DumbEnemy enemy;
     
     public SlickGame() {
         super("Slick Game");
@@ -36,7 +36,7 @@ public class SlickGame extends BasicGame {
     public void init(GameContainer container) throws SlickException {
         options = new Options();
         background_grass = ResourceLoader.initializeImage("resources/tiles/back_grass.png");
-        enemy = new Enemy();
+        enemy = new DumbEnemy();
         enemy.init(container);
         Player.init(container, options, enemy);
     }

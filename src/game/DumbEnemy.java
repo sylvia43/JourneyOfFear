@@ -5,14 +5,12 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class Enemy implements Collidable, Attackable {
+public class DumbEnemy implements Collidable, Attackable {
     
     private String name;
-    private int currentHp;
     
     private double x;
     private double y;
-    private int maxHp;
     
     private Animation left;
     private Animation up;
@@ -24,13 +22,12 @@ public class Enemy implements Collidable, Attackable {
     private ImageMask mask;
     private Rectangle attackMask;
     
-    public Enemy() {
+    public DumbEnemy() {
         this("resources/misc/enemy_blank.png",1,"Block");
     }
     
-    public Enemy(String spritePath, int hp, String name) {
+    public DumbEnemy(String spritePath, int hp, String name) {
         this.spritePath = spritePath;
-        this.maxHp = this.currentHp = hp;
         this.name = name;
     }
     
