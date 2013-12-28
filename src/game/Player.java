@@ -1,7 +1,7 @@
 package game;
 
-import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -60,26 +60,21 @@ public class Player implements Collidable, Attackable {
     public static void render(GameContainer container, Graphics g) throws SlickException {
         Animation currentSprite = sprite.getAnim(spritePointer);
         if (SlickGame.DEBUG_MODE) {
-            g.drawString((DnHl?"dh ":"")
+            g.setColor(Color.white);
+            g.drawString("Keys:"
+                    + (DnHl?"dh ":"")
                     + (UpHl?"uh ":"")
                     + (LfHl?"lh ":"")
                     + (RiHl?"rh ":"")
                     + (DnPr?"dp ":"")
                     + (UpPr?"up ":"") 
                     + (LfPr?"lp ":"")
-                    + (RiPr?"rp ":""), 50, 50);
-            g.drawString(String.valueOf(direction),50,75);
-            g.drawString("x: " + String.valueOf(x),50,100);
-            g.drawString("y: " + String.valueOf(y),50,125);
-            g.drawString("mx: " + Mouse.getX(),50,150);
-            g.drawString("my: " + Mouse.getY(),50,175);
-            g.drawString("dx: " + String.valueOf(Mouse.getX()-x),50,200);
-            g.drawString("dy: " + String.valueOf(Mouse.getY()+y-container.getHeight()),50,225);
-            g.drawString(attacking?"Attacking":"Not attacking",50,250);
-            g.drawString(String.valueOf(attackTimer),50,275);
-            g.drawString(String.valueOf(sword.getFrame()),50,300);
-            g.drawString(collision?"Colliding":"Not Colliding",50,325);
-        } else {
+                    + (RiPr?"rp ":""),10,24);
+            g.drawString("x: " + String.valueOf(x),10,38);
+            g.drawString("y: " + String.valueOf(y),10,52);
+            g.drawString(attacking?"Attacking":"Not attacking",10,66);
+            g.drawString(String.valueOf(attackTimer),10,80);
+            g.drawString(collision?"Colliding":"Not Colliding",10,94);
         }
         currentSprite.draw((int)(x*4),(int)(y*4),64,64);
         if (attacking) {
@@ -88,15 +83,11 @@ public class Player implements Collidable, Attackable {
     }
     
     public static void resolveAttack(Input input, int delta, int height) {
-        if ((input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && keybind.MOUSE_ATTACK)
-                || (input.isKeyDown(keybind.A_UP)
-                    ||input.isKeyDown(keybind.A_DOWN)
-                    ||input.isKeyDown(keybind.A_LEFT)
-                    ||input.isKeyDown(keybind.A_RIGHT))
+        if ((input.isKeyDown(keybind.A_UP)
+                || input.isKeyDown(keybind.A_DOWN)
+                || input.isKeyDown(keybind.A_LEFT)
+                || input.isKeyDown(keybind.A_RIGHT))
                 && !attacking && attackDelay < 1) {
-            //double dy = y+Mouse.getY()-height;
-            //double dx = Mouse.getX()-x;
-            //getMouseDirection(dx, dy);
             getKeyboardDirection(input);
             direction = (direction+6)%8;
             attack(direction);
@@ -118,36 +109,6 @@ public class Player implements Collidable, Attackable {
             direction = 4;
         else if (input.isKeyDown(keybind.A_DOWN))
             direction = 6;
-    }
-    
-    public static void getMouseDirection(double dx, double dy) {
-        if (dx>=0) {
-            if (dy>0) {
-                if (dx>=dy)
-                    direction = 0;
-                else
-                    direction = 1;
-            }
-            else {
-                if (dx>=-dy)
-                    direction = 7;
-                else
-                    direction = 6;
-            }
-        } else {
-            if (dy>0) {
-                if (-dx>=dy)
-                    direction = 3;
-                else
-                    direction = 2;
-            }
-            else {
-                if (-dx>=-dy)
-                    direction = 4;
-                else
-                    direction = 5;
-            }
-        }
     }
     
     public static void attack(int direction) {
@@ -262,6 +223,7 @@ public class Player implements Collidable, Attackable {
         ImageMask[] masks = new ImageMask[4];
         for (int i=0;i<4;i++) {
             masks[i] = new ImageMask(sprite.getAnim(index).getImage(i));
+            System.out.println(masks[i]);
         }
         return new AnimationMask(masks);
     }

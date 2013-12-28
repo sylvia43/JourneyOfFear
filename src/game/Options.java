@@ -14,8 +14,6 @@ public class Options {
     public int A_LEFT;
     public int A_RIGHT;
     
-    public boolean MOUSE_ATTACK;
-    
     public Options() {
         M_UP = Input.KEY_W;
         M_DOWN = Input.KEY_S;
