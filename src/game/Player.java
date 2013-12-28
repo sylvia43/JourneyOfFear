@@ -106,8 +106,6 @@ public class Player implements Collidable, Attackable {
         attackDelay-=delta;
         if (attackTimer > swordDuration*4.5) {
             attacking = false;
-        } else if (sword.getFrame()==(direction+10)%8) {
-            sword.stop();
         }
     }
     
@@ -158,6 +156,7 @@ public class Player implements Collidable, Attackable {
         attackDelay = sword.getDuration(0)*2 + SWORD_DELAY;
         sword.restart();
         sword.setCurrentFrame(direction);
+        sword.stopAt((direction+10)%8);
     }
     
     public static void movePlayer(Input input, int delta) {
