@@ -8,52 +8,52 @@ import org.newdawn.slick.SlickException;
 
 public class Enemy {
 
-    private static EntitySprite sprite;
-    private static String spritepath;
+    private EntitySprite sprite;
+    private String spritepath;
 
-    private static Animation sword;
+    private Animation sword;
 
-    private static int spritePointer;
+    private int spritePointer;
     
-    private static double x = 64;
-    private static double y = 64;
-    private static final double speed = 0.125;
+    private double x = 64;
+    private double y = 64;
+    private final double speed = 0.0625;
        
-    private static boolean DnHl;
-    private static boolean UpHl;
-    private static boolean LfHl;
-    private static boolean RiHl;
-    private static boolean DnPr;
-    private static boolean UpPr;
-    private static boolean LfPr;
-    private static boolean RiPr;
+    private boolean DnHl;
+    private boolean UpHl;
+    private boolean LfHl;
+    private boolean RiHl;
+    private boolean DnPr;
+    private boolean UpPr;
+    private boolean LfPr;
+    private boolean RiPr;
     
-    private static final int swordDuration = 48;
-    private static final int SWORD_DELAY = 400;
+    private final int swordDuration = 48;
+    private final int SWORD_DELAY = 400;
     
-    private static int direction;
+    private int direction;
     
-    private static boolean attacking;
-    private static int attackTimer;
-    private static int attackDelay;
+    private boolean attacking;
+    private int attackTimer;
+    private int attackDelay;
     
     private static boolean collision;
     
-    public static void init(GameContainer container, String spritepath) throws SlickException {
-        Enemy.spritepath = spritepath;
+    public void init(GameContainer container, String spritepath) throws SlickException {
+        this.spritepath = spritepath;
         initializeSprite();
         spritePointer = 3;
         attacking = false;
         attackDelay = 0;
     }
     
-    public static void update(GameContainer container, int delta) {
+    public void update(GameContainer container, int delta) {
         move(container.getInput(), delta);
         resolveCollision();
         resolveAttack(container.getInput(), delta, container.getHeight());
     }
     
-    public static void render(GameContainer container, Graphics g) throws SlickException {
+    public void render(GameContainer container, Graphics g) throws SlickException {
         Animation currentSprite = sprite.getAnim(spritePointer);
         currentSprite.draw((int)(x*4),(int)(y*4),64,64);
         if (attacking) {
@@ -61,8 +61,8 @@ public class Enemy {
         }
     }
     
-    public static void resolveAttack(Input input, int delta, int height) {
-        if (!attacking && attackDelay < 1 && Math.random()<0.1) {
+    public void resolveAttack(Input input, int delta, int height) {
+        if (!attacking && attackDelay < 1) {
             getDirection(input);
             direction = (direction+6)%8;
             attack(direction);
@@ -75,11 +75,11 @@ public class Enemy {
         }
     }
     
-    public static void getDirection(Input input) {
-        direction = 2;
+    public void getDirection(Input input) {
+        direction = (int)(Math.random()*4)*2;
     }
     
-    public static void attack(int direction) {
+    public void attack(int direction) {
         attacking = true;
         attackTimer = 0;
         attackDelay = sword.getDuration(0)*2 + SWORD_DELAY;
@@ -88,103 +88,20 @@ public class Enemy {
         sword.stopAt((direction+10)%8);
     }
     
-    public static void move(Input input, int delta) {
-        /*
-        DnHl = input.isKeyDown(keybind.M_DOWN);
-        DnPr = input.isKeyPressed(keybind.M_DOWN);
-        UpHl = input.isKeyDown(keybind.M_UP);
-        UpPr = input.isKeyPressed(keybind.M_UP);
-        LfHl = input.isKeyDown(keybind.M_LEFT);
-        LfPr = input.isKeyPressed(keybind.M_LEFT);
-        RiHl = input.isKeyDown(keybind.M_RIGHT);
-        RiPr = input.isKeyPressed(keybind.M_RIGHT);
-        */
+    public void move(Input input, int delta) {
         
-        if (DnPr)
-            DnHl = true;        
-        if (!DnHl && !DnPr)
-            DnPr = true;
+        //Code to randomly choose a direction and move/update animations.
         
-        if ((DnHl || DnHl) && (UpHl || UpHl)) {
-            UpHl = false;
-            DnHl = false;
-        }
-        
-        if ((LfHl || LfPr) && (RiHl || RiPr)) {
-            LfHl = false;
-            RiHl = false;
-        }
-        
-        if (DnHl) {
-            spritePointer = 3;
-        } else {
-            sprite.getAnim(3).stop();
-        }
-        if (DnHl) {
-            sprite.getAnim(3).start();
-            y += speed*delta;
-            if (!UpHl && !LfHl && !RiHl) {
-                spritePointer = 3;
-            }
-        } else {
-            sprite.getAnim(3).setCurrentFrame(1);
-        }
-        
-        if (RiPr) {
-            spritePointer = 0;
-        } else {
-            sprite.getAnim(0).stop();
-        }
-        if (RiHl) {
-            sprite.getAnim(0).start();
-            x += speed*delta;
-            if (!UpHl && !LfHl && !DnHl) {
-                spritePointer = 0;
-            }
-        } else {
-            sprite.getAnim(0).setCurrentFrame(1);
-        }
-        
-        if (UpPr) {
-            spritePointer = 1;
-        } else {
-            sprite.getAnim(1).stop();
-        }
-        if (UpHl) {
-            sprite.getAnim(1).start();
-            y -= speed*delta;
-            if (!DnHl && !LfHl && !RiHl) {
-                spritePointer = 1;
-            }
-        } else {
-            sprite.getAnim(1).setCurrentFrame(1);
-        }
-        
-        if (LfPr) {
-            spritePointer = 2;
-        } else {
-            sprite.getAnim(2).stop();
-        }
-        if (LfHl) {
-            sprite.getAnim(2).start();
-            x -= speed*delta;
-            if (!UpHl && !DnHl && !RiHl) {
-                spritePointer = 2;
-            }
-        } else {
-            sprite.getAnim(2).setCurrentFrame(1);
-        }
-        
-        if (y>200)
-            y=0;
+        if (y>120)
+            y=-16;
     }
     
-    private static void initializeSprite() throws SlickException {
+    private void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
         sprite.setAnimations(
-                ResourceLoader.initializeAnimation("resources/" + "player" + "/right.png",166),
-                ResourceLoader.initializeAnimation("resources/" + "player" + "/up.png",166),
-                ResourceLoader.initializeAnimation("resources/" + "player" + "/left.png",166),
+                ResourceLoader.initializeAnimation("resources/" + spritepath + "/right.png",166),
+                ResourceLoader.initializeAnimation("resources/" + spritepath + "/up.png",166),
+                ResourceLoader.initializeAnimation("resources/" + spritepath + "/left.png",166),
                 ResourceLoader.initializeAnimation("resources/" + spritepath + "/down.png",166)
         );
         sprite.setMasks(
@@ -197,7 +114,7 @@ public class Enemy {
         sword.stop();
     }
     
-    private static AnimationMask initializeMask(int index) {
+    private AnimationMask initializeMask(int index) {
         ImageMask[] masks = new ImageMask[4];
         for (int i=0;i<4;i++) {
             masks[i] = new ImageMask(sprite.getAnim(index).getImage(i));
@@ -205,7 +122,7 @@ public class Enemy {
         return new AnimationMask(masks);
     }
 
-    private static void resolveCollision() {
+    private void resolveCollision() {
         //collision = getStaticCollisionMask().intersects(enemy.getCollisionMask(),x,y,enemy.getX(),enemy.getY());
     }
 
@@ -213,7 +130,7 @@ public class Enemy {
         return sprite.getMask(spritePointer).getMask(sprite.getAnim(spritePointer).getFrame());
     }
     
-    public static ImageMask getStaticCollisionMask() {
+    public ImageMask getStaticCollisionMask() {
         return sprite.getMask(spritePointer).getMask(sprite.getAnim(spritePointer).getFrame());
     }
 

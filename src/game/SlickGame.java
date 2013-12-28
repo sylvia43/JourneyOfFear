@@ -36,7 +36,7 @@ public class SlickGame extends BasicGame {
     @Override
     public void init(GameContainer container) throws SlickException {
         options = new Options();
-        background_grass = ResourceLoader.initializeImage("resources/tiles/back_grass2.png");
+        background_grass = ResourceLoader.initializeImage("resources/tiles/back_grass.png");
         enemy = new Enemy();
         enemy.init(container, "blobredsir");
         dumbEnemy = new DumbEnemy();
@@ -48,6 +48,7 @@ public class SlickGame extends BasicGame {
     public void update(GameContainer container, int delta) throws SlickException {
         Player.update(container,delta);
         enemy.update(container, delta);
+        dumbEnemy.update(container, delta);
     }
 
     public void render(GameContainer container, Graphics g) throws SlickException {
@@ -58,5 +59,6 @@ public class SlickGame extends BasicGame {
         }
         enemy.render(container, g);
         Player.render(container,g);
+        dumbEnemy.render(container, g);
     }
 }
