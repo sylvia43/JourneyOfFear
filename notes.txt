@@ -1,0 +1,13 @@
+Notes
+=====
+
+This is a place to dump notes to other collaborators.
+Leave your initial letter to distinguish yourself.
+
+-----------------------------------------------------
+
+S - Yeah right now the code in the ImageMask constructor is kinda broken,
+     if you want you can try to fix it. What I tried to do is have only the
+	 outlines of the masks, assuming that if a point is surrounded by others
+	 it is unnecessary (unless objects are inside of each other), but I gave
+	 up because the whole idea doesn't do anything at all.

@@ -14,7 +14,7 @@ Table of Contents:
     2.1.1 Overworld
 	2.1.2 Storyline
 	2.1.3 Dungeons
-   2.2 Weaponry
+   2.2 Experience
 	
  3) Code
    3.1 Slick2D
@@ -64,6 +64,13 @@ Table of Contents:
 	  to be strategic, as facing a roomful of enemies is not generally fun,
 	  if it can be avoided. Boss monster are also meant to be strategic as
 	  well as difficult.
+	  
+   2.2 Levelling and Experience
+     One of the main goals of levelling is to reward time spent in game
+	 while preventing the player from outright grinding. Items will
+	 probably have their own levels, and OOD (Out of Depth) monsters as
+	 well as trash mobs and underlevel enemies will grant no experience.
+	 
 	  
 3) Code
 
