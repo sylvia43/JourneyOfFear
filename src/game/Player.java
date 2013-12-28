@@ -64,16 +64,16 @@ public class Player implements Collidable, Attackable {
                     + (LfHl?"lh ":"")
                     + (RiHl?"rh ":"")
                     + (DnPr?"dp ":"")
-                    + (UpPr?"up ":"")
+                    + (UpPr?"up ":"") 
                     + (LfPr?"lp ":"")
                     + (RiPr?"rp ":""), 50, 50);
-            g.drawString(String.valueOf(direction), 50, 75);
-            g.drawString("x: " + String.valueOf(x), 50, 100);
-            g.drawString("y: " + String.valueOf(y), 50, 125);
-            g.drawString("mx: " + Mouse.getX(), 50, 150);
-            g.drawString("my: " + Mouse.getY(), 50, 175);
-            g.drawString("dx: " + String.valueOf(Mouse.getX()-x), 50, 200);
-            g.drawString("dy: " + String.valueOf(Mouse.getY()+y-container.getHeight()), 50, 225);
+            g.drawString(String.valueOf(direction),50,75);
+            g.drawString("x: " + String.valueOf(x),50,100);
+            g.drawString("y: " + String.valueOf(y),50,125);
+            g.drawString("mx: " + Mouse.getX(),50,150);
+            g.drawString("my: " + Mouse.getY(),50,175);
+            g.drawString("dx: " + String.valueOf(Mouse.getX()-x),50,200);
+            g.drawString("dy: " + String.valueOf(Mouse.getY()+y-container.getHeight()),50,225);
             g.drawString(attacking?"Attacking":"Not attacking",50,250);
             g.drawString(String.valueOf(attackTimer),50,275);
             g.drawString(String.valueOf(sword.getFrame()),50,300);
