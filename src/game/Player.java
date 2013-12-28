@@ -31,6 +31,7 @@ public class Player implements Collidable, Attackable {
     private static boolean RiPr;
     
     private static final int swordDuration = 48;
+    private static final int SWORD_DELAY = 400;
     
     private static int direction;
     
@@ -93,14 +94,15 @@ public class Player implements Collidable, Attackable {
                     ||input.isKeyDown(keybind.A_LEFT)
                     ||input.isKeyDown(keybind.A_RIGHT))
                 && !attacking && attackDelay < 1) {
-            double dy = y+Mouse.getY()-height;
-            double dx = Mouse.getX()-x;
+            //double dy = y+Mouse.getY()-height;
+            //double dx = Mouse.getX()-x;
             //getMouseDirection(dx, dy);
             getKeyboardDirection(input);
             direction = (direction+6)%8;
             attack(direction);
         }
-        attackTimer+=delta;
+        if (attackTimer<500)
+            attackTimer+=delta;
         attackDelay-=delta;
         if (attackTimer > swordDuration*4.5) {
             attacking = false;
@@ -153,7 +155,7 @@ public class Player implements Collidable, Attackable {
     public static void attack(int direction) {
         attacking = true;
         attackTimer = 0;
-        attackDelay = sword.getDuration(0)*2 + 500;
+        attackDelay = sword.getDuration(0)*2 + SWORD_DELAY;
         sword.restart();
         sword.setCurrentFrame(direction);
     }
@@ -253,7 +255,7 @@ public class Player implements Collidable, Attackable {
                 initializeMask(2),
                 initializeMask(3)
         );
-        sword = ResourceLoader.initializeAnimation("resources/player/attacks/sword_slash.png",41,48);
+        sword = ResourceLoader.initializeAnimation("resources/player/attacks/sword_slash.png",20,48);
         sword.stop();
     }
     
