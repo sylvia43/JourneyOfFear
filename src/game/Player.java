@@ -204,10 +204,10 @@ public class Player implements Collidable, Attackable {
     private static void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
         sprite.setAnimations(                
-                ResourceLoader.initializeAnimation("resources/player/player_right.png",166),
-                ResourceLoader.initializeAnimation("resources/player/player_backward.png",166),
-                ResourceLoader.initializeAnimation("resources/player/player_left.png",166),
-                ResourceLoader.initializeAnimation("resources/player/player_forward.png",166)
+                ResourceLoader.initializeAnimation("resources/player/right.png",166),
+                ResourceLoader.initializeAnimation("resources/player/up.png",166),
+                ResourceLoader.initializeAnimation("resources/player/left.png",166),
+                ResourceLoader.initializeAnimation("resources/player/down.png",166)
         );
         sprite.setMasks(
                 initializeMask(0),

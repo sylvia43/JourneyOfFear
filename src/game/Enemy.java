@@ -9,6 +9,7 @@ import org.newdawn.slick.SlickException;
 public class Enemy {
 
     private static EntitySprite sprite;
+    private static String spritepath;
 
     private static Animation sword;
 
@@ -38,7 +39,8 @@ public class Enemy {
     
     private static boolean collision;
     
-    public static void init(GameContainer container) throws SlickException {
+    public static void init(GameContainer container, String spritepath) throws SlickException {
+        Enemy.spritepath = spritepath;
         initializeSprite();
         spritePointer = 3;
         attacking = false;
@@ -179,11 +181,11 @@ public class Enemy {
     
     private static void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
-        sprite.setAnimations(                
-                ResourceLoader.initializeAnimation("resources/player/player_right.png",166),
-                ResourceLoader.initializeAnimation("resources/player/player_backward.png",166),
-                ResourceLoader.initializeAnimation("resources/player/player_left.png",166),
-                ResourceLoader.initializeAnimation("resources/blobredsir/down.png",166)
+        sprite.setAnimations(
+                ResourceLoader.initializeAnimation("resources/" + "player" + "/right.png",166),
+                ResourceLoader.initializeAnimation("resources/" + "player" + "/up.png",166),
+                ResourceLoader.initializeAnimation("resources/" + "player" + "/left.png",166),
+                ResourceLoader.initializeAnimation("resources/" + spritepath + "/down.png",166)
         );
         sprite.setMasks(
                 initializeMask(0),
