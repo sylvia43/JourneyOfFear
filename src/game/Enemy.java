@@ -19,8 +19,9 @@ public class Enemy {
     private double y = 64;
     private final double speed = 0.0625;
     
-    private final int swordDuration = 48;
+    private final int SWORD_DURATION = 48;
     private final int SWORD_DELAY = 400;
+    private final int ANIM_SPEED = 332;
     
     private int direction;
     
@@ -59,7 +60,7 @@ public class Enemy {
         if (attackTimer<500)
             attackTimer+=delta;
         attackDelay-=delta;
-        if (attackTimer > swordDuration*4.5) {
+        if (attackTimer > SWORD_DURATION*4.5) {
             attacking = false;
         }
     }
@@ -88,10 +89,10 @@ public class Enemy {
     private void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
         sprite.setAnimations(
-                ResourceLoader.initializeAnimation("resources/" + spritepath + "/right.png",166),
-                ResourceLoader.initializeAnimation("resources/" + spritepath + "/up.png",166),
-                ResourceLoader.initializeAnimation("resources/" + spritepath + "/left.png",166),
-                ResourceLoader.initializeAnimation("resources/" + spritepath + "/down.png",166)
+                ResourceLoader.initializeAnimation("resources/" + spritepath + "/right.png",ANIM_SPEED),
+                ResourceLoader.initializeAnimation("resources/" + spritepath + "/up.png",ANIM_SPEED),
+                ResourceLoader.initializeAnimation("resources/" + spritepath + "/left.png",ANIM_SPEED),
+                ResourceLoader.initializeAnimation("resources/" + spritepath + "/down.png",ANIM_SPEED)
         );
         sprite.setMasks(
                 initializeMask(0),
