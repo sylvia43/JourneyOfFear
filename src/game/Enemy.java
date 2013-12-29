@@ -18,15 +18,6 @@ public class Enemy {
     private double x = 64;
     private double y = 64;
     private final double speed = 0.0625;
-       
-    private boolean DnHl;
-    private boolean UpHl;
-    private boolean LfHl;
-    private boolean RiHl;
-    private boolean DnPr;
-    private boolean UpPr;
-    private boolean LfPr;
-    private boolean RiPr;
     
     private final int swordDuration = 48;
     private final int SWORD_DELAY = 400;
@@ -36,8 +27,6 @@ public class Enemy {
     private boolean attacking;
     private int attackTimer;
     private int attackDelay;
-    
-    private static boolean collision;
     
     public void init(GameContainer container, String spritepath) throws SlickException {
         this.spritepath = spritepath;
