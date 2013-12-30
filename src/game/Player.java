@@ -9,67 +9,49 @@ import org.newdawn.slick.SlickException;
 
 public class Player implements Collidable, Attackable {
     
-    private static EntitySprite sprite;
+    private EntitySprite sprite;
 
-    private static Animation sword;
+    private Animation sword;
 
-    private static int spritePointer;
+    private int spritePointer;
     
-    private static double x = 64;
-    private static double y = 64;
-    private static final double speed = 0.125;
+    private double x = 64;
+    private double y = 64;
+    private final double speed = 0.125;
     
-    private static Options keybind;
+    private Options keybind;
     
-    private static boolean DnHl;
-    private static boolean UpHl;
-    private static boolean LfHl;
-    private static boolean RiHl;
-    private static boolean DnPr;
-    private static boolean UpPr;
-    private static boolean LfPr;
-    private static boolean RiPr;
+    private final int swordDuration = 48;
+    private final int SWORD_DELAY = 400;
     
-    private static final int swordDuration = 48;
-    private static final int SWORD_DELAY = 400;
+    private int direction;
     
-    private static int direction;
+    private boolean attacking;
+    private int attackTimer;
+    private int attackDelay;
     
-    private static boolean attacking;
-    private static int attackTimer;
-    private static int attackDelay;
+    private DumbEnemy enemy;
+    private boolean collision;
     
-    private static DumbEnemy enemy;
-    private static boolean collision;
-    
-    public static void init(GameContainer container, Options options, DumbEnemy enemy) throws SlickException {
+    public void init(GameContainer container, Options options, DumbEnemy enemy) throws SlickException {
         initializeSprite();
         spritePointer = 3;
         keybind = options;
         attacking = false;
         attackDelay = 0;
-        Player.enemy = enemy;
+        this.enemy = enemy;
     }
     
-    public static void update(GameContainer container, int delta) {
+    public void update(GameContainer container, int delta) {
         movePlayer(container.getInput(), delta);
         resolveCollision();
         resolveAttack(container.getInput(), delta, container.getHeight());
     }
     
-    public static void render(GameContainer container, Graphics g) throws SlickException {
+    public void render(GameContainer container, Graphics g) throws SlickException {
         Animation currentSprite = sprite.getAnim(spritePointer);
         if (SlickGame.DEBUG_MODE) {
             g.setColor(Color.white);
-            g.drawString("Keys:"
-                    + (DnHl?"dh ":"")
-                    + (UpHl?"uh ":"")
-                    + (LfHl?"lh ":"")
-                    + (RiHl?"rh ":"")
-                    + (DnPr?"dp ":"")
-                    + (UpPr?"up ":"") 
-                    + (LfPr?"lp ":"")
-                    + (RiPr?"rp ":""),10,24);
             g.drawString("x: " + String.valueOf(x),10,38);
             g.drawString("y: " + String.valueOf(y),10,52);
             g.drawString(attacking?"Attacking":"Not attacking",10,66);
@@ -82,7 +64,7 @@ public class Player implements Collidable, Attackable {
         }
     }
     
-    public static void resolveAttack(Input input, int delta, int height) {
+    public void resolveAttack(Input input, int delta, int height) {
         if ((input.isKeyDown(keybind.A_UP)
                 || input.isKeyDown(keybind.A_DOWN)
                 || input.isKeyDown(keybind.A_LEFT)
@@ -100,7 +82,7 @@ public class Player implements Collidable, Attackable {
         }
     }
     
-    public static void getKeyboardDirection(Input input) {
+    public void getKeyboardDirection(Input input) {
         if (input.isKeyDown(keybind.A_RIGHT))
             direction = 0;
         else if (input.isKeyDown(keybind.A_UP))
@@ -111,7 +93,7 @@ public class Player implements Collidable, Attackable {
             direction = 6;
     }
     
-    public static void attack(int direction) {
+    public void attack(int direction) {
         attacking = true;
         attackTimer = 0;
         attackDelay = sword.getDuration(0)*2 + SWORD_DELAY;
@@ -120,15 +102,15 @@ public class Player implements Collidable, Attackable {
         sword.stopAt((direction+10)%8);
     }
     
-    public static void movePlayer(Input input, int delta) {
-        DnHl = input.isKeyDown(keybind.M_DOWN);
-        DnPr = input.isKeyPressed(keybind.M_DOWN);
-        UpHl = input.isKeyDown(keybind.M_UP);
-        UpPr = input.isKeyPressed(keybind.M_UP);
-        LfHl = input.isKeyDown(keybind.M_LEFT);
-        LfPr = input.isKeyPressed(keybind.M_LEFT);
-        RiHl = input.isKeyDown(keybind.M_RIGHT);
-        RiPr = input.isKeyPressed(keybind.M_RIGHT);
+    public void movePlayer(Input input, int delta) {
+        boolean DnHl = input.isKeyDown(keybind.M_DOWN);
+        boolean DnPr = input.isKeyPressed(keybind.M_DOWN);
+        boolean UpHl = input.isKeyDown(keybind.M_UP);
+        boolean UpPr = input.isKeyPressed(keybind.M_UP);
+        boolean LfHl = input.isKeyDown(keybind.M_LEFT);
+        boolean LfPr = input.isKeyPressed(keybind.M_LEFT);
+        boolean RiHl = input.isKeyDown(keybind.M_RIGHT);
+        boolean RiPr = input.isKeyPressed(keybind.M_RIGHT);
         
         if ((DnHl || DnHl) && (UpHl || UpHl)) {
             UpHl = false;
@@ -140,7 +122,7 @@ public class Player implements Collidable, Attackable {
             RiHl = false;
         }
         
-        if (DnHl) {
+        if (DnPr) { //Was this wrong the whole time :O
             spritePointer = 3;
         } else {
             sprite.getAnim(3).stop();
@@ -201,7 +183,7 @@ public class Player implements Collidable, Attackable {
         }
     }
     
-    private static void initializeSprite() throws SlickException {
+    private void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
         sprite.setAnimations(                
                 ResourceLoader.initializeAnimation("resources/player/right.png",166),
@@ -219,7 +201,7 @@ public class Player implements Collidable, Attackable {
         sword.stop();
     }
     
-    private static AnimationMask initializeMask(int index) {
+    private AnimationMask initializeMask(int index) {
         ImageMask[] masks = new ImageMask[4];
         for (int i=0;i<4;i++) {
             masks[i] = new ImageMask(sprite.getAnim(index).getImage(i));
@@ -227,15 +209,11 @@ public class Player implements Collidable, Attackable {
         return new AnimationMask(masks);
     }
 
-    private static void resolveCollision() {
-        collision = getStaticCollisionMask().intersects(enemy.getCollisionMask(),x,y,enemy.getX(),enemy.getY());
+    private void resolveCollision() {
+        collision = getCollisionMask().intersects(enemy.getCollisionMask(),x,y,enemy.getX(),enemy.getY());
     }
 
     public ImageMask getCollisionMask() {
-        return sprite.getMask(spritePointer).getMask(sprite.getAnim(spritePointer).getFrame());
-    }
-    
-    public static ImageMask getStaticCollisionMask() {
         return sprite.getMask(spritePointer).getMask(sprite.getAnim(spritePointer).getFrame());
     }
 
