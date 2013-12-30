@@ -13,10 +13,10 @@ public class SlickGame extends BasicGame {
     public static final boolean DEBUG_MODE = true;
     private static final int VIEW_SIZE_X = 640;
     private static final int VIEW_SIZE_Y = 512;
-    private static final int WORLD_SIZE_X = 6400;
-    private static final int WORLD_SIZE_Y = 5120;
-    private double camX;
-    private double camY;
+    private static final int WORLD_SIZE_X = 3200;
+    private static final int WORLD_SIZE_Y = 2560;
+    private int camX;
+    private int camY;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private DumbEnemy dumbEnemy;
     private TiledMap map;
@@ -59,8 +59,8 @@ public class SlickGame extends BasicGame {
             e.update(container, delta);
         }
         player.update(container,delta);
-        camX = MathHelper.median(0,WORLD_SIZE_X-VIEW_SIZE_X,player.getX()*4-VIEW_SIZE_X/2);
-        camY = MathHelper.median(0,WORLD_SIZE_Y-VIEW_SIZE_Y,player.getY()*4-VIEW_SIZE_Y/2);
+        camX = (int)MathHelper.median(0,WORLD_SIZE_X-VIEW_SIZE_X,player.getX()*4-VIEW_SIZE_X/2);
+        camY = (int)MathHelper.median(0,WORLD_SIZE_Y-VIEW_SIZE_Y,player.getY()*4-VIEW_SIZE_Y/2);
     }
 
     public void render(GameContainer container, Graphics g) throws SlickException {
@@ -83,8 +83,8 @@ public class SlickGame extends BasicGame {
     }
 
     private void renderMap() {
-        for(int x=(int)(camX/64);x<(camX+VIEW_SIZE_X)/64;x++) {
-            for(int y=(int)(camY/64);y<(camY+VIEW_SIZE_Y)/64;y++) {
+        for(int x=camX/64;x<Math.min(WORLD_SIZE_X/64,(camX+VIEW_SIZE_X)/64+1);x++) {
+            for(int y=camY/64;y<Math.min(WORLD_SIZE_Y/64,(camY+VIEW_SIZE_Y)/64+1);y++) {
                  map.tile(x,y).image().draw(x*64,y*64,64,64);
             }
         }

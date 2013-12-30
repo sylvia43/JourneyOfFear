@@ -15,8 +15,8 @@ public class Player implements Collidable, Attackable {
 
     private int spritePointer;
     
-    private double x = 64;
-    private double y = 64;
+    private int x = 64;
+    private int y = 64;
     private final double speed = 0.125;
     
     private Options keybind;
