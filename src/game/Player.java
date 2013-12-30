@@ -33,6 +33,9 @@ public class Player implements Collidable, Attackable {
     private DumbEnemy enemy;
     private boolean collision;
     
+    public double getX() { return x; }
+    public double getY() { return y; }
+    
     public void init(GameContainer container, Options options, DumbEnemy enemy) throws SlickException {
         initializeSprite();
         spritePointer = 3;
