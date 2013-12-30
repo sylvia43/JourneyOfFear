@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -12,8 +13,8 @@ public class SlickGame extends BasicGame {
     Options options;
     public static final boolean DEBUG_MODE = true;
     public static Image background_grass;
-    public Enemy enemy;
-    public DumbEnemy dumbEnemy;
+    public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+;    public DumbEnemy dumbEnemy;
     
     public SlickGame() {
         super("Slick Game");
@@ -37,17 +38,23 @@ public class SlickGame extends BasicGame {
     public void init(GameContainer container) throws SlickException {
         options = new Options();
         background_grass = ResourceLoader.initializeImage("resources/tiles/back_grass.png");
-        enemy = new Enemy();
-        enemy.init(container, "blobredsir");
+        Enemy enemy = new Enemy("blobredsir");
+        enemy.init(container);
+        enemies.add(enemy);
         dumbEnemy = new DumbEnemy();
         dumbEnemy.init(container);
         Player.init(container, options, dumbEnemy);
+        for (Enemy e : enemies) {
+            e.init(container);
+        }
     }
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
         Player.update(container,delta);
-        enemy.update(container, delta);
+        for (Enemy e : enemies) {
+            e.update(container, delta);
+        }
         dumbEnemy.update(container, delta);
     }
 
@@ -57,7 +64,9 @@ public class SlickGame extends BasicGame {
                  background_grass.draw(x,y,64,64);
             }
         }
-        enemy.render(container, g);
+        for (Enemy e : enemies) {
+            e.render(container, g);
+        }
         Player.render(container,g);
         dumbEnemy.render(container, g);
     }

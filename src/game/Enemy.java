@@ -29,8 +29,11 @@ public class Enemy {
     private int attackTimer;
     private int attackDelay;
     
-    public void init(GameContainer container, String spritepath) throws SlickException {
+    public Enemy(String spritepath) {
         this.spritepath = spritepath;
+    }
+    
+    public void init(GameContainer container) throws SlickException {
         initializeSprite();
         spritePointer = 3;
         attacking = false;
