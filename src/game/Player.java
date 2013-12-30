@@ -15,9 +15,9 @@ public class Player implements Collidable, Attackable {
 
     private int spritePointer;
     
-    private int x = 64;
-    private int y = 64;
-    private final double speed = 0.125;
+    private int x = 640;
+    private int y = 512;
+    private final double speed = 0.5;
     
     private Options keybind;
     
@@ -59,9 +59,9 @@ public class Player implements Collidable, Attackable {
             g.drawString(String.valueOf(attackTimer),10,80);
             g.drawString(collision?"Colliding":"Not Colliding",10,94);
         }
-        currentSprite.draw((int)(x*4),(int)(y*4),64,64);
+        currentSprite.draw(x,y,64,64);
         if (attacking) {
-            sword.draw((int)(x*4)-64,(int)(y*4)-64,192,192);
+            sword.draw(x-64,y-64,192,192);
         }
     }
     

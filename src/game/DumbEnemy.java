@@ -31,8 +31,8 @@ public class DumbEnemy implements Collidable, Attackable {
     public void init(GameContainer container) throws SlickException {
         up = ResourceLoader.initializeAnimation(spritePath);
         mask = new ImageMask(ResourceLoader.initializeImage(spritePath));
-        x = (int)(Math.random()*(SlickGame.VIEW_SIZE_X-64));
-        y = (int)(Math.random()*(SlickGame.VIEW_SIZE_Y-64));
+        x = (int)(Math.random()*(SlickGame.VIEW_SIZE_X));
+        y = (int)(Math.random()*(SlickGame.VIEW_SIZE_Y));
         attackMask = new Rectangle(x,y,x+16,y+16);
     }
     

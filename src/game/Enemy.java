@@ -15,9 +15,9 @@ public class Enemy {
 
     private int spritePointer;
     
-    private double x = 64;
-    private double y = 64;
-    private final double speed = 0.0625;
+    private int x;
+    private int y;
+    private final double speed = 0.25;
     
     private final int SWORD_DURATION = 48;
     private final int SWORD_DELAY = 400;
@@ -31,6 +31,8 @@ public class Enemy {
     
     public Enemy(String spritepath) {
         this.spritepath = spritepath;
+        this.x = 960;
+        this.y = 768;
     }
     
     public double getX() { return x; }
@@ -51,9 +53,9 @@ public class Enemy {
     
     public void render(GameContainer container, Graphics g) throws SlickException {
         Animation currentSprite = sprite.getAnim(spritePointer);
-        currentSprite.draw((int)(x*4),(int)(y*4),64,64);
+        currentSprite.draw(x,y,64,64);
         if (attacking) {
-            sword.draw((int)(x*4)-64,(int)(y*4)-64,192,192);
+            sword.draw(x-64,y-64,192,192);
         }
     }
     
@@ -85,11 +87,7 @@ public class Enemy {
     }
     
     public void move(Input input, int delta) {
-        
         //Code to randomly choose a direction and move/update animations.
-        
-        if (y>120)
-            y=-16;
     }
     
     private void initializeSprite() throws SlickException {

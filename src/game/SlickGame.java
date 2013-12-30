@@ -67,8 +67,8 @@ public class SlickGame extends BasicGame {
             e.update(container, delta);
         }
         player.update(container,delta);
-        camX = (int)MathHelper.median(0,WORLD_SIZE_X-VIEW_SIZE_X,player.getX()*4-VIEW_SIZE_X/2);
-        camY = (int)MathHelper.median(0,WORLD_SIZE_Y-VIEW_SIZE_Y,player.getY()*4-VIEW_SIZE_Y/2);
+        camX = (int)MathHelper.median(0,WORLD_SIZE_X-VIEW_SIZE_X,player.getX()-VIEW_SIZE_X/2);
+        camY = (int)MathHelper.median(0,WORLD_SIZE_Y-VIEW_SIZE_Y,player.getY()-VIEW_SIZE_Y/2);
     }
 
     public void render(GameContainer container, Graphics g) throws SlickException {
@@ -80,8 +80,8 @@ public class SlickGame extends BasicGame {
                 e.render(container, g);
         }
         for (Enemy e : enemies) {
-            if (e.getX()*4>camX-64 && e.getY()*4>camY-64
-                && e.getX()*4<camX+VIEW_SIZE_X && e.getY()*4<camY+VIEW_SIZE_Y)
+            if (e.getX()>camX-64 && e.getY()>camY-64
+                && e.getX()<camX+VIEW_SIZE_X && e.getY()<camY+VIEW_SIZE_Y)
             e.render(container, g);
         }
         player.render(container,g);
