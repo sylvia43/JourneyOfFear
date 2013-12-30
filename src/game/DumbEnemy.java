@@ -7,8 +7,8 @@ import org.newdawn.slick.SlickException;
 
 public class DumbEnemy implements Collidable, Attackable {
     
-    private double x;
-    private double y;
+    private int x;
+    private int y;
     
     private Animation up;
     
@@ -31,8 +31,8 @@ public class DumbEnemy implements Collidable, Attackable {
     public void init(GameContainer container) throws SlickException {
         up = ResourceLoader.initializeAnimation(spritePath);
         mask = new ImageMask(ResourceLoader.initializeImage(spritePath));
-        x = Math.random()*(container.getWidth()/4-16);
-        y = Math.random()*(container.getHeight()/4-16);
+        x = (int)(Math.random()*(SlickGame.VIEW_SIZE_X-64));
+        y = (int)(Math.random()*(SlickGame.VIEW_SIZE_Y-64));
         attackMask = new Rectangle(x,y,x+16,y+16);
     }
     
@@ -41,7 +41,7 @@ public class DumbEnemy implements Collidable, Attackable {
     }
 
     public void render(GameContainer container, Graphics g) throws SlickException {
-        up.draw((int)(x*4),(int)(y*4),64,64);
+        up.draw(x,y,64,64);
     }
 
     public ImageMask getCollisionMask() {

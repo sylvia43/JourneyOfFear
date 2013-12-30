@@ -11,14 +11,14 @@ public class SlickGame extends BasicGame {
     
     private Options options;
     public static final boolean DEBUG_MODE = true;
-    private static final int VIEW_SIZE_X = 640;
-    private static final int VIEW_SIZE_Y = 512;
-    private static final int WORLD_SIZE_X = 3200;
-    private static final int WORLD_SIZE_Y = 2560;
+    public static final int VIEW_SIZE_X = 640;
+    public static final int VIEW_SIZE_Y = 512;
+    public static final int WORLD_SIZE_X = 3200;
+    public static final int WORLD_SIZE_Y = 2560;
     private int camX;
     private int camY;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    private DumbEnemy dumbEnemy;
+    private ArrayList<DumbEnemy> dumbEnemies = new ArrayList<DumbEnemy>();
     private TiledMap map;
     private Player player;
     
@@ -39,7 +39,13 @@ public class SlickGame extends BasicGame {
         map = new TiledMap((int)(WORLD_SIZE_X/64),(int)(WORLD_SIZE_Y/64));
         options = new Options();
         
-        initDumbEnemy(container);
+        DumbEnemy dumbEnemy = new DumbEnemy();
+        dumbEnemy.init(container);
+        dumbEnemies.add(dumbEnemy);
+        
+        for (DumbEnemy e : dumbEnemies) {
+            e.init(container);
+        }
         
         Enemy enemy = new Enemy("blobredsir");
         enemy.init(container);
@@ -50,11 +56,13 @@ public class SlickGame extends BasicGame {
         }
         
         player = new Player();
-        player.init(container, options, dumbEnemy);
+        player.init(container, options);
     }
 
     public void update(GameContainer container, int delta) throws SlickException {
-        dumbEnemy.update(container, delta);
+        for (DumbEnemy e : dumbEnemies) {
+            e.update(container, delta);
+        }
         for (Enemy e : enemies) {
             e.update(container, delta);
         }
@@ -66,8 +74,14 @@ public class SlickGame extends BasicGame {
     public void render(GameContainer container, Graphics g) throws SlickException {
         g.translate(-(float)camX,-(float)camY);
         renderMap();
-        dumbEnemy.render(container, g);
+        for (DumbEnemy e : dumbEnemies) {
+            if (e.getX()>camX-64 && e.getY()>camY-64
+                    && e.getX()<camX+VIEW_SIZE_X && e.getY()<camY+VIEW_SIZE_Y)
+                e.render(container, g);
+        }
         for (Enemy e : enemies) {
+            if (e.getX()*4>camX-64 && e.getY()*4>camY-64
+                && e.getX()*4<camX+VIEW_SIZE_X && e.getY()*4<camY+VIEW_SIZE_Y)
             e.render(container, g);
         }
         player.render(container,g);
@@ -88,10 +102,5 @@ public class SlickGame extends BasicGame {
                  map.tile(x,y).image().draw(x*64,y*64,64,64);
             }
         }
-    }
-    
-    private void initDumbEnemy(GameContainer container) throws SlickException {
-        dumbEnemy = new DumbEnemy();
-        dumbEnemy.init(container);
     }
 }

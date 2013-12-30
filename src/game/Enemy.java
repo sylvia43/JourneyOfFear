@@ -33,6 +33,9 @@ public class Enemy {
         this.spritepath = spritepath;
     }
     
+    public double getX() { return x; }
+    public double getY() { return y; }
+    
     public void init(GameContainer container) throws SlickException {
         initializeSprite();
         spritePointer = 3;

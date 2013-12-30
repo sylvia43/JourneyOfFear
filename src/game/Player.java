@@ -30,19 +30,17 @@ public class Player implements Collidable, Attackable {
     private int attackTimer;
     private int attackDelay;
     
-    private DumbEnemy enemy;
     private boolean collision;
     
     public double getX() { return x; }
     public double getY() { return y; }
     
-    public void init(GameContainer container, Options options, DumbEnemy enemy) throws SlickException {
+    public void init(GameContainer container, Options options) throws SlickException {
         initializeSprite();
         spritePointer = 3;
         keybind = options;
         attacking = false;
         attackDelay = 0;
-        this.enemy = enemy;
     }
     
     public void update(GameContainer container, int delta) {
@@ -213,7 +211,7 @@ public class Player implements Collidable, Attackable {
     }
 
     private void resolveCollision() {
-        collision = getCollisionMask().intersects(enemy.getCollisionMask(),x,y,enemy.getX(),enemy.getY());
+        collision = false; //getCollisionMask().intersects(enemy.getCollisionMask(),x,y,enemy.getX(),enemy.getY());
     }
 
     public ImageMask getCollisionMask() {
