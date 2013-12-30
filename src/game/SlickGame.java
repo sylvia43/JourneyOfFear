@@ -11,10 +11,12 @@ public class SlickGame extends BasicGame {
     
     private Options options;
     public static final boolean DEBUG_MODE = true;
-    private static final double VIEW_SIZE_X = 640;
-    private static final double VIEW_SIZE_Y = 512;
-    private static final double WORLD_SIZE_X = 6400;
-    private static final double WORLD_SIZE_Y = 5120;
+    private static final int VIEW_SIZE_X = 640;
+    private static final int VIEW_SIZE_Y = 512;
+    private static final int WORLD_SIZE_X = 6400;
+    private static final int WORLD_SIZE_Y = 5120;
+    private double camX;
+    private double camY;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private DumbEnemy dumbEnemy;
     private TiledMap map;
@@ -57,12 +59,13 @@ public class SlickGame extends BasicGame {
             e.update(container, delta);
         }
         player.update(container,delta);
+        camX = MathHelper.median(0,WORLD_SIZE_X-VIEW_SIZE_X,player.getX()*4-VIEW_SIZE_X/2);
+        camY = MathHelper.median(0,WORLD_SIZE_Y-VIEW_SIZE_Y,player.getY()*4-VIEW_SIZE_Y/2);
     }
 
     public void render(GameContainer container, Graphics g) throws SlickException {
-        g.translate(-(float)MathHelper.median(0,WORLD_SIZE_X-VIEW_SIZE_X,player.getX()*4-VIEW_SIZE_X/2),
-                -(float)MathHelper.median(0,WORLD_SIZE_Y-VIEW_SIZE_Y,player.getY()*4-VIEW_SIZE_Y/2));
-        renderMap(container,g);
+        g.translate(-(float)camX,-(float)camY);
+        renderMap();
         dumbEnemy.render(container, g);
         for (Enemy e : enemies) {
             e.render(container, g);
@@ -79,9 +82,9 @@ public class SlickGame extends BasicGame {
         app.start();
     }
 
-    private void renderMap(GameContainer container, Graphics g) {
-        for(int x=0;x<WORLD_SIZE_X/64;x++) {
-            for(int y=0;y<WORLD_SIZE_Y/64;y++) {
+    private void renderMap() {
+        for(int x=(int)(camX/64);x<(camX+VIEW_SIZE_X)/64;x++) {
+            for(int y=(int)(camY/64);y<(camY+VIEW_SIZE_Y)/64;y++) {
                  map.tile(x,y).image().draw(x*64,y*64,64,64);
             }
         }
