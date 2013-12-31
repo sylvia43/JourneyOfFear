@@ -3,7 +3,7 @@ package game;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 
-public class EnemyBlob extends Enemy {
+public class EnemyBlob extends Enemy implements Attackable {
 
     protected Animation attack;
     
@@ -15,8 +15,9 @@ public class EnemyBlob extends Enemy {
     protected boolean attacking;
     protected int attackTimer;
     protected int attackDelay;
-    
-    public EnemyBlob(String spritepath) {
+
+    public EnemyBlob(String spritepath, Player player) {
+        super(spritepath,player);
         this.spritepath = spritepath;
         this.x = 960;
         this.y = 768;
@@ -24,12 +25,17 @@ public class EnemyBlob extends Enemy {
         this.animationSpeed = 332;
     }
     
-    protected void renderAttack() {
-        if (attacking) {
-            attack.draw(x-64,y-64,192,192);
-        }
+    protected void initializeVariables() {
+        spritePointer = 3;
+        attacking = false;
+        attackDelay = 0;
     }
-    
+
+    protected void initializeAttack() throws SlickException {
+        attack = ResourceLoader.initializeAnimation("resources/player/attacks/sword_slash.png",20,48);
+        attack.stop();
+    }
+        
     protected void resolveAttack(int delta) {
         if (!attacking && attackDelay < 1) {
             direction = ((int)(Math.random()*4)*2+6)%8;
@@ -56,29 +62,16 @@ public class EnemyBlob extends Enemy {
         //Code to randomly choose a direction and move/update animations.
     }
     
-    protected void initializeAttack() throws SlickException {
-        attack = ResourceLoader.initializeAnimation("resources/player/attacks/sword_slash.png",20,48);
-        attack.stop();
-    }
-    
-    protected AnimationMask initializeMask(int index) {
-        ImageMask[] masks = new ImageMask[4];
-        for (int i=0;i<4;i++) {
-            masks[i] = new ImageMask(sprite.getAnim(index).getImage(i));
-        }
-        return new AnimationMask(masks);
-    }
-
     protected void resolveCollision() {
         //collision = getStaticCollisionMask().intersects(enemy.getCollisionMask(),x,y,enemy.getX(),enemy.getY());
     }
     
-    protected void initializeVariables() {
-        spritePointer = 3;
-        attacking = false;
-        attackDelay = 0;
+    protected void renderAttack() {
+        if (attacking) {
+            attack.draw(x-64,y-64,192,192);
+        }
     }
-    
+
     public Rectangle getAttackMask() {
         int dx = 0;
         int dy = 0;

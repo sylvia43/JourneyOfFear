@@ -39,6 +39,9 @@ public class SlickGame extends BasicGame {
         map = new TiledMap((int)(WORLD_SIZE_X/64),(int)(WORLD_SIZE_Y/64));
         options = new Options();
         
+        player = new Player();
+        player.init(container, options);
+        
         DumbEnemy dumbEnemy = new DumbEnemy();
         dumbEnemy.init(container);
         dumbEnemies.add(dumbEnemy);
@@ -47,16 +50,13 @@ public class SlickGame extends BasicGame {
             e.init(container);
         }
         
-        EnemyBlob enemy = new EnemyBlob("blobredsir");
+        EnemyBlob enemy = new EnemyBlob("blobredsir", player);
         enemy.init(container);
         enemies.add(enemy);
         
         for (EnemyBlob e : enemies) {
             e.init(container);
         }
-        
-        player = new Player();
-        player.init(container, options);
     }
 
     public void update(GameContainer container, int delta) throws SlickException {

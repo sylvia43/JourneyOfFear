@@ -4,7 +4,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class Enemy {
+public class Enemy implements Collidable {
     
     protected EntitySprite sprite;
     protected String spritepath;
@@ -16,9 +16,21 @@ public class Enemy {
     protected int y;
     protected double speed;
     
+    protected Player player;
+    
+    //Getters. These methods probably can be left alone.
     public double getX() { return x; }
     public double getY() { return y; }
+    public ImageMask getCollisionMask() {
+        return sprite.getMask(spritePointer).getMask(sprite.getAnim(spritePointer).getFrame());
+    }
     
+    public Enemy(String spritepath, Player player) {
+        this.spritepath = spritepath;
+        this.player = player;
+    }
+    
+    //Game loop methods
     public void init(GameContainer container) throws SlickException {
         initializeVariables();
         initializeSprite();
@@ -39,15 +51,10 @@ public class Enemy {
     //Empty methods. These methods should be overriden
     protected void initializeVariables() { }
     protected void initializeAttack() throws SlickException { }
-    protected void move(int delta) { }
+    protected void move(int delta) { } //Default move behavior
     protected void resolveCollision() { }
     protected void resolveAttack(int delta) { }
     protected void renderAttack() { }
-    
-    //Getters. These methods probably can be left alone.
-    public ImageMask getCollisionMask() {
-        return sprite.getMask(spritePointer).getMask(sprite.getAnim(spritePointer).getFrame());
-    }
     
     //Other methods. These can be overriden if necessary.
     protected void initializeSprite() throws SlickException {
@@ -65,7 +72,6 @@ public class Enemy {
                 initializeMask(3)
         );
     }
-    
     protected AnimationMask initializeMask(int index) {
         ImageMask[] masks = new ImageMask[4];
         for (int i=0;i<4;i++) {
