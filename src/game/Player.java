@@ -35,6 +35,44 @@ public class Player implements Collidable, Attackable {
     public double getX() { return x; }
     public double getY() { return y; }
     
+    public ImageMask getCollisionMask() {
+        return sprite.getMask(spritePointer).getMask(sprite.getAnim(spritePointer).getFrame());
+    }
+
+    public Rectangle getAttackMask() {
+        int dx = 0;
+        int dy = 0;
+        switch(sword.getFrame()) {
+            case 0:
+                dx = 1;  dy = 0;
+                break;
+            case 1:
+                dx = 1;  dy = 1;
+                break;
+            case 2:
+                dx = 0;  dy = 1;
+                break;
+            case 3:
+                dx = -1; dy = 1;
+                break;
+            case 4:
+                dx = -1; dy = 0;
+                break;
+            case 5:
+                dx = -1; dy = -1;
+                break;
+            case 6:
+                dx = 0;  dy = -1;
+                break;
+            case 7:
+                dx = 1;  dy = -1;
+                break;
+        }
+        return new Rectangle(x+16*dx,y+16*dy,x+16*dx+16,y+16*dy+16);
+    }
+    
+    public Player() { }
+    
     public void init(GameContainer container, Options options) throws SlickException {
         initializeSprite();
         spritePointer = 3;
@@ -51,56 +89,38 @@ public class Player implements Collidable, Attackable {
     
     public void render(GameContainer container, Graphics g) throws SlickException {
         Animation currentSprite = sprite.getAnim(spritePointer);
-        if (SlickGame.DEBUG_MODE) {
-            g.setColor(Color.white);
-            g.drawString("x: " + String.valueOf(x),10,38);
-            g.drawString("y: " + String.valueOf(y),10,52);
-            g.drawString(attacking?"Attacking":"Not attacking",10,66);
-            g.drawString(String.valueOf(attackTimer),10,80);
-            g.drawString(collision?"Colliding":"Not Colliding",10,94);
-        }
+        if (SlickGame.DEBUG_MODE)
+            renderDebugInfo(g);
         currentSprite.draw(x,y,64,64);
         if (attacking) {
             sword.draw(x-64,y-64,192,192);
         }
     }
     
-    public void resolveAttack(Input input, int delta, int height) {
-        if ((input.isKeyDown(keybind.A_UP)
-                || input.isKeyDown(keybind.A_DOWN)
-                || input.isKeyDown(keybind.A_LEFT)
-                || input.isKeyDown(keybind.A_RIGHT))
-                && !attacking && attackDelay < 1) {
-            getKeyboardDirection(input);
-            direction = (direction+6)%8;
-            attack(direction);
-        }
-        if (attackTimer<500)
-            attackTimer+=delta;
-        attackDelay-=delta;
-        if (attackTimer > swordDuration*4.5) {
-            attacking = false;
-        }
+    private void initializeSprite() throws SlickException {
+        sprite = new EntitySprite(4);
+        sprite.setAnimations(                
+                ResourceLoader.initializeAnimation("resources/player/right.png",166),
+                ResourceLoader.initializeAnimation("resources/player/up.png",166),
+                ResourceLoader.initializeAnimation("resources/player/left.png",166),
+                ResourceLoader.initializeAnimation("resources/player/down.png",166)
+        );
+        sprite.setMasks(
+                initializeMask(0),
+                initializeMask(1),
+                initializeMask(2),
+                initializeMask(3)
+        );
+        sword = ResourceLoader.initializeAnimation("resources/player/attacks/sword_slash.png",20,48);
+        sword.stop();
     }
     
-    public void getKeyboardDirection(Input input) {
-        if (input.isKeyDown(keybind.A_RIGHT))
-            direction = 0;
-        else if (input.isKeyDown(keybind.A_UP))
-            direction = 2;
-        else if (input.isKeyDown(keybind.A_LEFT))
-            direction = 4;
-        else if (input.isKeyDown(keybind.A_DOWN))
-            direction = 6;
-    }
-    
-    public void attack(int direction) {
-        attacking = true;
-        attackTimer = 0;
-        attackDelay = sword.getDuration(0)*2 + SWORD_DELAY;
-        sword.restart();
-        sword.setCurrentFrame(direction);
-        sword.stopAt((direction+10)%8);
+    private AnimationMask initializeMask(int index) {
+        ImageMask[] masks = new ImageMask[4];
+        for (int i=0;i<4;i++) {
+            masks[i] = new ImageMask(sprite.getAnim(index).getImage(i));
+        }
+        return new AnimationMask(masks);
     }
     
     public void movePlayer(Input input, int delta) {
@@ -123,7 +143,7 @@ public class Player implements Collidable, Attackable {
             RiHl = false;
         }
         
-        if (DnPr) { //Was this wrong the whole time :O
+        if (DnPr) {
             spritePointer = 3;
         } else {
             sprite.getAnim(3).stop();
@@ -184,69 +204,54 @@ public class Player implements Collidable, Attackable {
         }
     }
     
-    private void initializeSprite() throws SlickException {
-        sprite = new EntitySprite(4);
-        sprite.setAnimations(                
-                ResourceLoader.initializeAnimation("resources/player/right.png",166),
-                ResourceLoader.initializeAnimation("resources/player/up.png",166),
-                ResourceLoader.initializeAnimation("resources/player/left.png",166),
-                ResourceLoader.initializeAnimation("resources/player/down.png",166)
-        );
-        sprite.setMasks(
-                initializeMask(0),
-                initializeMask(1),
-                initializeMask(2),
-                initializeMask(3)
-        );
-        sword = ResourceLoader.initializeAnimation("resources/player/attacks/sword_slash.png",20,48);
-        sword.stop();
-    }
-    
-    private AnimationMask initializeMask(int index) {
-        ImageMask[] masks = new ImageMask[4];
-        for (int i=0;i<4;i++) {
-            masks[i] = new ImageMask(sprite.getAnim(index).getImage(i));
-        }
-        return new AnimationMask(masks);
-    }
-
     private void resolveCollision() {
         collision = false; //getCollisionMask().intersects(enemy.getCollisionMask(),x,y,enemy.getX(),enemy.getY());
     }
-
-    public ImageMask getCollisionMask() {
-        return sprite.getMask(spritePointer).getMask(sprite.getAnim(spritePointer).getFrame());
+    
+    public void resolveAttack(Input input, int delta, int height) {
+        if ((input.isKeyDown(keybind.A_UP)
+                || input.isKeyDown(keybind.A_DOWN)
+                || input.isKeyDown(keybind.A_LEFT)
+                || input.isKeyDown(keybind.A_RIGHT))
+                && !attacking && attackDelay < 1) {
+            getKeyboardDirection(input);
+            direction = (direction+6)%8;
+            attack(direction);
+        }
+        if (attackTimer<500)
+            attackTimer+=delta;
+        attackDelay-=delta;
+        if (attackTimer > swordDuration*4.5) {
+            attacking = false;
+        }
+    }
+    
+    public void getKeyboardDirection(Input input) {
+        if (input.isKeyDown(keybind.A_RIGHT))
+            direction = 0;
+        else if (input.isKeyDown(keybind.A_UP))
+            direction = 2;
+        else if (input.isKeyDown(keybind.A_LEFT))
+            direction = 4;
+        else if (input.isKeyDown(keybind.A_DOWN))
+            direction = 6;
+    }
+    
+    public void attack(int direction) {
+        attacking = true;
+        attackTimer = 0;
+        attackDelay = sword.getDuration(0)*2 + SWORD_DELAY;
+        sword.restart();
+        sword.setCurrentFrame(direction);
+        sword.stopAt((direction+10)%8);
     }
 
-    public Rectangle getAttackMask() {
-        int dx = 0;
-        int dy = 0;
-        switch(sword.getFrame()) {
-            case 0:
-                dx = 1;  dy = 0;
-                break;
-            case 1:
-                dx = 1;  dy = 1;
-                break;
-            case 2:
-                dx = 0;  dy = 1;
-                break;
-            case 3:
-                dx = -1; dy = 1;
-                break;
-            case 4:
-                dx = -1; dy = 0;
-                break;
-            case 5:
-                dx = -1; dy = -1;
-                break;
-            case 6:
-                dx = 0;  dy = -1;
-                break;
-            case 7:
-                dx = 1;  dy = -1;
-                break;
-        }
-        return new Rectangle(x+16*dx,y+16*dy,x+16*dx+16,y+16*dy+16);
+    private void renderDebugInfo(Graphics g) {
+            g.setColor(Color.white);
+            g.drawString("x: " + String.valueOf(x),10,38);
+            g.drawString("y: " + String.valueOf(y),10,52);
+            g.drawString(attacking?"Attacking":"Not attacking",10,66);
+            g.drawString(String.valueOf(attackTimer),10,80);
+            g.drawString(collision?"Colliding":"Not Colliding",10,94);
     }
 }
