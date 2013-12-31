@@ -17,7 +17,7 @@ public class SlickGame extends BasicGame {
     public static final int WORLD_SIZE_Y = 2560;
     private int camX;
     private int camY;
-    private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    private ArrayList<EnemyBlob> enemies = new ArrayList<EnemyBlob>();
     private ArrayList<DumbEnemy> dumbEnemies = new ArrayList<DumbEnemy>();
     private TiledMap map;
     private Player player;
@@ -47,11 +47,11 @@ public class SlickGame extends BasicGame {
             e.init(container);
         }
         
-        Enemy enemy = new Enemy("blobredsir");
+        EnemyBlob enemy = new EnemyBlob("blobredsir");
         enemy.init(container);
         enemies.add(enemy);
         
-        for (Enemy e : enemies) {
+        for (EnemyBlob e : enemies) {
             e.init(container);
         }
         
@@ -63,7 +63,7 @@ public class SlickGame extends BasicGame {
         for (DumbEnemy e : dumbEnemies) {
             e.update(container, delta);
         }
-        for (Enemy e : enemies) {
+        for (EnemyBlob e : enemies) {
             e.update(container, delta);
         }
         player.update(container,delta);
@@ -79,7 +79,7 @@ public class SlickGame extends BasicGame {
                     && e.getX()<camX+VIEW_SIZE_X && e.getY()<camY+VIEW_SIZE_Y)
                 e.render(container, g);
         }
-        for (Enemy e : enemies) {
+        for (EnemyBlob e : enemies) {
             if (e.getX()>camX-64 && e.getY()>camY-64
                 && e.getX()<camX+VIEW_SIZE_X && e.getY()<camY+VIEW_SIZE_Y)
             e.render(container, g);
