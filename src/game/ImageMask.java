@@ -40,22 +40,25 @@ public class ImageMask {
     
     public boolean[][] getMask() { return mask; }
     
-    public boolean intersects(ImageMask other, double tx, double ty, double ox, double oy) {
+    public boolean intersects(ImageMask other, int tx, int ty, int ox, int oy) {
         boolean[][] otherMask = other.getMask();
-        if ((tx+mask.length>ox) //May have mixed up mask and mask[0].
-                || ty+mask[0].length>oy
-                || ox+otherMask.length>tx
-                || oy+otherMask[0].length>ty)
+
+        if ((tx+mask.length*4<ox) //May have mixed up mask and mask[0].
+                || ty+mask[0].length*4<oy
+                || ox+otherMask.length*4<tx
+                || oy+otherMask[0].length*4<ty)
             return false;
         
-        for (int i=0;i<mask.length*4;i+=4)
-            for (int j=0;j<mask[i].length*4;j+=4)
-                for (int k=0;k<otherMask.length*4;k+=4)
-                    for (int l=0;l<otherMask[k].length*4;l+=4)
-                        if ((tx+j)>(ox+l-2) && (tx+j)<(ox+l+2)
-                                && (ty+i)>(oy+k-2) && (ty+i)<(oy+k+2)
+        //THIS ISN'T WORKING
+        for (int i=0;i<mask.length;i++)
+            for (int j=0;j<mask[i].length;j++)
+                for (int k=0;k<otherMask.length;k++)
+                    for (int l=0;l<otherMask[k].length;l++) {
+                        if ((tx+i*4)>(ox+k*4-8) && (tx+i*4)<(ox+k*4+8)
+                                && (ty+j*4)>(oy+l*4-8) && (ty+j*4)<(oy+l*4+8)
                                 && mask[i][j] && otherMask[k][l])
                             return true;
+                    }
         return false;
     }
 
@@ -65,9 +68,9 @@ public class ImageMask {
     
     public String toString(boolean[][] array) {
         String s = "";
-        for (boolean[] inner : array) {
-            for (int j=0;j<inner.length;j++) {
-                s += inner[j]?"1":"0";
+        for (int i=0;i<array.length;i++) {
+            for (int j=0;j<array[i].length;j++) {
+                s += array[i][j]?"1":"0";
             }
             s+="\n";
         }

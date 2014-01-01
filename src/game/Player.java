@@ -20,6 +20,9 @@ public class Player implements Collidable, Attackable {
     private int y = 512;
     private final double speed = 0.5;
     
+    private int camX;
+    private int camY;
+    
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     
     private Options keybind;
@@ -35,8 +38,8 @@ public class Player implements Collidable, Attackable {
     
     private boolean collision;
     
-    public double getX() { return x; }
-    public double getY() { return y; }
+    public int getX() { return x; }
+    public int getY() { return y; }
     
     public ImageMask getCollisionMask() {
         return sprite.getAnimationMask(spritePointer).getImageMask(sprite.getAnim(spritePointer).getFrame());
@@ -102,6 +105,11 @@ public class Player implements Collidable, Attackable {
     
     public void setEnemies(ArrayList<Enemy> enemies) {
         this.enemies = enemies;
+    }
+    
+    public void updateViewPort(int camX, int camY) {
+        this.camX = camX;
+        this.camY = camY;
     }
     
     private void initializeSprite() throws SlickException {
@@ -212,7 +220,11 @@ public class Player implements Collidable, Attackable {
     }
     
     private void resolveCollision() {
-        collision = false; //getCollisionMask().intersects(enemy.getCollisionMask(),x,y,enemy.getX(),enemy.getY());
+        for (Enemy e : enemies) {
+            if(getCollisionMask().intersects(e.getCollisionMask(),x,y,e.getX(),e.getY()))
+                collision = true;
+        }
+        collision = false;
     }
     
     public void resolveAttack(Input input, int delta, int height) {
@@ -255,10 +267,10 @@ public class Player implements Collidable, Attackable {
 
     private void renderDebugInfo(Graphics g) {
             g.setColor(Color.white);
-            g.drawString("x: " + String.valueOf(x),10,38);
-            g.drawString("y: " + String.valueOf(y),10,52);
-            g.drawString(attacking?"Attacking":"Not attacking",10,66);
-            g.drawString(String.valueOf(attackTimer),10,80);
-            g.drawString(collision?"Colliding":"Not Colliding",10,94);
+            g.drawString("x: " + String.valueOf(x),10+camX,38+camY);
+            g.drawString("y: " + String.valueOf(y),10+camX,52+camY);
+            g.drawString(attacking?"Attacking":"Not attacking",10+camX,66+camY);
+            g.drawString(String.valueOf(attackTimer),10+camX,80+camY);
+            g.drawString(collision?"Colliding":"Not Colliding",10+camX,94+camY);
     }
 }

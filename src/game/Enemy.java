@@ -1,5 +1,6 @@
 package game;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -19,8 +20,8 @@ public class Enemy implements Collidable {
     protected Player player;
     
     //Getters. These methods probably can be left alone.
-    public double getX() { return x; }
-    public double getY() { return y; }
+    public int getX() { return x; }
+    public int getY() { return y; }
     public ImageMask getCollisionMask() {
         return sprite.getAnimationMask(spritePointer).getImageMask(sprite.getAnim(spritePointer).getFrame());
     }
@@ -46,8 +47,13 @@ public class Enemy implements Collidable {
     public void render(GameContainer container, Graphics g) throws SlickException {
         sprite.getAnim(spritePointer).draw(x,y,64,64);
         renderAttack();
+        renderDebugInfo(g);
     }
-    
+    private void renderDebugInfo(Graphics g) {
+            g.setColor(Color.white);
+            g.drawString("x: " + String.valueOf(x),10+x+64,38+y+64);
+            g.drawString("y: " + String.valueOf(y),10+x+64,52+y+64);
+    }
     //Empty methods. These methods should be overriden
     protected void initializeVariables() { }
     protected void initializeAttack() throws SlickException { }

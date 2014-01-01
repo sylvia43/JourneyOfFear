@@ -99,6 +99,7 @@ public class SlickGame extends BasicGame {
     private void updateViewPort() {
         camX = (int)MathHelper.median(0,WORLD_SIZE_X-VIEW_SIZE_X,player.getX()-VIEW_SIZE_X/2);
         camY = (int)MathHelper.median(0,WORLD_SIZE_Y-VIEW_SIZE_Y,player.getY()-VIEW_SIZE_Y/2);
+        player.updateViewPort(camX,camY);
     }
     
     private void translateView(Graphics g) {
