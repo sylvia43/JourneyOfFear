@@ -27,5 +27,5 @@ public class EntitySprite {
     }
     
     public Animation getAnim(int index) { return animation[index]; }
-    public AnimationMask getMask(int index) { return mask[index]; }
+    public AnimationMask getAnimationMask(int index) { return mask[index]; }
 }

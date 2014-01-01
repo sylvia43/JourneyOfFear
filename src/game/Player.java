@@ -21,7 +21,7 @@ public class Player implements Collidable, Attackable {
     
     private Options keybind;
     
-    private final int swordDuration = 48;
+    private final int SWORD_DURATION = 48;
     private final int SWORD_DELAY = 400;
     
     private int direction;
@@ -36,7 +36,7 @@ public class Player implements Collidable, Attackable {
     public double getY() { return y; }
     
     public ImageMask getCollisionMask() {
-        return sprite.getMask(spritePointer).getMask(sprite.getAnim(spritePointer).getFrame());
+        return sprite.getAnimationMask(spritePointer).getImageMask(sprite.getAnim(spritePointer).getFrame());
     }
 
     public Rectangle getAttackMask() {
@@ -221,7 +221,7 @@ public class Player implements Collidable, Attackable {
         if (attackTimer<500)
             attackTimer+=delta;
         attackDelay-=delta;
-        if (attackTimer > swordDuration*4.5) {
+        if (attackTimer > SWORD_DURATION*4.5) {
             attacking = false;
         }
     }

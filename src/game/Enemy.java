@@ -22,7 +22,7 @@ public class Enemy implements Collidable {
     public double getX() { return x; }
     public double getY() { return y; }
     public ImageMask getCollisionMask() {
-        return sprite.getMask(spritePointer).getMask(sprite.getAnim(spritePointer).getFrame());
+        return sprite.getAnimationMask(spritePointer).getImageMask(sprite.getAnim(spritePointer).getFrame());
     }
     
     public Enemy(String spritepath, Player player) {

@@ -8,5 +8,5 @@ public class AnimationMask {
         this.mask = mask;
     }
     
-    public ImageMask getMask(int index) { return mask[index]; }
+    public ImageMask getImageMask(int index) { return mask[index]; }
 }
