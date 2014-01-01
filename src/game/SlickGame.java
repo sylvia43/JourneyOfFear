@@ -18,8 +18,7 @@ public class SlickGame extends BasicGame {
     private int camX;
     private int camY;
     private ArrayList<EnemyBlob> enemies = new ArrayList<EnemyBlob>();
-    private ArrayList<DumbEnemy> dumbEnemies = new ArrayList<DumbEnemy>();
-    private TiledMap map;
+    private Area area;
     private Player player;
     
     public SlickGame() {
@@ -36,55 +35,22 @@ public class SlickGame extends BasicGame {
     }
 
     public void init(GameContainer container) throws SlickException {
-        map = new TiledMap((int)(WORLD_SIZE_X/64),(int)(WORLD_SIZE_Y/64));
-        options = new Options();
-        
-        player = new Player();
-        player.init(container, options);
-        
-        DumbEnemy dumbEnemy = new DumbEnemy();
-        dumbEnemy.init(container);
-        dumbEnemies.add(dumbEnemy);
-        
-        for (DumbEnemy e : dumbEnemies) {
-            e.init(container);
-        }
-        
-        EnemyBlob enemy = new EnemyBlob("blobredsir", player);
-        enemy.init(container);
-        enemies.add(enemy);
-        
-        for (EnemyBlob e : enemies) {
-            e.init(container);
-        }
+        setupArea();
+        setupOptions();
+        initPlayer(container);
     }
 
     public void update(GameContainer container, int delta) throws SlickException {
-        for (DumbEnemy e : dumbEnemies) {
-            e.update(container, delta);
-        }
-        for (EnemyBlob e : enemies) {
-            e.update(container, delta);
-        }
-        player.update(container,delta);
-        camX = (int)MathHelper.median(0,WORLD_SIZE_X-VIEW_SIZE_X,player.getX()-VIEW_SIZE_X/2);
-        camY = (int)MathHelper.median(0,WORLD_SIZE_Y-VIEW_SIZE_Y,player.getY()-VIEW_SIZE_Y/2);
+        updateEnemies(container,delta);
+        updatePlayer(container,delta);
+        updateViewPort();
     }
-
+    
     public void render(GameContainer container, Graphics g) throws SlickException {
-        g.translate(-(float)camX,-(float)camY);
+        translateView(g);
         renderMap();
-        for (DumbEnemy e : dumbEnemies) {
-            if (e.getX()>camX-64 && e.getY()>camY-64
-                    && e.getX()<camX+VIEW_SIZE_X && e.getY()<camY+VIEW_SIZE_Y)
-                e.render(container, g);
-        }
-        for (EnemyBlob e : enemies) {
-            if (e.getX()>camX-64 && e.getY()>camY-64
-                && e.getX()<camX+VIEW_SIZE_X && e.getY()<camY+VIEW_SIZE_Y)
-            e.render(container, g);
-        }
-        player.render(container,g);
+        renderEnemies(container,g);
+        renderPlayer(container,g);
     }
     
     private static void setupAGC(AppGameContainer app) throws SlickException {
@@ -95,12 +61,64 @@ public class SlickGame extends BasicGame {
         app.setVerbose(DEBUG_MODE);
         app.start();
     }
-
+    
+    private void setupArea() {
+        area = new Area(new TiledMap((int)(WORLD_SIZE_X/64),(int)(WORLD_SIZE_Y/64)));
+    }
+    
+    private void setupOptions() {
+        options = new Options();
+    }
+    
+    private void initPlayer(GameContainer container) throws SlickException {
+        player = new Player();
+        player.init(container, options);
+    }
+    
+    private void initEnemies(GameContainer container) throws SlickException {
+        EnemyBlob enemy = new EnemyBlob("blobredsir", player);
+        enemies.add(enemy);
+        for (EnemyBlob e : enemies) {
+            e.init(container);
+        }
+    }
+    
+    private void updateEnemies(GameContainer container, int delta) {
+        for (EnemyBlob e : enemies) {
+            e.update(container, delta);
+        }        
+    }
+        
+    private void updatePlayer(GameContainer container, int delta) {
+        player.update(container,delta);     
+    }
+    
+    private void updateViewPort() {
+        camX = (int)MathHelper.median(0,WORLD_SIZE_X-VIEW_SIZE_X,player.getX()-VIEW_SIZE_X/2);
+        camY = (int)MathHelper.median(0,WORLD_SIZE_Y-VIEW_SIZE_Y,player.getY()-VIEW_SIZE_Y/2);
+    }
+    
+    private void translateView(Graphics g) {
+        g.translate(-(float)camX,-(float)camY);
+    }
+    
     private void renderMap() {
         for(int x=camX/64;x<Math.min(WORLD_SIZE_X/64,(camX+VIEW_SIZE_X)/64+1);x++) {
             for(int y=camY/64;y<Math.min(WORLD_SIZE_Y/64,(camY+VIEW_SIZE_Y)/64+1);y++) {
-                 map.tile(x,y).image().draw(x*64,y*64,64,64);
+                 area.getTile(x,y).image().draw(x*64,y*64,64,64);
             }
         }
+    }
+    
+    private void renderEnemies(GameContainer container, Graphics g) throws SlickException {
+        for (EnemyBlob e : enemies) {
+            if (e.getX()>camX-64 && e.getY()>camY-64
+                && e.getX()<camX+VIEW_SIZE_X && e.getY()<camY+VIEW_SIZE_Y)
+            e.render(container, g);
+        }
+    }
+    
+    private void renderPlayer(GameContainer container, Graphics g) throws SlickException {
+        player.render(container,g);
     }
 }

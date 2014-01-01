@@ -17,7 +17,7 @@ public class TiledMap {
         }
     }
     
-    public Tile tile(int x, int y) {
+    public Tile getTile(int x, int y) {
         return map[x][y];
     }
 }
