@@ -89,7 +89,7 @@ public class Player implements Collidable, Attackable {
     
     public void update(GameContainer container, int delta) {
         movePlayer(container.getInput(), delta);
-        resolveCollision();
+        collision = resolveCollision();
         resolveAttack(container.getInput(), delta, container.getHeight());
     }
     
@@ -219,12 +219,12 @@ public class Player implements Collidable, Attackable {
         }
     }
     
-    private void resolveCollision() {
+    private boolean resolveCollision() {
         for (Enemy e : enemies) {
             if(getCollisionMask().intersects(e.getCollisionMask(),x,y,e.getX(),e.getY()))
-                collision = true;
+                return true;
         }
-        collision = false;
+        return false;
     }
     
     public void resolveAttack(Input input, int delta, int height) {

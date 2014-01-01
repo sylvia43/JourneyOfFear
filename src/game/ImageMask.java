@@ -42,7 +42,6 @@ public class ImageMask {
     
     public boolean intersects(ImageMask other, int tx, int ty, int ox, int oy) {
         boolean[][] otherMask = other.getMask();
-
         if ((tx+mask.length*4<ox) //May have mixed up mask and mask[0].
                 || ty+mask[0].length*4<oy
                 || ox+otherMask.length*4<tx
@@ -53,12 +52,11 @@ public class ImageMask {
         for (int i=0;i<mask.length;i++)
             for (int j=0;j<mask[i].length;j++)
                 for (int k=0;k<otherMask.length;k++)
-                    for (int l=0;l<otherMask[k].length;l++) {
-                        if ((tx+i*4)>(ox+k*4-8) && (tx+i*4)<(ox+k*4+8)
-                                && (ty+j*4)>(oy+l*4-8) && (ty+j*4)<(oy+l*4+8)
+                    for (int l=0;l<otherMask[k].length;l++)
+                        if ((tx+i*4)>=(ox+k*4-2) && (tx+i*4)<=(ox+k*4+2)
+                                && (ty+j*4)>=(oy+l*4-2) && (ty+j*4)<=(oy+l*4+2)
                                 && mask[i][j] && otherMask[k][l])
                             return true;
-                    }
         return false;
     }
 
