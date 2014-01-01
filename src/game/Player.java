@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -18,6 +19,8 @@ public class Player implements Collidable, Attackable {
     private int x = 640;
     private int y = 512;
     private final double speed = 0.5;
+    
+    private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     
     private Options keybind;
     
@@ -95,6 +98,10 @@ public class Player implements Collidable, Attackable {
         if (attacking) {
             sword.draw(x-64,y-64,192,192);
         }
+    }
+    
+    public void setEnemies(ArrayList<Enemy> enemies) {
+        this.enemies = enemies;
     }
     
     private void initializeSprite() throws SlickException {

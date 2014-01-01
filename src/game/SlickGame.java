@@ -17,7 +17,7 @@ public class SlickGame extends BasicGame {
     public static final int WORLD_SIZE_Y = 2560;
     private int camX;
     private int camY;
-    private ArrayList<EnemyBlob> enemies = new ArrayList<EnemyBlob>();
+    private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private Area area;
     private Player player;
     
@@ -73,24 +73,26 @@ public class SlickGame extends BasicGame {
     
     private void initPlayer(GameContainer container) throws SlickException {
         player = new Player();
+        player.setEnemies(enemies);
         player.init(container, options);
     }
     
     private void initEnemies(GameContainer container) throws SlickException {
         EnemyBlob enemy = new EnemyBlob("blobredsir", player);
         enemies.add(enemy);
-        for (EnemyBlob e : enemies) {
+        for (Enemy e : enemies) {
             e.init(container);
         }
     }
     
     private void updateEnemies(GameContainer container, int delta) {
-        for (EnemyBlob e : enemies) {
+        for (Enemy e : enemies) {
             e.update(container, delta);
         }        
     }
         
     private void updatePlayer(GameContainer container, int delta) {
+        player.setEnemies(enemies);
         player.update(container,delta);     
     }
     
@@ -112,7 +114,7 @@ public class SlickGame extends BasicGame {
     }
     
     private void renderEnemies(GameContainer container, Graphics g) throws SlickException {
-        for (EnemyBlob e : enemies) {
+        for (Enemy e : enemies) {
             if (e.getX()>camX-64 && e.getY()>camY-64
                 && e.getX()<camX+VIEW_SIZE_X && e.getY()<camY+VIEW_SIZE_Y)
             e.render(container, g);
