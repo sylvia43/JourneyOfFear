@@ -48,7 +48,8 @@ public class Enemy implements Collidable {
     public void render(GameContainer container, Graphics g) throws SlickException {
         sprite.getAnim(spritePointer).draw(x,y,64,64);
         renderAttack();
-        renderDebugInfo(g);
+        if (SlickGame.DEBUG_MODE)
+            renderDebugInfo(g);
     }
     
     protected void renderDebugInfo(Graphics g) {

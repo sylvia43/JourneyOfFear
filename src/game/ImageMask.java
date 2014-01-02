@@ -10,11 +10,15 @@ public class ImageMask {
         mask = simplify(getMaskFromImage(image));
     }
     
+    public ImageMask(Rectangle rectangle) {
+        mask = simplify(getMaskFromRectangle(rectangle));
+    }
+    
     public boolean[][] getMask() { return mask; }
     
     public boolean intersects(ImageMask other, int tx, int ty, int ox, int oy) {
         boolean[][] otherMask = other.getMask();
-        if ((tx+mask.length*4<ox) //May have mixed up mask and mask[0].
+        if ((tx+mask.length*4<ox)
                 || ty+mask[0].length*4<oy
                 || ox+otherMask.length*4<tx
                 || oy+otherMask[0].length*4<ty)
@@ -35,7 +39,8 @@ public class ImageMask {
     public boolean intersects(Rectangle other, int ix, int iy) {
         if (other == null)
             return false;
-        
+        return this.intersects(new ImageMask(other), ix, iy, other.getX1(), other.getY1());
+        /*
         if (!(ix<=other.getX2() && ix+mask.length>=other.getX1()
                 && iy<=other.getY2() && iy+mask[0].length>=other.getY1()))
             return false;
@@ -49,6 +54,7 @@ public class ImageMask {
                         && (iy+j*4+4)>=(other.getY1()))
                     return true;
         return false;
+        */
     }
     
     public String toString(boolean[][] array) {
@@ -72,6 +78,17 @@ public class ImageMask {
         for (int i=0;i<imageMask.length;i++) {
             for (int j=0;j<imageMask[i].length;j++) {
                 imageMask[i][j] = image.getColor(i,j).getAlpha() == 255;
+            }
+        }
+        return imageMask;
+    }
+    
+    private boolean[][] getMaskFromRectangle(Rectangle rectangle) {
+        boolean[][] imageMask = new boolean[rectangle.getWidth()/4][rectangle.getHeight()/4];
+        
+        for (int i=0;i<imageMask.length;i++) {
+            for (int j=0;j<imageMask[i].length;j++) {
+                imageMask[i][j] = true;
             }
         }
         return imageMask;

@@ -9,7 +9,7 @@ public class EnemyBlob extends Enemy implements Attackable {
 
     protected Animation attack;
     
-    protected final int SWORD_DURATION = 48;
+    protected final int ATTACK_SPEED = 10;
     protected final int SWORD_DELAY = 400;
     
     protected int direction;
@@ -37,7 +37,8 @@ public class EnemyBlob extends Enemy implements Attackable {
     }
 
     protected void initializeAttack() throws SlickException {
-        attack = ResourceLoader.initializeAnimation("resources/player/attacks/sword_slash.png",20,48);
+        attack = ResourceLoader.initializeAnimation(
+                "resources/player/attacks/sword_slash.png",ATTACK_SPEED*2,48);
         attack.stop();
     }
         
@@ -49,17 +50,14 @@ public class EnemyBlob extends Enemy implements Attackable {
         if (attackTimer<500)
             attackTimer+=delta;
         attackDelay-=delta;
-        if (attackTimer > SWORD_DURATION*4.5) {
+        if (attackTimer > ATTACK_SPEED*6+160) {
             attacking = false;
         }
         resolveAttackCollision();
     }
     
     protected void resolveAttackCollision() {
-        if (player.getCollisionMask().intersects(getAttackMask(),player.getX(),player.getY()))
-            attackHit = true;
-        else
-            attackHit = false;
+        attackHit = player.getCollisionMask().intersects(getAttackMask(),player.getX(),player.getY());
     }
     
     protected void attack(int direction) {
@@ -93,34 +91,10 @@ public class EnemyBlob extends Enemy implements Attackable {
         g.drawString(collision?"Colliding":"Not Colliding",10+x+64,66+y+64);
         g.drawString(attackHit?"Hitting!":"Not Hitting",10+x+64,80+y+64);
         if (attacking) {
-        int dx=0,dy=0;
-        switch(attack.getFrame()) {
-            case 0:
-                dx=1;  dy=0;
-                break;
-            case 1:
-                dx=1;  dy=-1;
-                break;
-            case 2:
-                dx=0;  dy=-1;
-                break;
-            case 3:
-                dx=-1; dy=-1;
-                break;
-            case 4:
-                dx=-1; dy=0;
-                break;
-            case 5:
-                dx=-1; dy=1;
-                break;
-            case 6:
-                dx=0;  dy=1;
-                break;
-            case 7:
-                dx=1;  dy=1;
-                break;
+            g.setColor(attackHit?Color.red:Color.white);
+            Rectangle r = getAttackMask();
+            g.drawRect(r.getX1(),r.getY1(),r.getWidth(),r.getHeight());
         }
-        g.drawRect(x+64*dx,y+64*dy,64,64);}
     }
 
     public Rectangle getAttackMask() {

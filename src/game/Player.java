@@ -27,7 +27,7 @@ public class Player implements Collidable, Attackable {
     
     private Options keybind;
     
-    private final int SWORD_DURATION = 48;
+    private final int ATTACK_SPEED = 10;
     private final int SWORD_DELAY = 400;
     
     private int direction;
@@ -105,6 +105,13 @@ public class Player implements Collidable, Attackable {
         if (attacking) {
             sword.draw(x-64,y-64,192,192);
         }
+        boolean[][] mask = getCollisionMask().getMask();
+        for (int i=0;i<mask.length;i++) {
+            for (int j=0;j<mask[i].length;j++) {
+                if (mask[i][j])
+                    g.drawRect(x+4*i,y+4*j,4,4);
+            }
+        }
     }
     
     public void setEnemies(ArrayList<Enemy> enemies) {
@@ -130,7 +137,11 @@ public class Player implements Collidable, Attackable {
                 initializeMask(2),
                 initializeMask(3)
         );
-        sword = ResourceLoader.initializeAnimation("resources/player/attacks/sword_slash.png",20,48);
+        initializeSword();
+    }
+    
+    private void initializeSword() throws SlickException {
+        sword = ResourceLoader.initializeAnimation("resources/player/attacks/sword_slash.png",ATTACK_SPEED*2,48);
         sword.stop();
     }
     
@@ -244,7 +255,7 @@ public class Player implements Collidable, Attackable {
         if (attackTimer<500)
             attackTimer+=delta;
         attackDelay-=delta;
-        if (attackTimer > SWORD_DURATION*4.5) {
+        if (attackTimer > ATTACK_SPEED*18) {
             attacking = false;
         }
     }
