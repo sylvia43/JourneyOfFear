@@ -42,7 +42,8 @@ public class Player implements Collidable, Attackable {
     public int getY() { return y; }
     
     public ImageMask getCollisionMask() {
-        return sprite.getAnimationMask(spritePointer).getImageMask(sprite.getAnim(spritePointer).getFrame());
+        return sprite.getAnimationMask(spritePointer)
+                .getImageMask(sprite.getAnim(spritePointer).getFrame());
     }
 
     public Rectangle getAttackMask() {
@@ -74,7 +75,7 @@ public class Player implements Collidable, Attackable {
                 dx = 1;  dy = -1;
                 break;
         }
-        return new Rectangle(x+16*dx,y+16*dy,x+16*dx+16,y+16*dy+16);
+        return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
     }
     
     public void setX(int x) { this.x = x; }
@@ -269,11 +270,11 @@ public class Player implements Collidable, Attackable {
     }
 
     private void renderDebugInfo(Graphics g) {
-            g.setColor(Color.white);
-            g.drawString("x: " + String.valueOf(x),10+camX,38+camY);
-            g.drawString("y: " + String.valueOf(y),10+camX,52+camY);
-            g.drawString(attacking?"Attacking":"Not attacking",10+camX,66+camY);
-            g.drawString(String.valueOf(attackTimer),10+camX,80+camY);
-            g.drawString(collision?"Colliding":"Not Colliding",10+camX,94+camY);
+        g.setColor(Color.white);
+        g.drawString("x: " + String.valueOf(x),10+camX,38+camY);
+        g.drawString("y: " + String.valueOf(y),10+camX,52+camY);
+        g.drawString(attacking?"Attacking":"Not attacking",10+camX,66+camY);
+        g.drawString(String.valueOf(attackTimer),10+camX,80+camY);
+        g.drawString(collision?"Colliding":"Not Colliding",10+camX,94+camY);
     }
 }

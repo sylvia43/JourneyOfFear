@@ -35,8 +35,8 @@ public class SlickGame extends BasicGame {
     public void init(GameContainer container) throws SlickException {
         setupArea();
         setupOptions();
-        initEnemies(container);
         initPlayer(container);
+        initEnemies(container);
     }
 
     public void update(GameContainer container, int delta) throws SlickException {

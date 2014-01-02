@@ -23,7 +23,8 @@ public class Enemy implements Collidable {
     public int getX() { return x; }
     public int getY() { return y; }
     public ImageMask getCollisionMask() {
-        return sprite.getAnimationMask(spritePointer).getImageMask(sprite.getAnim(spritePointer).getFrame());
+        return sprite.getAnimationMask(spritePointer)
+                .getImageMask(sprite.getAnim(spritePointer).getFrame());
     }
     
     public Enemy(String spritepath, Player player) {
@@ -49,11 +50,13 @@ public class Enemy implements Collidable {
         renderAttack();
         renderDebugInfo(g);
     }
-    private void renderDebugInfo(Graphics g) {
+    
+    protected void renderDebugInfo(Graphics g) {
             g.setColor(Color.white);
             g.drawString("x: " + String.valueOf(x),10+x+64,38+y+64);
             g.drawString("y: " + String.valueOf(y),10+x+64,52+y+64);
     }
+    
     //Empty methods. These methods should be overriden
     protected void initializeVariables() { }
     protected void initializeAttack() throws SlickException { }
@@ -78,6 +81,7 @@ public class Enemy implements Collidable {
                 initializeMask(3)
         );
     }
+    
     protected AnimationMask initializeMask(int index) {
         ImageMask[] masks = new ImageMask[4];
         for (int i=0;i<4;i++) {

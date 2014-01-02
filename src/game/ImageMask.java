@@ -32,8 +32,23 @@ public class ImageMask {
         return false;
     }
 
-    public boolean intersects(Rectangle other) {
-        return true;
+    public boolean intersects(Rectangle other, int ix, int iy) {
+        if (other == null)
+            return false;
+        
+        if (!(ix<=other.getX2() && ix+mask.length>=other.getX1()
+                && iy<=other.getY2() && iy+mask[0].length>=other.getY1()))
+            return false;
+
+        for (int i=0;i<mask.length;i++)
+            for (int j=0;j<mask[i].length;j++)
+                if (mask[i][j]
+                        && (ix+i*4)<=(other.getX2())
+                        && (ix+i*4+4)>=(other.getX1())
+                        && (iy+j*4)<=(other.getY2())
+                        && (iy+j*4+4)>=(other.getY1()))
+                    return true;
+        return false;
     }
     
     public String toString(boolean[][] array) {
