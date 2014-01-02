@@ -77,6 +77,9 @@ public class Player implements Collidable, Attackable {
         return new Rectangle(x+16*dx,y+16*dy,x+16*dx+16,y+16*dy+16);
     }
     
+    public void setX(int x) { this.x = x; }
+    public void setY(int y) { this.y = y; }
+    
     public Player() { }
     
     public void init(GameContainer container, Options options) throws SlickException {

@@ -40,6 +40,7 @@ public class SlickGame extends BasicGame {
     }
 
     public void update(GameContainer container, int delta) throws SlickException {
+        updateArea();
         updateEnemies(container,delta);
         updatePlayer(container,delta);
         updateViewPort();
@@ -69,12 +70,6 @@ public class SlickGame extends BasicGame {
         options = new Options();
     }
     
-    private void initPlayer(GameContainer container) throws SlickException {
-        player = new Player();
-        player.setEnemies(currentArea.getEnemies());
-        player.init(container, options);
-    }
-    
     private void initEnemies(GameContainer container) throws SlickException {
         currentArea.addEnemy(new EnemyBlob("blobredsir", player));
         for (Enemy e : currentArea.getEnemies()) {
@@ -82,15 +77,40 @@ public class SlickGame extends BasicGame {
         }
     }
     
+    private void initPlayer(GameContainer container) throws SlickException {
+        player = new Player();
+        player.setEnemies(currentArea.getEnemies());
+        player.init(container, options);
+    }
+    
+    private void updateArea() {
+        if (player.getX()<-16) {
+            currentArea = currentArea.getLeft();
+            player.setX(currentArea.getWidth()-48);
+        }
+        if (player.getY()<-16) {
+            currentArea = currentArea.getUp();
+            player.setY(currentArea.getHeight()-48);
+        }
+        if (player.getX()>currentArea.getWidth()-48) {
+            currentArea = currentArea.getRight();
+            player.setX(-16);
+        }
+        if (player.getY()>currentArea.getHeight()-48) {
+            currentArea = currentArea.getDown();
+            player.setY(-16);
+        }
+    }
+    
     private void updateEnemies(GameContainer container, int delta) {
         for (Enemy e : currentArea.getEnemies()) {
             e.update(container, delta);
-        }        
+        }
     }
         
     private void updatePlayer(GameContainer container, int delta) {
         player.setEnemies(currentArea.getEnemies());
-        player.update(container,delta);     
+        player.update(container,delta);
     }
     
     private void updateViewPort() {
