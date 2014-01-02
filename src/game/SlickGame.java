@@ -1,6 +1,5 @@
 package game;
 
-import java.util.ArrayList;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -17,8 +16,7 @@ public class SlickGame extends BasicGame {
     public static final int WORLD_SIZE_Y = 2560;
     private int camX;
     private int camY;
-    private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    private Area area;
+    private Area currentArea;
     private Player player;
     
     public SlickGame() {
@@ -64,7 +62,7 @@ public class SlickGame extends BasicGame {
     }
     
     private void setupArea() {
-        area = new Area(WORLD_SIZE_X,WORLD_SIZE_Y);
+        currentArea = new Area(WORLD_SIZE_X,WORLD_SIZE_Y);
     }
     
     private void setupOptions() {
@@ -73,26 +71,25 @@ public class SlickGame extends BasicGame {
     
     private void initPlayer(GameContainer container) throws SlickException {
         player = new Player();
-        player.setEnemies(enemies);
+        player.setEnemies(currentArea.getEnemies());
         player.init(container, options);
     }
     
     private void initEnemies(GameContainer container) throws SlickException {
-        EnemyBlob enemy = new EnemyBlob("blobredsir", player);
-        enemies.add(enemy);
-        for (Enemy e : enemies) {
+        currentArea.addEnemy(new EnemyBlob("blobredsir", player));
+        for (Enemy e : currentArea.getEnemies()) {
             e.init(container);
         }
     }
     
     private void updateEnemies(GameContainer container, int delta) {
-        for (Enemy e : enemies) {
+        for (Enemy e : currentArea.getEnemies()) {
             e.update(container, delta);
         }        
     }
         
     private void updatePlayer(GameContainer container, int delta) {
-        player.setEnemies(enemies);
+        player.setEnemies(currentArea.getEnemies());
         player.update(container,delta);     
     }
     
@@ -109,13 +106,13 @@ public class SlickGame extends BasicGame {
     private void renderMap() {
         for(int x=camX/64;x<Math.min(WORLD_SIZE_X/64,(camX+VIEW_SIZE_X)/64+1);x++) {
             for(int y=camY/64;y<Math.min(WORLD_SIZE_Y/64,(camY+VIEW_SIZE_Y)/64+1);y++) {
-                 area.getTile(x,y).image().draw(x*64,y*64,64,64);
+                 currentArea.getTile(x,y).image().draw(x*64,y*64,64,64);
             }
         }
     }
     
     private void renderEnemies(GameContainer container, Graphics g) throws SlickException {
-        for (Enemy e : enemies) {
+        for (Enemy e : currentArea.getEnemies()) {
             if (e.getX()>camX-64 && e.getY()>camY-64
                 && e.getX()<camX+VIEW_SIZE_X && e.getY()<camY+VIEW_SIZE_Y)
             e.render(container, g);

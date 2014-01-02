@@ -3,7 +3,7 @@ SlickGame To Do
 
 [ ] Dungeon tiles.                                                         |
 [ ] Combos and special attacks.                                            |
-[ ] Camera and scrolling.                                                  |
+[x] Camera and scrolling.                                                  |
 [ ] More graphics (grass, dirt, stone, roads, trees, shrubberies).         |
 [ ] Screens that are randomly generated.                                   |
 [ ] Advanced enemies with full animations and attacks. Think of enemies.   |
