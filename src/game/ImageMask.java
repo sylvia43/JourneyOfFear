@@ -49,14 +49,19 @@ public class ImageMask {
             return false;
         
         //THIS ISN'T WORKING
-        for (int i=0;i<mask.length;i++)
-            for (int j=0;j<mask[i].length;j++)
-                for (int k=0;k<otherMask.length;k++)
-                    for (int l=0;l<otherMask[k].length;l++)
-                        if ((tx+i*4)>=(ox+k*4-2) && (tx+i*4)<=(ox+k*4+2)
-                                && (ty+j*4)>=(oy+l*4-2) && (ty+j*4)<=(oy+l*4+2)
-                                && mask[i][j] && otherMask[k][l])
+        for (int i=0;i<mask.length;i++) {
+            for (int j=0;j<mask[i].length;j++) {
+                for (int k=0;k<otherMask.length;k++) {
+                    for (int l=0;l<otherMask[k].length;l++) {
+                        if ((tx+i*4)<=(ox+k*4+4) && (tx+i*4+4)>=(ox+k*4)
+                                && (ty+j*4)<=(oy+l*4+4) && (ty+j*4+4)>=(oy+l*4+2)
+                                && mask[i][j] && otherMask[k][l]) {
                             return true;
+                        }
+                    }
+                }
+            }
+        }
         return false;
     }
 
