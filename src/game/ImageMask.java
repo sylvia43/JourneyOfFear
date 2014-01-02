@@ -6,41 +6,8 @@ public class ImageMask {
     
     private boolean[][] mask;
     
-    public ImageMask(Image image) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-        
-        boolean[][] startMask = new boolean[width][height];
-        
-        for (int i=0;i<width;i++) {
-            for (int j=0;j<height;j++) {
-                startMask[i][j] = image.getColor(i,j).getAlpha() == 255;
-            }
-        }
-        
-        boolean[][] simplifiedMask = new boolean[width][height];
-        
-        for (int i=0;i<width;i++) {
-            for(int j=0;j<height;j++) {
-                simplifiedMask[i][j] = startMask[i][j];
-            }
-        }
-                
-        for (int i=1;i<width-1;i++) {
-            for (int j=1;j<height-1;j++) {
-                simplifiedMask[i][j] = startMask[i][j]
-                        && !((startMask[i+1][j])
-                        && (startMask[i+1][j-1])
-                        && (startMask[i+1][j+1])
-                        && (startMask[i][j+1])
-                        && (startMask[i-1][j+1])
-                        && (startMask[i-1][j])
-                        && (startMask[i-1][j-1])
-                        && (startMask[i][j-1]));
-            }
-        }
-        mask = simplifiedMask;
-        System.out.println(this);
+    public ImageMask(Image image) {                
+        mask = simplify(getMaskFromImage(image));
     }
     
     public boolean[][] getMask() { return mask; }
@@ -82,5 +49,44 @@ public class ImageMask {
     
     public String toString() {
         return toString(this.mask);
+    }
+    
+    private boolean[][] getMaskFromImage(Image image) {
+        boolean[][] imageMask = new boolean[image.getWidth()][image.getHeight()];
+        
+        for (int i=0;i<imageMask.length;i++) {
+            for (int j=0;j<imageMask[i].length;j++) {
+                imageMask[i][j] = image.getColor(i,j).getAlpha() == 255;
+            }
+        }
+        return imageMask;
+    }
+    
+    private boolean[][] simplify(boolean[][] startMask) {
+        int width = startMask.length;
+        int height = startMask[0].length;
+        
+        boolean[][] simplifiedMask = new boolean[width][height];
+        
+        for (int i=0;i<width;i++) {
+            for(int j=0;j<height;j++) {
+                simplifiedMask[i][j] = startMask[i][j];
+            }
+        }
+                
+        for (int i=1;i<width-1;i++) {
+            for (int j=1;j<height-1;j++) {
+                simplifiedMask[i][j] = startMask[i][j]
+                        && !((startMask[i+1][j])
+                        && (startMask[i+1][j-1])
+                        && (startMask[i+1][j+1])
+                        && (startMask[i][j+1])
+                        && (startMask[i-1][j+1])
+                        && (startMask[i-1][j])
+                        && (startMask[i-1][j-1])
+                        && (startMask[i][j-1]));
+            }
+        }
+        return simplifiedMask;
     }
 }
