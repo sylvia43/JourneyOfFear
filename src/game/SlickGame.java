@@ -64,7 +64,7 @@ public class SlickGame extends BasicGame {
     }
     
     private void setupArea() {
-        area = new Area(new TiledMap((int)(WORLD_SIZE_X/64),(int)(WORLD_SIZE_Y/64)));
+        area = new Area(WORLD_SIZE_X,WORLD_SIZE_Y);
     }
     
     private void setupOptions() {
