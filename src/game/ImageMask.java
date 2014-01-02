@@ -48,19 +48,15 @@ public class ImageMask {
                 || oy+otherMask[0].length*4<ty)
             return false;
         
-        for (int i=0;i<mask.length;i++) {
-            for (int j=0;j<mask[i].length;j++) {
-                for (int k=0;k<otherMask.length;k++) {
-                    for (int l=0;l<otherMask[k].length;l++) {
-                        if ((tx+i*4)<=(ox+k*4+4) && (tx+i*4+4)>=(ox+k*4)
-                                && (ty+j*4)<=(oy+l*4+4) && (ty+j*4+4)>=(oy+l*4+2)
-                                && mask[i][j] && otherMask[k][l]) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
+        for (int i=0;i<mask.length;i++)
+            for (int j=0;j<mask[i].length;j++)
+                if (mask[i][j])
+                    for (int k=0;k<otherMask.length;k++)
+                        for (int l=0;l<otherMask[k].length;l++)
+                            if (otherMask[k][l]
+                                    && (tx+i*4)<=(ox+k*4+4) && (tx+i*4+4)>=(ox+k*4)
+                                    && (ty+j*4)<=(oy+l*4+4) && (ty+j*4+4)>=(oy+l*4))
+                                return true;
         return false;
     }
 
