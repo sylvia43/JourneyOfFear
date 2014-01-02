@@ -12,8 +12,8 @@ public class Area {
     private Area up;
     private Area down;
     
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
     
     public Tile getTile(int x, int y) { return map.getTile(x,y); }
     public ArrayList<Enemy> getEnemies() { return enemies; }
