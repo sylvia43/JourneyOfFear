@@ -14,7 +14,7 @@ public class ImageMask {
         
         for (int i=0;i<width;i++) {
             for (int j=0;j<height;j++) {
-                startMask[i][j] = image.getColor(j,i).getAlpha() == 255;
+                startMask[i][j] = image.getColor(i,j).getAlpha() == 255;
             }
         }
         
@@ -48,7 +48,6 @@ public class ImageMask {
                 || oy+otherMask[0].length*4<ty)
             return false;
         
-        //THIS ISN'T WORKING
         for (int i=0;i<mask.length;i++) {
             for (int j=0;j<mask[i].length;j++) {
                 for (int k=0;k<otherMask.length;k++) {
