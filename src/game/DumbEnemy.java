@@ -5,7 +5,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class DumbEnemy implements Collidable, Attackable {
+public class DumbEnemy {
     
     private int x;
     private int y;

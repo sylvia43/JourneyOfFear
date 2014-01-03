@@ -8,7 +8,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-public class Player implements Collidable, Attackable {
+public class Player {
     
     private EntitySprite sprite;
 

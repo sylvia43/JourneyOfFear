@@ -5,7 +5,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class Enemy implements Collidable {
+public class Enemy {
     
     protected EntitySprite sprite;
     protected String spritepath;

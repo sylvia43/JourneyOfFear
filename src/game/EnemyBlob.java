@@ -5,7 +5,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class EnemyBlob extends Enemy implements Attackable {
+public class EnemyBlob extends Enemy {
 
     protected Animation attack;
     
