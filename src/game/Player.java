@@ -253,9 +253,9 @@ public class Player {
         if (!invulnerable) {
             invulnerable = true; //Deal damage here somewhere.
             invulnerabilityTimer = 0;
+            x-=200;
+            y-=200;
         }
-        x-=200;
-        y-=200;
     }
     
     private void resolveInvulnerability(int delta) {
