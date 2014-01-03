@@ -109,11 +109,9 @@ public class ImageMask {
         boolean[][] simplifiedMask = new boolean[width][height];
         
         for (int i=0;i<width;i++) {
-            for(int j=0;j<height;j++) {
-                simplifiedMask[i][j] = startMask[i][j];
-            }
+            System.arraycopy(startMask[i], 0, simplifiedMask[i], 0, height);
         }
-                
+        
         for (int i=1;i<width-1;i++) {
             for (int j=1;j<height-1;j++) {
                 simplifiedMask[i][j] = startMask[i][j]
