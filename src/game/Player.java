@@ -41,6 +41,7 @@ public class Player {
     private boolean invulnerable = false;
     private int invulnerabilityTimer = 0;
     private final int DAMAGE_BLINK_TIME = 200;
+    private final int KNOCKBACK_DISTANCE = 100;
     private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*5;
     
     public int getX() { return x; }
@@ -258,7 +259,8 @@ public class Player {
     }
     
     private void resolveKnockback(int dx, int dy) {
-        //Resolve knockback here
+        x+=KNOCKBACK_DISTANCE*Math.cos(Math.atan2(dy,dx));
+        y+=KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx));
     }
     
     private void resolveInvulnerability(int delta) {
