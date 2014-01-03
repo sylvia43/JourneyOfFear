@@ -46,7 +46,7 @@ public class Player {
     private final int DAMAGE_BLINK_TIME = 200;
     private final int KNOCKBACK_DISTANCE = 200;
     private final int STUN_DURATION = 400;
-    private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*4;
+    private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*3;
     
     public int getX() { return x; }
     public int getY() { return y; }

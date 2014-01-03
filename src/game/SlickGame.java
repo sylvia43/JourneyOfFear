@@ -12,8 +12,8 @@ public class SlickGame extends BasicGame {
     public static final boolean DEBUG_COLLISION = true;
     public static final int VIEW_SIZE_X = 640;
     public static final int VIEW_SIZE_Y = 512;
-    public static final int WORLD_SIZE_X = 2560;
-    public static final int WORLD_SIZE_Y = 2048;
+    public static final int WORLD_SIZE_X = VIEW_SIZE_X*4;
+    public static final int WORLD_SIZE_Y = VIEW_SIZE_Y*4;
     private int camX;
     private int camY;
     private Area currentArea;
