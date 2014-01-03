@@ -22,6 +22,7 @@ public class Player implements Collidable, Attackable {
     
     private int camX;
     private int camY;
+    private int delta;
     
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     
@@ -33,9 +34,14 @@ public class Player implements Collidable, Attackable {
     private boolean attacking;
     private int attackTimer;
     private int attackDelay;
+
     private boolean attackHit;
-    
-    private boolean collision;
+    private boolean isHit;
+    private boolean damageBlink;
+    private boolean invulnerable = false;
+    private int invulnerabilityTimer = 0;
+    private final int DAMAGE_BLINK_TIME = 200;
+    private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*5;
     
     public int getX() { return x; }
     public int getY() { return y; }
@@ -46,6 +52,8 @@ public class Player implements Collidable, Attackable {
     }
 
     public Rectangle getAttackMask() {
+        if (!attacking)
+            return null;
         int dx = 0;
         int dy = 0;
         switch(sword.getFrame()) {
@@ -90,19 +98,22 @@ public class Player implements Collidable, Attackable {
     }
     
     public void update(GameContainer container, int delta) {
+        this.delta = delta;
+        resolveInvulnerability(delta); //and knockback
         movePlayer(container.getInput(), delta);
-        collision = resolveCollision();
+        resolveCollision();
         resolveAttack(container.getInput(), delta, container.getHeight());
     }
     
     public void render(GameContainer container, Graphics g) throws SlickException {
         Animation currentSprite = sprite.getAnim(spritePointer);
-        currentSprite.draw(x,y,64,64);
+        currentSprite.draw(x,y,64,64,damageBlink?Color.red:Color.white);
         if (attacking) {
             sword.draw(x-64,y-64,192,192);
         }
         if (SlickGame.DEBUG_MODE)
             renderDebugInfo(g);
+        isHit = false;
     }
     
     public void setEnemies(ArrayList<Enemy> enemies) {
@@ -225,12 +236,11 @@ public class Player implements Collidable, Attackable {
         }
     }
     
-    private boolean resolveCollision() {
+    private void resolveCollision() {
         for (Enemy e : enemies) {
             if(getCollisionMask().intersects(e.getCollisionMask(),x,y,e.getX(),e.getY()))
-                return true;
+                resolveHit();
         }
-        return false;
     }
     
     public void resolveAttack(Input input, int delta, int height) {
@@ -246,16 +256,41 @@ public class Player implements Collidable, Attackable {
         if (attackTimer<500)
             attackTimer+=delta;
         attackDelay-=delta;
-        if (attackTimer > ATTACK_SPEED*18) {
+        if (attackTimer > ATTACK_SPEED*6+160) {
             attacking = false;
         }
         resolveAttackCollision();
     }
     
-    protected void resolveAttackCollision() {
-        for (Enemy e : enemies)
-            if(attackHit = e.getCollisionMask().intersects(getAttackMask(),e.getX(),e.getY()))
+    private void resolveAttackCollision() {
+        attackHit = false;
+        for (Enemy e : enemies) {
+            if(e.getCollisionMask().intersects(getAttackMask(),e.getX(),e.getY())) {
                 e.resolveHit();
+                attackHit = true;
+            }
+        }
+    }
+    
+    public void resolveHit() {
+        isHit = true;
+        if (!invulnerable) {
+            invulnerable = true; //Deal damage here somewhere.
+            invulnerabilityTimer = 0;
+        }
+        x-=200;
+        y-=200;
+    }
+    
+    private void resolveInvulnerability(int delta) {
+        invulnerabilityTimer += delta;
+        if (invulnerabilityTimer>INVULNERABILITY_DURATION && (invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0) {
+            invulnerable = false;
+            invulnerabilityTimer = 0;
+        }
+        if (invulnerable) {
+            damageBlink = (invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0;
+        }
     }
     
     public void getKeyboardDirection(Input input) {
@@ -280,11 +315,13 @@ public class Player implements Collidable, Attackable {
 
     private void renderDebugInfo(Graphics g) {
         g.setColor(Color.white);
+        g.drawString("delat: " + String.valueOf(delta),10+camX,24+camY);
         g.drawString("x: " + String.valueOf(x),10+camX,38+camY);
         g.drawString("y: " + String.valueOf(y),10+camX,52+camY);
         g.drawString(attacking?"Attacking":"Not attacking",10+camX,66+camY);
         g.drawString(String.valueOf(attackTimer),10+camX,80+camY);
-        g.drawString(collision?"Colliding":"Not Colliding",10+camX,94+camY);
+        g.drawString(isHit?"Hit":"Not Hit",10+camX,94+camY);
+        g.drawString(attackHit?"Hitting!":"Not Hitting",10+camX,108+camY);
         if (SlickGame.DEBUG_COLLISION) {
             getCollisionMask().draw(x,y,g);
             if (attacking) {

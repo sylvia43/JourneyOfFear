@@ -91,6 +91,13 @@ public class EnemyBlob extends Enemy implements Attackable {
     
     protected void resolveAttackCollision() {
         attackHit = player.getCollisionMask().intersects(getAttackMask(),player.getX(),player.getY());
+        if (attackHit)
+            player.resolveHit();
+    }
+    
+    protected void resolveHit() {
+        //Action to take on getting hit.
+        sprite.getAnim(1).draw(x, y, Color.white);
     }
     
     protected void attack(int direction) {
