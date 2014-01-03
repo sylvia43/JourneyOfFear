@@ -41,10 +41,12 @@ public class Player {
     private boolean invulnerable = false;
     private int invulnerabilityTimer = 0;
     private int stunTimer;
+    private int knockbackDX;
+    private int knockbackDY;
     private final int DAMAGE_BLINK_TIME = 200;
     private final int KNOCKBACK_DISTANCE = 200;
     private final int STUN_DURATION = 400;
-    private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*5;
+    private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*4;
     
     public int getX() { return x; }
     public int getY() { return y; }
@@ -138,6 +140,8 @@ public class Player {
         if (stunTimer>0) {
             sprite.getAnim(spritePointer).setCurrentFrame(1);
             sprite.getAnim(spritePointer).stop();
+            x+=(int)((knockbackDX*stunTimer)/(KNOCKBACK_DISTANCE*20));
+            y+=(int)((knockbackDY*stunTimer)/(KNOCKBACK_DISTANCE*20));
             return;
         }
         boolean DnHl = input.isKeyDown(Options.M_DOWN);
@@ -261,14 +265,16 @@ public class Player {
         if (!invulnerable) {
             invulnerable = true; //Deal damage here somewhere.
             invulnerabilityTimer = 0;
-            resolveKnockback(x-ox,y-oy);
+            initializeKnockback(x-ox,y-oy);
         }
     }
     
-    private void resolveKnockback(int dx, int dy) {
-        x+=KNOCKBACK_DISTANCE*Math.cos(Math.atan2(dy,dx));
-        y+=KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx));
-        stunTimer = STUN_DURATION;
+    private void initializeKnockback(int dx, int dy) {
+        if (stunTimer<=0) {
+            knockbackDX=(int)(KNOCKBACK_DISTANCE*Math.cos(Math.atan2(dy,dx)));
+            knockbackDY=(int)(KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx)));
+            stunTimer = STUN_DURATION;
+        }
     }
     
     private void resolveInvulnerability(int delta) {
