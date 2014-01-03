@@ -69,7 +69,7 @@ public class EnemyBlob extends Enemy {
     protected void resolveAttackCollision() {
         attackHit = player.getCollisionMask().intersects(getAttackMask(),player.getX(),player.getY());
         if (attackHit)
-            player.resolveHit();
+            player.resolveHit(x,y);
     }
     
     protected void resolveHit() {

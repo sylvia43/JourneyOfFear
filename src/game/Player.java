@@ -55,8 +55,8 @@ public class Player {
         if (!attacking)
             return null;
         
-        int dx = (int) Math.round(Math.sin((sword.getFrame()+2)*0.25*Math.PI));
-        int dy = (int) Math.round(Math.cos((sword.getFrame()+2)*0.25*Math.PI));
+        int dx = (int) Math.round(Math.sin(Math.toRadians((sword.getFrame()+2)*45)));
+        int dy = (int) Math.round(Math.cos(Math.toRadians((sword.getFrame()+2)*45)));
         
         return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
     }
@@ -131,7 +131,7 @@ public class Player {
         return new AnimationMask(masks);
     }
     
-    public void movePlayer(Input input, int delta) {
+    private void movePlayer(Input input, int delta) {
         boolean DnHl = input.isKeyDown(Options.M_DOWN);
         boolean DnPr = input.isKeyPressed(Options.M_DOWN);
         boolean UpHl = input.isKeyDown(Options.M_UP);
@@ -215,17 +215,17 @@ public class Player {
     private void resolveCollision() {
         for (Enemy e : enemies) {
             if(getCollisionMask().intersects(e.getCollisionMask(),x,y,e.getX(),e.getY()))
-                resolveHit();
+                resolveHit(e.getX(),e.getY());
         }
     }
     
-    public void resolveAttack(Input input, int delta, int height) {
+    private void resolveAttack(Input input, int delta, int height) {
         if ((input.isKeyDown(Options.A_UP)
                 || input.isKeyDown(Options.A_DOWN)
                 || input.isKeyDown(Options.A_LEFT)
                 || input.isKeyDown(Options.A_RIGHT))
                 && !attacking && attackDelay < 1) {
-            getKeyboardDirection(input);
+            getAttackDirection(input);
             direction = (direction+6)%8;
             attack(direction);
         }
@@ -248,14 +248,17 @@ public class Player {
         }
     }
     
-    public void resolveHit() {
+    public void resolveHit(int ox, int oy) {
         isHit = true;
         if (!invulnerable) {
             invulnerable = true; //Deal damage here somewhere.
             invulnerabilityTimer = 0;
-            x-=200;
-            y-=200;
+            resolveKnockback(x-ox,y-oy);
         }
+    }
+    
+    private void resolveKnockback(int dx, int dy) {
+        //Resolve knockback here
     }
     
     private void resolveInvulnerability(int delta) {
@@ -269,7 +272,7 @@ public class Player {
         }
     }
     
-    public void getKeyboardDirection(Input input) {
+    private void getAttackDirection(Input input) {
         if (input.isKeyDown(Options.A_RIGHT))
             direction = 0;
         else if (input.isKeyDown(Options.A_UP))
@@ -280,7 +283,7 @@ public class Player {
             direction = 6;
     }
     
-    public void attack(int direction) {
+    private void attack(int direction) {
         attacking = true;
         attackTimer = 0;
         attackDelay = sword.getDuration(0)*2 + SWORD_DELAY;
