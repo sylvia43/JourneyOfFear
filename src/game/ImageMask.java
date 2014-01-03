@@ -1,5 +1,6 @@
 package game;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 public class ImageMask {
@@ -66,6 +67,13 @@ public class ImageMask {
             s+="\n";
         }
         return s;
+    }
+    
+    public void draw(int x, int y, Graphics g) {
+        for (int i=0;i<mask.length;i++)
+            for (int j=0;j<mask[i].length;j++)
+                if (mask[i][j])
+                    g.drawRect(x+4*i,y+4*j,4,4);
     }
     
     public String toString() {

@@ -54,25 +54,25 @@ public class Player implements Collidable, Attackable {
                 dx = 1;  dy = 0;
                 break;
             case 1:
-                dx = 1;  dy = 1;
+                dx = 1;  dy = -1;
                 break;
             case 2:
-                dx = 0;  dy = 1;
+                dx = 0;  dy = -1;
                 break;
             case 3:
-                dx = -1; dy = 1;
+                dx = -1; dy = -1;
                 break;
             case 4:
                 dx = -1; dy = 0;
                 break;
             case 5:
-                dx = -1; dy = -1;
+                dx = -1; dy = 1;
                 break;
             case 6:
-                dx = 0;  dy = -1;
+                dx = 0;  dy = 1;
                 break;
             case 7:
-                dx = 1;  dy = -1;
+                dx = 1;  dy = 1;
                 break;
         }
         return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
@@ -99,19 +99,12 @@ public class Player implements Collidable, Attackable {
     
     public void render(GameContainer container, Graphics g) throws SlickException {
         Animation currentSprite = sprite.getAnim(spritePointer);
-        if (SlickGame.DEBUG_MODE)
-            renderDebugInfo(g);
         currentSprite.draw(x,y,64,64);
         if (attacking) {
             sword.draw(x-64,y-64,192,192);
         }
-        boolean[][] mask = getCollisionMask().getMask();
-        for (int i=0;i<mask.length;i++) {
-            for (int j=0;j<mask[i].length;j++) {
-                if (mask[i][j])
-                    g.drawRect(x+4*i,y+4*j,4,4);
-            }
-        }
+        if (SlickGame.DEBUG_MODE)
+            renderDebugInfo(g);
     }
     
     public void setEnemies(ArrayList<Enemy> enemies) {
@@ -287,5 +280,13 @@ public class Player implements Collidable, Attackable {
         g.drawString(attacking?"Attacking":"Not attacking",10+camX,66+camY);
         g.drawString(String.valueOf(attackTimer),10+camX,80+camY);
         g.drawString(collision?"Colliding":"Not Colliding",10+camX,94+camY);
+        if (SlickGame.DEBUG_COLLISION) {
+            getCollisionMask().draw(x,y,g);
+            if (attacking) {
+                g.setColor(Color.red);
+                Rectangle r = getAttackMask();
+                g.drawRect(r.getX1(),r.getY1(),r.getWidth(),r.getHeight());
+            }
+        }
     }
 }

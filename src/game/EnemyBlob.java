@@ -20,6 +20,39 @@ public class EnemyBlob extends Enemy implements Attackable {
     
     protected boolean attackHit = false;
     protected boolean collision = false;
+    
+    public Rectangle getAttackMask() {
+        if (!attacking)
+            return null;
+        int dx=0,dy=0;
+        switch(attack.getFrame()) {
+            case 0:
+                dx=1;  dy=0;
+                break;
+            case 1:
+                dx=1;  dy=-1;
+                break;
+            case 2:
+                dx=0;  dy=-1;
+                break;
+            case 3:
+                dx=-1; dy=-1;
+                break;
+            case 4:
+                dx=-1; dy=0;
+                break;
+            case 5:
+                dx=-1; dy=1;
+                break;
+            case 6:
+                dx=0;  dy=1;
+                break;
+            case 7:
+                dx=1;  dy=1;
+                break;
+        }
+        return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
+    }
 
     public EnemyBlob(String spritepath, Player player) {
         super(spritepath,player);
@@ -90,43 +123,13 @@ public class EnemyBlob extends Enemy implements Attackable {
         g.drawString("y: " + String.valueOf(y),10+x+64,52+y+64);
         g.drawString(collision?"Colliding":"Not Colliding",10+x+64,66+y+64);
         g.drawString(attackHit?"Hitting!":"Not Hitting",10+x+64,80+y+64);
-        if (attacking) {
-            g.setColor(attackHit?Color.red:Color.white);
-            Rectangle r = getAttackMask();
-            g.drawRect(r.getX1(),r.getY1(),r.getWidth(),r.getHeight());
+        if (SlickGame.DEBUG_COLLISION) {
+            getCollisionMask().draw(x,y,g);
+            if (attacking) {
+                g.setColor(Color.red);
+                Rectangle r = getAttackMask();
+                g.drawRect(r.getX1(),r.getY1(),r.getWidth(),r.getHeight());
+            }
         }
-    }
-
-    public Rectangle getAttackMask() {
-        if (!attacking)
-            return null;
-        int dx=0,dy=0;
-        switch(attack.getFrame()) {
-            case 0:
-                dx=1;  dy=0;
-                break;
-            case 1:
-                dx=1;  dy=-1;
-                break;
-            case 2:
-                dx=0;  dy=-1;
-                break;
-            case 3:
-                dx=-1; dy=-1;
-                break;
-            case 4:
-                dx=-1; dy=0;
-                break;
-            case 5:
-                dx=-1; dy=1;
-                break;
-            case 6:
-                dx=0;  dy=1;
-                break;
-            case 7:
-                dx=1;  dy=1;
-                break;
-        }
-        return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
     }
 }

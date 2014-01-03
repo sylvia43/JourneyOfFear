@@ -10,6 +10,7 @@ public class SlickGame extends BasicGame {
     
     private Options options;
     public static final boolean DEBUG_MODE = true;
+    public static final boolean DEBUG_COLLISION = true;
     public static final int VIEW_SIZE_X = 640;
     public static final int VIEW_SIZE_Y = 512;
     public static final int WORLD_SIZE_X = 2560;
