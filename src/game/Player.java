@@ -25,8 +25,6 @@ public class Player implements Collidable, Attackable {
     
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     
-    private Options keybind;
-    
     private final int ATTACK_SPEED = 10;
     private final int SWORD_DELAY = 400;
     
@@ -84,10 +82,9 @@ public class Player implements Collidable, Attackable {
     
     public Player() { }
     
-    public void init(GameContainer container, Options options) throws SlickException {
+    public void init(GameContainer container) throws SlickException {
         initializeSprite();
         spritePointer = 3;
-        keybind = options;
         attacking = false;
         attackDelay = 0;
     }
@@ -148,14 +145,14 @@ public class Player implements Collidable, Attackable {
     }
     
     public void movePlayer(Input input, int delta) {
-        boolean DnHl = input.isKeyDown(keybind.M_DOWN);
-        boolean DnPr = input.isKeyPressed(keybind.M_DOWN);
-        boolean UpHl = input.isKeyDown(keybind.M_UP);
-        boolean UpPr = input.isKeyPressed(keybind.M_UP);
-        boolean LfHl = input.isKeyDown(keybind.M_LEFT);
-        boolean LfPr = input.isKeyPressed(keybind.M_LEFT);
-        boolean RiHl = input.isKeyDown(keybind.M_RIGHT);
-        boolean RiPr = input.isKeyPressed(keybind.M_RIGHT);
+        boolean DnHl = input.isKeyDown(Options.M_DOWN);
+        boolean DnPr = input.isKeyPressed(Options.M_DOWN);
+        boolean UpHl = input.isKeyDown(Options.M_UP);
+        boolean UpPr = input.isKeyPressed(Options.M_UP);
+        boolean LfHl = input.isKeyDown(Options.M_LEFT);
+        boolean LfPr = input.isKeyPressed(Options.M_LEFT);
+        boolean RiHl = input.isKeyDown(Options.M_RIGHT);
+        boolean RiPr = input.isKeyPressed(Options.M_RIGHT);
         
         if ((DnHl || DnHl) && (UpHl || UpHl)) {
             UpHl = false;
@@ -237,10 +234,10 @@ public class Player implements Collidable, Attackable {
     }
     
     public void resolveAttack(Input input, int delta, int height) {
-        if ((input.isKeyDown(keybind.A_UP)
-                || input.isKeyDown(keybind.A_DOWN)
-                || input.isKeyDown(keybind.A_LEFT)
-                || input.isKeyDown(keybind.A_RIGHT))
+        if ((input.isKeyDown(Options.A_UP)
+                || input.isKeyDown(Options.A_DOWN)
+                || input.isKeyDown(Options.A_LEFT)
+                || input.isKeyDown(Options.A_RIGHT))
                 && !attacking && attackDelay < 1) {
             getKeyboardDirection(input);
             direction = (direction+6)%8;
@@ -262,13 +259,13 @@ public class Player implements Collidable, Attackable {
     }
     
     public void getKeyboardDirection(Input input) {
-        if (input.isKeyDown(keybind.A_RIGHT))
+        if (input.isKeyDown(Options.A_RIGHT))
             direction = 0;
-        else if (input.isKeyDown(keybind.A_UP))
+        else if (input.isKeyDown(Options.A_UP))
             direction = 2;
-        else if (input.isKeyDown(keybind.A_LEFT))
+        else if (input.isKeyDown(Options.A_LEFT))
             direction = 4;
-        else if (input.isKeyDown(keybind.A_DOWN))
+        else if (input.isKeyDown(Options.A_DOWN))
             direction = 6;
     }
     

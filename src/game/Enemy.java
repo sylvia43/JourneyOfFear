@@ -91,7 +91,5 @@ public class Enemy implements Collidable {
         return new AnimationMask(masks);
     }
     
-    protected void resolveHit() {
-        System.out.println("Hit");
-    }
+    protected void resolveHit() { }
 }

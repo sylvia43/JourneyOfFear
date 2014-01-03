@@ -8,7 +8,6 @@ import org.newdawn.slick.SlickException;
 
 public class SlickGame extends BasicGame {
     
-    private Options options;
     public static final boolean DEBUG_MODE = true;
     public static final boolean DEBUG_COLLISION = true;
     public static final int VIEW_SIZE_X = 640;
@@ -35,7 +34,6 @@ public class SlickGame extends BasicGame {
 
     public void init(GameContainer container) throws SlickException {
         setupArea();
-        setupOptions();
         initPlayer(container);
         initEnemies(container);
     }
@@ -67,10 +65,6 @@ public class SlickGame extends BasicGame {
         currentArea = new Area(WORLD_SIZE_X,WORLD_SIZE_Y);
     }
     
-    private void setupOptions() {
-        options = new Options();
-    }
-    
     private void initEnemies(GameContainer container) throws SlickException {
         currentArea.addEnemy(new EnemyBlob("blobredsir", player));
         for (Enemy e : currentArea.getEnemies()) {
@@ -81,7 +75,7 @@ public class SlickGame extends BasicGame {
     private void initPlayer(GameContainer container) throws SlickException {
         player = new Player();
         player.setEnemies(currentArea.getEnemies());
-        player.init(container, options);
+        player.init(container);
     }
     
     private void updateArea() {

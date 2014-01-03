@@ -4,17 +4,17 @@ import org.newdawn.slick.Input;
 
 public class Options {
     
-    public int M_UP;
-    public int M_DOWN;
-    public int M_LEFT;
-    public int M_RIGHT;
+    public static int M_UP;
+    public static int M_DOWN;
+    public static int M_LEFT;
+    public static int M_RIGHT;
     
-    public int A_UP;
-    public int A_DOWN;
-    public int A_LEFT;
-    public int A_RIGHT;
+    public static int A_UP;
+    public static int A_DOWN;
+    public static int A_LEFT;
+    public static int A_RIGHT;
     
-    public Options() {
+    static {
         M_UP = Input.KEY_W;
         M_DOWN = Input.KEY_S;
         M_LEFT = Input.KEY_A;
