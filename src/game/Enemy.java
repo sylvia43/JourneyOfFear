@@ -39,7 +39,8 @@ public class Enemy {
         initializeAttack();
     }
     
-    public void update(GameContainer container, int delta){
+    public void update(GameContainer container, int delta) {
+        resolveInvulnerability(delta);
         move(delta);
         resolveCollision();
         resolveAttack(delta);
@@ -65,6 +66,8 @@ public class Enemy {
     protected void resolveCollision() { }
     protected void resolveAttack(int delta) { }
     protected void renderAttack() { }
+    protected void resolveInvulnerability(int delta) { }
+    protected void resolveHit(int x, int y) { }
     
     //Other methods. These can be overriden if necessary.
     protected void initializeSprite() throws SlickException {
@@ -90,6 +93,4 @@ public class Enemy {
         }
         return new AnimationMask(masks);
     }
-    
-    protected void resolveHit() { }
 }

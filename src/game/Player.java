@@ -46,6 +46,8 @@ public class Player {
     private final int DAMAGE_BLINK_TIME = 200;
     private final int KNOCKBACK_DISTANCE = 200;
     private final int STUN_DURATION = 400;
+    //How slippery knockback is. Less means more slide.
+    private final int KNOCKBACK_MULTIPLIER = 30;
     private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*3;
     
     public int getX() { return x; }
@@ -83,7 +85,7 @@ public class Player {
         resolveInvulnerability(delta); //and knockback
         movePlayer(container.getInput(), delta);
         resolveCollision();
-        resolveAttack(container.getInput(), delta, container.getHeight());
+        resolveAttack(container.getInput(), delta);
     }
     
     public void render(GameContainer container, Graphics g) throws SlickException {
@@ -140,8 +142,8 @@ public class Player {
         if (stunTimer>0) {
             sprite.getAnim(spritePointer).setCurrentFrame(1);
             sprite.getAnim(spritePointer).stop();
-            x+=(int)((knockbackDX*stunTimer)/(KNOCKBACK_DISTANCE*20));
-            y+=(int)((knockbackDY*stunTimer)/(KNOCKBACK_DISTANCE*20));
+            x+=(int)((knockbackDX*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER));
+            y+=(int)((knockbackDY*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER));
             return;
         }
         boolean DnHl = input.isKeyDown(Options.M_DOWN);
@@ -231,7 +233,7 @@ public class Player {
         }
     }
     
-    private void resolveAttack(Input input, int delta, int height) {
+    private void resolveAttack(Input input, int delta) {
         if ((input.isKeyDown(Options.A_UP)
                 || input.isKeyDown(Options.A_DOWN)
                 || input.isKeyDown(Options.A_LEFT)
@@ -247,14 +249,14 @@ public class Player {
         if (attackTimer > ATTACK_SPEED*6+160) {
             attacking = false;
         }
-        resolveAttackCollision();
+        resolveAttackHit();
     }
     
-    private void resolveAttackCollision() {
+    private void resolveAttackHit() {
         attackHit = false;
         for (Enemy e : enemies) {
             if(e.getCollisionMask().intersects(getAttackMask(),e.getX(),e.getY())) {
-                e.resolveHit();
+                e.resolveHit(x,y);
                 attackHit = true;
             }
         }

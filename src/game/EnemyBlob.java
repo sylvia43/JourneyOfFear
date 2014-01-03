@@ -10,7 +10,7 @@ public class EnemyBlob extends Enemy {
     protected Animation attack;
     
     protected final int ATTACK_SPEED = 10;
-    protected final int SWORD_DELAY = 400;
+    protected final int SWORD_DELAY = 800;
     
     protected int direction;
     
@@ -18,8 +18,20 @@ public class EnemyBlob extends Enemy {
     protected int attackTimer;
     protected int attackDelay;
     
-    protected boolean attackHit = false;
-    protected boolean collision = false;
+    protected boolean attackHit;
+    protected boolean isHit;
+    protected boolean damageBlink;
+    protected boolean invulnerable = false;
+    protected int invulnerabilityTimer = 0;
+    protected int stunTimer;
+    protected int knockbackDX;
+    protected int knockbackDY;
+    protected final int DAMAGE_BLINK_TIME = 200;
+    protected final int KNOCKBACK_DISTANCE = 200;
+    //How slippery knockback is. Less means more slide.
+    protected final int KNOCKBACK_MULTIPLIER = 30;
+    protected final int STUN_DURATION = 400;
+    protected final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*3;
     
     public Rectangle getAttackMask() {
         if (!attacking)
@@ -54,7 +66,7 @@ public class EnemyBlob extends Enemy {
         
     protected void resolveAttack(int delta) {
         if (!attacking && attackDelay < 1) {
-            direction = 2;//((int)(Math.random()*4)*2+6)%8;
+            direction = ((int)(Math.random()*4)*2+6)%8;
             attack(direction);
         }
         if (attackTimer<500)
@@ -72,11 +84,6 @@ public class EnemyBlob extends Enemy {
             player.resolveHit(x,y);
     }
     
-    protected void resolveHit() {
-        //Action to take on getting hit.
-        sprite.getAnim(1).draw(x, y, Color.white);
-    }
-    
     protected void attack(int direction) {
         attacking = true;
         attackTimer = 0;
@@ -87,12 +94,48 @@ public class EnemyBlob extends Enemy {
     }
     
     public void move(int delta) {
+        if (stunTimer>0) {
+            sprite.getAnim(spritePointer).setCurrentFrame(1);
+            sprite.getAnim(spritePointer).stop();
+            x+=(int)((knockbackDX*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER));
+            y+=(int)((knockbackDY*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER));
+            return;
+        }
         //Code to randomly choose a direction and move/update animations.
     }
     
     protected void resolveCollision() {
-        collision = getCollisionMask()
+        isHit = getCollisionMask()
                 .intersects(player.getCollisionMask(),x,y,player.getX(),player.getY());
+    }
+    
+    public void resolveHit(int ox, int oy) {
+        isHit = true;
+        if (!invulnerable) {
+            invulnerable = true; //Deal damage here somewhere.
+            invulnerabilityTimer = 0;
+            initializeKnockback(x-ox,y-oy);
+        }
+    }
+    
+    protected void initializeKnockback(int dx, int dy) {
+        if (stunTimer<=0) {
+            knockbackDX=(int)(KNOCKBACK_DISTANCE*Math.cos(Math.atan2(dy,dx)));
+            knockbackDY=(int)(KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx)));
+            stunTimer = STUN_DURATION;
+        }
+    }
+    
+    protected void resolveInvulnerability(int delta) {
+        invulnerabilityTimer += delta;
+        if (stunTimer>0)
+            stunTimer -= delta;
+        if (invulnerabilityTimer>INVULNERABILITY_DURATION && (invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0) {
+            invulnerable = false;
+            invulnerabilityTimer = 0;
+        }
+        if (invulnerable)
+            damageBlink = (invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0;
     }
     
     protected void renderAttack() {
@@ -105,7 +148,7 @@ public class EnemyBlob extends Enemy {
         g.setColor(Color.white);
         g.drawString("x: " + String.valueOf(x),10+x+64,38+y+64);
         g.drawString("y: " + String.valueOf(y),10+x+64,52+y+64);
-        g.drawString(collision?"Colliding":"Not Colliding",10+x+64,66+y+64);
+        g.drawString(isHit?"Hit":"Not Hit",10+x+64,66+y+64);
         g.drawString(attackHit?"Hitting!":"Not Hitting",10+x+64,80+y+64);
         if (SlickGame.DEBUG_COLLISION) {
             getCollisionMask().draw(x,y,g);
