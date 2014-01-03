@@ -24,33 +24,10 @@ public class EnemyBlob extends Enemy implements Attackable {
     public Rectangle getAttackMask() {
         if (!attacking)
             return null;
-        int dx=0,dy=0;
-        switch(attack.getFrame()) {
-            case 0:
-                dx=1;  dy=0;
-                break;
-            case 1:
-                dx=1;  dy=-1;
-                break;
-            case 2:
-                dx=0;  dy=-1;
-                break;
-            case 3:
-                dx=-1; dy=-1;
-                break;
-            case 4:
-                dx=-1; dy=0;
-                break;
-            case 5:
-                dx=-1; dy=1;
-                break;
-            case 6:
-                dx=0;  dy=1;
-                break;
-            case 7:
-                dx=1;  dy=1;
-                break;
-        }
+        
+        int dx = (int) Math.round(Math.sin((attack.getFrame()+2)*0.25*Math.PI));
+        int dy = (int) Math.round(Math.cos((attack.getFrame()+2)*0.25*Math.PI));
+        
         return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
     }
 
