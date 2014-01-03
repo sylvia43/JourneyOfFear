@@ -4,18 +4,20 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public enum Tile {
-    TEST("resources/misc/enemy_blank.png",true),
-    GRASS("resources/tiles/back_grass.png",true);
+    TEST(new String[]{"resources/misc/enemy_blank.png"},true),
+    GRASS(new String[]{"resources/tiles/back_grass.png"},true);
     
-    Image image;
+    Image[] image;
     boolean passable;
     
-    Tile(String filepath, boolean passable) {
+    Tile(String[] filepaths, boolean passable) {
         this.passable = passable;
-        try {
-            image = ResourceLoader.initializeImage(filepath);
-        } catch (SlickException e) { }
+        image = new Image[filepaths.length];
+        for (int i=0;i<filepaths.length;i++)
+            try {
+                image[i] = ResourceLoader.initializeImage(filepaths[i]);
+            } catch (SlickException e) { }
     }
     
-    public Image image() { return image; }
+    public Image image(int index) { return image[index]; }
 }

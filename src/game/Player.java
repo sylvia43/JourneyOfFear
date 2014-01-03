@@ -40,8 +40,10 @@ public class Player {
     private boolean damageBlink;
     private boolean invulnerable = false;
     private int invulnerabilityTimer = 0;
+    private int stunTimer;
     private final int DAMAGE_BLINK_TIME = 200;
-    private final int KNOCKBACK_DISTANCE = 100;
+    private final int KNOCKBACK_DISTANCE = 200;
+    private final int STUN_DURATION = 400;
     private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*5;
     
     public int getX() { return x; }
@@ -133,6 +135,11 @@ public class Player {
     }
     
     private void movePlayer(Input input, int delta) {
+        if (stunTimer>0) {
+            sprite.getAnim(spritePointer).setCurrentFrame(1);
+            sprite.getAnim(spritePointer).stop();
+            return;
+        }
         boolean DnHl = input.isKeyDown(Options.M_DOWN);
         boolean DnPr = input.isKeyPressed(Options.M_DOWN);
         boolean UpHl = input.isKeyDown(Options.M_UP);
@@ -261,17 +268,19 @@ public class Player {
     private void resolveKnockback(int dx, int dy) {
         x+=KNOCKBACK_DISTANCE*Math.cos(Math.atan2(dy,dx));
         y+=KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx));
+        stunTimer = STUN_DURATION;
     }
     
     private void resolveInvulnerability(int delta) {
         invulnerabilityTimer += delta;
+        if (stunTimer>0)
+            stunTimer -= delta;
         if (invulnerabilityTimer>INVULNERABILITY_DURATION && (invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0) {
             invulnerable = false;
             invulnerabilityTimer = 0;
         }
-        if (invulnerable) {
+        if (invulnerable)
             damageBlink = (invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0;
-        }
     }
     
     private void getAttackDirection(Input input) {
