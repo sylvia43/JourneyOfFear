@@ -7,8 +7,14 @@ public class Rectangle {
     public int getY1() { return y1; }
     public int getX2() { return x2; }
     public int getY2() { return y2; }
-    public int getWidth()   { return x2>x1?x2-x1:x1-x2; }
-    public int getHeight()  { return y2>y1?y2-y1:y1-y2; }
+    
+    public int getWidth()   {
+        return x2>x1 ? x2-x1 : x1-x2;
+    }
+    
+    public int getHeight()  {
+        return y2>y1 ? y2-y1 : y1-y2;
+    }
     
     public Rectangle(int x1, int y1, int x2, int y2) {
         this.x1 = x1;
