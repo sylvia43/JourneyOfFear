@@ -35,6 +35,7 @@ public class Player implements Collidable, Attackable {
     private boolean attacking;
     private int attackTimer;
     private int attackDelay;
+    private boolean attackHit;
     
     private boolean collision;
     
@@ -251,6 +252,13 @@ public class Player implements Collidable, Attackable {
         if (attackTimer > ATTACK_SPEED*18) {
             attacking = false;
         }
+        resolveAttackCollision();
+    }
+    
+    protected void resolveAttackCollision() {
+        for (Enemy e : enemies)
+            if(attackHit = e.getCollisionMask().intersects(getAttackMask(),e.getX(),e.getY()))
+                e.resolveHit();
     }
     
     public void getKeyboardDirection(Input input) {
