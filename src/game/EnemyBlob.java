@@ -40,7 +40,7 @@ public class EnemyBlob extends Enemy {
         int dx = (int) Math.round(Math.sin((attack.getFrame()+2)*0.25*Math.PI));
         int dy = (int) Math.round(Math.cos((attack.getFrame()+2)*0.25*Math.PI));
         
-        return new Rectangle(x+64*dx+9000,y+64*dy+9000,x+64*dx+64+9000,y+64*dy+64+9000);
+        return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
     }
 
     public EnemyBlob(String spritepath, Player player) {
@@ -94,12 +94,13 @@ public class EnemyBlob extends Enemy {
     
     public void move(int delta) {
         if (stunTimer>0) {
-            sprite.getAnim(spritePointer).setCurrentFrame(1);
+            sprite.getAnim(spritePointer).setCurrentFrame(0);
             sprite.getAnim(spritePointer).stop();
             x+=(int)((knockbackDX*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER));
             y+=(int)((knockbackDY*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER));
             return;
         }
+        sprite.getAnim(spritePointer).start();
         //Code to randomly choose a direction and move/update animations.
     }
     
