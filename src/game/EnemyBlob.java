@@ -26,12 +26,12 @@ public class EnemyBlob extends Enemy {
     protected int stunTimer;
     protected int knockbackDX;
     protected int knockbackDY;
-    protected final int DAMAGE_BLINK_TIME = 200;
+    protected final int DAMAGE_BLINK_TIME = 50;
     protected final int KNOCKBACK_DISTANCE = 200;
     //How slippery knockback is. Less means more slide.
     protected final int KNOCKBACK_MULTIPLIER = 30;
     protected final int STUN_DURATION = 400;
-    protected final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*3;
+    protected final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME;
     
     public Rectangle getAttackMask() {
         if (!attacking)
@@ -40,7 +40,7 @@ public class EnemyBlob extends Enemy {
         int dx = (int) Math.round(Math.sin((attack.getFrame()+2)*0.25*Math.PI));
         int dy = (int) Math.round(Math.cos((attack.getFrame()+2)*0.25*Math.PI));
         
-        return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
+        return new Rectangle(x+64*dx+9000,y+64*dy+9000,x+64*dx+64+9000,y+64*dy+64+9000);
     }
 
     public EnemyBlob(String spritepath, Player player) {
@@ -59,8 +59,7 @@ public class EnemyBlob extends Enemy {
     }
 
     protected void initializeAttack() throws SlickException {
-        attack = ResourceLoader.initializeAnimation(
-                "resources/player/attacks/sword_slash.png",ATTACK_SPEED*2,48);
+        attack = ResourceLoader.initializeAnimation("player/attacks/sword_slash.png",ATTACK_SPEED*2,48);
         attack.stop();
     }
         

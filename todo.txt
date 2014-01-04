@@ -1,22 +1,65 @@
 SlickGame To Do
 ===============
-
-[.] More weapons (claws, axes, clubs, daggers).                            |
-[.] Damage of some sort.                                                   |
-[.] Hitting and missing.                                                   |
-[.] Player stats.                                                          |
-[.] More varieties of enemies.                                             |
-[.] Dungeon tiles.                                                         |
-[.] Combos and special attacks.                                            |
-[x] Camera and scrolling.                                                  |
-[.] More graphics (grass, dirt, stone, roads, trees, shrubberies).         |
-[.] Screens that are randomly generated.                                   |
-[/] Enemies with full animations and attacks.                              |
-[x] Optimize collision detection (give it it's own class?).                |
-[x] Collision Detection between Entities and Attacks.                      |
-[x] Knockback on collision with enemy or attack.                           |
-
 Key:
-  x - Done
-  / - Partial
-  . - Incomplete
+	x - Done
+	/ - Partial
+	. - Incomplete
+
+Goal: Make a scrollable map, movement, and attack.
+	Code:
+		[x] Install Slick2D.
+		[x] Make a window that can be drawn on.
+		[x] Create a Player.
+		[x] Make the Player move.
+		[x] Make the Player attack.
+		[x] Increase the map size.
+		[x] Make the map scrollable.
+		[ ] Make the map randomly generate.
+		
+	Art:
+		[x] Player in 4 directions, 4 frames each.
+		[x] Grass that's tileable.
+		[x] Sword in 8 frames.
+		
+	Music:
+		[x] Nothing yet.
+		
+Goal: Add combat.
+	Code:
+		[x] Collision with enemy.
+		[x] Collision with enemy attack.
+		[x] Ability to attack enemy.
+		[ ] Smart enemy.
+		[ ] Different types of attacks.
+		[ ] Combo attacks.
+		[ ] Different weapons.
+		[ ] Damage and death.
+		
+	Art:
+		[x] Enemy.
+		[x] Enemy attack.
+		
+	Music:
+		[ ] Hit sound effect.
+		[ ] Get hit sound effect.
+
+Goal: Create cave system dungeon.
+	Code:
+		[ ] Randomly generated maps.
+		[ ] Different blobs and bats (More enemies).
+		[ ] Boss fight.
+	
+	Art:
+		[/] Cave floor and variations.
+		[x] Enemies.
+	
+	Music:
+		[ ] Background music.
+		[ ] Cave sound effects.
+		[ ] Blob sound effects.
+		[ ] Bat sound effects.
+		
+
+
+
+

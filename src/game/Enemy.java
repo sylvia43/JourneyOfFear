@@ -73,10 +73,10 @@ public class Enemy {
     protected void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
         sprite.setAnimations(
-                ResourceLoader.initializeAnimation("resources/" + spritepath + "/right.png",animationSpeed),
-                ResourceLoader.initializeAnimation("resources/" + spritepath + "/up.png",animationSpeed),
-                ResourceLoader.initializeAnimation("resources/" + spritepath + "/left.png",animationSpeed),
-                ResourceLoader.initializeAnimation("resources/" + spritepath + "/down.png",animationSpeed)
+                ResourceLoader.initializeAnimation(spritepath + "/right.png",animationSpeed),
+                ResourceLoader.initializeAnimation(spritepath + "/up.png",animationSpeed),
+                ResourceLoader.initializeAnimation(spritepath + "/left.png",animationSpeed),
+                ResourceLoader.initializeAnimation(spritepath + "/down.png",animationSpeed)
         );
         sprite.setMasks(
                 initializeMask(0),

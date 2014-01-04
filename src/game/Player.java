@@ -111,10 +111,10 @@ public class Player {
     private void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
         sprite.setAnimations(                
-                ResourceLoader.initializeAnimation("resources/player/right.png",166),
-                ResourceLoader.initializeAnimation("resources/player/up.png",166),
-                ResourceLoader.initializeAnimation("resources/player/left.png",166),
-                ResourceLoader.initializeAnimation("resources/player/down.png",166)
+                ResourceLoader.initializeAnimation("player/right.png",166),
+                ResourceLoader.initializeAnimation("player/up.png",166),
+                ResourceLoader.initializeAnimation("player/left.png",166),
+                ResourceLoader.initializeAnimation("player/down.png",166)
         );
         sprite.setMasks(
                 initializeMask(0),
@@ -126,7 +126,7 @@ public class Player {
     }
     
     private void initializeSword() throws SlickException {
-        sword = ResourceLoader.initializeAnimation("resources/player/attacks/sword_slash.png",ATTACK_SPEED*2,48);
+        sword = ResourceLoader.initializeAnimation("player/attacks/sword_slash.png",ATTACK_SPEED*2,48);
         sword.stop();
     }
     

@@ -4,8 +4,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public enum Tile {
-    TEST(new String[]{"resources/misc/enemy_blank.png"},true),
-    GRASS(new String[]{"resources/tiles/back_grass.png"},true);
+    TEST(new String[]{"misc/enemy_blank.png"},true),
+    GRASS(new String[]{"tiles/grass_basic.png"},true);
     
     Image[] image;
     boolean passable;
