@@ -13,6 +13,7 @@ public class EnemyBlob extends Enemy {
     protected final int SWORD_DELAY = 800;
     
     protected int direction;
+    protected int moveDirection=0;
     
     protected boolean attacking;
     protected int attackTimer;
@@ -46,8 +47,8 @@ public class EnemyBlob extends Enemy {
     public EnemyBlob(String spritepath, Player player) {
         super(spritepath,player);
         this.spritepath = spritepath;
-        this.x = 960;
-        this.y = 768;
+        this.x=500;
+        this.y=500;
         this.speed = 0.25;
         this.animationSpeed = 332;
     }
@@ -101,7 +102,23 @@ public class EnemyBlob extends Enemy {
             return;
         }
         sprite.getAnim(spritePointer).start();
-        //Code to randomly choose a direction and move/update animations.
+        //Code to randomly choose a direction and move/update animations if blob is not being knocked back
+        int changeDirection=(int)(Math.random()*10);
+        if (changeDirection==0){
+            moveDirection=(int)(Math.random()*3);
+        }
+        if (moveDirection==0){
+            y+=speed*delta;
+        }
+        if (moveDirection==1){
+            y-=speed*delta;
+        }
+        if (moveDirection==2){
+            x+=speed*delta;
+        }
+        if (moveDirection==3){
+            x-=speed*delta;
+        }
     }
     
     protected void resolveCollision() {
