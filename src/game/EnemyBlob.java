@@ -102,11 +102,10 @@ public class EnemyBlob extends Enemy {
             return;
         }
         sprite.getAnim(spritePointer).start();
-        //Code to randomly choose a direction and move/update animations if blob is not being knocked back
-        int changeDirection=(int)(Math.random()*10);
-        if (changeDirection==0){
-            moveDirection=(int)(Math.random()*3);
+        if (Math.random()*10>1) {
+            return;
         }
+        moveDirection=(int)(Math.random()*3);
         if (moveDirection==0){
             y+=speed*delta;
         }
