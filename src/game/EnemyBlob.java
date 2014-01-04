@@ -13,7 +13,6 @@ public class EnemyBlob extends Enemy {
     protected final int SWORD_DELAY = 800;
     
     protected int direction;
-    protected int moveDirection=0;
     
     protected boolean attacking;
     protected int attackTimer;
@@ -102,21 +101,17 @@ public class EnemyBlob extends Enemy {
             return;
         }
         sprite.getAnim(spritePointer).start();
-        if (Math.random()*10>1) {
-            return;
+        if (Math.random()*100<1) {
+            spritePointer=(int)(Math.random()*4);
         }
-        moveDirection=(int)(Math.random()*3);
-        if (moveDirection==0){
-            y+=speed*delta;
-        }
-        if (moveDirection==1){
-            y-=speed*delta;
-        }
-        if (moveDirection==2){
+        if (spritePointer==0) {
             x+=speed*delta;
-        }
-        if (moveDirection==3){
+        } else if (spritePointer==1) {
+            y-=speed*delta;
+        } else if (spritePointer==2) {
             x-=speed*delta;
+        } else if (spritePointer==3) {
+            y+=speed*delta;
         }
     }
     
