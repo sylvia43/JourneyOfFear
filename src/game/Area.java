@@ -43,9 +43,7 @@ public class Area {
         return left;
     }
 
-    public void setRight(Area area) {
-        right = area;
-    }
+    public void setRight(Area area) { right = area; }
     
     public Area getRight() {
         if (right!=null)

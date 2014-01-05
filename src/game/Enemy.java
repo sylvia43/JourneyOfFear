@@ -22,6 +22,7 @@ public class Enemy {
     //Getters. These methods probably can be left alone.
     public int getX() { return x; }
     public int getY() { return y; }
+    
     public ImageMask getCollisionMask() {
         return sprite.getAnimationMask(spritePointer)
                 .getImageMask(sprite.getAnim(spritePointer).getFrame());
@@ -31,6 +32,9 @@ public class Enemy {
         this.spritepath = spritepath;
         this.player = player;
     }
+    
+    public void setX(int x) { this.x = x; }
+    public void setY(int y) { this.y = y; }
     
     //Game loop methods
     public void init(GameContainer container) throws SlickException {

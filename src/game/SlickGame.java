@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -79,6 +80,31 @@ public class SlickGame extends BasicGame {
     }
     
     private void updateArea() {
+        ArrayList<Enemy> newCurrentAreaEnemyList = new ArrayList<Enemy>(currentArea.getEnemies());
+        for (Enemy e : currentArea.getEnemies()) {
+            if (e.getX()<-16) {
+                newCurrentAreaEnemyList.remove(e);
+                currentArea.getLeft().getEnemies().add(e);
+                e.setX(currentArea.getWidth()-48);
+            }
+            if (e.getY()<-16) {
+                newCurrentAreaEnemyList.remove(e);
+                currentArea.getUp().getEnemies().add(e);
+                e.setY(currentArea.getHeight()-48);
+            }
+            if (e.getX()>currentArea.getWidth()-48) {
+                newCurrentAreaEnemyList.remove(e);
+                currentArea.getRight().getEnemies().add(e);
+                e.setX(-16);
+            }
+            if (e.getY()>currentArea.getHeight()-48) {
+                newCurrentAreaEnemyList.remove(e);
+                currentArea.getDown().getEnemies().add(e);
+                e.setY(-16);
+            }
+        }
+        currentArea.getEnemies().clear();
+        currentArea.getEnemies().addAll(newCurrentAreaEnemyList);
         if (player.getX()<-16) {
             currentArea = currentArea.getLeft();
             player.setX(currentArea.getWidth()-48);
