@@ -8,7 +8,11 @@ public class TiledMap {
     
     public TiledMap(int width, int height) {
         map = new Tile[width][height];
-        fill(Tile.GRASS);
+        fill(Tile.GRASS_BASIC);
+        randomize(Tile.GRASS_SHIFT,0.1);
+        randomize(Tile.GRASS_BOLD,0.05);
+        randomize(Tile.GRASS_FLOWER,0.01);
+
     }
 
     private void fill(Tile tile) {
@@ -19,10 +23,10 @@ public class TiledMap {
         }
     }
     
-    private void randomize(Tile tile) {
+    private void randomize(Tile tile, double chance) {
         for(int i=0;i<map.length;i++) {
             for(int j=0;j<map[i].length;j++) {
-                if (Math.random()>0.5)
+                if (Math.random()<chance)
                     map[i][j] = tile;
             }
         }

@@ -121,7 +121,7 @@ public class SlickGame extends BasicGame {
     private void renderMap() {
         for(int x=camX/64;x<Math.min(WORLD_SIZE_X/64,(camX+VIEW_SIZE_X)/64+1);x++) {
             for(int y=camY/64;y<Math.min(WORLD_SIZE_Y/64,(camY+VIEW_SIZE_Y)/64+1);y++) {
-                 currentArea.getTile(x,y).image(0).draw(x*64,y*64,64,64);
+                 currentArea.getTile(x,y).image().draw(x*64,y*64,64,64);
             }
         }
     }
