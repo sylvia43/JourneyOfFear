@@ -48,7 +48,7 @@ public class EnemyBlob extends Enemy {
             return;
         }
         sprite.getAnim(spritePointer).start();
-        if (Math.random()*100<1) {
+        if (Math.random()*10<1) {
             spritePointer=(int)(Math.random()*4);
         }
         if (spritePointer==0) {
