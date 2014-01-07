@@ -238,7 +238,7 @@ public class Player {
                 || input.isKeyDown(Options.A_DOWN)
                 || input.isKeyDown(Options.A_LEFT)
                 || input.isKeyDown(Options.A_RIGHT))
-                && !attacking && attackDelay < 1) {
+                && !attacking && attackDelay < 1 && !invulnerable) {
             getAttackDirection(input);
             direction = (direction+6)%8;
             attack(direction);
@@ -266,9 +266,14 @@ public class Player {
         isHit = true;
         if (!invulnerable) {
             invulnerable = true; //Deal damage here somewhere.
-            invulnerabilityTimer = 0;
+            invulnerabilityTimer = INVULNERABILITY_DURATION;
             initializeKnockback(x-ox,y-oy);
         }
+    }
+    
+    public void makeInvulnerable(int duration) {
+        invulnerable = true;
+        invulnerabilityTimer = duration;
     }
     
     private void initializeKnockback(int dx, int dy) {
@@ -280,15 +285,14 @@ public class Player {
     }
     
     private void resolveInvulnerability(int delta) {
-        invulnerabilityTimer += delta;
+        invulnerabilityTimer -= delta;
         if (stunTimer>0)
             stunTimer -= delta;
-        if (invulnerabilityTimer>INVULNERABILITY_DURATION && (invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0) {
-            invulnerable = false;
-            invulnerabilityTimer = 0;
+        if (invulnerabilityTimer<1 && (1+invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0) {
+                invulnerable = false;
         }
         if (invulnerable)
-            damageBlink = (invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0;
+            damageBlink = (1+invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0;
     }
     
     private void getAttackDirection(Input input) {
