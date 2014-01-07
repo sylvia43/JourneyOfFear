@@ -31,7 +31,7 @@ public class EnemyBlob extends Enemy {
         this.spritepath = "blobred";
         this.x=500;
         this.y=500;
-        this.speed = 0.25;
+        this.speed = 0.125;
         this.animationSpeed = 332;
     }
     
