@@ -48,7 +48,7 @@ public class EnemySmartBlob extends Enemy {
         this.spritepath = "blobredsir";
         this.x=500;
         this.y=500;
-        this.speed = 0.25;
+        this.speed = 0.125;
         this.animationSpeed = 332;
     }
     
@@ -120,11 +120,9 @@ public class EnemySmartBlob extends Enemy {
                 .intersects(player.getCollisionMask(),x,y,player.getX(),player.getY());
     }
     
-    public void resolveHit(int ox, int oy) {
-        isHit = true;
-        if (!invulnerable) {
-            invulnerable = true; //Deal damage here somewhere.
-            invulnerabilityTimer = 0;
+    public void resolveHit(int ox, int oy, int attackId) {
+        if (attackId != lastAttackId) {
+            isHit = true;
             initializeKnockback(x-ox,y-oy);
         }
     }
@@ -138,15 +136,8 @@ public class EnemySmartBlob extends Enemy {
     }
     
     protected void resolveInvulnerability(int delta) {
-        invulnerabilityTimer += delta;
         if (stunTimer>0)
             stunTimer -= delta;
-        if (invulnerabilityTimer>INVULNERABILITY_DURATION && (invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0) {
-            invulnerable = false;
-            invulnerabilityTimer = 0;
-        }
-        if (invulnerable)
-            damageBlink = (invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0;
     }
     
     protected void renderAttack() {

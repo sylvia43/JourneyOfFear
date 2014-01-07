@@ -27,7 +27,7 @@ public class EnemyBlob extends Enemy {
         this.spritepath = "blobred";
         this.x=500;
         this.y=500;
-        this.speed = 0.125;
+        this.speed = 0.0625;
         this.animationSpeed = 332;
     }
     
@@ -44,7 +44,7 @@ public class EnemyBlob extends Enemy {
             return;
         }
         sprite.getAnim(spritePointer).start();
-        if (Math.random()*10<0.1*moveTimer) {
+        if (Math.random()*20<1) {
             spritePointer=(int)(Math.random()*4);
         }
         if (spritePointer==0) {
@@ -63,9 +63,11 @@ public class EnemyBlob extends Enemy {
                 .intersects(player.getCollisionMask(),x,y,player.getX(),player.getY());
     }
     
-    public void resolveHit(int ox, int oy) {
-        isHit = true;
-        initializeKnockback(x-ox,y-oy);
+    public void resolveHit(int ox, int oy, int attackId) {
+        if (attackId != lastAttackId) {
+            isHit = true;
+            initializeKnockback(x-ox,y-oy);
+        }
     }
     
     protected void initializeKnockback(int dx, int dy) {

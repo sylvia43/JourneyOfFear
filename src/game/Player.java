@@ -35,6 +35,7 @@ public class Player {
     private int attackTimer;
     private int attackDelay;
 
+    private int attackId = 0;
     private boolean attackHit;
     private boolean isHit;
     private boolean damageBlink;
@@ -256,7 +257,7 @@ public class Player {
         attackHit = false;
         for (Enemy e : enemies) {
             if(e.getCollisionMask().intersects(getAttackMask(),e.getX(),e.getY())) {
-                e.resolveHit(x,y);
+                e.resolveHit(x,y,getAttackId());
                 attackHit = true;
             }
         }
@@ -334,5 +335,10 @@ public class Player {
                 g.drawRect(r.getX1(),r.getY1(),r.getWidth(),r.getHeight());
             }
         }
+    }
+
+    private int getAttackId() {
+        attackId = attackId>Integer.MAX_VALUE-1?0:attackId+1;
+        return attackId;
     }
 }

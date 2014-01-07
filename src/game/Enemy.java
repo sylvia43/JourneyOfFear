@@ -10,7 +10,6 @@ public class Enemy {
     protected EntitySprite sprite;
     protected String spritepath;
     protected int spritePointer;
-
     protected int animationSpeed;
     
     protected int x;
@@ -18,6 +17,8 @@ public class Enemy {
     protected double speed;
     protected int moveTimer;
     
+    protected int lastAttackId=-1;
+
     protected Player player;
     
     //Getters. These methods probably can be left alone.
@@ -74,7 +75,7 @@ public class Enemy {
     protected void resolveAttack(int delta) { }
     protected void renderAttack() { }
     protected void resolveInvulnerability(int delta) { }
-    protected void resolveHit(int x,int y) { }
+    protected void resolveHit(int ox, int oy, int attackId) { }
     
     //Other methods. These can be overriden if necessary.
     protected void initializeSprite() throws SlickException {
