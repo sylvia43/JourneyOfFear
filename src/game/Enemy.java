@@ -28,6 +28,8 @@ public class Enemy {
                 .getImageMask(sprite.getAnim(spritePointer).getFrame());
     }
     
+    public Rectangle getAttackMask() { return null; }
+    
     public Enemy(String spritepath, Player player) {
         this.spritepath = spritepath;
         this.player = player;

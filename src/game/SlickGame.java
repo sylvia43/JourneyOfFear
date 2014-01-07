@@ -67,7 +67,8 @@ public class SlickGame extends BasicGame {
     }
     
     private void initEnemies(GameContainer container) throws SlickException {
-        currentArea.addEnemy(new EnemyBlob("blobredsir", player));
+        currentArea.addEnemy(new EnemyBlob(player));
+        currentArea.addEnemy(new EnemySmartBlob(player));
         for (Enemy e : currentArea.getEnemies()) {
             e.init(container);
         }
