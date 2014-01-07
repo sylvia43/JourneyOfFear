@@ -286,13 +286,15 @@ public class Player {
     
     private void resolveInvulnerability(int delta) {
         invulnerabilityTimer -= delta;
+        if (invulnerabilityTimer<1 && (invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0) {
+            invulnerable = false;
+            invulnerabilityTimer = 0;
+        }
         if (stunTimer>0)
             stunTimer -= delta;
-        if (invulnerabilityTimer<1 && (1+invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0) {
-                invulnerable = false;
-        }
+        damageBlink = false;
         if (invulnerable)
-            damageBlink = (1+invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0;
+            damageBlink = (invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0;
     }
     
     private void getAttackDirection(Input input) {

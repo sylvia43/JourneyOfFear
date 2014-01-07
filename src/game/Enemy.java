@@ -16,6 +16,7 @@ public class Enemy {
     protected int x;
     protected int y;
     protected double speed;
+    protected int moveTimer;
     
     protected Player player;
     
@@ -73,7 +74,7 @@ public class Enemy {
     protected void resolveAttack(int delta) { }
     protected void renderAttack() { }
     protected void resolveInvulnerability(int delta) { }
-    protected void resolveHit(int x, int y) { }
+    protected void resolveHit(int x,int y) { }
     
     //Other methods. These can be overriden if necessary.
     protected void initializeSprite() throws SlickException {

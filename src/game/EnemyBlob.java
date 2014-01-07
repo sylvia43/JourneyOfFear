@@ -14,17 +14,13 @@ public class EnemyBlob extends Enemy {
     protected boolean attackHit;
     protected boolean isHit;
     protected boolean damageBlink;
-    protected boolean invulnerable = false;
-    protected int invulnerabilityTimer = 0;
     protected int stunTimer;
     protected int knockbackDX;
     protected int knockbackDY;
-    protected final int DAMAGE_BLINK_TIME = 50;
     protected final int KNOCKBACK_DISTANCE = 200;
     //How slippery knockback is. Less means more slide.
     protected final int KNOCKBACK_MULTIPLIER = 30;
     protected final int STUN_DURATION = 400;
-    protected final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME;
 
     public EnemyBlob(Player player) {
         super("blobred",player);
@@ -48,7 +44,7 @@ public class EnemyBlob extends Enemy {
             return;
         }
         sprite.getAnim(spritePointer).start();
-        if (Math.random()*10<1) {
+        if (Math.random()*10<0.1*moveTimer) {
             spritePointer=(int)(Math.random()*4);
         }
         if (spritePointer==0) {
@@ -69,11 +65,7 @@ public class EnemyBlob extends Enemy {
     
     public void resolveHit(int ox, int oy) {
         isHit = true;
-        if (!invulnerable) {
-            invulnerable = true; //Deal damage here somewhere.
-            invulnerabilityTimer = 0;
-            initializeKnockback(x-ox,y-oy);
-        }
+        initializeKnockback(x-ox,y-oy);
     }
     
     protected void initializeKnockback(int dx, int dy) {
@@ -85,15 +77,8 @@ public class EnemyBlob extends Enemy {
     }
     
     protected void resolveInvulnerability(int delta) {
-        invulnerabilityTimer += delta;
         if (stunTimer>0)
             stunTimer -= delta;
-        if (invulnerabilityTimer>INVULNERABILITY_DURATION && (invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0) {
-            invulnerable = false;
-            invulnerabilityTimer = 0;
-        }
-        if (invulnerable)
-            damageBlink = (invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0;
     }
     
     protected void renderDebugInfo(Graphics g) {
