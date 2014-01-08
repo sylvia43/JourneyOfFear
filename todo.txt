@@ -16,7 +16,7 @@ Goal: Make a scrollable map, movement, and attack.
 		[x] Make the map scrollable.
 		[ ] Make the map randomly generate.
 		[ ] Trees.
-		[ ] Make Areas more OOP
+		[ ] Make Areas more object oriented.
 		
 	Art:
 		[x] Player in 4 directions, 4 frames each.
