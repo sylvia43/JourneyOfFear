@@ -15,11 +15,14 @@ Goal: Make a scrollable map, movement, and attack.
 		[x] Increase the map size.
 		[x] Make the map scrollable.
 		[ ] Make the map randomly generate.
+		[ ] Trees.
+		[ ] Make Areas more OOP
 		
 	Art:
 		[x] Player in 4 directions, 4 frames each.
 		[x] Grass that's tileable.
 		[x] Sword in 8 frames.
+		[ ] Add tile for trees.
 		
 	Music:
 		[x] Nothing yet.
