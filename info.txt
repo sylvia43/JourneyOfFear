@@ -1,10 +1,9 @@
-
 Slick Game Info
-====================================================================================
+===============
 
 Table of Contents:
  
- 0) Current Information
+ 0) Contributers
  
  1) Storyline
    1.1 Character
@@ -22,10 +21,15 @@ Table of Contents:
    
  4) Copyright
  
-====================================================================================
+=====================================
 
-0) Current Info
-   Will update this at Friday's meeting.
+0) Contributers
+
+   Shreyas (anubiann00b)     -   Programming   -   https://github.com/anubiann00b
+   Tarik (QuantamPhi)        -   Programming   -   https://github.com/QuantumPhi
+   Daniel (MrSnrhms)         -   Programming   -   www.ziggywa.com
+   David (ForgottenSprite)   -   Music         -   https://soundcloud.com/forgotten-sprite
+   Joshua (cesiumrabbit)     -   Art           -   No website.
 
 1) Storyline
 
