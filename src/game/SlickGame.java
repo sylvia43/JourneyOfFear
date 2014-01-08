@@ -86,26 +86,27 @@ public class SlickGame extends BasicGame {
             if (e.getX()<-16) {
                 newCurrentAreaEnemyList.remove(e);
                 currentArea.getLeft().getEnemies().add(e);
-                e.setX(currentArea.getWidth()-48);
+                e.setX(currentArea.getWidth()-160);
             }
             if (e.getY()<-16) {
                 newCurrentAreaEnemyList.remove(e);
                 currentArea.getUp().getEnemies().add(e);
-                e.setY(currentArea.getHeight()-48);
+                e.setY(currentArea.getHeight()-160);
             }
             if (e.getX()>currentArea.getWidth()-48) {
                 newCurrentAreaEnemyList.remove(e);
                 currentArea.getRight().getEnemies().add(e);
-                e.setX(-16);
+                e.setX(96);
             }
             if (e.getY()>currentArea.getHeight()-48) {
                 newCurrentAreaEnemyList.remove(e);
                 currentArea.getDown().getEnemies().add(e);
-                e.setY(-16);
+                e.setY(96);
             }
         }
         currentArea.getEnemies().clear();
         currentArea.getEnemies().addAll(newCurrentAreaEnemyList);
+        newCurrentAreaEnemyList = null;
         if (player.getX()<-16) {
             currentArea = currentArea.getLeft();
             player.setX(currentArea.getWidth()-48);
