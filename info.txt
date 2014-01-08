@@ -3,109 +3,69 @@ Slick Game Info
 
 Table of Contents:
  
- 0) Contributers
- 
- 1) Storyline
-   1.1 Character
-   
- 2) Gameplay
-   2.1 Open World
-    2.1.1 Overworld
-	2.1.2 Storyline
-	2.1.3 Dungeons
-   2.2 Experience
+  0) Contributers
+
+  1) Storyline
+    1.1 Character
+
+  2) Gameplay
+    2.1 Open World
+      2.1.1 Overworld
+        2.1.2 Storyline
+        2.1.3 Dungeons
+    2.2 Experience
 	
- 3) Code
-   3.1 Slick2D
-   3.2 Sprites, animations, and masks
+  3) Code
+    3.1 Slick2D
+    3.2 Sprites, animations, and masks
    
- 4) Copyright
+  4) Copyright
  
-=====================================
+========================================================================================================================
 
 0) Contributers
 
-   Shreyas (anubiann00b)     -   Programming   -   https://github.com/anubiann00b
-   Tarik (QuantamPhi)        -   Programming   -   https://github.com/QuantumPhi
-   Daniel (MrSnrhms)         -   Programming   -   www.ziggywa.com
-   David (ForgottenSprite)   -   Music         -   https://soundcloud.com/forgotten-sprite
-   Joshua (cesiumrabbit)     -   Art           -   No website.
+  Shreyas (anubiann00b)    -   Programming  -  https://github.com/anubiann00b
+  Tarik (QuantamPhi)       -   Programming  -  https://github.com/QuantumPhi
+  Daniel (MrSnrhms)        -   Programming  -  www.ziggywa.com
+  David (ForgottenSprite)  -   Music        -  https://soundcloud.com/forgotten-sprite
+  Joshua (cesiumrabbit)    -   Art          -  No website.
 
 1) Storyline
 
-   1.1 Character
-     You play a character. The character is pretty cool. Your character
-	 kills stuff, explores dungeons, and saves the land from evil. Very
-	 original.
+  1.1 Character
+    You play a character. The character is pretty cool. Your character kills stuff, explores dungeons, and saves the land from evil. Very original.
   
 2) Gameplay
 
-   2.1 Open World
-     In the game, you can choose what to do, namely kill monsters, do quests,
-	 or explore dungeons.
+  2.1 Open World
+    In the game, you can choose what to do, namely kill monsters, do quests, or explore dungeons.
 	 
-	2.1.1 Overworld/Killing Monsters
-	  In the overworld, you can explore and kill monsters. Trash mobs are
-	  interspersed with more difficult elite enemies and occasionally boss
-	  enemies. All enemies will have random attributes drawn, which make
-	  them significantly easier or harder.
+	  2.1.1 Overworld/Killing Monsters
+	    In the overworld, you can explore and kill monsters. Trash mobs are interspersed with more difficult elite enemies and occasionally boss enemies. All enemies will have random attributes drawn, which make them significantly easier or harder.
 	  
-	2.1.2 Quests/Storyline
-	  When doing quests, there are specific quest areas on the map. These are
-	  usually unique areas or pre generated dungeons. The monsters will have
-	  different stat pools, and the dungeons will have different puzzle
-	  pieces.
+	  2.1.2 Quests/Storyline
+	    When doing quests, there are specific quest areas on the map. These are usually unique areas or pre generated dungeons. The monsters will have different stat pools, and the dungeons will have different puzzle pieces.
 	  
-	2.1.3 Dungeons
-	  Dungeons are semi-randomly generated, and are tests of strategy and
-	  skill rather that action. They are created with predetermined puzzle
-	  pieces which are stitched together. Dungeons strive to be like the
-	  early Legend of Zelda games, where you can spend hours and miss a 
-	  crucial detail vital to beating the dungeon. However, since they are
-	  partially randomized, you can't always look it up. Dungeons also
-	  include powerful boss monster at crucial points, as well as rooms of
-	  weaker enemies, just to keep you on your toes. These fights are meant
-	  to be strategic, as facing a roomful of enemies is not generally fun,
-	  if it can be avoided. Boss monster are also meant to be strategic as
-	  well as difficult.
+	  2.1.3 Dungeons
+	    Dungeons are semi-randomly generated, and are tests of strategy and skill rather that action. They are created with predetermined puzzle pieces which are stitched together. Dungeons strive to be like the early Legend of Zelda games, where you can spend hours and miss a  crucial detail vital to beating the dungeon. However, since they are partially randomized, you can't always look it up. Dungeons also include powerful boss monster at crucial points, as well as rooms of weaker enemies, just to keep you on your toes. These fights are meant to be strategic, as facing a roomful of enemies is not generally fun, if it can be avoided. Boss monster are also meant to be strategic as well as difficult.
 	  
-   2.2 Levelling and Experience
-     One of the main goals of levelling is to reward time spent in game
-     while preventing the player from outright grinding. Items will
-     probably have their own levels, and OOD (Out of Depth) monsters as
-     well as trash mobs and underlevel enemies will grant no experience.
+  2.2 Levelling and Experience
+    One of the main goals of levelling is to reward time spent in game while preventing the player from outright grinding. Items will probably have their own levels, and OOD (Out of Depth) monsters as well as trash mobs and underlevel enemies will grant no experience.
 	 
 	  
 3) Code
 
-   3.1 Slick2D
-     Slick2D is a (unsupported?) library built on LWJGL for 2D game development.
-	 Most people have moved on to LibGDX but meh. Slick2D is actually really
-	 underestimated, sure I have to write my own collision detection, but it's
-	 still pretty neat.
+  3.1 Slick2D
+    Slick2D is a (unsupported?) library built on LWJGL for 2D game development. Most people have moved on to LibGDX but meh. Slick2D is actually really underestimated, sure I have to write my own collision detection, but it's still pretty neat.
 	 
-   3.2 Sprites, animations, and masks
-     Sprites are the images that represent an object, in this case, the
-	 animations in each of the four directions, plus the masks of that object.
-	 Masks are used for collision detection. For the player and other entities,
-	 they have separate masks for each animation frame. This prevents collisions
-	 when the user sees no collision. However, attacks have rectangular masks.
-	 This is because attack animations are generally less precise than the
-	 ones for movement.
+  3.2 Sprites, animations, and masks
+    Sprites are the images that represent an object, in this case, the animations in each of the four directions, plus the masks of that object. Masks are used for collision detection. For the player and other entities, they have separate masks for each animation frame. This prevents collisions when the user sees no collision. However, attacks have rectangular masks. This is because attack animations are generally less precise than the ones for movement.
 	 
-	 There are currently 4 classes dealing with these, plus the inbuilt Slick
-	 animation class. ImageMask holds a mask for a single image. AnimationMask
-	 holds 4 ImageMasks to cover an entire 4 frame animation. EntitySprite
-	 holds 4 Animations and AnimationMasks to cover animations in all four
-	 directions.
+	   There are currently 4 classes dealing with these, plus the inbuilt Slick animation class. ImageMask holds a mask for a single image. AnimationMask holds 4 ImageMasks to cover an entire 4 frame animation. EntitySprite holds 4 Animations and AnimationMasks to cover animations in all four directions.
 
 4) Copyright
    
-   I haven't registered copyright on anything here, nor do I plan to, but do note
-   that computer software is protected by implicit copyright. However, ideas are
-   not. If somehow someone with some programming skill stumbled across this text
-   file, they could steal all the ideas here. Please don't, or at least tell me
-   first. If you want to help, just fork the repo and send me a pull request.
-   After all, more is merrier, except when it comes to code, but meh.
+  I haven't registered copyright on anything here, nor do I plan to, but do note that computer software is protected by implicit copyright. However, ideas are not. If somehow someone with some programming skill stumbled across this text file, they could steal all the ideas here. Please don't, or at least tell me first. If you want to help, just fork the repo and send me a pull request. After all, more is merrier, except when it comes to code, but meh.
    
-====================================================================================
+========================================================================================================================
