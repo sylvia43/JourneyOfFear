@@ -25,7 +25,7 @@ Goal: Make a scrollable map, movement, and attack.
 		[ ] Add tile for trees.
 		
 	Music:
-		[x] Nothing yet.
+		None.
 		
 Goal: Add combat.
 	Code:
@@ -62,7 +62,15 @@ Goal: Create cave system dungeon.
 		[ ] Blob sound effects.
 		[ ] Bat sound effects.
 		
-
-
+Goal: Add a playlist-style background music player.
+	Code:
+		[ ] Create system for loading music.
+		[ ] Implement playlist.
+		
+	Art:
+		None.
+	
+	Music:
+		[ ] Lots of music.
 
 
