@@ -1,5 +1,6 @@
 package game;
 
+import game.enemy.Enemy;
 import java.util.ArrayList;
 
 public class Area {

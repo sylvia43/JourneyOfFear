@@ -1,4 +1,4 @@
-package game;
+package game.sprite;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;

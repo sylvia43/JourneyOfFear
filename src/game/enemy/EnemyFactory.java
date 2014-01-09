@@ -1,4 +1,4 @@
-package game;
+package game.enemy;
 
 public class EnemyFactory {
     

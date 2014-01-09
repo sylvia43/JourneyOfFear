@@ -1,5 +1,12 @@
-package game;
+package game.enemy;
 
+import game.sprite.AnimationMask;
+import game.sprite.EntitySprite;
+import game.sprite.ImageMask;
+import game.Player;
+import game.sprite.Rectangle;
+import game.util.ResourceLoader;
+import game.SlickGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -75,7 +82,7 @@ public class Enemy {
     protected void resolveAttack(int delta) { }
     protected void renderAttack() { }
     protected void resolveInvulnerability(int delta) { }
-    protected void resolveHit(int ox, int oy, int attackId) { }
+    public void resolveHit(int ox, int oy, int attackId) { }
     
     //Other methods. These can be overriden if necessary.
     protected void initializeSprite() throws SlickException {

@@ -1,5 +1,9 @@
 package game;
 
+import game.util.MathHelper;
+import game.enemy.EnemyBlob;
+import game.enemy.EnemySmartBlob;
+import game.enemy.Enemy;
 import java.util.ArrayList;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;

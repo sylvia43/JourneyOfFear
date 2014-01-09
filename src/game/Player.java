@@ -1,5 +1,12 @@
 package game;
 
+import game.enemy.Enemy;
+import game.sprite.AnimationMask;
+import game.sprite.EntitySprite;
+import game.sprite.ImageMask;
+import game.sprite.Rectangle;
+import game.util.Options;
+import game.util.ResourceLoader;
 import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
