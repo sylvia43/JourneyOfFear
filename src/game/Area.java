@@ -26,6 +26,7 @@ public class Area {
         this.width = width;
         this.height = height;
         this.map = new TiledMap((int)(width/64),(int)(height/64));
+        this.map.fillStandardGrass();
     }
     
     public void addEnemy(Enemy e) {
