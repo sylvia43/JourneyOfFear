@@ -43,8 +43,8 @@ Goal: Add combat.
 		[x] Enemy attack.
 		
 	Music:
-		[ ] Hit sound effect.
-		[ ] Get hit sound effect.
+		[/] Hit sound effect.
+		[/] Get hit sound effect.
 
 Goal: Create cave system dungeon.
 	Code:
@@ -57,7 +57,7 @@ Goal: Create cave system dungeon.
 		[x] Enemies.
 	
 	Music:
-		[ ] Background music.
+		[/] Background music.
 		[ ] Cave sound effects.
 		[ ] Blob sound effects.
 		[ ] Bat sound effects.
@@ -71,6 +71,6 @@ Goal: Add a playlist-style background music player.
 		None.
 	
 	Music:
-		[ ] Lots of music.
+		[/] Lots of music.
 
 
