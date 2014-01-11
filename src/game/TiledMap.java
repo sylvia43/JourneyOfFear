@@ -10,7 +10,7 @@ public class TiledMap {
         map = new Tile[width][height];
         fill(Tile.TEST);
     }
-    
+        
     public void fillStandardGrass() {
         fill(Tile.GRASS_BASIC);
         randomize(Tile.GRASS_SHIFT,0.1);

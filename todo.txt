@@ -54,13 +54,24 @@ Goal: Create cave system dungeon.
 	
 	Art:
 		[/] Cave floor and variations.
-		[x] Enemies.
+		[/] Enemies.
 	
 	Music:
 		[/] Background music.
 		[ ] Cave sound effects.
 		[ ] Blob sound effects.
 		[ ] Bat sound effects.
+
+Goal: Make map generation more object oriented.
+	Code:
+		[ ] Integrate transition tiles.
+		[ ] Give tiles logic to choose from multiple images (?).
+		
+	Art:
+		[/] Transition tiles.
+	
+	Music:
+		None.
 		
 Goal: Add a playlist-style background music player.
 	Code:

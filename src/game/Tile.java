@@ -12,6 +12,7 @@ public enum Tile {
     GRASS_SHIFT("dirt_basic.png",true),
     STONE_BASIC("dirt_basic.png",true),
     DIRT_BASIC("dirt_basic.png",true);
+    //GRASS_DIRT_TRANS("grass_dirt_trans.png",true);
     
     private Image image;
     private boolean passable;
