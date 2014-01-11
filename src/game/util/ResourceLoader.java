@@ -2,10 +2,15 @@ package game.util;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 public class ResourceLoader {
+    
+    public static Music initializeMusic(String filepath) throws SlickException {
+        return new Music("resources/music/" + filepath);
+    }
     
     public static Image initializeImage(String filepath) throws SlickException {
         Image image = new Image("resources/" + filepath);
