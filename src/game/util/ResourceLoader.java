@@ -13,7 +13,7 @@ public class ResourceLoader {
     }
     
     public static Image initializeImage(String filepath) throws SlickException {
-        Image image = new Image("resources/" + filepath);
+        Image image = new Image("resources/art/" + filepath);
         image.setFilter(Image.FILTER_NEAREST);
         return image;
     }
