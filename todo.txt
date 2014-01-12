@@ -61,8 +61,8 @@ Goal: Create cave system dungeon.
 	
 	Music:
 		[/] Background music.
-		[ ] Cave sound effects.
-		[ ] Blob sound effects.
+		[x] Cave sound effects.
+		[x] Blob sound effects.
 		[ ] Bat sound effects.
 
 Goal: Make map generation more object oriented.
