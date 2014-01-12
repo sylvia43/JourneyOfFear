@@ -6,11 +6,11 @@ import org.newdawn.slick.SlickException;
 
 public enum Tile {
     TEST("test_blank.png",true),
-    GRASS_BASIC("dirt_basic.png",true),
-    GRASS_FLOWER("dirt_basic.png",true),
-    GRASS_BOLD("dirt_basic.png",true),
-    GRASS_SHIFT("dirt_basic.png",true),
-    STONE_BASIC("dirt_basic.png",true),
+    GRASS_BASIC("grass_basic.png",true),
+    GRASS_FLOWER("grass_flower.png",true),
+    GRASS_BOLD("grass_bold.png",true),
+    GRASS_SHIFT("grass_shift.png",true),
+    STONE_BASIC("stone_basic.png",true),
     DIRT_BASIC("dirt_basic.png",true);
     //GRASS_DIRT_TRANS("grass_dirt_trans.png",true);
     
