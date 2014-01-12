@@ -58,6 +58,8 @@ Goal: Create cave system dungeon.
 	Art:
 		[/] Cave floor and variations.
 		[/] Enemies.
+		[ ] Game title page w/ selecting arrow and font
+		[ ] Intro animation (optional)
 	
 	Music:
 		[/] Background music.
