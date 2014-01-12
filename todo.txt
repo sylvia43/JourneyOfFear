@@ -17,12 +17,15 @@ Goal: Make a scrollable map, movement, and attack.
 		[ ] Make the map randomly generate.
 		[ ] Trees.
 		[ ] Make Areas more object oriented.
+		[ ] Tiles you can't walk into (Boulders, trees, holes in the ground, etc.
 		
 	Art:
 		[x] Player in 4 directions, 4 frames each.
 		[x] Grass that's tileable.
 		[x] Sword in 8 frames.
 		[ ] Add tile for trees.
+		[ ] Add tile for rocks.
+		[ ] Add tile for holes in the ground.
 		
 	Music:
 		None.
