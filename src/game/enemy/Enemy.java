@@ -10,6 +10,7 @@ import game.SlickGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 
 public class Enemy {
@@ -87,12 +88,13 @@ public class Enemy {
     //Other methods. These can be overriden if necessary.
     protected void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
-        sprite.setAnimations(
+        Animation[] animList = {
                 ResourceLoader.initializeAnimation(spritepath + "/right.png",animationSpeed),
                 ResourceLoader.initializeAnimation(spritepath + "/up.png",animationSpeed),
                 ResourceLoader.initializeAnimation(spritepath + "/left.png",animationSpeed),
                 ResourceLoader.initializeAnimation(spritepath + "/down.png",animationSpeed)
-        );
+        };
+        sprite.setAnimations(animList);
         sprite.setMasks(
                 initializeMask(0),
                 initializeMask(1),

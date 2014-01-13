@@ -19,6 +19,10 @@ public class EntitySprite {
         animation[3] = down;
     }
     
+    public void setAnimations(Animation[] animList) {
+        animation = animList.clone();
+    }
+    
     public void setMasks(AnimationMask right, AnimationMask up, AnimationMask left, AnimationMask down) {
         mask[0] = right;
         mask[1] = up;

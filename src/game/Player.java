@@ -20,6 +20,7 @@ public class Player {
     private EntitySprite sprite;
 
     private Animation sword;
+    private Animation health;
 
     private int spritePointer;
     
@@ -30,6 +31,9 @@ public class Player {
     private int camX;
     private int camY;
     private int delta;
+    
+    private final int MAX_HEALTH = 10;
+    private Health playerHealth = new Health(MAX_HEALTH);
     
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     
@@ -99,6 +103,7 @@ public class Player {
     public void render(GameContainer container, Graphics g) throws SlickException {
         Animation currentSprite = sprite.getAnim(spritePointer);
         currentSprite.draw(x,y,64,64,damageBlink?Color.red:Color.white);
+        playerHealth.render(camX, camY);
         if (attacking) {
             sword.draw(x-64,y-64,192,192);
         }
@@ -118,12 +123,13 @@ public class Player {
     
     private void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
-        sprite.setAnimations(                
+        Animation[] animList = {
                 ResourceLoader.initializeAnimation("player/right.png",166),
                 ResourceLoader.initializeAnimation("player/up.png",166),
                 ResourceLoader.initializeAnimation("player/left.png",166),
-                ResourceLoader.initializeAnimation("player/down.png",166)
-        );
+                ResourceLoader.initializeAnimation("player/down.png",166) 
+        };
+        sprite.setAnimations(animList);
         sprite.setMasks(
                 initializeMask(0),
                 initializeMask(1),
@@ -276,6 +282,7 @@ public class Player {
             invulnerable = true; //Deal damage here somewhere.
             invulnerabilityTimer = INVULNERABILITY_DURATION;
             initializeKnockback(x-ox,y-oy);
+            playerHealth.damage(1);
         }
     }
     
