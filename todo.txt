@@ -37,9 +37,9 @@ Goal: Add combat.
 		[x] Ability to attack enemy.
 		[ ] Smart enemy.
 		[ ] Different types of attacks.
-		[ ] Combo attacks.
+		[/] Combo attacks.
 		[ ] Different weapons.
-		[ ] Damage and death.
+		[/] Damage and death.
 		
 	Art:
 		[x] Enemy.
