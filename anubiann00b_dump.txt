@@ -1,1 +1,23 @@
 This is my code dump from school. Since I can't do work from school I'll write stuff here then integrate it into the code at home.
+
+Player:
+
+private int[] comboArray = new int[6];
+
+attack:
+    comboList = shift(direction);
+    testCombo();
+    testNextCombo();
+    
+private int[] shift(int val) {
+    for (int i=comboArray.length-1;i>0;i--)
+        comboArray[i] = comboArray[i-1];
+    comboArray[0] = qq;
+}
+
+private boolean isCombo() {
+    for (Combo c : Combos) {
+        for ()
+    }
+}
+
