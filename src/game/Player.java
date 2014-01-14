@@ -20,6 +20,7 @@ public class Player {
     private EntitySprite sprite;
 
     private Animation sword;
+    private Animation bow;
     private Animation health;
 
     private int spritePointer;
@@ -137,11 +138,17 @@ public class Player {
                 initializeMask(3)
         );
         initializeSword();
+        initializeBow();
     }
     
     private void initializeSword() throws SlickException {
         sword = ResourceLoader.initializeAnimation("player/attacks/sword_slash.png",ATTACK_SPEED*2,48);
         sword.stop();
+    }
+    
+    private void initializeBow() throws SlickException {
+        bow = ResourceLoader.initializeAnimation("player/attacks/bow_pull.png", ATTACK_SPEED * 2, 20);
+        bow.stop();
     }
     
     private AnimationMask initializeMask(int index) {
