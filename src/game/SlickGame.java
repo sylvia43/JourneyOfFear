@@ -162,7 +162,7 @@ public class SlickGame extends BasicGame {
         for (Enemy e : currentArea.getEnemies()) {
             if (e.getX()>camX-64 && e.getY()>camY-64
                 && e.getX()<camX+VIEW_SIZE_X && e.getY()<camY+VIEW_SIZE_Y)
-            e.render(container, g);
+                e.render(container, g);
         }
     }
     

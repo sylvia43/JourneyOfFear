@@ -35,7 +35,7 @@ public class Player {
     private final int MAX_HEALTH = 10;
     private Health playerHealth = new Health(MAX_HEALTH);
     
-    private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    private ArrayList<Enemy> enemies;
     
     private final int ATTACK_SPEED = 10;
     private final int SWORD_DELAY = 400;
