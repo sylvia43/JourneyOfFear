@@ -2,18 +2,11 @@ package game.enemy;
 
 import game.Player;
 import game.SlickGame;
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 public class EnemyBlob extends Enemy {
-
-    protected Animation attack;
     
-    protected final int ATTACK_SPEED = 10;
-    protected final int SWORD_DELAY = 800;
-    
-    protected boolean attackHit;
     protected boolean isHit;
     protected boolean damageBlink;
     protected int stunTimer;
@@ -90,7 +83,6 @@ public class EnemyBlob extends Enemy {
         g.drawString("x: " + String.valueOf(x),10+x+64,38+y+64);
         g.drawString("y: " + String.valueOf(y),10+x+64,52+y+64);
         g.drawString(isHit?"Hit":"Not Hit",10+x+64,66+y+64);
-        g.drawString(attackHit?"Hitting!":"Not Hitting",10+x+64,80+y+64);
         if (SlickGame.DEBUG_COLLISION) {
             getCollisionMask().draw(x,y,g);
         }
