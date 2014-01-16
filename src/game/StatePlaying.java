@@ -5,13 +5,13 @@ import game.enemy.EnemyBlob;
 import game.enemy.EnemySmartBlob;
 import game.util.MathHelper;
 import java.util.ArrayList;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
 
-public class SlickGame extends BasicGame {
+public class StatePlaying extends BasicGameState {
     
     public static final boolean DEBUG_MODE = false;
     public static final boolean DEBUG_COLLISION = false;
@@ -23,47 +23,30 @@ public class SlickGame extends BasicGame {
     private int camY;
     private Area currentArea;
     private Player player;
-    
-    public SlickGame() {
-        super("Slick Game");
+    private int id;
+
+    public StatePlaying(int id) {
+        this.id = id;
     }
 
-    public static void main(String[] arguments) {
-        try {
-            AppGameContainer app = new AppGameContainer(new SlickGame());
-            setupAGC(app);
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void init(GameContainer container) throws SlickException {
+    public void init(GameContainer container, StateBasedGame game) throws SlickException {
         setupArea();
         initPlayer(container);
         initEnemies(container);
     }
 
-    public void update(GameContainer container, int delta) throws SlickException {
+    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         updateArea();
         updateEnemies(container,delta);
         updatePlayer(container,delta);
         updateViewPort();
     }
     
-    public void render(GameContainer container, Graphics g) throws SlickException {
+    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         translateView(g);
         renderMap();
         renderEnemies(container,g);
         renderPlayer(container,g);
-    }
-    
-    private static void setupAGC(AppGameContainer app) throws SlickException {
-        app.setDisplayMode((int)VIEW_SIZE_X, (int)VIEW_SIZE_Y, false);
-        app.setShowFPS(DEBUG_MODE);
-        app.setVSync(true);
-        app.setForceExit(true);
-        app.setVerbose(DEBUG_MODE);
-        app.start();
     }
     
     private void setupArea() {
@@ -168,5 +151,10 @@ public class SlickGame extends BasicGame {
     
     private void renderPlayer(GameContainer container, Graphics g) throws SlickException {
         player.render(container,g);
+    }
+
+    @Override
+    public int getID() {
+        return id;
     }
 }

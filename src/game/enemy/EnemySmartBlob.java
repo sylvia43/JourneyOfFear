@@ -1,7 +1,7 @@
 package game.enemy;
 
 import game.Player;
-import game.SlickGame;
+import game.StatePlaying;
 import game.sprite.EntitySprite;
 import game.sprite.Rectangle;
 import game.util.ResourceLibrary;
@@ -169,7 +169,7 @@ public class EnemySmartBlob extends Enemy {
         g.drawString("y: " + String.valueOf(y),10+x+64,52+y+64);
         g.drawString(isHit?"Hit":"Not Hit",10+x+64,66+y+64);
         g.drawString(attackHit?"Hitting!":"Not Hitting",10+x+64,80+y+64);
-        if (SlickGame.DEBUG_COLLISION) {
+        if (StatePlaying.DEBUG_COLLISION) {
             getCollisionMask().draw(x,y,g);
             if (attacking) {
                 g.setColor(Color.red);

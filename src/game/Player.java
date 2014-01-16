@@ -108,7 +108,7 @@ public class Player {
         if (attacking) {
             sword.draw(x-64,y-64,192,192);
         }
-        if (SlickGame.DEBUG_MODE)
+        if (StatePlaying.DEBUG_MODE)
             renderDebugInfo(g);
         isHit = false;
     }
@@ -348,7 +348,7 @@ public class Player {
         g.drawString(String.valueOf(attackTimer),10+camX,80+camY);
         g.drawString(isHit?"Hit":"Not Hit",10+camX,94+camY);
         g.drawString(attackHit?"Hitting!":"Not Hitting",10+camX,108+camY);
-        if (SlickGame.DEBUG_COLLISION) {
+        if (StatePlaying.DEBUG_COLLISION) {
             getCollisionMask().draw(x,y,g);
             if (attacking) {
                 g.setColor(Color.red);

@@ -1,7 +1,7 @@
 package game.enemy;
 
 import game.Player;
-import game.SlickGame;
+import game.StatePlaying;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
@@ -62,7 +62,7 @@ public class Enemy {
     public void render(GameContainer container, Graphics g) throws SlickException {
         sprite.getAnim(spritePointer).draw(x,y,64,64);
         renderAttack();
-        if (SlickGame.DEBUG_MODE)
+        if (StatePlaying.DEBUG_MODE)
             renderDebugInfo(g);
     }
     
