@@ -1,5 +1,6 @@
 package game;
 
+import game.state.StatePlaying;
 import game.enemy.Enemy;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;

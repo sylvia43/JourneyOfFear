@@ -1,7 +1,7 @@
 package game.enemy;
 
 import game.Player;
-import game.StatePlaying;
+import game.state.StatePlaying;
 import game.sprite.EntitySprite;
 import game.sprite.Rectangle;
 import game.util.ResourceLibrary;

@@ -1,5 +1,7 @@
-package game;
+package game.state;
 
+import game.Area;
+import game.Player;
 import game.enemy.Enemy;
 import game.enemy.EnemyBlob;
 import game.enemy.EnemySmartBlob;
