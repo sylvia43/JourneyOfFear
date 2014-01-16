@@ -1,9 +1,10 @@
 package game.enemy;
 
 import game.Player;
-import game.sprite.Rectangle;
-import game.util.ResourceLoader;
 import game.SlickGame;
+import game.sprite.EntitySprite;
+import game.sprite.Rectangle;
+import game.util.ResourceLibrary;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -48,7 +49,7 @@ public class EnemySmartBlob extends Enemy {
     }
 
     public EnemySmartBlob(Player player) {
-        super("blobredsir",player);
+        super(player);
         this.spritepath = "blobredsir";
         this.x=500;
         this.y=500;
@@ -61,9 +62,21 @@ public class EnemySmartBlob extends Enemy {
         attacking = false;
         attackDelay = 0;
     }
-
+    
+    protected void initializeSprite() throws SlickException {
+        sprite = new EntitySprite(4);
+        Animation[] animList = {
+            ResourceLibrary.getSirBlobRight(),
+            ResourceLibrary.getSirBlobUp(),
+            ResourceLibrary.getSirBlobLeft(),
+            ResourceLibrary.getSirBlobDown(),
+        };
+        sprite.setAnimations(animList);
+        initializeMask();
+    }
+    
     protected void initializeAttack() throws SlickException {
-        attack = ResourceLoader.initializeAnimation("player/attacks/sword_slash.png",ATTACK_SPEED*2,48);
+        attack = ResourceLibrary.getNormalSword(ATTACK_SPEED*2);
         attack.stop();
     }
         

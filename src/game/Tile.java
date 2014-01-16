@@ -12,7 +12,12 @@ public enum Tile {
     GRASS_SHIFT("grass_shift.png",true),
     STONE_BASIC("stone_basic.png",true),
     DIRT_BASIC("dirt_basic.png",true);
-    //GRASS_DIRT_TRANS("grass_dirt_trans.png",true);
+
+    // Transition tiles need to be 8 different tiles here. In fact, they can be
+    // 9 and we can use the middle one as the normal tile. We also need a way to
+    // let tiles have logic, in choosing their forms. Maybe another object that
+    // has the all the transitions/variations? Or could it be handled by the
+    // Area object? Or a World/WorldBuilder object?
     
     private Image image;
     private boolean passable;

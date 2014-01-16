@@ -1,16 +1,14 @@
 package game.enemy;
 
+import game.Player;
+import game.SlickGame;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
-import game.Player;
 import game.sprite.Rectangle;
-import game.util.ResourceLoader;
-import game.SlickGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 
 public class Enemy {
@@ -40,8 +38,7 @@ public class Enemy {
     
     public Rectangle getAttackMask() { return null; }
     
-    public Enemy(String spritepath, Player player) {
-        this.spritepath = spritepath;
+    public Enemy(Player player) {
         this.player = player;
     }
     
@@ -77,6 +74,7 @@ public class Enemy {
     
     //Empty methods. These methods should be overriden
     protected void initializeVariables() { }
+    protected void initializeSprite() throws SlickException { initializeMask(); }
     protected void initializeAttack() throws SlickException { }
     protected void move(int delta) { } //Default move behavior
     protected void resolveCollision() { }
@@ -86,15 +84,7 @@ public class Enemy {
     public void resolveHit(int ox, int oy, int attackId) { }
     
     //Other methods. These can be overriden if necessary.
-    protected void initializeSprite() throws SlickException {
-        sprite = new EntitySprite(4);
-        Animation[] animList = {
-                ResourceLoader.initializeAnimation(spritepath + "/right.png",animationSpeed),
-                ResourceLoader.initializeAnimation(spritepath + "/up.png",animationSpeed),
-                ResourceLoader.initializeAnimation(spritepath + "/left.png",animationSpeed),
-                ResourceLoader.initializeAnimation(spritepath + "/down.png",animationSpeed)
-        };
-        sprite.setAnimations(animList);
+    protected void initializeMask() throws SlickException {
         sprite.setMasks(
                 initializeMask(0),
                 initializeMask(1),

@@ -2,8 +2,12 @@ package game.enemy;
 
 import game.Player;
 import game.SlickGame;
+import game.sprite.EntitySprite;
+import game.util.ResourceLibrary;
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 
 public class EnemyBlob extends Enemy {
     
@@ -18,8 +22,7 @@ public class EnemyBlob extends Enemy {
     protected final int STUN_DURATION = 400;
 
     public EnemyBlob(Player player) {
-        super("blobred",player);
-        this.spritepath = "blobred";
+        super(player);
         this.x=500;
         this.y=500;
         this.speed = 0.0625;
@@ -28,6 +31,18 @@ public class EnemyBlob extends Enemy {
     
     protected void initializeVariables() {
         spritePointer = 3;
+    }
+    
+    protected void initializeSprite() throws SlickException {
+        sprite = new EntitySprite(4);
+        Animation[] animList = {
+            ResourceLibrary.getBlobRight(),
+            ResourceLibrary.getBlobUp(),
+            ResourceLibrary.getBlobLeft(),
+            ResourceLibrary.getBlobDown(),
+        };
+        sprite.setAnimations(animList);
+        initializeMask();
     }
     
     public void move(int delta) {

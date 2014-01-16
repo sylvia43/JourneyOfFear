@@ -17,8 +17,8 @@ public class Health {
             emptyHeart = ResourceLoader.initializeImage("player/health/health_empty.png");
             halfHeart = ResourceLoader.initializeImage("player/health/health_half.png");
             fullHeart = ResourceLoader.initializeImage("player/health/health_full.png");
-        } catch (SlickException ex) {
-            System.out.println("*Cries*");
+        } catch (SlickException e) {
+            System.out.println("qq");
         }
     }
     

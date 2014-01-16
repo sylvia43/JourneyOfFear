@@ -6,6 +6,7 @@ import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
 import game.sprite.Rectangle;
 import game.util.Options;
+import game.util.ResourceLibrary;
 import game.util.ResourceLoader;
 import java.util.ArrayList;
 import org.newdawn.slick.Animation;
@@ -124,24 +125,24 @@ public class Player {
     private void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
         Animation[] animList = {
-                ResourceLoader.initializeAnimation("player/right.png",166),
-                ResourceLoader.initializeAnimation("player/up.png",166),
-                ResourceLoader.initializeAnimation("player/left.png",166),
-                ResourceLoader.initializeAnimation("player/down.png",166) 
+            ResourceLibrary.getPlayerRight(),
+            ResourceLibrary.getPlayerUp(),
+            ResourceLibrary.getPlayerLeft(),
+            ResourceLibrary.getPlayerDown(),
         };
         sprite.setAnimations(animList);
         sprite.setMasks(
-                initializeMask(0),
-                initializeMask(1),
-                initializeMask(2),
-                initializeMask(3)
+            initializeMask(0),
+            initializeMask(1),
+            initializeMask(2),
+            initializeMask(3)
         );
         initializeSword();
         initializeBow();
     }
     
     private void initializeSword() throws SlickException {
-        sword = ResourceLoader.initializeAnimation("player/attacks/sword_slash.png",ATTACK_SPEED*2,48);
+        sword = ResourceLibrary.getNormalSword(ATTACK_SPEED*2);
         sword.stop();
     }
     
