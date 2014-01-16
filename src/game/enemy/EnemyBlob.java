@@ -1,8 +1,8 @@
 package game.enemy;
 
 import game.Player;
-import game.state.StatePlaying;
 import game.sprite.EntitySprite;
+import game.state.StatePlaying;
 import game.util.resource.ResourceLibrary;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -13,7 +13,6 @@ public class EnemyBlob extends Enemy {
     
     protected boolean isHit;
     protected boolean damageBlink;
-    protected int stunTimer;
     protected int knockbackDX;
     protected int knockbackDY;
     protected final int KNOCKBACK_DISTANCE = 200;
@@ -27,6 +26,7 @@ public class EnemyBlob extends Enemy {
         this.y=500;
         this.speed = 0.0625;
         this.animationSpeed = 332;
+        this.health = 5;
     }
     
     protected void initializeVariables() {
@@ -75,8 +75,10 @@ public class EnemyBlob extends Enemy {
     
     public void resolveHit(int ox, int oy, int attackId) {
         if (attackId != lastAttackId) {
+            lastAttackId = attackId;
             isHit = true;
             initializeKnockback(x-ox,y-oy);
+            health--;
         }
     }
     
@@ -86,11 +88,6 @@ public class EnemyBlob extends Enemy {
             knockbackDY=(int)(KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx)));
             stunTimer = STUN_DURATION;
         }
-    }
-    
-    protected void resolveInvulnerability(int delta) {
-        if (stunTimer>0)
-            stunTimer -= delta;
     }
     
     protected void renderDebugInfo(Graphics g) {

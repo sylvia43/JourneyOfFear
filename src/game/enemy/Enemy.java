@@ -1,11 +1,11 @@
 package game.enemy;
 
 import game.Player;
-import game.state.StatePlaying;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
 import game.sprite.Rectangle;
+import game.state.StatePlaying;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -23,9 +23,16 @@ public class Enemy {
     protected double speed;
     protected int moveTimer;
     
+    protected int stunTimer;
+
+    
+    protected int health;
+    
     protected int lastAttackId=-1;
 
     protected Player player;
+    
+    protected boolean readyToDie = false;
     
     //Getters. These methods probably can be left alone.
     public int getX() { return x; }
@@ -67,9 +74,18 @@ public class Enemy {
     }
     
     protected void renderDebugInfo(Graphics g) {
-            g.setColor(Color.white);
-            g.drawString("x: " + String.valueOf(x),10+x+64,38+y+64);
-            g.drawString("y: " + String.valueOf(y),10+x+64,52+y+64);
+        g.setColor(Color.white);
+        g.drawString("x: " + String.valueOf(x),10+x+64,38+y+64);
+        g.drawString("y: " + String.valueOf(y),10+x+64,52+y+64);
+    }
+    
+    public boolean readyToDie() { return readyToDie; }
+    
+    protected void resolveInvulnerability(int delta) {
+        if (stunTimer>0)
+            stunTimer -= delta;
+        else if (health<1)
+            readyToDie = true;
     }
     
     //Empty methods. These methods should be overriden
@@ -80,7 +96,6 @@ public class Enemy {
     protected void resolveCollision() { }
     protected void resolveAttack(int delta) { }
     protected void renderAttack() { }
-    protected void resolveInvulnerability(int delta) { }
     public void resolveHit(int ox, int oy, int attackId) { }
     
     //Other methods. These can be overriden if necessary.

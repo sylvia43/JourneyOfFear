@@ -1,10 +1,10 @@
 package game.state;
 
-import game.map.Area;
 import game.Player;
 import game.enemy.Enemy;
 import game.enemy.EnemyBlob;
 import game.enemy.EnemySmartBlob;
+import game.map.Area;
 import game.util.MathHelper;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
@@ -72,6 +72,11 @@ public class StatePlaying extends BasicGameState {
     private void updateArea() {
         ArrayList<Enemy> newCurrentAreaEnemyList = new ArrayList<Enemy>(currentArea.getEnemies());
         for (Enemy e : currentArea.getEnemies()) {
+            if (e.readyToDie()) {
+                newCurrentAreaEnemyList.remove(e);
+                e = null;
+                continue;
+            }
             if (e.getX()<-16) {
                 newCurrentAreaEnemyList.remove(e);
                 currentArea.getLeft().getEnemies().add(e);
