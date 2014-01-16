@@ -1,4 +1,4 @@
-package game;
+package map;
 
 public class TiledMap {
     
@@ -13,6 +13,7 @@ public class TiledMap {
         
     public void fillStandardGrass() {
         fill(Tile.GRASS_BASIC);
+        randomize(Tile.GRASS_VARIANT,0.2);
         randomize(Tile.GRASS_SHIFT,0.1);
         randomize(Tile.GRASS_BOLD,0.05);
         randomize(Tile.GRASS_FLOWER,0.01);

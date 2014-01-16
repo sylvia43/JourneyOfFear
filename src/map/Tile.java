@@ -1,12 +1,13 @@
-package game;
+package map;
 
-import game.util.ResourceLoader;
+import game.util.resource.ResourceLoader;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public enum Tile {
     TEST("test_blank.png",true),
     GRASS_BASIC("grass_basic.png",true),
+    GRASS_VARIANT("grass_variant.png",true),
     GRASS_FLOWER("grass_flower.png",true),
     GRASS_BOLD("grass_bold.png",true),
     GRASS_SHIFT("grass_shift.png",true),

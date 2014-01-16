@@ -4,7 +4,7 @@ import game.Player;
 import game.state.StatePlaying;
 import game.sprite.EntitySprite;
 import game.sprite.Rectangle;
-import game.util.ResourceLibrary;
+import game.util.resource.ResourceLibrary;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
