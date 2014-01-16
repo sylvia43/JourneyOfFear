@@ -1,11 +1,11 @@
 package game;
 
-import game.state.StatePlaying;
 import game.enemy.Enemy;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
 import game.sprite.Rectangle;
+import game.state.StatePlaying;
 import game.util.Options;
 import game.util.resource.ResourceLibrary;
 import game.util.resource.ResourceLoader;
@@ -48,6 +48,7 @@ public class Player {
     private int attackTimer;
     private int attackDelay;
 
+    private int currentAttackId = 0;
     private int attackId = 0;
     private boolean attackHit;
     private boolean isHit;
@@ -106,9 +107,8 @@ public class Player {
         Animation currentSprite = sprite.getAnim(spritePointer);
         currentSprite.draw(x,y,64,64,damageBlink?Color.red:Color.white);
         playerHealth.render(camX, camY);
-        if (attacking) {
+        if (attacking)
             sword.draw(x-64,y-64,192,192);
-        }
         if (StatePlaying.DEBUG_MODE)
             renderDebugInfo(g);
         isHit = false;
@@ -280,7 +280,7 @@ public class Player {
         attackHit = false;
         for (Enemy e : enemies) {
             if(e.getCollisionMask().intersects(getAttackMask(),e.getX(),e.getY())) {
-                e.resolveHit(x,y,getAttackId());
+                e.resolveHit(x,y,currentAttackId);
                 attackHit = true;
             }
         }
@@ -334,6 +334,7 @@ public class Player {
     }
     
     private void attack(int direction) {
+        currentAttackId = getAttackId();
         attacking = true;
         attackTimer = 0;
         attackDelay = bow.getDuration(0)*2 + SWORD_DELAY;
