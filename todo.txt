@@ -5,88 +5,58 @@ Key:
 	/ - Partial
 	. - Incomplete
 
-Goal: Make a scrollable map, movement, and attack.
-	Code:
-		[x] Install Slick2D.
-		[x] Make a window that can be drawn on.
-		[x] Create a Player.
-		[x] Make the Player move.
-		[x] Make the Player attack.
-		[x] Increase the map size.
-		[x] Make the map scrollable.
-		[ ] Make the map randomly generate.
-		[ ] Trees.
-		[ ] Make Areas more object oriented.
-		[ ] Tiles you can't walk into (Boulders, trees, holes in the ground, etc.
-		
-	Art:
-		[x] Player in 4 directions, 4 frames each.
-		[x] Grass that's tileable.
-		[x] Sword in 8 frames.
-		[ ] Add tile for trees.
-		[ ] Add tile for rocks.
-		[ ] Add tile for holes in the ground.
-		
-	Music:
-		None.
-		
-Goal: Add combat.
-	Code:
-		[x] Collision with enemy.
-		[x] Collision with enemy attack.
-		[x] Ability to attack enemy.
-		[ ] Smart enemy.
-		[ ] Different types of attacks.
-		[/] Combo attacks.
-		[ ] Different weapons.
-		[/] Damage and death.
-		
-	Art:
-		[x] Enemy.
-		[x] Enemy attack.
-		
-	Music:
-		[/] Hit sound effect.
-		[/] Get hit sound effect.
-
-Goal: Create cave system dungeon.
-	Code:
-		[ ] Randomly generated maps.
-		[ ] Different blobs and bats (More enemies).
-		[ ] Boss fight.
+Code:
+	[x] Install Slick2D.
+	[x] Make a window that can be drawn on.
+	[x] Create a Player.
+	[x] Make the Player move.
+	[x] Make the Player attack.
+	[x] Increase the map size.
+	[x] Make the map scrollable.
+	[x] Collision with enemy.
+	[x] Collision with enemy attack.
+	[x] Ability to attack enemy.
+	[/] Damage and death.
+	[/] Combo attacks.
+	[ ] Make the map randomly generate.
+	[ ] Trees.
+	[ ] Make Areas more object oriented.
+	[ ] Tiles you can't walk into (Boulders, trees, holes in the ground, etc).
+	[ ] Smart enemy.
+	[ ] Different types of attacks.
+	[ ] Different weapons.
+	[ ] Randomly generated maps.
+	[ ] Different blobs and bats (More enemies).
+	[ ] Boss fight.
+	[ ] Integrate transition tiles.
+	[ ] Give tiles logic to choose from multiple images (?).
+	[ ] Create system for loading music.
+	[ ] Implement playlist.
 	
-	Art:
-		[/] Cave floor and variations.
-		[/] Enemies.
-		[ ] Game title page w/ selecting arrow and font
-		[ ] Intro animation (optional)
+Art:
+	[x] Player in 4 directions, 4 frames each.
+	[x] Grass that's tileable.
+	[x] Sword in 8 frames.
+	[x] Enemy.
+	[x] Enemy attack.
+	[/] Cave floor and variations.
+	[/] Enemies.
+	[/] Transition tiles.
+	[ ] Add tile for trees.
+	[ ] Add tile for rocks.
+	[ ] Add tile for holes in the ground.
+	[ ] Game title page w/ selecting arrow and font.
+	[ ] Intro animation (optional).
 	
-	Music:
-		[/] Background music.
-		[x] Cave sound effects.
-		[x] Blob sound effects.
-		[ ] Bat sound effects.
-
-Goal: Make map generation more object oriented.
-	Code:
-		[ ] Integrate transition tiles.
-		[ ] Give tiles logic to choose from multiple images (?).
-		
-	Art:
-		[/] Transition tiles.
+Music:
+	[x] Cave sound effects.
+	[x] Blob sound effects.
+	[/] Background music.
+	[/] Hit sound effect.
+	[/] Get hit sound effect.
+	[/] Lots of music.
+	[ ] Bat sound effects.
 	
-	Music:
-		None.
-		
-Goal: Add a playlist-style background music player.
-	Code:
-		[ ] Create system for loading music.
-		[ ] Implement playlist.
-		
-	Art:
-		None.
 	
-	Music:
-		[/] Lots of music.
-
-
+	
+	
