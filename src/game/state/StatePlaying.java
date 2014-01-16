@@ -1,6 +1,6 @@
 package game.state;
 
-import map.Area;
+import game.map.Area;
 import game.Player;
 import game.enemy.Enemy;
 import game.enemy.EnemyBlob;

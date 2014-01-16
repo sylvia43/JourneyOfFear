@@ -1,4 +1,4 @@
-package map;
+package game.map;
 
 import game.util.resource.ResourceLoader;
 import org.newdawn.slick.Image;
