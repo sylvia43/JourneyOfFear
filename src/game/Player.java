@@ -147,7 +147,7 @@ public class Player {
     }
     
     private void initializeBow() throws SlickException {
-        bow = ResourceLoader.initializeAnimation("player/attacks/bow_pull.png", ATTACK_SPEED * 2, 20);
+        bow = ResourceLoader.initializeAnimation("player/attacks/bow_pull.png", ATTACK_SPEED * 6, 20);
         bow.stop();
     }
     
@@ -262,8 +262,10 @@ public class Player {
                 && !attacking && attackDelay < 1 && !invulnerable) {
             getAttackDirection(input);
             direction = (direction+6)%8;
+            //Called once
             attack(direction);
         }
+        //Called multiple times
         if (attackTimer<500)
             attackTimer+=delta;
         attackDelay-=delta;
@@ -333,10 +335,10 @@ public class Player {
     private void attack(int direction) {
         attacking = true;
         attackTimer = 0;
-        attackDelay = sword.getDuration(0)*2 + SWORD_DELAY;
+        attackDelay = bow.getDuration(0)*2 + SWORD_DELAY;
         sword.restart();
         sword.setCurrentFrame(direction);
-        sword.stopAt((direction+10)%8);
+        sword.stopAt((direction + 10) % 8);
     }
 
     private void renderDebugInfo(Graphics g) {
