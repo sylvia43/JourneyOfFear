@@ -1,13 +1,14 @@
 package game;
 
+import game.state.StatePlaying;
 import game.enemy.Enemy;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
 import game.sprite.Rectangle;
 import game.util.Options;
-import game.util.ResourceLibrary;
-import game.util.ResourceLoader;
+import game.util.resource.ResourceLibrary;
+import game.util.resource.ResourceLoader;
 import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;

@@ -1,6 +1,6 @@
 package game;
 
-import game.util.ResourceLoader;
+import game.util.resource.ResourceLoader;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 

@@ -1,4 +1,4 @@
-package game;
+package game.map;
 
 import game.enemy.Enemy;
 import java.util.ArrayList;

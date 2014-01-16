@@ -1,4 +1,4 @@
-package game.util;
+package game.util.resource;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
