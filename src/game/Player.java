@@ -21,7 +21,6 @@ public class Player {
 
     private Animation sword;
     private Animation bow;
-    private Animation health;
 
     private int spritePointer;
     
