@@ -29,10 +29,10 @@ public class ResourceLibrary {
     private static Animation enemy_sirblob_up = null;
     private static Animation enemy_sirblob_down = null;
     private static Animation enemy_sirblob_left = null;
+    
     // The format of these getters is basically:
     // If it is not initialized, initialize and return it.
     // Otherwise just return it.
-    
     
     // Public methods.
     
