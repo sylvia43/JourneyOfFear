@@ -9,3 +9,4 @@ Contributers:
    Daniel (MrSnrhms)         -   Programming   -   www.ziggywa.com
    David (ForgottenSprite)   -   Music         -   https://soundcloud.com/forgotten-sprite
    Joshua (cesiumrabbit)     -   Art           -   No website.
+   Justin (justinchen673)    -   Deleting blank lines
