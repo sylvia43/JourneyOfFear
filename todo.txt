@@ -51,7 +51,7 @@ Art:
 Music:
 	[x] Cave sound effects.
 	[x] Blob sound effects.
-	[/] Background music.
+	[x] Background music.
 	[/] Hit sound effect.
 	[/] Get hit sound effect.
 	[/] Lots of music.
