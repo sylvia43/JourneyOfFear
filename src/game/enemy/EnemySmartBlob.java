@@ -112,13 +112,17 @@ public class EnemySmartBlob extends Enemy {
     }
     
     public void move(int delta) {
-        updateSpritePointer(delta);
         if (stunTimer>0) {
             sprite.getAnim(spritePointer).setCurrentFrame(0);
             sprite.getAnim(spritePointer).stop();
             x+=(int)((knockbackDX*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER));
             y+=(int)((knockbackDY*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER));
             return;
+        }
+        if (dirChangeCounter<DIR_SWITCH_SPEED) {
+            dirChangeCounter += (int) (2*delta*Math.random());
+        } else {
+            updateSpritePointer(delta);
         }
         sprite.getAnim(spritePointer).start();
         switch(spritePointer) {
@@ -138,11 +142,11 @@ public class EnemySmartBlob extends Enemy {
     }
     
     protected void updateSpritePointer(int delta) {
-        if (dirChangeCounter<DIR_SWITCH_SPEED) {
-            dirChangeCounter += (int) (2*delta*Math.random());
-            return;
-        }
         dirChangeCounter = 0;
+        if (Math.random()<0.1) {
+            System.out.println("random");
+            spritePointer = (int) (Math.random()*4);
+        }
         int playerDistX = player.getX() - getX();
         int playerDistY = player.getY() - getY();
         if(Math.abs(playerDistX) > Math.abs(playerDistY))
