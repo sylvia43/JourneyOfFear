@@ -24,7 +24,6 @@ public class Enemy {
     protected int moveTimer;
     
     protected int stunTimer;
-
     
     protected int health;
     
