@@ -23,6 +23,16 @@ public class EnemySmartBlob extends Enemy {
     protected int attackTimer;
     protected int attackDelay;
     
+    protected void updateSprtPntr() {
+        int playerDistX = player.getX() - getX();
+        int playerDistY = player.getY() - getY();
+        if(Math.abs(playerDistX) > Math.abs(playerDistY)) {
+            spritePointer = playerDistX > 0 ? 0 : 2;
+        } else {
+            spritePointer = playerDistY > 0 ? 3 : 1;
+        }
+    }
+    
     protected boolean attackHit;
     protected boolean isHit;
     protected boolean damageBlink;
@@ -110,6 +120,7 @@ public class EnemySmartBlob extends Enemy {
     }
     
     public void move(int delta) {
+        updateSprtPntr();
         if (stunTimer>0) {
             sprite.getAnim(spritePointer).setCurrentFrame(0);
             sprite.getAnim(spritePointer).stop();
@@ -121,14 +132,19 @@ public class EnemySmartBlob extends Enemy {
         if (Math.random()*20<1) {
             spritePointer=(int)(Math.random()*4);
         }
-        if (spritePointer==0) {
-            x+=speed*delta;
-        } else if (spritePointer==1) {
-            y-=speed*delta;
-        } else if (spritePointer==2) {
-            x-=speed*delta;
-        } else if (spritePointer==3) {
-            y+=speed*delta;
+        switch(spritePointer) {
+            case 0:
+                x+=speed*delta;
+                break;
+            case 1:
+                y-=speed*delta;
+                break;
+            case 2:
+                x-=speed*delta;
+                break;
+            case 3:
+                y+=speed*delta;
+                break;
         }
     }
     

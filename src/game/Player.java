@@ -337,7 +337,7 @@ public class Player {
         currentAttackId = getAttackId();
         attacking = true;
         attackTimer = 0;
-        attackDelay = bow.getDuration(0)*2 + SWORD_DELAY;
+        attackDelay = sword.getDuration(0)*2 + SWORD_DELAY;
         sword.restart();
         sword.setCurrentFrame(direction);
         sword.stopAt((direction + 10) % 8);
