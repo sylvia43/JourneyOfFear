@@ -144,8 +144,8 @@ public class EnemySmartBlob extends Enemy {
     protected void updateSpritePointer(int delta) {
         dirChangeCounter = 0;
         if (Math.random()<0.1) {
-            System.out.println("random");
             spritePointer = (int) (Math.random()*4);
+            return;
         }
         int playerDistX = player.getX() - getX();
         int playerDistY = player.getY() - getY();
