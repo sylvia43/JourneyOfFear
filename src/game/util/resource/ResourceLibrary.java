@@ -58,35 +58,35 @@ public class ResourceLibrary {
     }
     
     public static Animation getBlobRight() throws SlickException {
-        return getAnim(enemy_blob_right,"blobred/right.png",166);
+        return getAnim(enemy_blob_right,"blobred/right.png",332);
     }
 
     public static Animation getBlobUp() throws SlickException {
-        return getAnim(enemy_blob_up,"blobred/up.png",166);
+        return getAnim(enemy_blob_up,"blobred/up.png",332);
     }
     
     public static Animation getBlobLeft() throws SlickException {
-        return getAnim(enemy_blob_left,"blobred/left.png",166);
+        return getAnim(enemy_blob_left,"blobred/left.png",332);
     }
     
     public static Animation getBlobDown() throws SlickException {
-        return getAnim(enemy_blob_down,"blobred/down.png",166);
+        return getAnim(enemy_blob_down,"blobred/down.png",332);
     }
     
     public static Animation getSirBlobRight() throws SlickException {
-        return getAnim(enemy_sirblob_right,"blobredsir/right.png",166);
+        return getAnim(enemy_sirblob_right,"blobredsir/right.png",332);
     }
 
     public static Animation getSirBlobUp() throws SlickException {
-        return getAnim(enemy_sirblob_up,"blobredsir/up.png",166);
+        return getAnim(enemy_sirblob_up,"blobredsir/up.png",332);
     }
     
     public static Animation getSirBlobLeft() throws SlickException {
-        return getAnim(enemy_sirblob_left,"blobredsir/left.png",166);
+        return getAnim(enemy_sirblob_left,"blobredsir/left.png",332);
     }
     
     public static Animation getSirBlobDown() throws SlickException {
-        return getAnim(enemy_sirblob_down,"blobredsir/down.png",166);
+        return getAnim(enemy_sirblob_down,"blobredsir/down.png",332);
     }
     
     // Helper methods.

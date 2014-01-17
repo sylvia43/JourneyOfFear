@@ -16,20 +16,14 @@ public class EnemySmartBlob extends Enemy {
     
     protected final int ATTACK_SPEED = 10;
     protected final int SWORD_DELAY = 800;
+    protected final int DIR_SWITCH_SPEED = 500;
+    protected int dirChangeCounter = 0;
     
     protected int direction;
     
     protected boolean attacking;
     protected int attackTimer;
     protected int attackDelay;
-    
-    protected void updateSprtPntr() {
-        if(player.getX() != getX()) {
-            spritePointer = player.getX() - getX() > 0 ? 0 : 2;
-        } else if(player.getY() != getY()) {
-            spritePointer = player.getY() - getY() > 0 ? 3 : 1;
-        }
-    }
     
     protected boolean attackHit;
     protected boolean isHit;
@@ -118,7 +112,7 @@ public class EnemySmartBlob extends Enemy {
     }
     
     public void move(int delta) {
-        updateSprtPntr();
+        updateSpritePointer(delta);
         if (stunTimer>0) {
             sprite.getAnim(spritePointer).setCurrentFrame(0);
             sprite.getAnim(spritePointer).stop();
@@ -143,6 +137,20 @@ public class EnemySmartBlob extends Enemy {
         }
     }
     
+    protected void updateSpritePointer(int delta) {
+        if (dirChangeCounter<DIR_SWITCH_SPEED) {
+            dirChangeCounter += (int) (2*delta*Math.random());
+            return;
+        }
+        dirChangeCounter = 0;
+        int playerDistX = player.getX() - getX();
+        int playerDistY = player.getY() - getY();
+        if(Math.abs(playerDistX) > Math.abs(playerDistY))
+            spritePointer = playerDistX > 0 ? 0 : 2;
+        else
+            spritePointer = playerDistY > 0 ? 3 : 1;
+    }
+        
     protected void resolveCollision() {
         isHit = getCollisionMask()
                 .intersects(player.getCollisionMask(),x,y,player.getX(),player.getY());
