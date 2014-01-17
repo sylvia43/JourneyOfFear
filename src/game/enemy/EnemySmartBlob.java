@@ -84,7 +84,7 @@ public class EnemySmartBlob extends Enemy {
         
     protected void resolveAttack(int delta) {
         if (!attacking && attackDelay < 1) {
-            direction = ((int)(Math.random()*4)*2+6)%8;
+            direction = directionToPlayer()*2;
             attack(direction);
         }
         if (attackTimer<500)
@@ -147,14 +147,9 @@ public class EnemySmartBlob extends Enemy {
             spritePointer = (int) (Math.random()*4);
             return;
         }
-        int playerDistX = player.getX() - getX();
-        int playerDistY = player.getY() - getY();
-        if(Math.abs(playerDistX) > Math.abs(playerDistY))
-            spritePointer = playerDistX > 0 ? 0 : 2;
-        else
-            spritePointer = playerDistY > 0 ? 3 : 1;
+        spritePointer = directionToPlayer();
     }
-        
+    
     protected void resolveCollision() {
         isHit = getCollisionMask()
                 .intersects(player.getCollisionMask(),x,y,player.getX(),player.getY());

@@ -72,6 +72,7 @@ public class Enemy {
             renderDebugInfo(g);
     }
     
+    // Miscelleneous universal methods.    
     protected void renderDebugInfo(Graphics g) {
         g.setColor(Color.white);
         g.drawString("x: " + String.valueOf(x),10+x+64,38+y+64);
@@ -85,6 +86,13 @@ public class Enemy {
             stunTimer -= delta;
         else if (health<1)
             readyToDie = true;
+    }
+    
+    protected int directionToPlayer() {
+        int playerDistX = player.getX() - getX();
+        int playerDistY = player.getY() - getY();
+        return Math.abs(playerDistX) > Math.abs(playerDistY) ? 
+                playerDistX > 0 ? 0 : 2 : playerDistY > 0 ? 3 : 1;
     }
     
     //Empty methods. These methods should be overriden
