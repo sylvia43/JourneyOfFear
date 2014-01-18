@@ -55,4 +55,4 @@ Music:
 	[x] Hit sound effect.
 	[x] Get hit sound effect.
 	[/] Lots of music.
-	[ ] Bat sound effects.
+	[x] Bat sound effects.
