@@ -52,7 +52,7 @@ Music:
 	[x] Cave sound effects.
 	[x] Blob sound effects.
 	[x] Background music.
-	[/] Hit sound effect.
-	[/] Get hit sound effect.
+	[x] Hit sound effect.
+	[x] Get hit sound effect.
 	[/] Lots of music.
 	[ ] Bat sound effects.
