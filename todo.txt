@@ -54,5 +54,6 @@ Music:
 	[x] Background music.
 	[x] Hit sound effect.
 	[x] Get hit sound effect.
-	[/] Lots of music.
 	[x] Bat sound effects.
+	[/] Lots of music.
+	[ ] Unelectric sound effects.
