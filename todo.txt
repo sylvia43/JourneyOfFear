@@ -56,4 +56,4 @@ Music:
 	[x] Get hit sound effect.
 	[x] Bat sound effects.
 	[/] Lots of music.
-	[ ] Unelectric sound effects.
+	[/] Unelectric sound effects.
