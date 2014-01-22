@@ -47,6 +47,7 @@ Art:
 	[ ] Add tile for holes in the ground.
 	[ ] Game title page w/ selecting arrow and font.
 	[ ] Intro animation (optional).
+	[ ] Different types of slimes.
 	
 Music:
 	[x] Cave sound effects.
