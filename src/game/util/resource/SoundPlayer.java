@@ -1,6 +1,4 @@
-package game.util;
-
-import game.util.resource.SoundLibrary;
+package game.util.resource;
 
 public class SoundPlayer {
     

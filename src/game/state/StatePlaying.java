@@ -6,10 +6,9 @@ import game.enemy.EnemyBlob;
 import game.enemy.EnemySmartBlob;
 import game.map.Area;
 import game.util.MathHelper;
-import game.util.MusicPlayer;
-import game.util.SoundPlayer;
+import game.util.Soundtrack;
+import game.util.resource.MusicPlayer;
 import game.util.resource.MusicLibrary;
-import game.util.resource.SoundLibrary;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -37,7 +36,7 @@ public class StatePlaying extends BasicGameState {
 
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        MusicPlayer.play(MusicLibrary.SPACE_BALLS);
+        Soundtrack.init();
         setupArea();
         initPlayer(container);
         initEnemies(container);
@@ -45,6 +44,7 @@ public class StatePlaying extends BasicGameState {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+        Soundtrack.update();
         updateArea();
         updateEnemies(container,delta);
         updatePlayer(container,delta);
