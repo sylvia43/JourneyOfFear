@@ -32,6 +32,7 @@ Code:
 	[ ] Give tiles logic to choose from multiple images (?).
 	[ ] Create system for loading music.
 	[ ] Implement playlist.
+	[ ] Give **music** something to do.
 	
 Art:
 	[x] Player in 4 directions, 4 frames each.
@@ -58,4 +59,4 @@ Music:
 	[x] Bat sound effects.
 	[x] Lots of music.
 	[x] Unelectric sound effects.
-	[/] Boss themes.
+	[x] Boss themes.
