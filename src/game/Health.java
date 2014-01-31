@@ -6,7 +6,7 @@ import org.newdawn.slick.SlickException;
 
 public class Health {
     private int health;
-    private int MAX_HEALTH;
+    private int maxHealth;
     
     private static Image emptyHeart = null;
     private static Image halfHeart = null;
@@ -27,14 +27,14 @@ public class Health {
     
     public Health(int health) {
         this.health = health; 
-        this.MAX_HEALTH = health; 
+        this.maxHealth = health; 
     }
     
     public void render(int camX, int camY) {
         int fullNum = this.health / 2;
         int halfNum = this.health % 2;
         int emptyNum = 5 - (fullNum + halfNum);
-        for(int i = 0; i < MAX_HEALTH; i++) {
+        for(int i = 0; i < maxHealth; i++) {
             if(i < fullNum)
                 fullHeart.draw(camX + (600 - i * 30), camY + 10, 4);
             else if(halfNum > 0) {

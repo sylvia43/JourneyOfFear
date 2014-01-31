@@ -3,7 +3,7 @@ package game.enemy;
 import game.Player;
 import game.sprite.EntitySprite;
 import game.state.StatePlaying;
-import game.util.resource.ResourceLibrary;
+import game.util.resource.AnimationLibrary;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -16,6 +16,7 @@ public class EnemyBlob extends Enemy {
     protected int knockbackDX;
     protected int knockbackDY;
     protected final int KNOCKBACK_DISTANCE = 200;
+    
     //How slippery knockback is. Less means more slide.
     protected final int KNOCKBACK_MULTIPLIER = 30;
     protected final int STUN_DURATION = 400;
@@ -29,28 +30,31 @@ public class EnemyBlob extends Enemy {
         this.health = 5;
     }
     
+    @Override
     protected void initializeVariables() {
         spritePointer = 3;
     }
     
+    @Override
     protected void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
         Animation[] animList = {
-            ResourceLibrary.getBlobRight(),
-            ResourceLibrary.getBlobUp(),
-            ResourceLibrary.getBlobLeft(),
-            ResourceLibrary.getBlobDown(),
+            AnimationLibrary.getBlobRight(),
+            AnimationLibrary.getBlobUp(),
+            AnimationLibrary.getBlobLeft(),
+            AnimationLibrary.getBlobDown(),
         };
         sprite.setAnimations(animList);
         initializeMask();
     }
     
+    @Override
     public void move(int delta) {
         if (stunTimer>0) {
             sprite.getAnim(spritePointer).setCurrentFrame(0);
             sprite.getAnim(spritePointer).stop();
-            x+=(int)((knockbackDX*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER));
-            y+=(int)((knockbackDY*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER));
+            x+=(knockbackDX*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER);
+            y+=(knockbackDY*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER);
             return;
         }
         sprite.getAnim(spritePointer).start();
@@ -68,11 +72,13 @@ public class EnemyBlob extends Enemy {
         }
     }
     
+    @Override
     protected void resolveCollision() {
         isHit = getCollisionMask()
                 .intersects(player.getCollisionMask(),x,y,player.getX(),player.getY());
     }
     
+    @Override
     public void resolveHit(int ox, int oy, int attackId) {
         if (attackId != lastAttackId) {
             lastAttackId = attackId;
@@ -90,6 +96,7 @@ public class EnemyBlob extends Enemy {
         }
     }
     
+    @Override
     protected void renderDebugInfo(Graphics g) {
         g.setColor(Color.white);
         g.drawString("x: " + String.valueOf(x),10+x+64,38+y+64);

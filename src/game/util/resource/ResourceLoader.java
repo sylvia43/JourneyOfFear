@@ -10,7 +10,7 @@ import org.newdawn.slick.SpriteSheet;
 public class ResourceLoader {
     
     public static Sound initializeSound(String filepath) throws SlickException {
-        return new Sound("resources/music/" + filepath);
+        return new Sound("resources/sound/" + filepath);
     }
     
     public static Music initializeMusic(String filepath) throws SlickException {
@@ -25,7 +25,7 @@ public class ResourceLoader {
     
     public static Animation initializeAnimation(String filepath, int delay, int size) throws SlickException {
         Image image = initializeImage(filepath);
-        return new Animation(new SpriteSheet(image,(int)(size),(int)(size)),delay);
+        return new Animation(new SpriteSheet(image, size, size),delay);
     }
     
     public static Animation initializeAnimation(String filepath, int delay) throws SlickException {

@@ -22,7 +22,7 @@ public class Game extends StateBasedGame {
             AppGameContainer app = new AppGameContainer(new Game());
             setupAGC(app);
         } catch (SlickException e) {
-            e.printStackTrace();
+            System.out.println("Error initializing game: " + e);
         }
     }
 
@@ -32,7 +32,7 @@ public class Game extends StateBasedGame {
     }
     
     private static void setupAGC(AppGameContainer app) throws SlickException {
-        app.setDisplayMode((int)VIEW_SIZE_X, (int)VIEW_SIZE_Y, false);
+        app.setDisplayMode(VIEW_SIZE_X, VIEW_SIZE_Y, false);
         app.setShowFPS(DEBUG_MODE);
         app.setVSync(true);
         app.setForceExit(true);

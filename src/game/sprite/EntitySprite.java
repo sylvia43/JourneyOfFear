@@ -2,6 +2,9 @@ package game.sprite;
 
 import org.newdawn.slick.Animation;
 
+/**
+ * Holds four animations and masks.
+ */
 public class EntitySprite {
     
     private Animation[] animation;

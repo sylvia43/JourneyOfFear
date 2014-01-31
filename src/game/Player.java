@@ -7,7 +7,7 @@ import game.sprite.ImageMask;
 import game.sprite.Rectangle;
 import game.state.StatePlaying;
 import game.util.Options;
-import game.util.resource.ResourceLibrary;
+import game.util.resource.AnimationLibrary;
 import game.util.resource.ResourceLoader;
 import java.util.ArrayList;
 import org.newdawn.slick.Animation;
@@ -61,6 +61,7 @@ public class Player {
     private final int DAMAGE_BLINK_TIME = 200;
     private final int KNOCKBACK_DISTANCE = 200;
     private final int STUN_DURATION = 400;
+    
     //How slippery knockback is. Less means more slide.
     private final int KNOCKBACK_MULTIPLIER = 30;
     private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*3;
@@ -126,10 +127,10 @@ public class Player {
     private void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
         Animation[] animList = {
-            ResourceLibrary.getPlayerRight(),
-            ResourceLibrary.getPlayerUp(),
-            ResourceLibrary.getPlayerLeft(),
-            ResourceLibrary.getPlayerDown(),
+            AnimationLibrary.getPlayerRight(),
+            AnimationLibrary.getPlayerUp(),
+            AnimationLibrary.getPlayerLeft(),
+            AnimationLibrary.getPlayerDown(),
         };
         sprite.setAnimations(animList);
         sprite.setMasks(
@@ -143,7 +144,7 @@ public class Player {
     }
     
     private void initializeSword() throws SlickException {
-        sword = ResourceLibrary.getNormalSword(ATTACK_SPEED*2);
+        sword = AnimationLibrary.getNormalSword(ATTACK_SPEED*2);
         sword.stop();
     }
     
@@ -164,18 +165,19 @@ public class Player {
         if (stunTimer>0) {
             sprite.getAnim(spritePointer).setCurrentFrame(1);
             sprite.getAnim(spritePointer).stop();
-            x+=(int)((knockbackDX*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER));
-            y+=(int)((knockbackDY*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER));
+            x+=(knockbackDX*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER);
+            y+=(knockbackDY*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER);
             return;
         }
-        boolean DnHl = input.isKeyDown(Options.M_DOWN);
-        boolean DnPr = input.isKeyPressed(Options.M_DOWN);
-        boolean UpHl = input.isKeyDown(Options.M_UP);
-        boolean UpPr = input.isKeyPressed(Options.M_UP);
-        boolean LfHl = input.isKeyDown(Options.M_LEFT);
-        boolean LfPr = input.isKeyPressed(Options.M_LEFT);
-        boolean RiHl = input.isKeyDown(Options.M_RIGHT);
-        boolean RiPr = input.isKeyPressed(Options.M_RIGHT);
+        
+        boolean DnHl = input.isKeyDown(Options.MOVE_DOWN);
+        boolean DnPr = input.isKeyPressed(Options.MOVE_DOWN);
+        boolean UpHl = input.isKeyDown(Options.MOVE_UP);
+        boolean UpPr = input.isKeyPressed(Options.MOVE_UP);
+        boolean LfHl = input.isKeyDown(Options.MOVE_LEFT);
+        boolean LfPr = input.isKeyPressed(Options.MOVE_LEFT);
+        boolean RiHl = input.isKeyDown(Options.MOVE_RIGHT);
+        boolean RiPr = input.isKeyPressed(Options.MOVE_RIGHT);
         
         if ((DnHl || DnHl) && (UpHl || UpHl)) {
             UpHl = false;
@@ -256,17 +258,15 @@ public class Player {
     }
     
     private void resolveAttack(Input input, int delta) {
-        if ((input.isKeyDown(Options.A_UP)
-                || input.isKeyDown(Options.A_DOWN)
-                || input.isKeyDown(Options.A_LEFT)
-                || input.isKeyDown(Options.A_RIGHT))
+        if ((input.isKeyDown(Options.ATTACK_UP)
+                || input.isKeyDown(Options.ATTACK_DOWN)
+                || input.isKeyDown(Options.ATTACK_LEFT)
+                || input.isKeyDown(Options.ATTACK_RIGHT))
                 && !attacking && attackDelay < 1 && !invulnerable) {
             getAttackDirection(input);
             direction = (direction+6)%8;
-            //Called once
             attack(direction);
         }
-        //Called multiple times
         if (attackTimer<500)
             attackTimer+=delta;
         attackDelay-=delta;
@@ -323,13 +323,13 @@ public class Player {
     }
     
     private void getAttackDirection(Input input) {
-        if (input.isKeyDown(Options.A_RIGHT))
+        if (input.isKeyDown(Options.ATTACK_RIGHT))
             direction = 0;
-        else if (input.isKeyDown(Options.A_UP))
+        else if (input.isKeyDown(Options.ATTACK_UP))
             direction = 2;
-        else if (input.isKeyDown(Options.A_LEFT))
+        else if (input.isKeyDown(Options.ATTACK_LEFT))
             direction = 4;
-        else if (input.isKeyDown(Options.A_DOWN))
+        else if (input.isKeyDown(Options.ATTACK_DOWN))
             direction = 6;
     }
     

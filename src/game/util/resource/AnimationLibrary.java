@@ -8,7 +8,7 @@ import org.newdawn.slick.SlickException;
 // the heap, that's just a waste of memory. Put all resources here so to avoid
 // duplicates in the heap, and make things simpler (except this class).
 
-public class ResourceLibrary {
+public class AnimationLibrary {
     
     // Player sprites.
     private static Animation player_right = null;

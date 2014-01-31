@@ -6,6 +6,10 @@ import game.enemy.EnemyBlob;
 import game.enemy.EnemySmartBlob;
 import game.map.Area;
 import game.util.MathHelper;
+import game.util.MusicPlayer;
+import game.util.SoundPlayer;
+import game.util.resource.MusicLibrary;
+import game.util.resource.SoundLibrary;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -31,12 +35,15 @@ public class StatePlaying extends BasicGameState {
         this.id = id;
     }
 
+    @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
+        MusicPlayer.play(MusicLibrary.SPACE_BALLS);
         setupArea();
         initPlayer(container);
         initEnemies(container);
     }
 
+    @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         updateArea();
         updateEnemies(container,delta);
@@ -44,6 +51,7 @@ public class StatePlaying extends BasicGameState {
         updateViewPort();
     }
     
+    @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         translateView(g);
         renderMap();
@@ -100,7 +108,6 @@ public class StatePlaying extends BasicGameState {
         }
         currentArea.getEnemies().clear();
         currentArea.getEnemies().addAll(newCurrentAreaEnemyList);
-        newCurrentAreaEnemyList = null;
         if (player.getX()<-16) {
             currentArea = currentArea.getLeft();
             player.setX(currentArea.getWidth()-48);

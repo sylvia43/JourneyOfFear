@@ -30,6 +30,8 @@ public enum Tile {
         this.passable = passable;
         try {
             image = ResourceLoader.initializeImage("tiles/" + filepath);
-        } catch (SlickException e) { }
+        } catch (SlickException e) {
+            System.out.println("Error loading tile: " + e);
+        }
     }
 }

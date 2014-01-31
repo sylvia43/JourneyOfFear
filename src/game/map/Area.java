@@ -3,6 +3,10 @@ package game.map;
 import game.enemy.Enemy;
 import java.util.ArrayList;
 
+/**
+ * Area functions as a linked list in two dimensions,
+ * or a "linked grid."
+ */
 public class Area {
     
     private TiledMap map;
@@ -25,7 +29,7 @@ public class Area {
     public Area(int width, int height) {
         this.width = width;
         this.height = height;
-        this.map = new TiledMap((int)(width/64),(int)(height/64));
+        this.map = new TiledMap(width/64, height/64);
         this.map.fillStandardGrass();
     }
     

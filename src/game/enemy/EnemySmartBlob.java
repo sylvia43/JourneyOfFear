@@ -4,7 +4,7 @@ import game.Player;
 import game.sprite.EntitySprite;
 import game.sprite.Rectangle;
 import game.state.StatePlaying;
-import game.util.resource.ResourceLibrary;
+import game.util.resource.AnimationLibrary;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -39,6 +39,7 @@ public class EnemySmartBlob extends Enemy {
     protected final int STUN_DURATION = 400;
     protected final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME;
     
+    @Override
     public Rectangle getAttackMask() {
         if (!attacking)
             return null;
@@ -59,29 +60,33 @@ public class EnemySmartBlob extends Enemy {
         this.health = 20;
     }
     
+    @Override
     protected void initializeVariables() {
         spritePointer = 3;
         attacking = false;
         attackDelay = 0;
     }
     
+    @Override
     protected void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
         Animation[] animList = {
-            ResourceLibrary.getSirBlobRight(),
-            ResourceLibrary.getSirBlobUp(),
-            ResourceLibrary.getSirBlobLeft(),
-            ResourceLibrary.getSirBlobDown(),
+            AnimationLibrary.getSirBlobRight(),
+            AnimationLibrary.getSirBlobUp(),
+            AnimationLibrary.getSirBlobLeft(),
+            AnimationLibrary.getSirBlobDown(),
         };
         sprite.setAnimations(animList);
         initializeMask();
     }
     
+    @Override
     protected void initializeAttack() throws SlickException {
-        attack = ResourceLibrary.getNormalSword(ATTACK_SPEED*2);
+        attack = AnimationLibrary.getNormalSword(ATTACK_SPEED*2);
         attack.stop();
     }
-        
+    
+    @Override
     protected void resolveAttack(int delta) {
         if (!attacking && attackDelay < 1) {
             direction = directionToPlayer()*2;
@@ -111,12 +116,13 @@ public class EnemySmartBlob extends Enemy {
         attack.stopAt((direction+10)%8);
     }
     
+    @Override
     public void move(int delta) {
         if (stunTimer>0) {
             sprite.getAnim(spritePointer).setCurrentFrame(0);
             sprite.getAnim(spritePointer).stop();
-            x+=(int)((knockbackDX*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER));
-            y+=(int)((knockbackDY*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER));
+            x+=(knockbackDX*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER);
+            y+=(knockbackDY*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER);
             return;
         }
         if (dirChangeCounter<DIR_SWITCH_SPEED) {
@@ -150,11 +156,13 @@ public class EnemySmartBlob extends Enemy {
         spritePointer = directionToPlayer();
     }
     
+    @Override
     protected void resolveCollision() {
         isHit = getCollisionMask()
                 .intersects(player.getCollisionMask(),x,y,player.getX(),player.getY());
     }
     
+    @Override
     public void resolveHit(int ox, int oy, int attackId) {
         if (attackId != lastAttackId) {
             isHit = true;
@@ -171,12 +179,14 @@ public class EnemySmartBlob extends Enemy {
         }
     }
     
+    @Override
     protected void renderAttack() {
         if (attacking) {
             attack.draw(x-64,y-64,192,192);
         }
     }
     
+    @Override
     protected void renderDebugInfo(Graphics g) {
         g.setColor(Color.white);
         g.drawString("x: " + String.valueOf(x),10+x+64,38+y+64);

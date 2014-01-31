@@ -2,7 +2,7 @@ package game.sprite;
 
 public class AnimationMask {
     
-    ImageMask[] mask;
+    private ImageMask[] mask;
     
     public AnimationMask(ImageMask[] mask) {
         this.mask = mask;

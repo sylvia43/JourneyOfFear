@@ -42,6 +42,7 @@ public class Enemy {
                 .getImageMask(sprite.getAnim(spritePointer).getFrame());
     }
     
+    // By default enemies don't have attacks.
     public Rectangle getAttackMask() { return null; }
     
     public Enemy(Player player) {
@@ -99,7 +100,7 @@ public class Enemy {
     protected void initializeVariables() { }
     protected void initializeSprite() throws SlickException { initializeMask(); }
     protected void initializeAttack() throws SlickException { }
-    protected void move(int delta) { } //Default move behavior
+    protected void move(int delta) { } // Default move behavior
     protected void resolveCollision() { }
     protected void resolveAttack(int delta) { }
     protected void renderAttack() { }
@@ -108,14 +109,14 @@ public class Enemy {
     //Other methods. These can be overriden if necessary.
     protected void initializeMask() throws SlickException {
         sprite.setMasks(
-                initializeMask(0),
-                initializeMask(1),
-                initializeMask(2),
-                initializeMask(3)
+                createMask(0),
+                createMask(1),
+                createMask(2),
+                createMask(3)
         );
     }
     
-    protected AnimationMask initializeMask(int index) {
+    protected AnimationMask createMask(int index) {
         ImageMask[] masks = new ImageMask[4];
         for (int i=0;i<4;i++) {
             masks[i] = new ImageMask(sprite.getAnim(index).getImage(i));

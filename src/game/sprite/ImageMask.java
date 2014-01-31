@@ -3,6 +3,10 @@ package game.sprite;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
+/**
+ * Holds a mask for one image. Masks are held as
+ * boolean arrays.
+ */
 public class ImageMask {
     
     private boolean[][] mask;
@@ -41,21 +45,6 @@ public class ImageMask {
         if (other == null)
             return false;
         return this.intersects(new ImageMask(other), ix, iy, other.getX1(), other.getY1());
-        /*
-        if (!(ix<=other.getX2() && ix+mask.length>=other.getX1()
-                && iy<=other.getY2() && iy+mask[0].length>=other.getY1()))
-            return false;
-
-        for (int i=0;i<mask.length;i++)
-            for (int j=0;j<mask[i].length;j++)
-                if (mask[i][j]
-                        && (ix+i*4)<=(other.getX2())
-                        && (ix+i*4+4)>=(other.getX1())
-                        && (iy+j*4)<=(other.getY2())
-                        && (iy+j*4+4)>=(other.getY1()))
-                    return true;
-        return false;
-        */
     }
     
     public String toString(boolean[][] array) {
@@ -76,6 +65,7 @@ public class ImageMask {
                     g.drawRect(x+4*i,y+4*j,4,4);
     }
     
+    @Override
     public String toString() {
         return toString(this.mask);
     }
