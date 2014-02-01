@@ -71,10 +71,10 @@ public class EnemySmartBlob extends Enemy {
     protected void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
         Animation[] animList = {
-            AnimationLibrary.getSirBlobRight(),
-            AnimationLibrary.getSirBlobUp(),
-            AnimationLibrary.getSirBlobLeft(),
-            AnimationLibrary.getSirBlobDown(),
+            AnimationLibrary.SIRBLOB_RIGHT.getAnim(),
+            AnimationLibrary.SIRBLOB_UP.getAnim(),
+            AnimationLibrary.SIRBLOB_LEFT.getAnim(),
+            AnimationLibrary.SIRBLOB_DOWN.getAnim(),
         };
         sprite.setAnimations(animList);
         initializeMask();
@@ -82,7 +82,7 @@ public class EnemySmartBlob extends Enemy {
     
     @Override
     protected void initializeAttack() throws SlickException {
-        attack = AnimationLibrary.getNormalSword(ATTACK_SPEED*2);
+        attack = AnimationLibrary.NORMAL_SWORD_SLASH.getAnim(48);
         attack.stop();
     }
     

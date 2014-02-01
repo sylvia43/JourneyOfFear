@@ -127,10 +127,10 @@ public class Player {
     private void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
         Animation[] animList = {
-            AnimationLibrary.getPlayerRight(),
-            AnimationLibrary.getPlayerUp(),
-            AnimationLibrary.getPlayerLeft(),
-            AnimationLibrary.getPlayerDown(),
+            AnimationLibrary.PLAYER_RIGHT.getAnim(),
+            AnimationLibrary.PLAYER_UP.getAnim(),
+            AnimationLibrary.PLAYER_LEFT.getAnim(),
+            AnimationLibrary.PLAYER_DOWN.getAnim(),
         };
         sprite.setAnimations(animList);
         sprite.setMasks(
@@ -144,7 +144,7 @@ public class Player {
     }
     
     private void initializeSword() throws SlickException {
-        sword = AnimationLibrary.getNormalSword(ATTACK_SPEED*2);
+        sword = AnimationLibrary.NORMAL_SWORD_SLASH.getAnim(48);
         sword.stop();
     }
     

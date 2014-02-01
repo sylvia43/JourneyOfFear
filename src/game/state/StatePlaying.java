@@ -39,8 +39,6 @@ public class StatePlaying extends BasicGameState {
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         soundtrack = new Soundtrack();
-        //soundtrackThread = new Thread(soundtrack);
-        //soundtrackThread.start();
         soundtrack.init();
         setupArea();
         initPlayer(container);

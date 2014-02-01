@@ -39,10 +39,10 @@ public class EnemyBlob extends Enemy {
     protected void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
         Animation[] animList = {
-            AnimationLibrary.getBlobRight(),
-            AnimationLibrary.getBlobUp(),
-            AnimationLibrary.getBlobLeft(),
-            AnimationLibrary.getBlobDown(),
+            AnimationLibrary.BLOB_RIGHT.getAnim(),
+            AnimationLibrary.BLOB_UP.getAnim(),
+            AnimationLibrary.BLOB_LEFT.getAnim(),
+            AnimationLibrary.BLOB_DOWN.getAnim(),
         };
         sprite.setAnimations(animList);
         initializeMask();
