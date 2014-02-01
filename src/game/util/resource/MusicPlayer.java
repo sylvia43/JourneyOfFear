@@ -3,7 +3,7 @@ package game.util.resource;
 public class MusicPlayer {
     
     public static void play(MusicLibrary music) {
-        play(music,0.5f);
+        play(music,1.0f);
     }
 
     public static void play(MusicLibrary music, float volume) {
