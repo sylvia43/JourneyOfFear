@@ -7,22 +7,56 @@ public enum MusicLibrary {
     
     SPACE_BALLS("space_balls.ogg"),
     HARES_RABBITS_BUNNIES("hares_rabbits_bunnies.ogg"),
-    LAVENDER_TOWN("lavender_town.ogg"),
+    //LAVENDER_TOWN("lavender_town.ogg"),
     LEL("lel.ogg"),
     MONKEY_BLADDERS("monkey_bladders.ogg"),
     RABID_RABBIT("rabid_rabbit.ogg"),
     ROBOT_UVULA("robot_uvula.ogg"),
     EVIL_SHOE("evil_shoe.ogg");
     
-    private Music sound;
+    private Music music;
+    private String filepath;
+    private boolean queued;
     
-    public Music getMusic() { return sound; }
+    public boolean isPlaying() {
+        return (bound()&&music.playing()) || queued;
+    }
     
-    MusicLibrary(String filepath) {
+    public boolean bound() {
+        return music!=null;
+    }
+    
+    public void bind() {
         try {
-            this.sound = ResourceLoader.initializeMusic(filepath);
+            music = ResourceLoader.initializeMusic(filepath);
         } catch (SlickException e) {
             System.out.println("Error loading sound: " + e);
         }
+    }
+    
+    public void playMusic() {
+        queued = true;
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                if (!bound())
+                    bind();
+                music.play();
+            }
+        });
+        t.start();
+    }
+    
+    public void stop() {
+        queued = false;
+        music.stop();
+        release();
+    }
+    
+    public void release() {
+        music = null;
+    }
+    
+    MusicLibrary(String filepath) {
+        this.filepath = filepath;
     }
 }

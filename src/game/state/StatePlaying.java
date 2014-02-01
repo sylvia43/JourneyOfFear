@@ -23,11 +23,14 @@ public class StatePlaying extends BasicGameState {
     public static final int VIEW_SIZE_Y = 512;
     public static final int WORLD_SIZE_X = VIEW_SIZE_X*4;
     public static final int WORLD_SIZE_Y = VIEW_SIZE_Y*4;
+    
     private int camX;
     private int camY;
     private Area currentArea;
     private Player player;
     private int id;
+    private Soundtrack soundtrack;
+    //Thread soundtrackThread;
 
     public StatePlaying(int id) {
         this.id = id;
@@ -35,7 +38,10 @@ public class StatePlaying extends BasicGameState {
 
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        Soundtrack.init();
+        soundtrack = new Soundtrack();
+        //soundtrackThread = new Thread(soundtrack);
+        //soundtrackThread.start();
+        soundtrack.init();
         setupArea();
         initPlayer(container);
         initEnemies(container);
@@ -44,8 +50,8 @@ public class StatePlaying extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         if (container.getInput().isKeyPressed(Input.KEY_N))
-            Soundtrack.playNext();
-        Soundtrack.update();
+            soundtrack.playNext();
+        soundtrack.update();
         updateArea();
         updateEnemies(container,delta);
         updatePlayer(container,delta);
