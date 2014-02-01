@@ -144,7 +144,7 @@ public class Player {
     }
     
     private void initializeSword() throws SlickException {
-        sword = AnimationLibrary.NORMAL_SWORD_SLASH.getAnim(48);
+        sword = AnimationLibrary.PLAYER_SWORD_SLASH.getAnim(48);
         sword.stop();
     }
     

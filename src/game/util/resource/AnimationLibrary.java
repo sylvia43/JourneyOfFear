@@ -5,7 +5,6 @@ package game.util.resource;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 
-// saving memory. If there are 500 enemies and they each own different images in
 // the heap, that's just a waste of memory. Put all resources here so to avoid
 // duplicates in the heap, and make things simpler (except this class).
 
@@ -27,8 +26,8 @@ public enum AnimationLibrary {
     PLAYER_LEFT("player/left.png",166),
     PLAYER_DOWN("player/down.png",166),
     
-    // Attack sprites.
-    NORMAL_SWORD_SLASH("player/attacks/sword_slash.png",20),
+    // Player attack sprites.
+    PLAYER_SWORD_SLASH("player/attacks/sword_slash.png",20),
     
     // Enemy sprites.
     BLOB_RIGHT("blobred/right.png",332),
@@ -51,9 +50,11 @@ public enum AnimationLibrary {
     }
     
     public Animation getAnim(int size) throws SlickException {
-        if (anim == null)
+        if (anim == null) {
             anim = ResourceLoader.initializeAnimation(filepath,speed,size);
-        return anim;
+            return anim;
+        }
+        return anim.copy();
     }
     
     public Animation getAnim() throws SlickException {
