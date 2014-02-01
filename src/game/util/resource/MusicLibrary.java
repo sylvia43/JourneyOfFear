@@ -17,6 +17,11 @@ public enum MusicLibrary {
     private Music music;
     private String filepath;
     private boolean queued;
+    private boolean loading;
+    
+    public boolean isLoading() {
+        return loading;
+    }
     
     public boolean isPlaying() {
         return (bound()&&music.playing()) || queued;
@@ -36,14 +41,16 @@ public enum MusicLibrary {
     
     public void playMusic() {
         queued = true;
-        Thread t = new Thread(new Runnable() {
+        Thread bindMusic = new Thread(new Runnable() {
             public void run() {
+                loading = true;
                 if (!bound())
                     bind();
                 music.play();
+                loading = false;
             }
         });
-        t.start();
+        bindMusic.start();
     }
     
     public void stop() {

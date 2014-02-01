@@ -19,7 +19,8 @@ public class Soundtrack {
     }
     
     public void playNext() {
-        playNewTrack();
+        if (currentMusic != null && !currentMusic.isLoading())
+            playNewTrack();
     }
     
     private void playNewTrack() {
