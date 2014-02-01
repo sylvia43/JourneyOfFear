@@ -7,7 +7,8 @@ By the way, if you have trouble getting Slick set up, feel free to email me at s
 |    Employee   |      Job      |
 | ------------- | ------------- |
 | David         | Sound and Music   |
-| Shreyas       | Programming   |
-| Tarik         | Programming   |
-| Joshua        | Art           |
+| Shreyas       | Programming (a lot)   |
+| Tarik         | Programming (a bit)   |
+| Daniel        | Programming (nope)   |
+| Joshua        | Art   |
 | Chad          | Special Music   |
