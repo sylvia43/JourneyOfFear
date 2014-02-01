@@ -9,7 +9,7 @@ public class Soundtrack {
     private static MusicLibrary[] music;
     
     private static int timer = -1;
-            
+    
     public static void init() {
         music = MusicLibrary.values();
         playNewTrack();
