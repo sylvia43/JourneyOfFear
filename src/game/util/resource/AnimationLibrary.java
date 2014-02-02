@@ -9,17 +9,7 @@ import org.newdawn.slick.SlickException;
 // duplicates in the heap, and make things simpler (except this class).
 
 public enum AnimationLibrary {
-    /*
-
-    return getAnim(normal_sword_slash,"player/attacks/sword_slash.png",speed,48);
-    return getAnim(enemy_blob_right,"blobred/right.png",332);
-    return getAnim(enemy_blob_up,"blobred/up.png",332);
-    return getAnim(enemy_blob_left,"blobred/left.png",332);
-    return getAnim(enemy_blob_down,"blobred/down.png",332);
-    return getAnim(enemy_sirblob_right,"blobredsir/right.png",332);
-    return getAnim(enemy_sirblob_up,"blobredsir/up.png",332);
-    return getAnim(enemy_sirblob_left,"blobredsir/left.png",332);
-    return getAnim(enemy_sirblob_down,"blobredsir/down.png",332);*/
+    
     // Player sprites.
     PLAYER_RIGHT("player/right.png",166),
     PLAYER_UP("player/up.png",166),
