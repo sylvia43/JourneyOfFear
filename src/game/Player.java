@@ -18,7 +18,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class Player {
-    
+
     private EntitySprite sprite;
 
     private Animation sword;
@@ -66,6 +66,8 @@ public class Player {
     private final int KNOCKBACK_MULTIPLIER = 30;
     private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*3;
     
+    private int[] comboArray = new int[6];
+
     public int getX() { return x; }
     public int getY() { return y; }
     
@@ -338,11 +340,28 @@ public class Player {
         attacking = true;
         attackTimer = 0;
         attackDelay = sword.getDuration(0)*2 + SWORD_DELAY;
+        shiftComboArray(direction);
+        //testCombo();
+        //testNextCombo();
         sword.restart();
         sword.setCurrentFrame(direction);
         sword.stopAt((direction + 10) % 8);
+    }    
+    
+    private void shiftComboArray(int val) {
+        for (int i=comboArray.length-1;i>0;i--)
+            comboArray[i] = comboArray[i-1];
+        comboArray[0] = val;
     }
 
+    /*
+    private boolean isCombo() {
+        for (Combo c : Combos) {
+            for ()
+        }
+    }
+    */
+    
     private void renderDebugInfo(Graphics g) {
         g.setColor(Color.white);
         g.drawString("delat: " + String.valueOf(delta),10+camX,24+camY);
