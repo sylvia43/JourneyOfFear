@@ -10,8 +10,8 @@ Table of Contents:
   2) Gameplay
     2.1 Open World
       2.1.1 Overworld
-        2.1.2 Storyline
-        2.1.3 Dungeons
+      2.1.2 Storyline
+      2.1.3 Dungeons
     2.2 Experience
 	
   3) Code
