@@ -16,23 +16,22 @@ Code:
 	[x] Collision with enemy.
 	[x] Collision with enemy attack.
 	[x] Ability to attack enemy.
+	[x] Create system for loading music.
+	[x] Implement playlist.
+	[x] Give music something to do.
 	[/] Damage and death.
 	[/] Combo attacks.
-	[ ] Make the map randomly generate.
+	[/] Make the map randomly generate.
 	[ ] Trees.
 	[ ] Make Areas more object oriented.
 	[ ] Tiles you can't walk into (Boulders, trees, holes in the ground, etc).
 	[ ] Smart enemy.
 	[ ] Different types of attacks.
 	[ ] Different weapons.
-	[ ] Randomly generated maps.
 	[ ] Different blobs and bats (More enemies).
 	[ ] Boss fight.
 	[ ] Integrate transition tiles.
 	[ ] Give tiles logic to choose from multiple images (?).
-	[ ] Create system for loading music.
-	[ ] Implement playlist.
-	[ ] Give music something to do.
 	
 Art:
 	[x] Player in 4 directions, 4 frames each.
@@ -40,15 +39,16 @@ Art:
 	[x] Sword in 8 frames.
 	[x] Enemy.
 	[x] Enemy attack.
+	[x] Transition tiles.
 	[/] Cave floor and variations.
 	[/] Enemies.
-	[/] Transition tiles.
-	[ ] Add tile for trees.
+	[/] Add tile for trees.
 	[ ] Add tile for rocks.
 	[ ] Add tile for holes in the ground.
 	[ ] Game title page w/ selecting arrow and font.
 	[ ] Intro animation (optional).
 	[ ] Different types of slimes.
+	[ ] Zip all stuff and send it to Shreyas.
 	
 Music:
 	[x] Cave sound effects.
@@ -60,3 +60,4 @@ Music:
 	[x] Lots of music.
 	[x] Unelectric sound effects.
 	[x] Boss themes.
+	[ ] Zip all stuff and send it to Shreyas.
