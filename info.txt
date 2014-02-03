@@ -37,14 +37,8 @@ Table of Contents:
 
 1) Storyline
 
-  1.1 Character
-    There is a seperate document regarding the character's background and general plot to be posted, for it is a WIP.
-    
-  1.2 Overall Objective
-    See 1.1
-   
-  1.3 Main Quest Path
-    See 1.2
+  There is a seperate document regarding the character's background and general plot to be posted, for it is a WIP.
+  
   
 2) Gameplay
 
