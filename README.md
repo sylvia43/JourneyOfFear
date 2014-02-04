@@ -12,3 +12,4 @@ By the way, if you have trouble getting Slick set up, feel free to email me at s
 | Daniel        | Programming (nope)   |
 | Joshua        | Art   |
 | Chad          | Special Music   |
+| Jawahar       | Adding himself here   |
