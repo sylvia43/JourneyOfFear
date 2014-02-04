@@ -60,4 +60,4 @@ Music:
 	[x] Lots of music.
 	[x] Unelectric sound effects.
 	[x] Boss themes.
-	[ ] Zip all stuff and send it to Shreyas.
+	[x] Zip all stuff and send it to Shreyas.
