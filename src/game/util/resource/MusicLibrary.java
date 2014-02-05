@@ -5,14 +5,17 @@ import org.newdawn.slick.SlickException;
 
 public enum MusicLibrary {
     
-    SPACE_BALLS("space_balls.ogg"),
+    DEMON_WITHIN("demon_within.ogg"),
+    EVIL_SHOE("evil_shoe.ogg"),
     HARES_RABBITS_BUNNIES("hares_rabbits_bunnies.ogg"),
-    //LAVENDER_TOWN("lavender_town.ogg"),
+    HULL_INTEGRITY("hull_integrity_critical.ogg"),
+    LAVENDER_TOWN("lavender_town.ogg"),
     LEL("lel.ogg"),
+    MAJESTIC_BEAGLE("majestic_beagle.ogg"),
     MONKEY_BLADDERS("monkey_bladders.ogg"),
     RABID_RABBIT("rabid_rabbit.ogg"),
     ROBOT_UVULA("robot_uvula.ogg"),
-    EVIL_SHOE("evil_shoe.ogg");
+    SPACE_BALLS("space_balls.ogg");
     
     private Music music;
     private String filepath;
