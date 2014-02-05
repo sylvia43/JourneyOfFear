@@ -25,10 +25,10 @@ public enum AnimationLibrary {
     BLOB_DOWN("blobred/down.png",332),
     BLOB_LEFT("blobred/left.png",332),
     
-    SIRBLOB_RIGHT("blobredsir/right.png",332),
-    SIRBLOB_UP("blobredsir/up.png",332),
-    SIRBLOB_DOWN("blobredsir/down.png",332),
-    SIRBLOB_LEFT("blobredsir/left.png",332);
+    SIRBLOB_RIGHT("blobgreen/right.png",332),
+    SIRBLOB_UP("blobgreen/up.png",332),
+    SIRBLOB_DOWN("blobgreen/down.png",332),
+    SIRBLOB_LEFT("blobgreen/left.png",332);
     
     private String filepath;
     private Animation anim;
