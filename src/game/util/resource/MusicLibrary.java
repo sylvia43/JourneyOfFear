@@ -47,8 +47,17 @@ public enum MusicLibrary {
         Thread bindMusic = new Thread(new Runnable() {
             public void run() {
                 loading = true;
+                long start = System.currentTimeMillis();
                 if (!bound())
                     bind();
+                long end = System.currentTimeMillis();
+                if ((end-start)<1000) {
+                    try {
+                        Thread.sleep(1000-end+start);
+                    } catch (InterruptedException e) {
+                        System.out.println("Error playing music: " + e);
+                    }
+                }
                 music.play();
                 loading = false;
             }
