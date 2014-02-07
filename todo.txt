@@ -44,7 +44,7 @@ Art:
 	[x] Sword in 8 frames.
 	[x] Enemy.
 	[x] Enemy attack.
-	[x] Transition tiles,
+	[x] Transition tiles.
 	[/] Cave floor and variations.
 	[/] Enemies.
 	[/] Add tile for trees.
