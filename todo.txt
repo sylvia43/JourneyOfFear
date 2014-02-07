@@ -49,6 +49,7 @@ Art:
 	[/] Enemies.
 	[/] Add tile for trees.
 	[/] Slime death animation for all types of slimes.
+	[/] Different types of slimes.
 	[ ] Potion bottle full/empty.
 	[ ] Magic blast animations.
 	[ ] Different weapons.
@@ -56,7 +57,6 @@ Art:
 	[ ] Add tile for holes in the ground.
 	[ ] Game title page w/ selecting arrow and font.
 	[ ] Intro animation (optional).
-	[ ] Different types of slimes.
 	[ ] Zip all stuff and send it to Shreyas.
 	
 Music:
@@ -70,9 +70,9 @@ Music:
 	[x] Unelectric sound effects.
 	[x] Boss themes.
 	[x] Zip all stuff and send it to Shreyas.
-	[/] Try for some mellow music w/ NESVST
+	[x] Magic sounds.
+	[x] Try for some mellow music w/ NESVST
 	[/] Send Chad's music to Shreyas
-	[ ] Magic sounds.
 	[ ] Bow pull sounds.
 	[ ] Bow shoot sounds.
 	[ ] Player death sound.
