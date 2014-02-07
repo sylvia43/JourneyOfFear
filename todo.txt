@@ -32,6 +32,11 @@ Code:
 	[ ] Boss fight.
 	[ ] Integrate transition tiles.
 	[ ] Give tiles logic to choose from multiple images (?).
+	[ ] Enemy movement sound implementation.
+	[ ] Enemy death sound implementation.
+	[ ] Attack sound implementation.
+	[ ] Inventory.
+	[ ] Potions.
 	
 Art:
 	[x] Player in 4 directions, 4 frames each.
@@ -39,10 +44,14 @@ Art:
 	[x] Sword in 8 frames.
 	[x] Enemy.
 	[x] Enemy attack.
-	[x] Transition tiles.
+	[x] Transition tiles,
 	[/] Cave floor and variations.
 	[/] Enemies.
 	[/] Add tile for trees.
+	[/] Slime death animation for all types of slimes.
+	[ ] Potion bottle full/empty.
+	[ ] Magic blast animations.
+	[ ] Different weapons.
 	[ ] Add tile for rocks.
 	[ ] Add tile for holes in the ground.
 	[ ] Game title page w/ selecting arrow and font.
@@ -61,3 +70,9 @@ Music:
 	[x] Unelectric sound effects.
 	[x] Boss themes.
 	[x] Zip all stuff and send it to Shreyas.
+	[/] Try for some mellow music w/ NESVST
+	[/] Send Chad's music to Shreyas
+	[ ] Magic sounds.
+	[ ] Bow pull sounds.
+	[ ] Bow shoot sounds.
+	[ ] Player death sound.
