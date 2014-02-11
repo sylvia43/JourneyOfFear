@@ -14,6 +14,8 @@ public class Options {
     public static int ATTACK_LEFT;
     public static int ATTACK_RIGHT;
     
+    //public static int OPEN_INVENTORY;
+    
     static {
         MOVE_UP = Input.KEY_W;
         MOVE_DOWN = Input.KEY_S;
@@ -23,5 +25,6 @@ public class Options {
         ATTACK_DOWN = Input.KEY_DOWN;
         ATTACK_LEFT = Input.KEY_LEFT;
         ATTACK_RIGHT = Input.KEY_RIGHT;
+        //OPEN_INVENTORY = Input.KEY_I;
     }
 }
