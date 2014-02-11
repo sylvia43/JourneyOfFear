@@ -1,7 +1,12 @@
 package game.map;
 
 import game.enemy.Enemy;
+import game.enemy.EnemyBlob;
+import game.enemy.EnemySmartBlob;
+import game.player.Player;
 import java.util.ArrayList;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
 
 /**
  * Area functions as a linked list in two dimensions,
@@ -20,21 +25,34 @@ public class Area {
     private final int width;
     private final int height;
     
+    private GameContainer container;
+    private final Player player;
+    
     public Tile getTile(int x, int y) { return map.getTile(x,y); }
     public ArrayList<Enemy> getEnemies() { return enemies; }
     
     public int getWidth() { return width; }
     public int getHeight() { return height; }
         
-    public Area(int width, int height) {
+    public Area(int width, int height, GameContainer container, Player player) {
+        this.player = player;
+        this.container = container;
         this.width = width;
         this.height = height;
         this.map = new TiledMap(width/64, height/64);
         this.map.fillStandardGrass();
+        
+        try {
+            addEnemy(new EnemyBlob(player)).init(container);
+            addEnemy(new EnemySmartBlob(player)).init(container);
+        } catch (SlickException e) {
+            System.out.println("Error initializing enemy: " + e);
+        }
     }
     
-    public void addEnemy(Enemy e) {
+    public Enemy addEnemy(Enemy e) {
         enemies.add(e);
+        return e;
     }
     
     public void setLeft(Area area) {
@@ -44,7 +62,7 @@ public class Area {
     public Area getLeft() {
         if (left!=null)
             return left;
-        left = new Area(width,height);
+        left = new Area(width,height,container,player);
         left.setRight(this);
         return left;
     }
@@ -54,7 +72,7 @@ public class Area {
     public Area getRight() {
         if (right!=null)
             return right;
-        right = new Area(width,height);
+        right = new Area(width,height,container,player);
         right.setLeft(this);
         return right;
     }
@@ -66,7 +84,7 @@ public class Area {
     public Area getUp() {
         if (up!=null)
             return up;
-        up = new Area(width,height);
+        up = new Area(width,height,container,player);
         up.setDown(this);
         return up;
     }
@@ -78,7 +96,7 @@ public class Area {
     public Area getDown() {
         if (down!=null)
             return down;
-        down = new Area(width,height);
+        down = new Area(width,height,container,player);
         down.setUp(this);
         return down;
     }

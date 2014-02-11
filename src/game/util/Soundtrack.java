@@ -7,7 +7,25 @@ public class Soundtrack {
     private int currentTrack = -1;
     private MusicLibrary[] music;
     private MusicLibrary currentMusic = null;
-        
+    
+    public void pause() {
+        if (currentMusic != null && !currentMusic.isLoading()) {
+            if (currentMusic.isPaused()) {
+                currentMusic.pause();
+                System.out.println("Paused.");
+            } else {
+                currentMusic.resume();
+                System.out.println("Resumed.");
+            }
+        } else
+            System.out.println("None.");
+    }
+    
+    public void restart() {
+        if (currentMusic != null && !currentMusic.isLoading())
+            currentMusic.restart();
+    }
+    
     public void init() {
         music = MusicLibrary.values();
         playNewTrack();

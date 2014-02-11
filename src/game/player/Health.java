@@ -1,4 +1,4 @@
-package game;
+package game.player;
 
 import game.util.resource.ResourceLoader;
 import org.newdawn.slick.Image;

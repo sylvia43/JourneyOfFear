@@ -26,13 +26,19 @@ public enum MusicLibrary {
         return loading;
     }
     
-    public boolean isPlaying() {
-        return (bound()&&music.playing()) || queued;
-    }
+    public boolean isPlaying() { return (bound()&&music.playing()) || queued; }
     
-    public boolean bound() {
-        return music!=null;
-    }
+    public boolean isPaused() { return music.playing(); }
+    
+    public void pause() { music.pause(); }
+    
+    public void resume() { music.resume(); }
+
+    public void restart() { music.play(); }
+    
+    public boolean bound() { return music!=null; }
+    
+    public void release() { music = null; }
     
     public void bind() {
         try {
@@ -70,11 +76,7 @@ public enum MusicLibrary {
         music.stop();
         release();
     }
-    
-    public void release() {
-        music = null;
-    }
-    
+        
     MusicLibrary(String filepath) {
         this.filepath = filepath;
     }

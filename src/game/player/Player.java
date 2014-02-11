@@ -1,4 +1,4 @@
-package game;
+package game.player;
 
 import game.enemy.Enemy;
 import game.sprite.AnimationMask;

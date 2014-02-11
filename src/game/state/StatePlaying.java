@@ -1,10 +1,8 @@
 package game.state;
 
-import game.Player;
 import game.enemy.Enemy;
-import game.enemy.EnemyBlob;
-import game.enemy.EnemySmartBlob;
 import game.map.Area;
+import game.player.Player;
 import game.util.MathHelper;
 import game.util.Soundtrack;
 import java.util.ArrayList;
@@ -30,7 +28,6 @@ public class StatePlaying extends BasicGameState {
     private Player player;
     private int id;
     private Soundtrack soundtrack;
-    //Thread soundtrackThread;
 
     public StatePlaying(int id) {
         this.id = id;
@@ -40,15 +37,18 @@ public class StatePlaying extends BasicGameState {
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         soundtrack = new Soundtrack();
         soundtrack.init();
-        setupArea();
         initPlayer(container);
-        initEnemies(container);
+        setupArea(container,player);
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         if (container.getInput().isKeyPressed(Input.KEY_N))
             soundtrack.playNext();
+        if (container.getInput().isKeyPressed(Input.KEY_P))
+            soundtrack.pause();
+        if (container.getInput().isKeyPressed(Input.KEY_R))
+            soundtrack.restart();
         soundtrack.update();
         updateArea();
         updateEnemies(container,delta);
@@ -64,21 +64,13 @@ public class StatePlaying extends BasicGameState {
         renderPlayer(container,g);
     }
     
-    private void setupArea() {
-        currentArea = new Area(WORLD_SIZE_X,WORLD_SIZE_Y);
-    }
-    
-    private void initEnemies(GameContainer container) throws SlickException {
-        currentArea.addEnemy(new EnemyBlob(player));
-        currentArea.addEnemy(new EnemySmartBlob(player));
-        for (Enemy e : currentArea.getEnemies()) {
-            e.init(container);
-        }
+    private void setupArea(GameContainer container, Player player) {
+        currentArea = new Area(WORLD_SIZE_X,WORLD_SIZE_Y,container,player);
+        player.setEnemies(currentArea.getEnemies());
     }
     
     private void initPlayer(GameContainer container) throws SlickException {
         player = new Player();
-        player.setEnemies(currentArea.getEnemies());
         player.init(container);
     }
     
