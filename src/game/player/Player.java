@@ -9,6 +9,8 @@ import game.state.StatePlaying;
 import game.util.Options;
 import game.util.resource.AnimationLibrary;
 import game.util.resource.ResourceLoader;
+import game.util.resource.SoundLibrary;
+import game.util.resource.SoundPlayer;
 import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -346,6 +348,7 @@ public class Player {
         sword.restart();
         sword.setCurrentFrame(direction);
         sword.stopAt((direction + 10) % 8);
+        SoundPlayer.play(SoundLibrary.values()[(int)(3*Math.random())]);
     }    
     
     private void shiftComboArray(int val) {
