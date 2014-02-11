@@ -10,15 +10,11 @@ public class Soundtrack {
     
     public void pause() {
         if (currentMusic != null && !currentMusic.isLoading()) {
-            if (currentMusic.isPaused()) {
+            if (currentMusic.isPaused())
                 currentMusic.pause();
-                System.out.println("Paused.");
-            } else {
+            else
                 currentMusic.resume();
-                System.out.println("Resumed.");
-            }
-        } else
-            System.out.println("None.");
+        }
     }
     
     public void restart() {
