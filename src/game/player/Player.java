@@ -349,7 +349,7 @@ public class Player {
         sword.setCurrentFrame(direction);
         sword.stopAt((direction + 10) % 8);
         SoundPlayer.play(SoundLibrary.values()[(int)(3*Math.random())]);
-    }    
+    }
     
     private void shiftComboArray(int val) {
         for (int i=comboArray.length-1;i>0;i--)

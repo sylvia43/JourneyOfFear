@@ -31,6 +31,7 @@ public class Game extends StateBasedGame {
         this.addState(new StatePlaying(0));
     }
     
+    /** Sets up the window. */
     private static void setupAGC(AppGameContainer app) throws SlickException {
         app.setDisplayMode(VIEW_SIZE_X, VIEW_SIZE_Y, false);
         app.setShowFPS(DEBUG_MODE);
