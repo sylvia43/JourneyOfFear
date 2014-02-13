@@ -73,6 +73,6 @@ Music:
 	[x] Magic sounds.
 	[x] Try for some mellow music w/ NESVST
 	[/] Send Chad's music to Shreyas
+	[/] Player death sound.
 	[ ] Bow pull sounds.
 	[ ] Bow shoot sounds.
-	[ ] Player death sound.
