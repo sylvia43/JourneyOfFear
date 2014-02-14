@@ -14,7 +14,7 @@ public class Game extends StateBasedGame {
     public static final boolean DEBUG_COLLISION = false;
     
     public Game() {
-        super("Slick Game");
+        super("Realm of the Ancients");
     }
         
     public static void main(String[] args) {
