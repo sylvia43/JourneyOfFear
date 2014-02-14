@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class Server implements Runnable {
+public class Server {
 
     private ServerSocket server;
     private ArrayList<Socket> sockets = new ArrayList<Socket>();
@@ -49,12 +49,5 @@ public class Server implements Runnable {
             }
         });
         getClients.start();
-    }
-
-    @Override
-    public void run() {
-        while(true) {
-            
-        }
     }
 }
