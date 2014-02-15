@@ -1,0 +1,4 @@
+-Knockback is occasionally abnomally powerful (as in, knocks you all the way across the area, and into the next)
+  +This is often accompianied by abnormally fast movement of the blobs
+  +Also often has the player moving very fast/slow
+    
