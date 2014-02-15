@@ -22,14 +22,10 @@ public class StatePlaying extends BasicGameState {
     public static final int VIEW_SIZE_Y = 512;
     public static final int WORLD_SIZE_X = VIEW_SIZE_X*4;
     public static final int WORLD_SIZE_Y = VIEW_SIZE_Y*4;
-<<<<<<< HEAD
     
     private final Color MINIMAP_BLACK = new Color(0f,0f,0f,0.5f);
     private final Color PLAYER_COLOR = Color.green;
-    
-=======
-    private final Color MINIMAP_BLACK = new Color(0f,0f,0f,0.5f);
->>>>>>> f6865d3... Buggy enemy display on minimap
+        
     private int camX;
     private int camY;
     private Area currentArea;
@@ -192,6 +188,10 @@ public class StatePlaying extends BasicGameState {
              g.fillRect((int)(miniOriginX + miniDistX*((double)e.getX())/WORLD_SIZE_X), 
              (int)(miniOriginY + miniDistY*((double)e.getY())/WORLD_SIZE_Y), 3, 3);    
         }
+        
+         g.setColor(PLAYER_COLOR);
+             g.fillRect((int)(miniOriginX + miniDistX*((double)player.getX())/WORLD_SIZE_X), 
+             (int)(miniOriginY + miniDistY*((double)player.getY())/WORLD_SIZE_Y), 3, 3);    
     }
     
     private void renderEnemies(GameContainer container, Graphics g) throws SlickException {
