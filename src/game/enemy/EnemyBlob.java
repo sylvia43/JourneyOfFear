@@ -30,6 +30,7 @@ public class EnemyBlob extends Enemy {
         this.speed = 0.0625;
         this.animationSpeed = 332;
         this.health = 5;
+        this.minimapColor = new Color(255, 128, 128);
     }
     
     @Override

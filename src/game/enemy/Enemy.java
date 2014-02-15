@@ -33,6 +33,8 @@ public class Enemy {
     
     protected boolean readyToDie = false;
     
+    protected Color minimapColor;
+    
     //Getters. These methods probably can be left alone.
     public int getX() { return x; }
     public int getY() { return y; }
@@ -122,5 +124,9 @@ public class Enemy {
             masks[i] = new ImageMask(sprite.getAnim(index).getImage(i));
         }
         return new AnimationMask(masks);
+    }
+
+    public Color getColor() {
+        return minimapColor;
     }
 }

@@ -6,6 +6,7 @@ import game.player.Player;
 import game.util.MathHelper;
 import game.util.Soundtrack;
 import java.util.ArrayList;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -21,6 +22,9 @@ public class StatePlaying extends BasicGameState {
     public static final int VIEW_SIZE_Y = 512;
     public static final int WORLD_SIZE_X = VIEW_SIZE_X*4;
     public static final int WORLD_SIZE_Y = VIEW_SIZE_Y*4;
+    
+    private final Color MINIMAP_BLACK = new Color(0f,0f,0f,0.5f);
+    private final Color PLAYER_COLOR = Color.green;
     
     private int camX;
     private int camY;
@@ -59,7 +63,7 @@ public class StatePlaying extends BasicGameState {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         translateView(g);
-        renderMap();
+        renderMap(g);
         renderEnemies(container,g);
         renderPlayer(container,g);
     }
@@ -144,12 +148,30 @@ public class StatePlaying extends BasicGameState {
         g.translate(-(float)camX,-(float)camY);
     }
     
-    private void renderMap() {
+    private void renderMap(Graphics g) {
         for(int x=camX/64;x<Math.min(WORLD_SIZE_X/64,(camX+VIEW_SIZE_X)/64+1);x++) {
             for(int y=camY/64;y<Math.min(WORLD_SIZE_Y/64,(camY+VIEW_SIZE_Y)/64+1);y++) {
                  currentArea.getTile(x,y).image().draw(x*64,y*64,64,64);
             }
         }
+        
+        g.setColor(MINIMAP_BLACK);
+        int posX = (int)(7.5 *VIEW_SIZE_X)/10 + camX;
+        int posY = (int)(.75 *VIEW_SIZE_Y)/10 + camY;
+        int width = (int)(2.3 *VIEW_SIZE_X)/10;
+        int height = (int)(((double)WORLD_SIZE_Y / WORLD_SIZE_X)*(2.3 *VIEW_SIZE_X)/10);
+        
+        g.fillRect(posX, posY, width, height);
+        
+        for (Enemy e : currentArea.getEnemies()){
+             g.setColor(e.getColor());
+             g.fillRect((int)(posX + width*((double)e.getX())/WORLD_SIZE_X), 
+                    (int)(posY + height*((double)e.getY())/WORLD_SIZE_Y), 3, 3);    
+        }
+        
+        g.setColor(PLAYER_COLOR);
+        g.fillRect((int)(posX + width*((double)player.getX())/WORLD_SIZE_X), 
+                (int)(posY + height*((double)player.getY())/WORLD_SIZE_Y), 3, 3);
     }
     
     private void renderEnemies(GameContainer container, Graphics g) throws SlickException {
