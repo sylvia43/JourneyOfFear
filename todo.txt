@@ -1,78 +1,15 @@
-SlickGame To Do
-===============
-Key:
-	x - Done
-	/ - Partial
-	. - Incomplete
+Realm of the Ancients To Do
+===========================
 
-Code:
-	[x] Install Slick2D.
-	[x] Make a window that can be drawn on.
-	[x] Create a Player.
-	[x] Make the Player move.
-	[x] Make the Player attack.
-	[x] Increase the map size.
-	[x] Make the map scrollable.
-	[x] Collision with enemy.
-	[x] Collision with enemy attack.
-	[x] Ability to attack enemy.
-	[x] Create system for loading music.
-	[x] Implement playlist.
-	[x] Give music something to do.
-	[/] Damage and death.
-	[/] Combo attacks.
-	[/] Make the map randomly generate.
-	[/] Attack sound implementation.
-	[ ] Trees.
-	[ ] Make Areas more object oriented.
-	[ ] Tiles you can't walk into (Boulders, trees, holes in the ground, etc).
-	[ ] Smart enemy.
-	[ ] Different types of attacks.
-	[ ] Different weapons.
-	[ ] Different blobs and bats (More enemies).
-	[ ] Boss fight.
-	[ ] Integrate transition tiles.
-	[ ] Give tiles logic to choose from multiple images (?).
-	[ ] Enemy movement sound implementation.
-	[ ] Enemy death sound implementation.
-	[ ] Inventory.
-	[ ] Potions.
-	
-Art:
-	[x] Player in 4 directions, 4 frames each.
-	[x] Grass that's tileable.
-	[x] Sword in 8 frames.
-	[x] Enemy.
-	[x] Enemy attack.
-	[x] Transition tiles.
-	[/] Cave floor and variations.
-	[/] Enemies.
-	[/] Add tile for trees.
-	[/] Slime death animation for all types of slimes.
-	[/] Different types of slimes.
-	[ ] Potion bottle full/empty.
-	[ ] Magic blast animations.
-	[ ] Different weapons.
-	[ ] Add tile for rocks.
-	[ ] Add tile for holes in the ground.
-	[ ] Game title page w/ selecting arrow and font.
-	[ ] Intro animation (optional).
-	[ ] Zip all stuff and send it to Shreyas.
-	
-Music:
-	[x] Cave sound effects.
-	[x] Blob sound effects.
-	[x] Background music.
-	[x] Hit sound effect.
-	[x] Get hit sound effect.
-	[x] Bat sound effects.
-	[x] Lots of music.
-	[x] Unelectric sound effects.
-	[x] Boss themes.
-	[x] Zip all stuff and send it to Shreyas.
-	[x] Magic sounds.
-	[x] Try for some mellow music w/ NESVST
-	[/] Send Chad's music to Shreyas
-	[/] Player death sound.
-	[ ] Bow pull sounds.
-	[ ] Bow shoot sounds.
+(S) [x] Copy SlickGame.
+(S) [/] Server.
+(S) [/] DataPacket.
+(S) [/] Enemy players.
+(S) [/] Multiplayer.
+(S) [/] Create DataPacket class.
+(B) [ ] Enviornmental Hazards.
+(B) [ ] Minimap.
+( ) [ ] Menu screen.
+( ) [ ] Server select screen.
+( ) [ ] Potions.
+( ) [ ] Ancients.
