@@ -184,7 +184,7 @@ public class StatePlaying extends BasicGameState {
         
         ArrayList<Enemy> list = currentArea.getEnemies();
         for (Enemy e : list){
-             g.setColor(Color.red);
+             g.setColor(e.getColor());
              g.fillRect((int)(miniOriginX + miniDistX*((double)e.getX())/WORLD_SIZE_X), 
              (int)(miniOriginY + miniDistY*((double)e.getY())/WORLD_SIZE_Y), 3, 3);    
         }

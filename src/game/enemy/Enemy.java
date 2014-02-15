@@ -38,6 +38,7 @@ public class Enemy {
     //Getters. These methods probably can be left alone.
     public int getX() { return x; }
     public int getY() { return y; }
+    public Color getColor() { return minimapColor; }
     
     public ImageMask getCollisionMask() {
         return sprite.getAnimationMask(spritePointer)
@@ -49,6 +50,7 @@ public class Enemy {
     
     public Enemy(Player player) {
         this.player = player;
+        minimapColor = new Color(Color.red);//Red is default enemy color
     }
     
     public void setX(int x) { this.x = x; }
@@ -124,9 +126,5 @@ public class Enemy {
             masks[i] = new ImageMask(sprite.getAnim(index).getImage(i));
         }
         return new AnimationMask(masks);
-    }
-
-    public Color getColor() {
-        return minimapColor;
     }
 }
