@@ -4,24 +4,21 @@ import game.player.Player;
 import game.sprite.EntitySprite;
 import game.state.StatePlaying;
 import game.util.resource.AnimationLibrary;
-import game.util.resource.SoundLibrary;
-import game.util.resource.SoundPlayer;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class Spikes extends Hazards {
+public class Spikes extends Hazard {
     
- protected Player player;
+protected Player player;
 
-    public Spikes(Player player) {
-        super();
-        this.player=player;
+    public Spikes(Player p) {
+        super();  
+        this.player = p;
         this.x=(int)(Math.random()*StatePlaying.WORLD_SIZE_X);
         this.y=(int)(Math.random()*StatePlaying.WORLD_SIZE_Y);
-        this.animationSpeed = 500;
+        this.animationSpeed = 322;
     }
     
     @Override
@@ -29,16 +26,18 @@ public class Spikes extends Hazards {
         spritePointer = 3;
     }
     
-    @Override
     protected void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
         Animation[] animList = {
             AnimationLibrary.SPIKES.getAnim(),
-           
+            AnimationLibrary.SPIKES.getAnim(),
+            AnimationLibrary.SPIKES.getAnim(),
+            AnimationLibrary.SPIKES.getAnim(),
         };
         sprite.setAnimations(animList);
         initializeMask();
     }
+   
     
  
     @Override

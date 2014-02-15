@@ -2,6 +2,7 @@ package game.state;
 
 import game.enemy.Enemy;
 import game.enemy.EnemyPlayer;
+import game.environment.Hazard;
 import game.map.Area;
 import game.player.Player;
 import game.util.MathHelper;
@@ -68,6 +69,7 @@ public class StatePlaying extends BasicGameState {
         
         updateArea();
         updateEnemies(container,delta);
+        updateHazards(container,delta);
         updatePlayer(container,delta);
         updateViewPort();
     }
@@ -77,6 +79,7 @@ public class StatePlaying extends BasicGameState {
         translateView(g);
         renderMap(g);
         renderEnemies(container,g);
+        renderHazards(container,g);
         renderPlayer(container,g);
         for (EnemyPlayer e : enemyPlayers) {
             e.render(container,g);
@@ -147,6 +150,11 @@ public class StatePlaying extends BasicGameState {
             e.update(container, delta);
         }
     }
+    private void updateHazards(GameContainer container, int delta) {
+        for (Hazard h : currentArea.getHazards()) {
+            h.update(container, delta);
+        }
+    }
         
     private void updatePlayer(GameContainer container, int delta) {
         player.setEnemies(currentArea.getEnemies());
@@ -215,6 +223,12 @@ public class StatePlaying extends BasicGameState {
         for (Enemy e : currentArea.getEnemies()) {
             if (e.getX()>camX-64 && e.getY()>camY-64 && e.getX()<camX+VIEW_SIZE_X && e.getY()<camY+VIEW_SIZE_Y)
                 e.render(container, g);
+        }
+    }
+       private void renderHazards(GameContainer container, Graphics g) throws SlickException {
+        for (Hazard h : currentArea.getHazards()) {
+            if (h.getX()>camX-64 && h.getY()>camY-64 && h.getX()<camX+VIEW_SIZE_X && h.getY()<camY+VIEW_SIZE_Y)
+                h.render(container, g);
         }
     }
     

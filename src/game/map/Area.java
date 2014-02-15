@@ -3,6 +3,8 @@ package game.map;
 import game.enemy.Enemy;
 import game.enemy.EnemyBlob;
 import game.enemy.EnemySmartBlob;
+import game.environment.Hazard;
+import game.environment.Spikes;
 import game.player.Player;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
@@ -16,6 +18,7 @@ public class Area {
     
     private TiledMap map;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    private ArrayList<Hazard> hazards = new ArrayList<Hazard>();
     
     private Area left;
     private Area right;
@@ -30,7 +33,7 @@ public class Area {
     
     public Tile getTile(int x, int y) { return map.getTile(x,y); }
     public ArrayList<Enemy> getEnemies() { return enemies; }
-    
+    public ArrayList<Hazard> getHazards() { return hazards; }
     public int getWidth() { return width; }
     public int getHeight() { return height; }
         
@@ -48,12 +51,24 @@ public class Area {
         } catch (SlickException e) {
             System.out.println("Error initializing enemy: " + e);
         }
+        
+        try {
+            addHazard(new Spikes(player)).init(container);
+            
+        } catch (SlickException e) {
+            System.out.println("Error initializing hazard: " + e);
+        }
     }
     
     public Enemy addEnemy(Enemy e) {
         enemies.add(e);
         return e;
     }
+    public Hazard addHazard(Hazard h){
+        hazards.add(h);
+        return h;
+    }
+    
     
     public void setLeft(Area area) {
         left = area;
@@ -100,4 +115,6 @@ public class Area {
         down.setUp(this);
         return down;
     }
+
+    
 }

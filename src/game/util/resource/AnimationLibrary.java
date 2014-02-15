@@ -28,7 +28,10 @@ public enum AnimationLibrary {
     SIRBLOB_RIGHT("blobgreen/right.png",332),
     SIRBLOB_UP("blobgreen/up.png",332),
     SIRBLOB_DOWN("blobgreen/down.png",332),
-    SIRBLOB_LEFT("blobgreen/left.png",332);
+    SIRBLOB_LEFT("blobgreen/left.png",332),
+    
+    //Environment sprites
+    SPIKES("blobgreen/left.png",332);
     
     private String filepath;
     private Animation anim;
