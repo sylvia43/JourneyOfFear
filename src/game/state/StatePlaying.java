@@ -26,7 +26,7 @@ public class StatePlaying extends BasicGameState {
     
     private final Color MINIMAP_BLACK = new Color(0f,0f,0f,0.5f);
     private final Color PLAYER_COLOR = Color.green;
-        
+    
     private int camX;
     private int camY;
     private Area currentArea;
@@ -183,11 +183,8 @@ public class StatePlaying extends BasicGameState {
                 (int)(posY + height*((double)player.getY())/WORLD_SIZE_Y), 3, 3);
         g.setColor(Color.black);
         g.setColor(new Color(0f,0f,0f,0.5f));
+        
         g.setColor(MINIMAP_BLACK);
-        int posX = (int)(7.5 *VIEW_SIZE_X)/10 + camX;
-        int posY = (int)(.75 *VIEW_SIZE_Y)/10 + camY;
-        int width = (int)(2.3 *VIEW_SIZE_X)/10;
-        int height = (int)(((double)WORLD_SIZE_Y / WORLD_SIZE_X)*(2.3 *VIEW_SIZE_X)/10);
         
         g.fillRect(posX, posY, width, height);
         
