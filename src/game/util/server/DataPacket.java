@@ -49,7 +49,7 @@ public class DataPacket {
         return data;
     }
 
-    public void updateEnemy() throws SlickException {
+    public void updateEnemy() {
         for (EnemyPlayer e : enemies) {
             if (e.getId() == get(8)) {
                 e.setX(get(0));
