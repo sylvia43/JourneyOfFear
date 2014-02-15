@@ -172,6 +172,10 @@ public class StatePlaying extends BasicGameState {
         g.setColor(PLAYER_COLOR);
         g.fillRect((int)(posX + width*((double)player.getX())/WORLD_SIZE_X), 
                 (int)(posY + height*((double)player.getY())/WORLD_SIZE_Y), 3, 3);
+        g.setColor(Color.black);
+        g.fillRect((int)(7.5 *VIEW_SIZE_X)/10 + camX , 
+               (int)(.75 *VIEW_SIZE_Y)/10 + camY, (int)(2.3 *VIEW_SIZE_X)/10, 
+               (int)(((double)WORLD_SIZE_Y / WORLD_SIZE_X)*(2.3 *VIEW_SIZE_X)/10));
     }
     
     private void renderEnemies(GameContainer container, Graphics g) throws SlickException {
