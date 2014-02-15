@@ -180,16 +180,17 @@ public class StatePlaying extends BasicGameState {
         g.setColor(Color.black);
         g.setColor(new Color(0f,0f,0f,0.5f));
         g.setColor(MINIMAP_BLACK);
-        g.fillRect((int)(7.5 *VIEW_SIZE_X)/10 + camX , 
-               (int)(.75 *VIEW_SIZE_Y)/10 + camY, (int)(2.3 *VIEW_SIZE_X)/10, 
-               (int)(((double)WORLD_SIZE_Y / WORLD_SIZE_X)*(2.3 *VIEW_SIZE_X)/10));
+        int miniOriginX = (int)(7.5 *VIEW_SIZE_X)/10 + camX;
+        int miniOriginY = (int)(.75 *VIEW_SIZE_Y)/10 + camY;
+        int miniDistX = (int)(2.3 *VIEW_SIZE_X)/10;
+        int miniDistY = (int)(((double)WORLD_SIZE_Y / WORLD_SIZE_X)*(2.3 *VIEW_SIZE_X)/10);
+        g.fillRect(miniOriginX, miniOriginY, miniDistX, miniDistY);
         
         ArrayList<Enemy> list = currentArea.getEnemies();
         for (Enemy e : list){
              g.setColor(Color.red);
-             g.fillRect((int)(7.5 *VIEW_SIZE_X)/10 + camX + (int)((WORLD_SIZE_X/4 - e.getX())/10) , 
-             (int)(.75 *VIEW_SIZE_Y)/10 + camY + (int)((WORLD_SIZE_Y/4 - e.getY())/10), 
-             3, 3);
+             g.fillRect((int)(miniOriginX + miniDistX*((double)e.getX())/WORLD_SIZE_X), 
+             (int)(miniOriginY + miniDistY*((double)e.getY())/WORLD_SIZE_Y), 3, 3);    
         }
     }
     
