@@ -11,6 +11,7 @@ import game.util.resource.AnimationLibrary;
 import game.util.resource.ResourceLoader;
 import game.util.resource.SoundLibrary;
 import game.util.resource.SoundPlayer;
+import game.util.server.DataPacket;
 import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -86,6 +87,13 @@ public class Player {
         int dy = (int) Math.round(Math.cos(Math.toRadians((sword.getFrame()+2)*45)));
         
         return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
+    }
+    
+    public DataPacket getPacket() {
+        DataPacket packet = new DataPacket();
+        packet.add(x,0);
+        packet.add(y,4);
+        return packet;
     }
     
     public void setX(int x) { this.x = x; }

@@ -3,7 +3,7 @@ package game.util.server;
 public class DataPacket {
 
     private byte[] data;
-    public static final int MAX_SIZE = 64;
+    public static final int MAX_SIZE = 8;
     
     public DataPacket() {
         data = new byte[MAX_SIZE];

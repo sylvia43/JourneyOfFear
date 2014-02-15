@@ -25,8 +25,8 @@ public class EnemyBlob extends Enemy {
 
     public EnemyBlob(Player player) {
         super(player);
-        this.x=500;
-        this.y=500;
+        this.x=(int)(Math.random()*StatePlaying.WORLD_SIZE_X);
+        this.y=(int)(Math.random()*StatePlaying.WORLD_SIZE_Y);
         this.speed = 0.0625;
         this.animationSpeed = 332;
         this.health = 5;

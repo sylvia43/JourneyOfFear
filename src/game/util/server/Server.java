@@ -30,6 +30,28 @@ public class Server {
                             private Socket socket = sockets.get(localSocketCounter);
                             public void run() {
                                 try {
+                                    Thread senderThread = new Thread(new Runnable() {
+                                        private volatile boolean running = true;
+                                        private int localSocketCounter = socketCounter;
+                                        private Socket socket = sockets.get(localSocketCounter);
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                while (running) {
+                                                    // SEND DATA HERE
+                                                    if (false)
+                                                        throw new IOException("lel");
+                                                }
+                                            } catch (IOException e) {
+                                                System.out.println("Error: " + e);
+                                                sockets.remove(localSocketCounter);
+                                                socket = null;
+                                            }
+                                        }
+                                        public void kill() {
+                                            running = false;
+                                        }
+                                    });
                                     while (running) {
                                         byte[] b = new byte[DataPacket.MAX_SIZE];
                                         socket.getInputStream().read(b,0,DataPacket.MAX_SIZE);
