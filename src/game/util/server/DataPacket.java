@@ -1,13 +1,15 @@
 package game.util.server;
 
-import game.enemy.Enemy;
+import game.enemy.EnemyPlayer;
+import game.player.Player;
 import java.util.ArrayList;
 
 public class DataPacket {
 
     private byte[] data;
     public static final int MAX_SIZE = 12;
-    public static ArrayList<Enemy> enemies;
+    public static ArrayList<EnemyPlayer> enemies;
+    public static Player player;
     
     public DataPacket() {
         data = new byte[MAX_SIZE];
@@ -17,12 +19,12 @@ public class DataPacket {
         this.data = data;
     }
     
-    public static void init(ArrayList<Enemy> newEnemies) {
-        enemies = newEnemies;
+    public static void init(ArrayList<EnemyPlayer> newEnemies) {
+        newEnemies = enemies;
     }
     
-    public static void update(ArrayList<Enemy> newEnemies) {
-        enemies = newEnemies;
+    public static void update(ArrayList<EnemyPlayer> newEnemies) {
+        newEnemies = enemies;
     }
     
     public void add(int i, int pos) {
@@ -46,11 +48,13 @@ public class DataPacket {
     }
 
     public void updateEnemy() {
-        for (Enemy e : enemies) {
+        for (EnemyPlayer e : enemies) {
             if (e.getId() == get(8)) {
                 e.setX(get(0));
                 e.setY(get(4));
+                return;
             }
         }
+        enemies.add(new EnemyPlayer(get(0),get(4),get(8)));
     }
 }

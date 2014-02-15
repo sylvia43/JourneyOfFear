@@ -1,6 +1,7 @@
 package game.state;
 
 import game.enemy.Enemy;
+import game.enemy.EnemyPlayer;
 import game.map.Area;
 import game.player.Player;
 import game.util.MathHelper;
@@ -33,6 +34,8 @@ public class StatePlaying extends BasicGameState {
     private int id;
     private Soundtrack soundtrack;
     
+    private ArrayList<EnemyPlayer> enemyPlayers = new ArrayList<EnemyPlayer>();
+   
 
     public StatePlaying(int id) {
         this.id = id;
@@ -44,6 +47,7 @@ public class StatePlaying extends BasicGameState {
         soundtrack.init();
         initPlayer(container);
         setupArea(container,player);
+        enemyPlayers.add(new EnemyPlayer(500,500,33));
     }
 
     @Override
@@ -55,6 +59,7 @@ public class StatePlaying extends BasicGameState {
         if (container.getInput().isKeyPressed(Input.KEY_R))
             soundtrack.restart();
         soundtrack.update();
+        
         updateArea();
         updateEnemies(container,delta);
         updatePlayer(container,delta);
@@ -67,6 +72,9 @@ public class StatePlaying extends BasicGameState {
         renderMap(g);
         renderEnemies(container,g);
         renderPlayer(container,g);
+        for (EnemyPlayer e : enemyPlayers) {
+            e.render(container,g);
+        }
     }
     
     private void setupArea(GameContainer container, Player player) {
@@ -183,8 +191,13 @@ public class StatePlaying extends BasicGameState {
         
         g.fillRect(posX, posY, width, height);
         
-        ArrayList<Enemy> list = currentArea.getEnemies();
-        for (Enemy e : list){
+        for (Enemy e : currentArea.getEnemies()){
+             g.setColor(e.getColor());
+             g.fillRect((int)(posX + width*((double)e.getX())/WORLD_SIZE_X), 
+                    (int)(posY + height*((double)e.getY())/WORLD_SIZE_Y), 3, 3);    
+        }
+        
+        for (EnemyPlayer e : enemyPlayers){
              g.setColor(e.getColor());
              g.fillRect((int)(posX + width*((double)e.getX())/WORLD_SIZE_X), 
                     (int)(posY + height*((double)e.getY())/WORLD_SIZE_Y), 3, 3);    

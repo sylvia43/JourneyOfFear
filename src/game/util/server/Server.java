@@ -1,6 +1,6 @@
 package game.util.server;
 
-import game.enemy.Enemy;
+import game.enemy.EnemyPlayer;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -43,7 +43,7 @@ public class Server {
                                         public void run() {
                                             try {
                                                 while (running) {
-                                                    for (Enemy e : DataPacket.enemies)
+                                                    for (EnemyPlayer e : DataPacket.enemies)
                                                         socket.getOutputStream().write(e.getPacket().getBytes());
                                                 }
                                             } catch (IOException e) {
