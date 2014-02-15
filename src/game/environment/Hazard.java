@@ -26,6 +26,7 @@ public class Hazard {
     //Getters. These methods probably can be left alone.
     public int getX() { return x; }
     public int getY() { return y; }
+    public Color getColor() { return minimapColor; }
     
     public ImageMask getCollisionMask() {
         return sprite.getAnimationMask(spritePointer)
@@ -55,6 +56,7 @@ public class Hazard {
     }
      public void render(GameContainer container, Graphics g) throws SlickException {
         sprite.getAnim(spritePointer).draw(x,y,64,64);
+        
         
         if (StatePlaying.DEBUG_MODE)
             renderDebugInfo(g);

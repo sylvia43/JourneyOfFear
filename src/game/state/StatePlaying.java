@@ -89,6 +89,7 @@ public class StatePlaying extends BasicGameState {
     private void setupArea(GameContainer container, Player player) {
         currentArea = new Area(WORLD_SIZE_X,WORLD_SIZE_Y,container,player);
         player.setEnemies(currentArea.getEnemies());
+        player.setHazards(currentArea.getHazards());
     }
     
     private void initPlayer(GameContainer container) throws SlickException {
@@ -158,6 +159,7 @@ public class StatePlaying extends BasicGameState {
         
     private void updatePlayer(GameContainer container, int delta) {
         player.setEnemies(currentArea.getEnemies());
+        player.setHazards(currentArea.getHazards());
         player.update(container,delta);
     }
     
@@ -190,6 +192,11 @@ public class StatePlaying extends BasicGameState {
              g.setColor(e.getColor());
              g.fillRect((int)(posX + width*((double)e.getX())/WORLD_SIZE_X), 
                     (int)(posY + height*((double)e.getY())/WORLD_SIZE_Y), 3, 3);    
+        }
+         for (Hazard h : currentArea.getHazards()){
+             g.setColor(h.getColor());
+             g.fillRect((int)(posX + width*((double)h.getX())/WORLD_SIZE_X), 
+                    (int)(posY + height*((double)h.getY())/WORLD_SIZE_Y), 3, 3);    
         }
         
         g.setColor(PLAYER_COLOR);
