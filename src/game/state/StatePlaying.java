@@ -22,16 +22,21 @@ public class StatePlaying extends BasicGameState {
     public static final int VIEW_SIZE_Y = 512;
     public static final int WORLD_SIZE_X = VIEW_SIZE_X*4;
     public static final int WORLD_SIZE_Y = VIEW_SIZE_Y*4;
+<<<<<<< HEAD
     
     private final Color MINIMAP_BLACK = new Color(0f,0f,0f,0.5f);
     private final Color PLAYER_COLOR = Color.green;
     
+=======
+    private final Color MINIMAP_BLACK = new Color(0f,0f,0f,0.5f);
+>>>>>>> f6865d3... Buggy enemy display on minimap
     private int camX;
     private int camY;
     private Area currentArea;
     private Player player;
     private int id;
     private Soundtrack soundtrack;
+    
 
     public StatePlaying(int id) {
         this.id = id;
@@ -174,9 +179,18 @@ public class StatePlaying extends BasicGameState {
                 (int)(posY + height*((double)player.getY())/WORLD_SIZE_Y), 3, 3);
         g.setColor(Color.black);
         g.setColor(new Color(0f,0f,0f,0.5f));
+        g.setColor(MINIMAP_BLACK);
         g.fillRect((int)(7.5 *VIEW_SIZE_X)/10 + camX , 
                (int)(.75 *VIEW_SIZE_Y)/10 + camY, (int)(2.3 *VIEW_SIZE_X)/10, 
                (int)(((double)WORLD_SIZE_Y / WORLD_SIZE_X)*(2.3 *VIEW_SIZE_X)/10));
+        
+        ArrayList<Enemy> list = currentArea.getEnemies();
+        for (Enemy e : list){
+             g.setColor(Color.red);
+             g.fillRect((int)(7.5 *VIEW_SIZE_X)/10 + camX + (int)((WORLD_SIZE_X/4 - e.getX())/10) , 
+             (int)(.75 *VIEW_SIZE_Y)/10 + camY + (int)((WORLD_SIZE_Y/4 - e.getY())/10), 
+             3, 3);
+        }
     }
     
     private void renderEnemies(GameContainer container, Graphics g) throws SlickException {
