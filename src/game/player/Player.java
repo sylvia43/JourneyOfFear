@@ -311,6 +311,16 @@ public class Player {
         }
     }
     
+        public void resolveHit(int ox, int oy, int damage) {
+        isHit = true;
+        if (!invulnerable) {
+            invulnerable = true; //Deal damage here somewhere.
+            invulnerabilityTimer = INVULNERABILITY_DURATION;
+            initializeKnockback(x-ox,y-oy);
+            playerHealth.damage(damage);
+        }
+    }
+    
     public void makeInvulnerable(int duration) {
         invulnerable = true;
         invulnerabilityTimer = duration;
