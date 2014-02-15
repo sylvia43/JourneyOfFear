@@ -1,8 +1,9 @@
 package game.environment;
 
+import game.enemy.Enemy;
 import game.sprite.AnimationMask;
 import game.sprite.ImageMask;
-import game.sprite.Rectangle;
+import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -13,14 +14,13 @@ public class Hazard {
     
     protected Animation sprite;
     protected AnimationMask mask;
-    protected String spritepath;
-    protected int animationSpeed;  
-    protected boolean collisionHit;
     
     protected int x;
     protected int y;    
     
     protected Color minimapColor;
+    
+    protected static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
         
     //Getters. These methods probably can be left alone.
     public int getX() { return x; }
@@ -30,9 +30,6 @@ public class Hazard {
     public ImageMask getCollisionMask() {
         return mask.getImageMask(sprite.getFrame());
     }
-    
-    // By default hazards don't have attacks :).
-    public Rectangle getAttackMask() { return null; }
     
     public Hazard() {
        minimapColor = Color.blue;
@@ -51,7 +48,11 @@ public class Hazard {
     }
      public void render(GameContainer container, Graphics g) throws SlickException {
         sprite.draw(x,y,64,64);
-    }    
+    }
+     
+    public static void updateEnemies(ArrayList<Enemy> newEnemies) {
+        enemies = newEnemies;
+    }
     
     //Empty methods. These methods should be overriden
     protected void initializeSprite() throws SlickException { }

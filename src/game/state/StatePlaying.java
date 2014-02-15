@@ -152,8 +152,9 @@ public class StatePlaying extends BasicGameState {
         }
     }
     private void updateHazards(GameContainer container, int delta) {
+        Hazard.updateEnemies(currentArea.getEnemies());
         for (Hazard h : currentArea.getHazards()) {
-            h.update(container, delta);
+            h.update(container,delta);
         }
     }
         

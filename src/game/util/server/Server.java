@@ -63,7 +63,8 @@ public class Server {
                                     DataPacket packet = null;
                                     
                                     while (running) {
-                                        if (socket.getInputStream().read(b,0,DataPacket.MAX_SIZE)!=DataPacket.MAX_SIZE)
+                                        if (socket.getInputStream().read(b,0,DataPacket.MAX_SIZE)
+                                                !=DataPacket.MAX_SIZE)
                                             running = false;
                                         System.out.println("Read data: " + Arrays.toString(b));
                                         packet = new DataPacket(b);

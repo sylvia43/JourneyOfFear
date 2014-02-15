@@ -1,5 +1,6 @@
 package game.environment;
 
+import game.enemy.Enemy;
 import game.player.Player;
 import game.state.StatePlaying;
 import game.util.resource.AnimationLibrary;
@@ -8,6 +9,7 @@ import org.newdawn.slick.SlickException;
 public class Spikes extends Hazard {
     
 protected Player player;
+protected int attackId = 0;
 
     public Spikes(Player player) {
         super();  
@@ -25,8 +27,14 @@ protected Player player;
  
     @Override
     protected void resolveCollision() {
-        if (sprite.getFrame() != 0 && getCollisionMask()
-                .intersects(player.getCollisionMask(),x,y,player.getX(),player.getY()))
+        if (sprite.getFrame() == 0)
+            return;
+        if (getCollisionMask().intersects(player.getCollisionMask(),x,y,player.getX(),player.getY()))
             player.resolveHit(x,y);
+        for (Enemy e : enemies) {
+            if (getCollisionMask().intersects(e.getCollisionMask(),x,y,e.getX(),e.getY())) {
+                e.resolveHit(x,y,attackId);
+            }
+        }
     }
 }
