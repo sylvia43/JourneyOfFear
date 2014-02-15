@@ -2,13 +2,13 @@ Realm of the Ancients To Do
 ===========================
 
 (S) [x] Copy SlickGame.
+(B) [x] Minimap.
 (S) [/] Server.
 (S) [/] DataPacket.
 (S) [/] Enemy players.
 (S) [/] Multiplayer.
 (S) [/] Create DataPacket class.
 (B) [ ] Enviornmental Hazards.
-(B) [x] Minimap.
 ( ) [ ] Menu screen.
 ( ) [ ] Server select screen.
 ( ) [ ] Potions.
