@@ -176,28 +176,28 @@ public class StatePlaying extends BasicGameState {
         g.setColor(Color.black);
         g.setColor(new Color(0f,0f,0f,0.5f));
         g.setColor(MINIMAP_BLACK);
-        int miniOriginX = (int)(7.5 *VIEW_SIZE_X)/10 + camX;
-        int miniOriginY = (int)(.75 *VIEW_SIZE_Y)/10 + camY;
-        int miniDistX = (int)(2.3 *VIEW_SIZE_X)/10;
-        int miniDistY = (int)(((double)WORLD_SIZE_Y / WORLD_SIZE_X)*(2.3 *VIEW_SIZE_X)/10);
-        g.fillRect(miniOriginX, miniOriginY, miniDistX, miniDistY);
+        int posX = (int)(7.5 *VIEW_SIZE_X)/10 + camX;
+        int posY = (int)(.75 *VIEW_SIZE_Y)/10 + camY;
+        int width = (int)(2.3 *VIEW_SIZE_X)/10;
+        int height = (int)(((double)WORLD_SIZE_Y / WORLD_SIZE_X)*(2.3 *VIEW_SIZE_X)/10);
+        
+        g.fillRect(posX, posY, width, height);
         
         ArrayList<Enemy> list = currentArea.getEnemies();
         for (Enemy e : list){
              g.setColor(e.getColor());
-             g.fillRect((int)(miniOriginX + miniDistX*((double)e.getX())/WORLD_SIZE_X), 
-             (int)(miniOriginY + miniDistY*((double)e.getY())/WORLD_SIZE_Y), 3, 3);    
+             g.fillRect((int)(posX + width*((double)e.getX())/WORLD_SIZE_X), 
+                    (int)(posY + height*((double)e.getY())/WORLD_SIZE_Y), 3, 3);    
         }
         
-         g.setColor(PLAYER_COLOR);
-             g.fillRect((int)(miniOriginX + miniDistX*((double)player.getX())/WORLD_SIZE_X), 
-             (int)(miniOriginY + miniDistY*((double)player.getY())/WORLD_SIZE_Y), 3, 3);    
+        g.setColor(PLAYER_COLOR);
+        g.fillRect((int)(posX + width*((double)player.getX())/WORLD_SIZE_X), 
+                (int)(posY + height*((double)player.getY())/WORLD_SIZE_Y), 3, 3);
     }
     
     private void renderEnemies(GameContainer container, Graphics g) throws SlickException {
         for (Enemy e : currentArea.getEnemies()) {
-            if (e.getX()>camX-64 && e.getY()>camY-64
-                && e.getX()<camX+VIEW_SIZE_X && e.getY()<camY+VIEW_SIZE_Y)
+            if (e.getX()>camX-64 && e.getY()>camY-64 && e.getX()<camX+VIEW_SIZE_X && e.getY()<camY+VIEW_SIZE_Y)
                 e.render(container, g);
         }
     }
