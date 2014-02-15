@@ -8,7 +8,7 @@ Realm of the Ancients To Do
 (S) [/] Multiplayer.
 (S) [/] Create DataPacket class.
 (B) [ ] Enviornmental Hazards.
-(B) [ ] Minimap.
+(B) [/] Minimap.//Still have to code in enemy "colors." Currently all is red
 ( ) [ ] Menu screen.
 ( ) [ ] Server select screen.
 ( ) [ ] Potions.
