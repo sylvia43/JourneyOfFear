@@ -1,5 +1,6 @@
 package game.util.server;
 
+import game.enemy.Enemy;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -30,6 +31,10 @@ public class Server {
                             private Socket socket = sockets.get(localSocketCounter);
                             public void run() {
                                 try {
+                                    byte[] b = new byte[DataPacket.MAX_SIZE];
+                                    socket.getInputStream().read(b,0,DataPacket.MAX_SIZE);
+                                    DataPacket packet = new DataPacket(b);
+
                                     Thread senderThread = new Thread(new Runnable() {
                                         private volatile boolean running = true;
                                         private int localSocketCounter = socketCounter;
@@ -38,9 +43,8 @@ public class Server {
                                         public void run() {
                                             try {
                                                 while (running) {
-                                                    // SEND DATA HERE
-                                                    if (false)
-                                                        throw new IOException("lel");
+                                                    for (Enemy e : DataPacket.enemies)
+                                                        socket.getOutputStream().write(e.getPacket().getBytes());
                                                 }
                                             } catch (IOException e) {
                                                 System.out.println("Error: " + e);
@@ -53,9 +57,8 @@ public class Server {
                                         }
                                     });
                                     while (running) {
-                                        byte[] b = new byte[DataPacket.MAX_SIZE];
                                         socket.getInputStream().read(b,0,DataPacket.MAX_SIZE);
-                                        DataPacket packet = new DataPacket(b);
+                                        packet = new DataPacket(b);
                                         packet.updateEnemy();
                                     }
                                 } catch (IOException e) {

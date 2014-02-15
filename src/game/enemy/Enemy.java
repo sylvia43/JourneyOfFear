@@ -6,6 +6,7 @@ import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
 import game.sprite.Rectangle;
 import game.state.StatePlaying;
+import game.util.server.DataPacket;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -35,6 +36,8 @@ public class Enemy {
     
     protected Color minimapColor;
     
+    protected final int id;
+    
     //Getters. These methods probably can be left alone.
     public int getX() { return x; }
     public int getY() { return y; }
@@ -50,6 +53,7 @@ public class Enemy {
     
     public Enemy(Player player) {
         this.player = player;
+        this.id = this.hashCode();
         minimapColor = new Color(Color.red);//Red is default enemy color
     }
     
@@ -126,5 +130,17 @@ public class Enemy {
             masks[i] = new ImageMask(sprite.getAnim(index).getImage(i));
         }
         return new AnimationMask(masks);
+    }
+
+    public int getId() {
+        return id;
+    }
+    
+    public DataPacket getPacket() {
+        DataPacket packet = new DataPacket();
+        packet.add(x,0);
+        packet.add(y,4);
+        packet.add(id,8);
+        return packet;
     }
 }

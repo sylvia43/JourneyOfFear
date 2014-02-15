@@ -68,8 +68,8 @@ public class Player {
     //How slippery knockback is. Less means more slide.
     private final int KNOCKBACK_MULTIPLIER = 30;
     private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*3;
-    
-    private int[] comboArray = new int[6];
+        
+    private final int id;
 
     public int getX() { return x; }
     public int getY() { return y; }
@@ -93,13 +93,16 @@ public class Player {
         DataPacket packet = new DataPacket();
         packet.add(x,0);
         packet.add(y,4);
+        packet.add(id,8);
         return packet;
     }
     
     public void setX(int x) { this.x = x; }
     public void setY(int y) { this.y = y; }
     
-    public Player() { }
+    public Player() {
+        this.id = this.hashCode();
+    }
     
     public void init(GameContainer container) throws SlickException {
         initializeSprite();
@@ -350,28 +353,11 @@ public class Player {
         attacking = true;
         attackTimer = 0;
         attackDelay = sword.getDuration(0)*2 + SWORD_DELAY;
-        shiftComboArray(direction);
-        //testCombo();
-        //testNextCombo();
         sword.restart();
         sword.setCurrentFrame(direction);
         sword.stopAt((direction + 10) % 8);
         SoundPlayer.play(SoundLibrary.values()[(int)(3*Math.random())]);
     }
-    
-    private void shiftComboArray(int val) {
-        for (int i=comboArray.length-1;i>0;i--)
-            comboArray[i] = comboArray[i-1];
-        comboArray[0] = val;
-    }
-
-    /*
-    private boolean isCombo() {
-        for (Combo c : Combos) {
-            for ()
-        }
-    }
-    */
     
     private void renderDebugInfo(Graphics g) {
         g.setColor(Color.white);
