@@ -6,6 +6,8 @@ import game.map.Area;
 import game.player.Player;
 import game.util.MathHelper;
 import game.util.Soundtrack;
+import game.util.server.DataPacket;
+import game.util.server.Server;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -35,7 +37,8 @@ public class StatePlaying extends BasicGameState {
     private Soundtrack soundtrack;
     
     private ArrayList<EnemyPlayer> enemyPlayers = new ArrayList<EnemyPlayer>();
-   
+    
+    private Server server;
 
     public StatePlaying(int id) {
         this.id = id;
@@ -48,6 +51,7 @@ public class StatePlaying extends BasicGameState {
         initPlayer(container);
         setupArea(container,player);
         enemyPlayers.add(new EnemyPlayer(500,500,33));
+        server = new Server(9999);
     }
 
     @Override
@@ -59,6 +63,8 @@ public class StatePlaying extends BasicGameState {
         if (container.getInput().isKeyPressed(Input.KEY_R))
             soundtrack.restart();
         soundtrack.update();
+        
+        DataPacket.update(enemyPlayers);
         
         updateArea();
         updateEnemies(container,delta);

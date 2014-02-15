@@ -4,6 +4,7 @@ import game.enemy.EnemyPlayer;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Server {
@@ -18,23 +19,23 @@ public class Server {
         } catch (IOException e) {
             System.out.println("Error: " + e);
         }
+        
         Thread getClients = new Thread(new Runnable() {
             private volatile boolean running = true;
             public void run() {
                 try {
                     while (running) {
+                        System.out.println("Searching for incoming connections.");
                         sockets.put(socketCounter,server.accept());
                         socketCounter++;
+                        System.out.println("Found new incoming connection.");
+                        System.out.println("Creating thread for new connection.");
                         Thread clientThread = new Thread(new Runnable() {
                             private volatile boolean running = true;
-                            private int localSocketCounter = socketCounter;
+                            private int localSocketCounter = socketCounter-1;
                             private Socket socket = sockets.get(localSocketCounter);
                             public void run() {
                                 try {
-                                    byte[] b = new byte[DataPacket.MAX_SIZE];
-                                    socket.getInputStream().read(b,0,DataPacket.MAX_SIZE);
-                                    DataPacket packet = new DataPacket(b);
-
                                     Thread senderThread = new Thread(new Runnable() {
                                         private volatile boolean running = true;
                                         private int localSocketCounter = socketCounter;
@@ -56,19 +57,27 @@ public class Server {
                                             running = false;
                                         }
                                     });
+                                    //senderThread.start();
+                                    
+                                    byte[] b = new byte[DataPacket.MAX_SIZE];
+                                    DataPacket packet = null;
+                                    
                                     while (running) {
-                                        socket.getInputStream().read(b,0,DataPacket.MAX_SIZE);
+                                        if (socket.getInputStream().read(b,0,DataPacket.MAX_SIZE)!=DataPacket.MAX_SIZE)
+                                            running = false;
+                                        System.out.println("Read data: " + Arrays.toString(b));
                                         packet = new DataPacket(b);
                                         packet.updateEnemy();
                                     }
+                                    System.out.println("Lost client, closing connection.");
+                                    sockets.remove(localSocketCounter);
+                                    socket = null;
                                 } catch (IOException e) {
                                     System.out.println("Error: " + e);
+                                    System.out.println("Closing Connections.");
                                     sockets.remove(localSocketCounter);
                                     socket = null;
                                 }
-                            }
-                            public void kill() {
-                                running = false;
                             }
                         });
                         clientThread.start();
@@ -76,9 +85,6 @@ public class Server {
                 } catch (IOException e) {
                     System.out.println("Error: " + e);
                 }
-            }
-            public void kill() {
-                running = false;
             }
         });
         getClients.start();

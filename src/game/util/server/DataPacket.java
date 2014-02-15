@@ -3,12 +3,13 @@ package game.util.server;
 import game.enemy.EnemyPlayer;
 import game.player.Player;
 import java.util.ArrayList;
+import org.newdawn.slick.SlickException;
 
 public class DataPacket {
 
     private byte[] data;
     public static final int MAX_SIZE = 12;
-    public static ArrayList<EnemyPlayer> enemies;
+    public static ArrayList<EnemyPlayer> enemies = new ArrayList<EnemyPlayer>();
     public static Player player;
     
     public DataPacket() {
@@ -20,11 +21,12 @@ public class DataPacket {
     }
     
     public static void init(ArrayList<EnemyPlayer> newEnemies) {
-        newEnemies = enemies;
+        
     }
     
     public static void update(ArrayList<EnemyPlayer> newEnemies) {
-        newEnemies = enemies;
+        newEnemies.clear();
+        newEnemies.addAll(enemies);
     }
     
     public void add(int i, int pos) {
@@ -52,9 +54,15 @@ public class DataPacket {
             if (e.getId() == get(8)) {
                 e.setX(get(0));
                 e.setY(get(4));
+                System.out.println("Updated an enemy.");
                 return;
             }
         }
-        enemies.add(new EnemyPlayer(get(0),get(4),get(8)));
+        try {
+            enemies.add(new EnemyPlayer(get(0),get(4),get(8)));
+            System.out.println("Created new enemy.");
+        } catch (SlickException e) {
+            System.out.println("Unable to create enemy player: " + e);
+        }
     }
 }
