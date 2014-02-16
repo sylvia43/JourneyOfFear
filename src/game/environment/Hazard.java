@@ -1,6 +1,7 @@
 package game.environment;
 
 import game.enemy.Enemy;
+import game.map.Area;
 import game.sprite.AnimationMask;
 import game.sprite.ImageMask;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class Hazard {
         initializeSprite();
     }
     
-    public void update(GameContainer container, int delta) {
+    public void update(GameContainer container, int delta, Area currentArea) {
         resolveCollision();
     }
      public void render(GameContainer container, Graphics g) throws SlickException {

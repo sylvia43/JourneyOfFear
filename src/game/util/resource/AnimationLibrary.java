@@ -31,7 +31,8 @@ public enum AnimationLibrary {
     SIRBLOB_LEFT("blobgreen/left.png",332),
     
     //Environment sprites
-    SPIKES("environment/spikes.png",166);
+    SPIKES("environment/spikes.png",166),
+    GREEN_SLIME_PIT("environment/greenslimepit.png",332);
     
     private String filepath;
     private Animation anim;

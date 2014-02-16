@@ -69,7 +69,7 @@ public class StatePlaying extends BasicGameState {
         
         updateArea();
         updateEnemies(container,delta);
-        updateHazards(container,delta);
+        updateHazards(container,delta, currentArea);
         updatePlayer(container,delta);
         updateViewPort();
     }
@@ -151,10 +151,11 @@ public class StatePlaying extends BasicGameState {
             e.update(container, delta);
         }
     }
-    private void updateHazards(GameContainer container, int delta) {
+    private void updateHazards(GameContainer container, int delta, Area currentArea) {
         Hazard.updateEnemies(currentArea.getEnemies());
         for (Hazard h : currentArea.getHazards()) {
-            h.update(container,delta);
+            
+            h.update(container,delta, currentArea);
         }
     }
         

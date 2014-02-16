@@ -3,6 +3,7 @@ package game.map;
 import game.enemy.Enemy;
 import game.enemy.EnemyBlob;
 import game.enemy.EnemySmartBlob;
+import game.environment.GreenSlimePit;
 import game.environment.Hazard;
 import game.environment.Spikes;
 import game.player.Player;
@@ -54,6 +55,7 @@ public class Area {
         
         try {
             addHazard(new Spikes(player)).init(container);
+            addHazard(new GreenSlimePit(player)).init(container);
             
         } catch (SlickException e) {
             System.out.println("Error initializing hazard: " + e);
@@ -61,6 +63,12 @@ public class Area {
     }
     
     public Enemy addEnemy(Enemy e) {
+        enemies.add(e);
+        return e;
+    }
+     public Enemy addEnemy(Enemy e, int x, int y) {
+         e.setX(x);
+         e.setY(y);
         enemies.add(e);
         return e;
     }
