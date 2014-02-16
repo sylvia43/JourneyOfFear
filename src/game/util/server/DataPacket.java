@@ -20,10 +20,6 @@ public class DataPacket {
         this.data = data;
     }
     
-    public static void init(ArrayList<EnemyPlayer> newEnemies) {
-        
-    }
-    
     public static void update(ArrayList<EnemyPlayer> newEnemies) {
         newEnemies.clear();
         newEnemies.addAll(enemies);

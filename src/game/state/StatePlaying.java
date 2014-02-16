@@ -79,11 +79,11 @@ public class StatePlaying extends BasicGameState {
         translateView(g);
         renderMap(g);
         renderHazards(container,g);
-        renderEnemies(container,g);
-        renderPlayer(container,g);
         for (EnemyPlayer e : enemyPlayers) {
             e.render(container,g);
         }
+        renderEnemies(container,g);
+        renderPlayer(container,g);
     }
     
     private void setupArea(GameContainer container, Player player) {

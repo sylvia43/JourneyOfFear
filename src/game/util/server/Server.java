@@ -57,7 +57,7 @@ public class Server {
                                             running = false;
                                         }
                                     });
-                                    //senderThread.start();
+                                    senderThread.start();
                                     
                                     byte[] b = new byte[DataPacket.MAX_SIZE];
                                     DataPacket packet = null;
