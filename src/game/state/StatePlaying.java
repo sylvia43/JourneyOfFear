@@ -78,8 +78,8 @@ public class StatePlaying extends BasicGameState {
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         translateView(g);
         renderMap(g);
-        renderEnemies(container,g);
         renderHazards(container,g);
+        renderEnemies(container,g);
         renderPlayer(container,g);
         for (EnemyPlayer e : enemyPlayers) {
             e.render(container,g);

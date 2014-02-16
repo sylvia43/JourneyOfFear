@@ -168,6 +168,7 @@ public class EnemySmartBlob extends Enemy {
     @Override
     public void resolveHit(int ox, int oy, int attackId) {
         if (attackId != lastAttackId) {
+            lastAttackId = attackId;
             isHit = true;
             initializeKnockback(x-ox,y-oy);
             health--;
