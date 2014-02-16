@@ -8,7 +8,7 @@ import game.player.Player;
 import game.util.MathHelper;
 import game.util.Soundtrack;
 import game.util.server.DataPacket;
-import game.util.server.Server;
+import game.util.server.NetworkHandler;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -39,12 +39,12 @@ public class StatePlaying extends BasicGameState {
     
     private ArrayList<EnemyPlayer> enemyPlayers = new ArrayList<EnemyPlayer>();
     
-    private Server server;
+    private NetworkHandler network;
 
     public StatePlaying(int id) {
         this.id = id;
     }
-
+    
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         soundtrack = new Soundtrack();
@@ -52,7 +52,7 @@ public class StatePlaying extends BasicGameState {
         initPlayer(container);
         setupArea(container,player);
         enemyPlayers.add(new EnemyPlayer(500,500,33));
-        server = new Server(9999);
+        network = new NetworkHandler("127.0.0.1",9999);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class StatePlaying extends BasicGameState {
             soundtrack.restart();
         soundtrack.update();
         
-        DataPacket.update(enemyPlayers);
+        DataPacket.update(enemyPlayers,player);
         
         updateArea();
         updateEnemies(container,delta);
