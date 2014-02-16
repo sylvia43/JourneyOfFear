@@ -25,3 +25,4 @@ Every once in a while an Ancient will spawn, which is a boss monster that is rea
 
 ##### Ancients
 Ancients have four phases, one to counter each character, and another more powerful phase. The anti-fighter phase gives it a spear that hits multiple sqaures in a line. The anti-rogue phase gives it a burst attack that hits all sqaures around it. The anti-archer phase gives it a powerful blink ability, and a small weapon. The final phase gives it a large amount of projectiles of different kinds, as well as a powerful flail that hits a large area.
+There are also plans for different types of Ancients; each will probably house one of the properties above in greater strength.
