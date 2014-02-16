@@ -16,7 +16,7 @@ public class ResourceLoader {
     public static Music initializeMusic(String filepath) throws SlickException {
         return new Music("resources/music/" + filepath);
     }
-    
+     
     public static Image initializeImage(String filepath) throws SlickException {
         Image image = new Image("resources/art/" + filepath);
         image.setFilter(Image.FILTER_NEAREST);

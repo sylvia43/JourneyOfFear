@@ -148,7 +148,7 @@ public class StatePlaying extends BasicGameState {
     
     private void updateEnemies(GameContainer container, int delta) {
         for (Enemy e : currentArea.getEnemies()) {
-            e.update(container, delta);
+            e.update(container, delta); 
         }
     }
     private void updateHazards(GameContainer container, int delta, Area currentArea) {

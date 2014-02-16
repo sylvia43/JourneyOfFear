@@ -25,7 +25,7 @@ public class Spikes extends Hazard {
         mask = createMask();
         sprite.setDuration(0,1000);
     }
- 
+  
     @Override
     protected void resolveCollision() {
         if (sprite.getFrame() == 0) {

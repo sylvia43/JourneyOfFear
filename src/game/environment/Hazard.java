@@ -22,7 +22,7 @@ public class Hazard {
     protected Color minimapColor;
     
     protected static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-        
+         
     //Getters. These methods probably can be left alone.
     public int getX() { return x; }
     public int getY() { return y; }
