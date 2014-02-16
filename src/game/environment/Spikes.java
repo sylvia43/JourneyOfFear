@@ -2,7 +2,6 @@ package game.environment;
 
 import game.enemy.Enemy;
 import game.player.Player;
-import game.state.StatePlaying;
 import game.util.resource.AnimationLibrary;
 import org.newdawn.slick.SlickException;
 
@@ -15,8 +14,7 @@ public class Spikes extends Hazard {
     public Spikes(Player player) {
         super();  
         this.player = player;
-        this.x = (int)(Math.random()*StatePlaying.WORLD_SIZE_X);
-        this.y = (int)(Math.random()*StatePlaying.WORLD_SIZE_Y);
+       
     }
     
     @Override
