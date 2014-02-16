@@ -32,7 +32,8 @@ public enum AnimationLibrary {
     
     //Environment sprites
     SPIKES("environment/spikes.png",166),
-    GREEN_SLIME_PIT("environment/greenslimepit.png",332);
+    GREEN_SLIME_PIT("environment/greenslimepit.png",332),
+    PINK_SLIME_PIT("environment/pinkslimepit.png",332);
     
     private String filepath;
     private Animation anim;
