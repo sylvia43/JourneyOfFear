@@ -56,7 +56,6 @@ public class Area {
         try {
             addHazard(new Spikes(player)).init(container);
             addHazard(new GreenSlimePit(player)).init(container);
-            
         } catch (SlickException e) { 
             System.out.println("Error initializing hazard: " + e);
         }
