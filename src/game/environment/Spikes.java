@@ -23,7 +23,7 @@ public class Spikes extends Hazard {
     protected void initializeSprite() throws SlickException {
         sprite = AnimationLibrary.SPIKES.getAnim();
         mask = createMask();
-        this.sprite.setDuration(0,1000);
+        sprite.setDuration(0,1000);
     }
  
     @Override
