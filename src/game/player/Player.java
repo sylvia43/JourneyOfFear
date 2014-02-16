@@ -307,13 +307,7 @@ public class Player {
     }
     
     public void resolveHit(int ox, int oy) {
-        isHit = true;
-        if (!invulnerable) {
-            invulnerable = true; //Deal damage here somewhere.
-            invulnerabilityTimer = INVULNERABILITY_DURATION;
-            initializeKnockback(x-ox,y-oy);
-            playerHealth.damage(1);
-        }
+        resolveHit(ox,oy,1);
     }
     
         public void resolveHit(int ox, int oy, int damage) {
@@ -323,6 +317,7 @@ public class Player {
             invulnerabilityTimer = INVULNERABILITY_DURATION;
             initializeKnockback(x-ox,y-oy);
             playerHealth.damage(damage);
+            SoundPlayer.play(SoundLibrary.SWORD_HIT);
         }
     }
     
