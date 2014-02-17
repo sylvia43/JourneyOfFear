@@ -6,7 +6,7 @@ import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
 import game.sprite.Rectangle;
-import game.state.StatePlaying;
+import game.state.StateMultiplayer;
 import game.util.Options;
 import game.util.resource.AnimationLibrary;
 import game.util.resource.ResourceLoader;
@@ -127,7 +127,7 @@ public class Player {
         playerHealth.render(camX, camY);
         if (attacking)
             sword.draw(x-64,y-64,192,192);
-        if (StatePlaying.DEBUG_MODE)
+        if (StateMultiplayer.DEBUG_MODE)
             renderDebugInfo(g);
         isHit = false;
     }
@@ -378,7 +378,7 @@ public class Player {
         g.drawString(String.valueOf(attackTimer),10+camX,80+camY);
         g.drawString(isHit?"Hit":"Not Hit",10+camX,94+camY);
         g.drawString(attackHit?"Hitting!":"Not Hitting",10+camX,108+camY);
-        if (StatePlaying.DEBUG_COLLISION) {
+        if (StateMultiplayer.DEBUG_COLLISION) {
             getCollisionMask().draw(x,y,g);
             if (attacking) {
                 g.setColor(Color.red);

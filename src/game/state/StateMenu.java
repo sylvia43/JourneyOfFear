@@ -1,5 +1,6 @@
 package game.state;
 
+import game.Game;
 import java.awt.Font;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -25,6 +26,9 @@ public class StateMenu extends BasicGameState implements ComponentListener {
     private TextField field2;
     private Image background;
     private UnicodeFont font;
+    
+    public static final int AREA_SINGLEPLAYER = 0;
+    public static final int AREA_MULTIPLAYER = 1;
     
     private StateBasedGame game;
 
@@ -96,26 +100,30 @@ public class StateMenu extends BasicGameState implements ComponentListener {
     }
 
     @Override
-    public void update(GameContainer container,StateBasedGame game,int delta) throws SlickException {
+    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         if (game.getCurrentState().getID() != id)
             return;
     }
     
     @Override
-    public void keyPressed(int key,char c) {
+    public void keyPressed(int key, char c) {
         if (key == Input.KEY_ENTER)
             game.enterState(1);
     }
     
     @Override
     public void componentActivated(AbstractComponent source) {
-        if (source==areas[0]) {
-            message = "Entering game.";
-            game.enterState(1);
-        }
-        for (int i=1;i<4;i++)
-            if (source==areas[i])
-                message = "Option "+(i+1)+" clicked.";
+        if (source==areas[AREA_SINGLEPLAYER]) {
+            message = "Entering singleplayer.";
+            game.enterState(Game.STATE_SINGLEPLAYER);
+        } else if (source==areas[AREA_MULTIPLAYER]) {
+            message = "Entering multiplayer.";
+            game.enterState(Game.STATE_MULTIPLAYER);
+        } else if (source==areas[2]) {
+            message = "Option 3 " + " clicked.";
+        } else if (source==areas[3]) {
+            message = "Option 4 " + " clicked.";
+        } 
     }
 
     @Override

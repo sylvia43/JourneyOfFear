@@ -18,7 +18,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class StatePlaying extends BasicGameState {
+public class StateMultiplayer extends BasicGameState {
     
     public static final boolean DEBUG_MODE = false;
     public static final boolean DEBUG_COLLISION = false;
@@ -41,7 +41,7 @@ public class StatePlaying extends BasicGameState {
     
     private NetworkHandler network;
 
-    public StatePlaying(int id) {
+    public StateMultiplayer(int id) {
         this.id = id;
     }
     
@@ -50,7 +50,6 @@ public class StatePlaying extends BasicGameState {
         soundtrack = new Soundtrack();
         initPlayer(container);
         setupArea(container,player);
-        enemyPlayers.add(new EnemyPlayer(500,500,33));
     }
     
     @Override

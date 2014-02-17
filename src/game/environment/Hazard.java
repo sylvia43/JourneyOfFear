@@ -4,7 +4,7 @@ import game.enemy.Enemy;
 import game.map.Area;
 import game.sprite.AnimationMask;
 import game.sprite.ImageMask;
-import game.state.StatePlaying;
+import game.state.StateMultiplayer;
 import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -34,9 +34,15 @@ public class Hazard {
     }
     
     public Hazard() {
-       minimapColor = Color.blue;
-        this.x = (int)(Math.random()*(StatePlaying.WORLD_SIZE_X-100)) + 50;
-        this.y = (int)(Math.random()*(StatePlaying.WORLD_SIZE_Y-100)) + 50;
+        minimapColor = Color.blue;
+        this.x = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_X-100)) + 50;
+        this.y = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y-100)) + 50;
+    }
+    
+    public Hazard(int x, int y) {
+        minimapColor = Color.blue;
+        this.x = x;
+        this.y = y;
     }
     
     public void setX(int x) { this.x = x; }

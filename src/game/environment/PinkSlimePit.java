@@ -3,7 +3,7 @@ package game.environment;
 import game.enemy.EnemyBlob;
 import game.map.Area;
 import game.player.Player;
-import game.state.StatePlaying;
+import game.state.StateMultiplayer;
 import game.util.resource.AnimationLibrary;
 import java.util.Random;
 import org.newdawn.slick.GameContainer;
@@ -18,8 +18,8 @@ public class PinkSlimePit extends Hazard {
     public PinkSlimePit(Player player) {
         super();
         this.player = player;
-        this.x = (int) (Math.random() * StatePlaying.WORLD_SIZE_X);
-        this.y = (int) (Math.random() * StatePlaying.WORLD_SIZE_Y);
+        this.x = (int) (Math.random() * StateMultiplayer.WORLD_SIZE_X);
+        this.y = (int) (Math.random() * StateMultiplayer.WORLD_SIZE_Y);
     }
 
     public void update(GameContainer container, int delta, Area currentArea) {

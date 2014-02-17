@@ -1,13 +1,18 @@
 package game;
 
 import game.state.StateMenu;
-import game.state.StatePlaying;
+import game.state.StateMultiplayer;
+import game.state.StateSingleplayer;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Game extends StateBasedGame {
+    
+    public static final int STATE_MENU = 0;
+    public static final int STATE_SINGLEPLAYER = 1;
+    public static final int STATE_MULTIPLAYER = 2;
     
     public static final int VIEW_SIZE_X = 640;
     public static final int VIEW_SIZE_Y = 512;
@@ -29,8 +34,9 @@ public class Game extends StateBasedGame {
 
     @Override
     public void initStatesList(GameContainer container) throws SlickException {
-        this.addState(new StateMenu(0));
-        this.addState(new StatePlaying(1));
+        this.addState(new StateMenu(STATE_MENU));
+        this.addState(new StateSingleplayer(STATE_SINGLEPLAYER));
+        this.addState(new StateMultiplayer(STATE_MULTIPLAYER));
     }
     
     /** Sets up the window. */

@@ -55,7 +55,7 @@ public class Area {
         }
         
         try {
-            addHazard(new Spikes(player)).init(container);
+            addHazard(new Spikes(player,600,600)).init(container);
             addHazard(new GreenSlimePit(player)).init(container);
             addHazard(new PinkSlimePit(player)).init(container);
         } catch (SlickException e) { 
@@ -67,17 +67,18 @@ public class Area {
         enemies.add(e);
         return e;
     }
-     public Enemy addEnemy(Enemy e, int x, int y) {
-         e.setX(x);
-         e.setY(y);
+    
+    public Enemy addEnemy(Enemy e, int x, int y) {
+        e.setX(x);
+        e.setY(y);
         enemies.add(e);
         return e;
     }
+    
     public Hazard addHazard(Hazard h){
         hazards.add(h);
         return h;
     }
-    
     
     public void setLeft(Area area) {
         left = area;

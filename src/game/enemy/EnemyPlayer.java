@@ -4,7 +4,7 @@ import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
 import game.sprite.Rectangle;
-import game.state.StatePlaying;
+import game.state.StateMultiplayer;
 import game.util.resource.AnimationLibrary;
 import game.util.resource.SoundLibrary;
 import game.util.resource.SoundPlayer;
@@ -101,7 +101,7 @@ public class EnemyPlayer {
     public void render(GameContainer container, Graphics g) throws SlickException {
         sprite.getAnim(spritePointer).draw(x,y,64,64);
         renderAttack();
-        if (StatePlaying.DEBUG_MODE)
+        if (StateMultiplayer.DEBUG_MODE)
             renderDebugInfo(g);
     }
     
@@ -257,7 +257,7 @@ public class EnemyPlayer {
         g.drawString("y: " + String.valueOf(y),10+x+64,52+y+64);
         g.drawString(isHit?"Hit":"Not Hit",10+x+64,66+y+64);
         g.drawString(attackHit?"Hitting!":"Not Hitting",10+x+64,80+y+64);
-        if (StatePlaying.DEBUG_COLLISION) {
+        if (StateMultiplayer.DEBUG_COLLISION) {
             getCollisionMask().draw(x,y,g);
             if (attacking) {
                 g.setColor(Color.red);

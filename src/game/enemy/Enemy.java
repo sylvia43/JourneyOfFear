@@ -5,7 +5,7 @@ import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
 import game.sprite.Rectangle;
-import game.state.StatePlaying;
+import game.state.StateMultiplayer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -73,7 +73,7 @@ public class Enemy {
     public void render(GameContainer container, Graphics g) throws SlickException {
         sprite.getAnim(spritePointer).draw(x,y,64,64);
         renderAttack();
-        if (StatePlaying.DEBUG_MODE)
+        if (StateMultiplayer.DEBUG_MODE)
             renderDebugInfo(g);
     }
     

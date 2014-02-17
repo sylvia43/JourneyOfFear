@@ -16,7 +16,14 @@ public class NetworkHandler {
         try {
             socket = new Socket(ip,port);
         } catch (IOException e) {
-            System.out.println("Error: " + e);
+            switch (e.getMessage()) {
+                case "Connection refused: connect":
+                    System.out.println("Fatal: No open socket at " + ip + " port " + port + ".");
+                    break;
+                default:
+                    System.out.println("Fatal Error: " + e);
+                    break;
+            }
             return;
         }
         
@@ -39,7 +46,7 @@ public class NetworkHandler {
                 } catch (IOException e) {
                     System.out.println("Error: " + e);
                 } finally {
-                    if (!socket.isClosed()) {
+                    if (socket != null && !socket.isClosed()) {
                         try {
                             socket.close();
                         } catch (IOException e) {
@@ -62,7 +69,7 @@ public class NetworkHandler {
                 } catch (IOException e) {
                     System.out.println("Error: " + e);
                 } finally {
-                    if (!socket.isClosed()) {
+                    if (socket != null && !socket.isClosed()) {
                         try {
                             socket.close();
                         } catch (IOException e) {

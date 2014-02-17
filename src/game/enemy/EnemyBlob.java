@@ -2,7 +2,7 @@ package game.enemy;
 
 import game.player.Player;
 import game.sprite.EntitySprite;
-import game.state.StatePlaying;
+import game.state.StateMultiplayer;
 import game.util.resource.AnimationLibrary;
 import game.util.resource.SoundLibrary;
 import game.util.resource.SoundPlayer;
@@ -25,8 +25,8 @@ public class EnemyBlob extends Enemy {
 
     public EnemyBlob(Player player) {
         super(player);
-        this.x=(int)(Math.random()*StatePlaying.WORLD_SIZE_X);
-        this.y=(int)(Math.random()*StatePlaying.WORLD_SIZE_Y);
+        this.x=(int)(Math.random()*StateMultiplayer.WORLD_SIZE_X);
+        this.y=(int)(Math.random()*StateMultiplayer.WORLD_SIZE_Y);
         this.speed = 0.0625;
         this.animationSpeed = 332;
         this.health = 5;
@@ -106,7 +106,7 @@ public class EnemyBlob extends Enemy {
         g.drawString("x: " + String.valueOf(x),10+x+64,38+y+64);
         g.drawString("y: " + String.valueOf(y),10+x+64,52+y+64);
         g.drawString(isHit?"Hit":"Not Hit",10+x+64,66+y+64);
-        if (StatePlaying.DEBUG_COLLISION) {
+        if (StateMultiplayer.DEBUG_COLLISION) {
             getCollisionMask().draw(x,y,g);
         }
     }
