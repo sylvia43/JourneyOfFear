@@ -20,7 +20,7 @@ public class StateMenu extends BasicGameState implements ComponentListener {
 
     private Image image;
     private MouseOverArea[] areas = new MouseOverArea[4];
-    private String message = "Information here.";
+    private String message = "Use first button or enter key to start.";
     private TextField field1;
     private TextField field2;
     private Image background;
@@ -35,6 +35,11 @@ public class StateMenu extends BasicGameState implements ComponentListener {
     }
 
     public void init(GameContainer container,StateBasedGame game) throws SlickException {
+        if (game.getCurrentState().getID() != id)
+            return;
+        
+        this.game = game;
+        
         Font awtFont = new Font("Times New Roman",Font.BOLD,24);
         font = new UnicodeFont(awtFont);
         font.getEffects().add(new ColorEffect(java.awt.Color.white));
@@ -53,6 +58,7 @@ public class StateMenu extends BasicGameState implements ComponentListener {
                 field2.setFocus(true);
             }
         });
+        
         field2 = new TextField(container,font,60,70,500,35,new ComponentListener() {
             @Override
             public void componentActivated(AbstractComponent source) {
@@ -74,9 +80,12 @@ public class StateMenu extends BasicGameState implements ComponentListener {
 
     @Override
     public void render(GameContainer container,StateBasedGame game,Graphics g) throws SlickException {
+        if (game.getCurrentState().getID() != id)
+            return;
+        
         background.draw(0,0,640,512);
 
-        for (int i = 0; i<4; i++)
+        for (int i=0;i<4;i++)
             areas[i].render(container,g);
 
         field1.render(container,g);
@@ -88,6 +97,8 @@ public class StateMenu extends BasicGameState implements ComponentListener {
 
     @Override
     public void update(GameContainer container,StateBasedGame game,int delta) throws SlickException {
+        if (game.getCurrentState().getID() != id)
+            return;
     }
     
     @Override
@@ -98,7 +109,11 @@ public class StateMenu extends BasicGameState implements ComponentListener {
     
     @Override
     public void componentActivated(AbstractComponent source) {
-        for (int i = 0; i<4; i++)
+        if (source==areas[0]) {
+            message = "Entering game.";
+            game.enterState(1);
+        }
+        for (int i=1;i<4;i++)
             if (source==areas[i])
                 message = "Option "+(i+1)+" clicked.";
     }

@@ -48,13 +48,17 @@ public class StatePlaying extends BasicGameState {
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         soundtrack = new Soundtrack();
-        soundtrack.init();
         initPlayer(container);
         setupArea(container,player);
         enemyPlayers.add(new EnemyPlayer(500,500,33));
+    }
+    
+    @Override
+    public void enter(GameContainer container, StateBasedGame game) {
+        soundtrack.init();
         network = new NetworkHandler("127.0.0.1",9999);
     }
-
+    
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         if (container.getInput().isKeyPressed(Input.KEY_N))
@@ -76,6 +80,9 @@ public class StatePlaying extends BasicGameState {
     
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+        if (game.getCurrentState().getID() != id)
+            return;
+        
         translateView(g);
         renderMap(g);
         renderHazards(container,g);

@@ -1,5 +1,6 @@
 package game;
 
+import game.state.StateMenu;
 import game.state.StatePlaying;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -28,7 +29,8 @@ public class Game extends StateBasedGame {
 
     @Override
     public void initStatesList(GameContainer container) throws SlickException {
-        this.addState(new StatePlaying(0));
+        this.addState(new StateMenu(0));
+        this.addState(new StatePlaying(1));
     }
     
     /** Sets up the window. */

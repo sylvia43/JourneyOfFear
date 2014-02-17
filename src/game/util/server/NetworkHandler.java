@@ -14,6 +14,7 @@ public class NetworkHandler {
             socket = new Socket(ip,port);
         } catch (IOException e) {
             System.out.println("Error: " + e);
+            return;
         }
         
         Thread get = new Thread(new Runnable() {
