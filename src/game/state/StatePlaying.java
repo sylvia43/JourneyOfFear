@@ -61,6 +61,11 @@ public class StatePlaying extends BasicGameState {
     
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+        if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+            close();
+            container.exit();
+        }
+        
         if (container.getInput().isKeyPressed(Input.KEY_N))
             soundtrack.playNext();
         if (container.getInput().isKeyPressed(Input.KEY_P))
@@ -76,6 +81,10 @@ public class StatePlaying extends BasicGameState {
         updateHazards(container,delta, currentArea);
         updatePlayer(container,delta);
         updateViewPort();
+    }
+    
+    private void close() {
+        network.close();
     }
     
     @Override
