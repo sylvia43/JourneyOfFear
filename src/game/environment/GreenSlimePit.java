@@ -24,8 +24,8 @@ public class GreenSlimePit extends Hazard {
 
     public void update(GameContainer container, int delta, Area currentArea) {
         Random r = new Random();
-        int randnum = r.nextInt(5000);
-        if (randnum == 0) {
+        int randnum = r.nextInt(3000);
+        if (randnum == 0 && currentArea.getEnemies().size()<25) {
             try {
                 currentArea.addEnemy(new EnemySmartBlob(player), x, y).init(container);
             } catch (SlickException ex) {
