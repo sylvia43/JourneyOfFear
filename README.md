@@ -7,9 +7,9 @@ By the way, if you have trouble getting Slick2D set up, feel free to email me at
 |    Contributers   |      Job      |
 | ------------- | ------------- |
 | Shreyas       | Programming (a lot)   |
+| Joshua        | Art   |
 | Brennan       | Programming and Art   |
 | David         | Sound and Music   |
 | Tarik         | Programming (a bit)   |
 | Daniel        | Programming (nope)   |
-| Joshua        | Art   |
 | Chad          | Special Music   |
