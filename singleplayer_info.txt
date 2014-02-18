@@ -1,5 +1,5 @@
-Slick Game Info
-===============
+Journey of Fear Info
+====================
 
 Table of Contents:
  
@@ -65,8 +65,8 @@ Table of Contents:
     One of the main goals of levelling is to reward time spent in game while preventing the player from outright
     grinding. Items will probably have their own levels, and OOD (Out of Depth) monsters as well as trash mobs and
     underlevel enemies will grant no experience.
-	 
-	  
+	
+	
 3) Code
 
   3.1 Slick2D

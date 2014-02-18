@@ -21,6 +21,7 @@ Single Player:
     [x] Create system for loading music.
     [x] Implement playlist.
     [x] Give music something to do.
+	[x] Hazardous terrain.
     [/] Damage and death.
     [/] Combo attacks.
     [/] Make the map randomly generate.
@@ -74,15 +75,15 @@ Single Player:
     [x] Zip all stuff and send it to Shreyas.
     [x] Magic sounds.
     [x] Try for some mellow music w/ NESVST
-    [/] Send Chad's music to Shreyas
     [/] Player death sound.
+    [ ] Send Chad's music to Shreyas
     [ ] Bow pull sounds.
     [ ] Bow shoot sounds.
 
 Multi Player:
   [x] Copy SlickGame.
   [x] Minimap.
-  [x] Enviornmental Hazards.
+  [x] Environmental Hazards.
 
   [/] Server.
   [/] DataPacket.
@@ -93,4 +94,4 @@ Multi Player:
   
   [ ] Server select screen.
   [ ] Potions.
-  [ ] Ancients.
+  [ ] Bosses.

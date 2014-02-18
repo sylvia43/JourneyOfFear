@@ -20,7 +20,7 @@ public class Game extends StateBasedGame {
     public static final boolean DEBUG_COLLISION = false;
     
     public Game() {
-        super("Realm of the Ancients");
+        super("Journey of Fear");
     }
         
     public static void main(String[] args) {
