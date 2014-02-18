@@ -59,7 +59,7 @@ public class EnemySmartBlob extends Enemy {
         this.y=500;
         this.speed = 0.125;
         this.animationSpeed = 332;
-        this.health = 20;
+        this.health = 10;
         this.minimapColor = new Color(181, 230, 29);
     }
     
@@ -166,12 +166,12 @@ public class EnemySmartBlob extends Enemy {
     }
     
     @Override
-    public void resolveHit(int ox, int oy, int attackId) {
+    public void resolveHit(int ox, int oy, int attackId, int damage) {
         if (attackId != lastAttackId) {
             lastAttackId = attackId;
             isHit = true;
             initializeKnockback(x-ox,y-oy);
-            health--;
+            health-=damage;
             SoundPlayer.play(SoundLibrary.SWORD_HIT);
         }
     }

@@ -39,6 +39,7 @@ public class Enemy {
     public int getX() { return x; }
     public int getY() { return y; }
     public Color getColor() { return minimapColor; }
+    public boolean readyToDie() { return readyToDie; }
     
     public ImageMask getCollisionMask() {
         return sprite.getAnimationMask(spritePointer)
@@ -78,14 +79,16 @@ public class Enemy {
     }
     
     // Miscelleneous universal methods.    
+    public void resolveHit(int ox, int oy, int attackId) {
+        resolveHit(ox,oy,attackId,1);
+    }
+    
     protected void renderDebugInfo(Graphics g) {
         g.setColor(Color.white);
         g.drawString("x: " + String.valueOf(x),10+x+64,38+y+64);
         g.drawString("y: " + String.valueOf(y),10+x+64,52+y+64);
     }
-    
-    public boolean readyToDie() { return readyToDie; }
-    
+        
     protected void resolveInvulnerability(int delta) {
         if (stunTimer>0)
             stunTimer -= delta;
@@ -108,7 +111,7 @@ public class Enemy {
     protected void resolveCollision() { }
     protected void resolveAttack(int delta) { }
     protected void renderAttack() { }
-    public void resolveHit(int ox, int oy, int attackId) { }
+    public void resolveHit(int ox, int oy, int attackId, int damage) { }
     
     //Other methods. These can be overriden if necessary.
     protected void initializeMask() throws SlickException {

@@ -82,12 +82,12 @@ public class EnemyBlob extends Enemy {
     }
     
     @Override
-    public void resolveHit(int ox, int oy, int attackId) {
+    public void resolveHit(int ox, int oy, int attackId, int damage) {
         if (attackId != lastAttackId) {
             lastAttackId = attackId;
             isHit = true;
             initializeKnockback(x-ox,y-oy);
-            health--;
+            health-=damage;
             SoundPlayer.play(SoundLibrary.SWORD_HIT);
         }
     }

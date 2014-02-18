@@ -55,7 +55,7 @@ public class StateMultiplayer extends BasicGameState {
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
         soundtrack.init();
-        network = new NetworkHandler("127.0.0.1",9999);
+        network = new NetworkHandler("192.168.1.116",9999);
     }
     
     @Override

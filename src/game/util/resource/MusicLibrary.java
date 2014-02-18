@@ -22,6 +22,8 @@ public enum MusicLibrary {
     private boolean queued;
     private boolean loading;
     
+    public static final float VOLUME = 0.4f;
+    
     public boolean isLoading() {
         return loading;
     }
@@ -34,7 +36,7 @@ public enum MusicLibrary {
     
     public void resume() { music.resume(); }
 
-    public void restart() { music.play(); }
+    public void restart() { music.play(1.0f,VOLUME); }
     
     public boolean bound() { return music!=null; }
     
@@ -57,14 +59,14 @@ public enum MusicLibrary {
                 if (!bound())
                     bind();
                 long end = System.currentTimeMillis();
-                if ((end-start)<1000) {
+                if ((end-start)<2000) {
                     try {
-                        Thread.sleep(1000-end+start);
+                        Thread.sleep(2000-end+start);
                     } catch (InterruptedException e) {
                         System.out.println("Error playing music: " + e);
                     }
                 }
-                music.play();
+                music.play(1.0f,VOLUME);
                 loading = false;
             }
         });
