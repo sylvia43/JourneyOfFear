@@ -9,6 +9,7 @@ import game.sprite.Rectangle;
 import game.state.StateMultiplayer;
 import game.util.Options;
 import game.util.resource.AnimationLibrary;
+import game.util.resource.ImageLibrary;
 import game.util.resource.ResourceLoader;
 import game.util.resource.SoundLibrary;
 import game.util.resource.SoundPlayer;
@@ -18,6 +19,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
@@ -38,8 +40,12 @@ public class Player {
     private int camY;
     private int delta;
     
-    private final int MAX_HEALTH = 10;
-    private Health playerHealth = new Health(MAX_HEALTH);
+    private int MAX_HEALTH = 10;
+    private int currentHealth = MAX_HEALTH;
+    
+    private static Image emptyHeart = null;
+    private static Image halfHeart = null;
+    private static Image fullHeart = null;
     
     private ArrayList<Enemy> enemies;
     private ArrayList<Hazard> hazards;
@@ -108,6 +114,9 @@ public class Player {
     
     public void init(GameContainer container) throws SlickException {
         initializeSprite();
+        emptyHeart = ImageLibrary.EMPTY_HEART.getImage();
+        halfHeart = ImageLibrary.HALF_HEART.getImage();
+        fullHeart = ImageLibrary.FULL_HEART.getImage();
         spritePointer = 3;
         attacking = false;
         attackDelay = 0;
@@ -124,12 +133,28 @@ public class Player {
     public void render(GameContainer container, Graphics g) throws SlickException {
         Animation currentSprite = sprite.getAnim(spritePointer);
         currentSprite.draw(x,y,64,64,damageBlink?Color.red:Color.white);
-        playerHealth.render(camX, camY);
+        renderHealth(camX,camY);
         if (attacking)
             sword.draw(x-64,y-64,192,192);
         if (StateMultiplayer.DEBUG_MODE)
             renderDebugInfo(g);
         isHit = false;
+    }
+    
+    public void renderHealth(int camX, int camY) {
+        int fullNum = this.currentHealth/2;
+        int halfNum = this.currentHealth%2;
+        int emptyNum = 5-(fullNum+halfNum);
+        for (int i = 0; i<MAX_HEALTH; i++) {
+            if (i<fullNum) {
+                fullHeart.draw(camX+(600-i*30),camY+10,4);
+            } else if (halfNum>0) {
+                halfHeart.draw(camX+(600-i*30),camY+10,4);
+                halfNum--;
+            } else if (i-(fullNum+this.currentHealth%2)<emptyNum) {
+                emptyHeart.draw(camX+(600-i*30),camY+10,4);
+            }
+        }
     }
     
     public void setEnemies(ArrayList<Enemy> enemies) {
@@ -316,7 +341,7 @@ public class Player {
             invulnerable = true; //Deal damage here somewhere.
             invulnerabilityTimer = INVULNERABILITY_DURATION;
             initializeKnockback(x-ox,y-oy);
-            playerHealth.damage(damage);
+            currentHealth -= damage;
             SoundPlayer.play(SoundLibrary.SWORD_HIT);
         }
     }

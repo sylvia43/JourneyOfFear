@@ -45,9 +45,8 @@ public enum AnimationLibrary {
     }
     
     public Animation getAnim(int size) throws SlickException {
-        if (anim == null) {
+        if (anim == null)
             anim = ResourceLoader.initializeAnimation(filepath,speed,size);
-        }
         return anim.copy();
     }
     
