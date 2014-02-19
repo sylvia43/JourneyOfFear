@@ -3,6 +3,8 @@ package game.environment;
 import game.enemy.Enemy;
 import game.player.Player;
 import game.util.resource.AnimationLibrary;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 public class Spikes extends Hazard {
@@ -19,6 +21,11 @@ public class Spikes extends Hazard {
     public Spikes(Player player, int x, int y) {
         super(x,y);
         this.player = player;
+    }
+    
+    @Override
+    public void render(GameContainer container, Graphics g) throws SlickException {
+        sprite.draw(x,y,64,92);
     }
     
     @Override

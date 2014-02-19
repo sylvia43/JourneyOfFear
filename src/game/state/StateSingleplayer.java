@@ -213,7 +213,7 @@ public class StateSingleplayer extends BasicGameState {
        private void renderHazards(GameContainer container, Graphics g) throws SlickException {
         for (Hazard h : currentArea.getHazards()) {
             if (h.getX()>camX-64 && h.getY()>camY-64 && h.getX()<camX+VIEW_SIZE_X && h.getY()<camY+VIEW_SIZE_Y)
-                h.render(container, g);
+                h.render(container,g);
         }
     }
     

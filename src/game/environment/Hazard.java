@@ -56,7 +56,8 @@ public class Hazard {
     public void update(GameContainer container, int delta, Area currentArea) {
         resolveCollision();
     }
-     public void render(GameContainer container, Graphics g) throws SlickException {
+    
+    public void render(GameContainer container, Graphics g) throws SlickException {
         sprite.draw(x,y,64,64);
     }
      
