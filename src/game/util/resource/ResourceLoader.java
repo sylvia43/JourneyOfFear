@@ -23,9 +23,13 @@ public class ResourceLoader {
         return image;
     }
     
-    public static Animation initializeAnimation(String filepath, int delay, int size) throws SlickException {
+    public static Animation initializeAnimation(String filepath, int delay, int width, int height) throws SlickException {
         Image image = initializeImage(filepath);
-        return new Animation(new SpriteSheet(image, size, size),delay);
+        return new Animation(new SpriteSheet(image, width, height),delay);
+    }
+    
+    public static Animation initializeAnimation(String filepath, int delay, int size) throws SlickException {
+        return initializeAnimation(filepath,delay,size,size);
     }
     
     public static Animation initializeAnimation(String filepath, int delay) throws SlickException {

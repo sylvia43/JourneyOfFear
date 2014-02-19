@@ -11,46 +11,46 @@ import org.newdawn.slick.SlickException;
 public enum AnimationLibrary {
     
     // Player sprites.
-    PLAYER_RIGHT("player/right.png",166),
-    PLAYER_UP("player/up.png",166),
-    PLAYER_LEFT("player/left.png",166),
-    PLAYER_DOWN("player/down.png",166),
+    PLAYER_RIGHT("player/right.png",166,16,16),
+    PLAYER_UP("player/up.png",166,16,16),
+    PLAYER_LEFT("player/left.png",166,16,16),
+    PLAYER_DOWN("player/down.png",166,16,16),
     
     // Player attack sprites.
-    PLAYER_SWORD_SLASH("player/attacks/sword_slash.png",20),
+    PLAYER_SWORD_SLASH("player/attacks/sword_slash.png",20,48,48),
     
     // Enemy sprites.
-    BLOB_RIGHT("blobred/right.png",332),
-    BLOB_UP("blobred/up.png",332),
-    BLOB_DOWN("blobred/down.png",332),
-    BLOB_LEFT("blobred/left.png",332),
+    BLOB_RIGHT("blobred/right.png",332,16,16),
+    BLOB_UP("blobred/up.png",332,16,16),
+    BLOB_DOWN("blobred/down.png",332,16,16),
+    BLOB_LEFT("blobred/left.png",332,16,16),
     
-    SIRBLOB_RIGHT("blobgreen/right.png",332), 
-    SIRBLOB_UP("blobgreen/up.png",332),
-    SIRBLOB_DOWN("blobgreen/down.png",332),
-    SIRBLOB_LEFT("blobgreen/left.png",332),
+    SIRBLOB_RIGHT("blobgreen/right.png",332,16,16), 
+    SIRBLOB_UP("blobgreen/up.png",332,16,16),
+    SIRBLOB_DOWN("blobgreen/down.png",332,16,16),
+    SIRBLOB_LEFT("blobgreen/left.png",332,16,16),
     
     //Environment sprites
-    SPIKES("environment/spikes.png",166),
-    GREEN_SLIME_PIT("environment/greenslimepit.png",332),
-    PINK_SLIME_PIT("environment/pinkslimepit.png",332);
+    SPIKES("environment/spikes.png",166,16,23),
+    GREEN_SLIME_PIT("environment/greenslimepit.png",332,16,16),
+    PINK_SLIME_PIT("environment/pinkslimepit.png",332,16,16);
     
     private String filepath;
     private Animation anim;
     private int speed;
+    private int width;
+    private int height;
     
-    AnimationLibrary(String filepath, int speed) {
+    AnimationLibrary(String filepath, int speed, int width, int height) {
         this.filepath = filepath;
         this.speed = speed;
-    }
-    
-    public Animation getAnim(int size) throws SlickException {
-        if (anim == null)
-            anim = ResourceLoader.initializeAnimation(filepath,speed,size);
-        return anim.copy();
+        this.width = width;
+        this.height = height;
     }
     
     public Animation getAnim() throws SlickException {
-        return getAnim(16);  
+        if (anim == null)
+            anim = ResourceLoader.initializeAnimation(filepath,speed,width,height);
+        return anim.copy();  
     }
 }

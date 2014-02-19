@@ -85,7 +85,7 @@ public class EnemySmartBlob extends Enemy {
     
     @Override
     protected void initializeAttack() throws SlickException {
-        attack = AnimationLibrary.PLAYER_SWORD_SLASH.getAnim(48);
+        attack = AnimationLibrary.PLAYER_SWORD_SLASH.getAnim();
         attack.stop();
     }
     

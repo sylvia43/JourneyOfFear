@@ -15,6 +15,7 @@ public class Game extends StateBasedGame {
     public static final int STATE_SINGLEPLAYER = 1;
     public static final int STATE_MULTIPLAYER = 2;
     public static final int STATE_SERVER = 3;
+    public static final int STATE_PAUSE = 4;
     
     public static final int VIEW_SIZE_X = 640;
     public static final int VIEW_SIZE_Y = 512;
