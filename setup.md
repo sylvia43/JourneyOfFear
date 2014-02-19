@@ -1,5 +1,4 @@
 ##### Setup Instructions
-
 ===============
 
 1. Open your IDE of choice. (I'm using Netbeans; I would suggest that).
