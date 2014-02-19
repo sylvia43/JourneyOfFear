@@ -21,11 +21,12 @@ Single Player:
     [x] Create system for loading music.
     [x] Implement playlist.
     [x] Give music something to do.
-	[x] Hazardous terrain.
+    [x] Hazardous terrain.
+    [x] Attack sound implementation.
     [/] Damage and death.
-    [/] Combo attacks.
-    [/] Make the map randomly generate.
-    [/] Attack sound implementation.
+    [/] Menu state.
+    [ ] Combo attacks.
+    [ ] Make the map randomly generate.
     [ ] Trees.
     [ ] Make Areas more object oriented.
     [ ] Tiles you can't walk into (Boulders, trees, holes in the ground, etc).
@@ -60,8 +61,7 @@ Single Player:
     [ ] Add tile for holes in the ground.
     [ ] Game title page w/ selecting arrow and font.
     [ ] Intro animation (optional).
-    [ ] Zip all stuff and send it to Shreyas.
-    
+
   Music:
     [x] Cave sound effects.
     [x] Blob sound effects.
