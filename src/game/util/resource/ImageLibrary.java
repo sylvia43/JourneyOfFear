@@ -5,7 +5,7 @@ import org.newdawn.slick.SlickException;
 
 /** 
  * This class exists to prevent multiple objects from creating duplicate images,
- * the heap, that's just a waste of memory. Put all resources here so to avoid
+ * the heap; that's just a waste of memory. Put all resources here so to avoid
  * duplicates in the heap, and make things simpler (except this class).
  */
 public enum ImageLibrary {
