@@ -44,8 +44,8 @@ public class Area {
         this.container = container;
         this.width = width;
         this.height = height;
-        this.map = new TiledMap(width/64, height/64);
-        this.map.fillStandardGrass();
+        map = new TiledMap(width/64, height/64);
+        map.fillStandardGrass();
         
         try {
             addEnemy(new EnemyBlob(player)).init(container);
