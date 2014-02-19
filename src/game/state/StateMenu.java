@@ -29,6 +29,7 @@ public class StateMenu extends BasicGameState implements ComponentListener {
     
     public static final int AREA_SINGLEPLAYER = 0;
     public static final int AREA_MULTIPLAYER = 1;
+    public static final int AREA_SERVER = 2;
     
     private StateBasedGame game;
 
@@ -119,8 +120,9 @@ public class StateMenu extends BasicGameState implements ComponentListener {
         } else if (source==areas[AREA_MULTIPLAYER]) {
             message = "Entering multiplayer.";
             game.enterState(Game.STATE_MULTIPLAYER);
-        } else if (source==areas[2]) {
-            message = "Option 3 " + " clicked.";
+        } else if (source==areas[AREA_SERVER]) {
+            message = "Hosting server.";
+            game.enterState(Game.STATE_SERVER);
         } else if (source==areas[3]) {
             message = "Option 4 " + " clicked.";
         } 
