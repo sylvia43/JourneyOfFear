@@ -31,7 +31,7 @@ public enum AnimationLibrary {
     SIRBLOB_LEFT("blobgreen/left.png",332,16,16),
     
     //Environment sprites
-    SPIKES("environment/spikes.png",166,16,23),
+    SPIKES("environment/spikes.png",166,32,39),
     GREEN_SLIME_PIT("environment/greenslimepit.png",332,16,16),
     PINK_SLIME_PIT("environment/pinkslimepit.png",332,16,16);
     

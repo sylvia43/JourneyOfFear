@@ -25,7 +25,7 @@ public class Spikes extends Hazard {
     
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException {
-        sprite.draw(x,y,64,92);
+        sprite.draw(x,y,128,156);
     }
     
     @Override
