@@ -46,7 +46,6 @@ public class DataPacket {
             if (e.getId() == get(8)) {
                 e.setX(get(0));
                 e.setY(get(4));
-                System.out.println("Updated an enemy.");
                 return;
             }
         }
