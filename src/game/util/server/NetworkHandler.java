@@ -2,7 +2,6 @@ package game.util.server;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Arrays;
 
 public class NetworkHandler {
 
@@ -44,7 +43,7 @@ public class NetworkHandler {
                                 if (socket.getInputStream().read(b,0,DataPacket.MAX_SIZE)
                                         !=DataPacket.MAX_SIZE)
                                     break;
-                                System.out.println("Read data: " + Arrays.toString(b));
+                                //System.out.println("Read data: " + Arrays.toString(b));
                                 packet = new DataPacket(b);
                                 packet.updateEnemy();
                             }

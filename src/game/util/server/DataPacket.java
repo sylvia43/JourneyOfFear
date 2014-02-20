@@ -41,7 +41,6 @@ public class DataPacket {
     }
     
     public void update() {
-        System.out.println("Updating packet.");
         if (!update)
             return;
         update = false;
