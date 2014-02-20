@@ -18,12 +18,12 @@ public class DataPacket {
     
     public DataPacket() {
         data = new byte[MAX_SIZE];
-        update = true;
-        packets.add(this);
     }
     
     public DataPacket(byte[] data) {
         this.data = data;
+        update = true;
+        packets.add(this);
     }
     
     public static void update(ArrayList<EnemyPlayer> newEnemies, Player newPlayer) {
