@@ -62,7 +62,6 @@ public class Server {
                                                 socket.getInputStream().read(b,0,DataPacket.MAX_SIZE);
                                                 ServerLogger.log("Read data: " + Arrays.toString(b));
                                                 packet = new DataPacket(b);
-                                                packet.updateEnemy();
                                             }
                                             ServerLogger.log("Lost client, closing connection.");
                                             sockets.remove(localSocketCounter);
