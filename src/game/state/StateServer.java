@@ -14,6 +14,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class StateServer extends BasicGameState {
     
+    public static final int MAX_CONNECTIONS = 50;
+    
     private int id;
     
     private Server server;

@@ -40,10 +40,17 @@ public class DataPacket {
         newEnemies.addAll(enemies);
     }
     
+    /**
+     * Only called by client. So Player has to exist.
+     */
     public void update() {
         if (!update)
             return;
         update = false;
+        
+        if (player != null)
+            if (player.getID() == get(8))
+                return;
         
         for (EnemyPlayer e : enemies) {
             if (e.getId() == get(8)) {

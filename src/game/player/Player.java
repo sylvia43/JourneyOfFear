@@ -97,6 +97,8 @@ public class Player {
         return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
     }
     
+    public int getID() { return id; }
+    
     public DataPacket getPacket() {
         DataPacket packet = new DataPacket();
         packet.add(x,0);
