@@ -73,7 +73,8 @@ public class StateMultiplayer extends BasicGameState {
             soundtrack.restart();
         soundtrack.update();
         
-        DataPacket.update(enemyPlayers,player);
+        DataPacket.updatePlayer(player);
+        DataPacket.update(enemyPlayers);
         
         updateArea();
         updateEnemies(container,delta);

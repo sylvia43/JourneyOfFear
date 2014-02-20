@@ -1,7 +1,10 @@
 package game.state;
 
 import game.Game;
+import game.enemy.EnemyPlayer;
+import game.util.server.DataPacket;
 import game.util.server.Server;
+import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -15,6 +18,8 @@ public class StateServer extends BasicGameState {
     
     private Server server;
     private final int port = 9999;
+    
+    ArrayList<EnemyPlayer> players = new ArrayList<EnemyPlayer>();
     
     public StateServer(int id) {
         this.id = id;
@@ -32,7 +37,7 @@ public class StateServer extends BasicGameState {
     
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        
+        DataPacket.update(players);
     }
     
     @Override

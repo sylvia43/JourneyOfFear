@@ -26,7 +26,11 @@ public class DataPacket {
         packets.add(this);
     }
     
-    public static void update(ArrayList<EnemyPlayer> newEnemies, Player newPlayer) {
+    public static void updatePlayer(Player newPlayer) {
+        player = newPlayer;
+    }
+    
+    public static void update(ArrayList<EnemyPlayer> newEnemies) {
         ArrayList<DataPacket> temp = (ArrayList<DataPacket>) packets.clone();
         for (DataPacket packet : temp) {
             packet.update();
@@ -34,10 +38,10 @@ public class DataPacket {
         
         newEnemies.clear();
         newEnemies.addAll(enemies);
-        player = newPlayer;
     }
     
     public void update() {
+        System.out.println("Updating packet.");
         if (!update)
             return;
         update = false;

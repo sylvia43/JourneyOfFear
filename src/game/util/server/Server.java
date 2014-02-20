@@ -4,7 +4,6 @@ import game.enemy.EnemyPlayer;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class Server {
@@ -60,7 +59,7 @@ public class Server {
                                             System.out.println(sockets);
                                             while (running) {
                                                 socket.getInputStream().read(b,0,DataPacket.MAX_SIZE);
-                                                ServerLogger.log("Read data: " + Arrays.toString(b));
+                                                //ServerLogger.log("Read data: " + Arrays.toString(b));
                                                 packet = new DataPacket(b);
                                             }
                                             ServerLogger.log("Lost client, closing connection.");
