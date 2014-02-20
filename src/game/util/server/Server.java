@@ -4,6 +4,7 @@ import game.enemy.EnemyPlayer;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Server {
@@ -86,7 +87,9 @@ public class Server {
                                     public void run() {
                                         try {
                                             while (running) {
-                                                for (EnemyPlayer e : DataPacket.enemies) {
+                                                ArrayList<EnemyPlayer> temp 
+                                                        = (ArrayList<EnemyPlayer>) DataPacket.enemies.clone();
+                                                for (EnemyPlayer e : temp) {
                                                     socket.getOutputStream().write(e.getPacket().getBytes());
                                                 }
                                             }
