@@ -1,6 +1,7 @@
 package game.state;
 
 import game.Game;
+import game.util.server.Server;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -12,18 +13,21 @@ public class StateServer extends BasicGameState {
     
     private int id;
     
+    private Server server;
+    private final int port = 9999;
+    
     public StateServer(int id) {
         this.id = id;
     }
     
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        
+        server = new Server(port);
     }
     
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
-        
+        server.start();
     }
     
     @Override

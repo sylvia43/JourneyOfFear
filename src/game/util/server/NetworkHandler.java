@@ -7,7 +7,6 @@ import java.util.Arrays;
 public class NetworkHandler {
 
     private Socket socket;
-    private int socketCounter = 0;
     private Thread get;
     private Thread send;
     private volatile boolean running = true;
