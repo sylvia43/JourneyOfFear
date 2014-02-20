@@ -1,6 +1,7 @@
 package game.util.server;
 
 import game.enemy.EnemyPlayer;
+import game.state.StateServer;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -22,7 +23,7 @@ public class Server {
     public void start() {
         ServerLogger.log("Creating Server.");
         try {
-            server = new ServerSocket(port);
+            server = new ServerSocket(port,StateServer.MAX_CONNECTIONS);
         } catch (IOException e) {
             System.out.println("Error: " + e);
         }
