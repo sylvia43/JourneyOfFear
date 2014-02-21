@@ -9,7 +9,6 @@ public enum MusicLibrary {
     EVIL_SHOE("evil_shoe.ogg"),
     HARES_RABBITS_BUNNIES("hares_rabbits_bunnies.ogg"),
     HULL_INTEGRITY("hull_integrity_critical.ogg"),
-    LAVENDER_TOWN("lavender_town.ogg"),
     LEL("lel.ogg"),
     MAJESTIC_BEAGLE("majestic_beagle.ogg"),
     MONKEY_BLADDERS("monkey_bladders.ogg"),
