@@ -112,6 +112,7 @@ public class Player {
     
     public Player() {
         this.id = this.hashCode();
+        System.out.println(id);
     }
     
     public void init(GameContainer container) throws SlickException {

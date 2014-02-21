@@ -14,7 +14,7 @@ public class Server {
     private ServerSocket server;
     private HashMap<Integer,Socket> sockets = new HashMap<Integer,Socket>();
     private int socketCounter = 0;
-
+    
     public Server(int port) {
         ServerLogger.log("Set port.");
         this.port = port;
@@ -57,12 +57,11 @@ public class Server {
                                     public void run() {
                                         try {
                                             byte[] b = new byte[DataPacket.MAX_SIZE];
-                                            DataPacket packet = null;
                                             System.out.println(sockets);
                                             while (running) {
                                                 socket.getInputStream().read(b,0,DataPacket.MAX_SIZE);
                                                 //ServerLogger.log("Read data: " + Arrays.toString(b));
-                                                packet = new DataPacket(b);
+                                                new DataPacket(b);
                                             }
                                             ServerLogger.log("Lost client, closing connection.");
                                             sockets.remove(localSocketCounter);
@@ -87,9 +86,10 @@ public class Server {
                                     @Override
                                     public void run() {
                                         try {
+                                            ArrayList<EnemyPlayer> temp = new ArrayList<EnemyPlayer>();
                                             while (running) {
-                                                ArrayList<EnemyPlayer> temp 
-                                                        = (ArrayList<EnemyPlayer>) DataPacket.enemies.clone();
+                                                temp.clear();
+                                                temp.addAll(DataPacket.enemies);
                                                 for (EnemyPlayer e : temp) {
                                                     socket.getOutputStream().write(e.getPacket().getBytes());
                                                 }

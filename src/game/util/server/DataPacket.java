@@ -33,6 +33,8 @@ public class DataPacket {
     public static void update(ArrayList<EnemyPlayer> newEnemies) {
         ArrayList<DataPacket> temp = (ArrayList<DataPacket>) packets.clone();
         for (DataPacket packet : temp) {
+            if (packet == null)
+                continue;
             packet.update();
         }
         
