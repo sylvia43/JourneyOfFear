@@ -48,19 +48,20 @@ public class Server {
                             @Override
                             public void run() {
                                 ServerLogger.log("Creating thread to get data packets.");
+                                
                                 Thread getterThread = new Thread(new Runnable() {
                                     private volatile boolean running = true;
                                     private int localSocketCounter = socketCounter-1;
                                     private Socket socket = sockets.get(localSocketCounter);
                                     
                                     @Override
+                                    @SuppressWarnings("empty-statement")
                                     public void run() {
                                         try {
                                             byte[] b = new byte[DataPacket.MAX_SIZE];
                                             System.out.println(sockets);
                                             while (running) {
-                                                socket.getInputStream().read(b,0,DataPacket.MAX_SIZE);
-                                                //ServerLogger.log("Read data: " + Arrays.toString(b));
+                                                while(socket.getInputStream().read(b,0,DataPacket.MAX_SIZE)!=DataPacket.MAX_SIZE);
                                                 new DataPacket(b);
                                             }
                                             ServerLogger.log("Lost client, closing connection.");
@@ -93,6 +94,7 @@ public class Server {
                                                 for (EnemyPlayer e : temp) {
                                                     socket.getOutputStream().write(e.getPacket().getBytes());
                                                 }
+                                                Thread.sleep(10);
                                             }
                                         } catch (IOException e) {
                                             System.out.println("Error: " + e);
@@ -102,6 +104,8 @@ public class Server {
                                             System.out.println("Client socket closed.");
                                             sockets.remove(localSocketCounter);
                                             socket = null;
+                                        } catch (InterruptedException e) {
+                                            System.out.println("Error: Failed to sleep: " + e);
                                         }
                                     }
                                     public void kill() {
