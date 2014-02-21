@@ -34,16 +34,15 @@ public class NetworkHandler {
 
                 get = new Thread(new Runnable() {
                     @Override
+                    @SuppressWarnings("empty-statement")
                     public void run() {
                         try {
                             DataPacket packet;
                             byte[] b = new byte[DataPacket.MAX_SIZE];
 
                             while (running) {
-                                if (socket.getInputStream().read(b,0,DataPacket.MAX_SIZE)
-                                        !=DataPacket.MAX_SIZE)
-                                    break;
-                                //System.out.println("Read data: " + Arrays.toString(b));
+                                while (socket.getInputStream().read(b,0,DataPacket.MAX_SIZE)
+                                        !=DataPacket.MAX_SIZE);
                                 packet = new DataPacket(b);
                                 packet.updateEnemy();
                             }

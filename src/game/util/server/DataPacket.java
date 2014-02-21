@@ -42,9 +42,6 @@ public class DataPacket {
         newEnemies.addAll(enemies);
     }
     
-    /**
-     * Only called by client. So Player has to exist.
-     */
     public void update() {
         if (!update)
             return;
@@ -56,6 +53,7 @@ public class DataPacket {
         
         for (EnemyPlayer e : enemies) {
             if (e.getId() == get(8)) {
+                System.out.println("Updated enemy of id " + e.getId());
                 e.setX(get(0));
                 e.setY(get(4));
                 return;

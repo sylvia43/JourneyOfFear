@@ -94,7 +94,7 @@ public class Server {
                                                 for (EnemyPlayer e : temp) {
                                                     socket.getOutputStream().write(e.getPacket().getBytes());
                                                 }
-                                                Thread.sleep(10);
+                                                Thread.sleep(50);
                                             }
                                         } catch (IOException e) {
                                             System.out.println("Error: " + e);

@@ -4,6 +4,7 @@ import game.Game;
 import game.enemy.EnemyPlayer;
 import game.util.server.DataPacket;
 import game.util.server.Server;
+import game.util.server.ServerLogger;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -21,7 +22,7 @@ public class StateServer extends BasicGameState {
     private Server server;
     private final int port = 9999;
     
-    ArrayList<EnemyPlayer> players = new ArrayList<EnemyPlayer>();
+    private ArrayList<EnemyPlayer> players = new ArrayList<EnemyPlayer>();
     
     public StateServer(int id) {
         this.id = id;
@@ -46,6 +47,8 @@ public class StateServer extends BasicGameState {
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         g.setColor(Color.black);
         g.fillRect(0,0,Game.VIEW_SIZE_X,Game.VIEW_SIZE_Y);
+        g.setColor(Color.white);
+        ServerLogger.render(g);
     }
     
     @Override
