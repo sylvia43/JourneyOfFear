@@ -1,6 +1,8 @@
 package game.util.server;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 
 public class NetworkHandler {
@@ -39,10 +41,13 @@ public class NetworkHandler {
                         try {
                             DataPacket packet;
                             byte[] b = new byte[DataPacket.MAX_SIZE];
-
+                            
+                            InputStream socketIn = socket.getInputStream();
                             while (running) {
-                                while (socket.getInputStream().read(b,0,DataPacket.MAX_SIZE)
-                                        !=DataPacket.MAX_SIZE);
+                                if (socketIn.read(b,0,DataPacket.MAX_SIZE) != DataPacket.MAX_SIZE) {
+                                    System.out.println("Reading error.");
+                                    continue;
+                                }
                                 packet = new DataPacket(b);
                                 packet.updateEnemy();
                             }
@@ -66,8 +71,9 @@ public class NetworkHandler {
                     @Override
                     public void run() {
                         try {
+                            OutputStream socketOut = socket.getOutputStream();
                             while (running) {
-                                socket.getOutputStream().write(DataPacket.player.getPacket().getBytes());
+                                socketOut.write(DataPacket.player.getPacket().getBytes());
                             }
                             socket.close();
                         } catch (IOException e) {

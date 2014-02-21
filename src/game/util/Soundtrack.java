@@ -17,6 +17,11 @@ public class Soundtrack {
         }
     }
     
+    public void pauseNoStart() {
+        if (currentMusic != null && !currentMusic.isLoading() && currentMusic.isPaused())
+            currentMusic.pause();
+    }
+    
     public void restart() {
         if (currentMusic != null && !currentMusic.isLoading())
             currentMusic.restart();

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Server {
@@ -59,12 +60,26 @@ public class Server {
                                     public void run() {
                                         try {
                                             byte[] b = new byte[DataPacket.MAX_SIZE];
+                                            int id = 0;
                                             ServerLogger.log(sockets.toString());
                                             while (running) {
-                                                while(socket.getInputStream().read(b,0,DataPacket.MAX_SIZE)!=DataPacket.MAX_SIZE);
+                                                if(socket.getInputStream().read(b,0,DataPacket.MAX_SIZE)!=DataPacket.MAX_SIZE) {
+                                                    ServerLogger.log("Reading error.");
+                                                    ServerLogger.log(Arrays.toString(b));
+                                                    continue;
+                                                }
+                                                int newId = DataPacket.get(b,8);
+                                                if (id==0) {
+                                                    id = newId;
+                                                    ServerLogger.log("Setting id: " + id);
+                                                } else if (id!=newId) {
+                                                    ServerLogger.log("Id mismatch: " + id);
+                                                    continue;
+                                                }
                                                 new DataPacket(b);
                                             }
                                             ServerLogger.log("Lost client, closing connection.");
+                                            DataPacket.registerDisconnect(id);
                                             sockets.remove(localSocketCounter);
                                             socket = null;
                                         } catch (IOException e) {
@@ -94,7 +109,7 @@ public class Server {
                                                 for (EnemyPlayer e : temp) {
                                                     socket.getOutputStream().write(e.getPacket().getBytes());
                                                 }
-                                                Thread.sleep(50);
+                                                Thread.sleep(16);
                                             }
                                         } catch (IOException e) {
                                             ServerLogger.log("Error: " + e);
@@ -105,7 +120,7 @@ public class Server {
                                             sockets.remove(localSocketCounter);
                                             socket = null;
                                         } catch (InterruptedException e) {
-                                            ServerLogger.log("Error: Failed to sleep: " + e);
+                                            ServerLogger.log("Server Interrupted: " + e);
                                         }
                                     }
                                     public void kill() {

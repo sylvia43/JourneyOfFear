@@ -21,6 +21,8 @@ public class DataPacket {
     }
     
     public DataPacket(byte[] data) {
+        if (data.length != MAX_SIZE)
+            return;
         this.data = data;
         update = true;
         packets.add(this);
@@ -40,6 +42,21 @@ public class DataPacket {
         
         newEnemies.clear();
         newEnemies.addAll(enemies);
+    }
+    
+    public static void registerDisconnect(int id) {
+        EnemyPlayer enemy = null;
+        for (EnemyPlayer e : enemies) {
+            if (e.getId() == id) {
+                enemy = e;
+                break;
+            }
+        }
+        if (enemy == null) {
+            ServerLogger.log("No such enemy with id " + id);
+            return;
+        }
+        enemies.remove(enemy);
     }
     
     public void update() {
@@ -76,9 +93,18 @@ public class DataPacket {
     
     public int get(int pos) {
         int ret = 0;
-        for (int i=0; i<4; i++) {
+        for (int i=0;i<4;i++) {
             ret <<= 8;
             ret |= (int)data[i+pos] & 0xFF;
+        }
+        return ret;
+    }
+    
+    public static int get(byte[] bytes, int pos) {
+        int ret = 0;
+        for (int i=0;i<4;i++) {
+            ret <<= 8;
+            ret |= (int)bytes[i+pos] & 0xFF;
         }
         return ret;
     }

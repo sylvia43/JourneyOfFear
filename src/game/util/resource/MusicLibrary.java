@@ -29,7 +29,7 @@ public enum MusicLibrary {
     
     public boolean isPlaying() { return (bound()&&music.playing()) || queued; }
     
-    public boolean isPaused() { return music.playing(); }
+    public boolean isPaused() { return music != null && music.playing(); }
     
     public void pause() { music.pause(); }
     

@@ -1,5 +1,6 @@
 package game.state;
 
+import game.Game;
 import game.enemy.Enemy;
 import game.enemy.EnemyPlayer;
 import game.environment.Hazard;
@@ -64,6 +65,9 @@ public class StateMultiplayer extends BasicGameState {
             close();
             container.exit();
         }
+        
+        if (Game.DEV_MODE)
+            soundtrack.pauseNoStart(); // It gets annoying.
         
         if (container.getInput().isKeyPressed(Input.KEY_N))
             soundtrack.playNext();
