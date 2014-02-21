@@ -49,8 +49,10 @@ public class Server {
                             @Override
                             public void run() {
                                 ServerLogger.log("Creating thread to get data packets.");
+                                Thread getterThread;
+                                Thread senderThread;
                                 
-                                Thread getterThread = new Thread(new Runnable() {
+                                getterThread = new Thread(new Runnable() {
                                     private volatile boolean running = true;
                                     private int localSocketCounter = socketCounter-1;
                                     private Socket socket = sockets.get(localSocketCounter);
@@ -58,9 +60,9 @@ public class Server {
                                     @Override
                                     @SuppressWarnings("empty-statement")
                                     public void run() {
+                                        int id = 0;
                                         try {
                                             byte[] b = new byte[DataPacket.MAX_SIZE];
-                                            int id = 0;
                                             ServerLogger.log(sockets.toString());
                                             while (running) {
                                                 if(socket.getInputStream().read(b,0,DataPacket.MAX_SIZE)!=DataPacket.MAX_SIZE) {
@@ -78,24 +80,25 @@ public class Server {
                                                 }
                                                 new DataPacket(b);
                                             }
-                                            ServerLogger.log("Lost client, closing connection.");
-                                            DataPacket.registerDisconnect(id);
-                                            sockets.remove(localSocketCounter);
-                                            socket = null;
                                         } catch (IOException e) {
                                             ServerLogger.log("Error: " + e);
+                                        } finally {
                                             sockets.remove(localSocketCounter);
+                                            try {
+                                                socket.close();
+                                            } catch (IOException e) {
+                                                ServerLogger.log("Failed to close socket: " + e);
+                                            }
                                             socket = null;
+                                            ServerLogger.log("Closing connection");
+                                            DataPacket.registerDisconnect(id);
                                         }
-                                    }
-                                    public void kill() {
-                                        running = false;
                                     }
                                 });
                                 getterThread.start();
                                 
                                 ServerLogger.log("Creating thread to send data packets.");
-                                Thread senderThread = new Thread(new Runnable() {
+                                senderThread = new Thread(new Runnable() {
                                     private volatile boolean running = true;
                                     private int localSocketCounter = socketCounter-1;
                                     private Socket socket = sockets.get(localSocketCounter);
@@ -113,18 +116,19 @@ public class Server {
                                             }
                                         } catch (IOException e) {
                                             ServerLogger.log("Error: " + e);
-                                            sockets.remove(localSocketCounter);
-                                            socket = null;
                                         } catch (NullPointerException e) {
                                             ServerLogger.log("Client socket closed.");
-                                            sockets.remove(localSocketCounter);
-                                            socket = null;
                                         } catch (InterruptedException e) {
                                             ServerLogger.log("Server Interrupted: " + e);
+                                        } finally {
+                                            sockets.remove(localSocketCounter);
+                                            try {
+                                                socket.close();
+                                            } catch (IOException e) {
+                                                ServerLogger.log("Failed to close socket: " + e);
+                                            }
+                                            socket = null;
                                         }
-                                    }
-                                    public void kill() {
-                                        running = false;
                                     }
                                 });
                                 senderThread.start();

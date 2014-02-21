@@ -56,6 +56,7 @@ public class DataPacket {
             ServerLogger.log("No such enemy with id " + id);
             return;
         }
+        ServerLogger.log("Removing enemy of id " + id);
         enemies.remove(enemy);
     }
     
