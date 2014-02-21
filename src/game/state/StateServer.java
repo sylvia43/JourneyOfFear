@@ -41,6 +41,7 @@ public class StateServer extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         DataPacket.update(players);
+        ServerLogger.update();
     }
     
     @Override

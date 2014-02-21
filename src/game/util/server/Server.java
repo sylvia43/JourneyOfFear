@@ -25,7 +25,7 @@ public class Server {
         try {
             server = new ServerSocket(port,StateServer.MAX_CONNECTIONS);
         } catch (IOException e) {
-            System.out.println("Error: " + e);
+            ServerLogger.log("Error: " + e);
         }
         
         ServerLogger.log("Started server.");
@@ -59,7 +59,7 @@ public class Server {
                                     public void run() {
                                         try {
                                             byte[] b = new byte[DataPacket.MAX_SIZE];
-                                            System.out.println(sockets);
+                                            ServerLogger.log(sockets.toString());
                                             while (running) {
                                                 while(socket.getInputStream().read(b,0,DataPacket.MAX_SIZE)!=DataPacket.MAX_SIZE);
                                                 new DataPacket(b);
@@ -68,7 +68,7 @@ public class Server {
                                             sockets.remove(localSocketCounter);
                                             socket = null;
                                         } catch (IOException e) {
-                                            System.out.println("Error: " + e);
+                                            ServerLogger.log("Error: " + e);
                                             sockets.remove(localSocketCounter);
                                             socket = null;
                                         }
@@ -97,15 +97,15 @@ public class Server {
                                                 Thread.sleep(50);
                                             }
                                         } catch (IOException e) {
-                                            System.out.println("Error: " + e);
+                                            ServerLogger.log("Error: " + e);
                                             sockets.remove(localSocketCounter);
                                             socket = null;
                                         } catch (NullPointerException e) {
-                                            System.out.println("Client socket closed.");
+                                            ServerLogger.log("Client socket closed.");
                                             sockets.remove(localSocketCounter);
                                             socket = null;
                                         } catch (InterruptedException e) {
-                                            System.out.println("Error: Failed to sleep: " + e);
+                                            ServerLogger.log("Error: Failed to sleep: " + e);
                                         }
                                     }
                                     public void kill() {
@@ -118,7 +118,7 @@ public class Server {
                         clientThread.start();
                     }
                 } catch (IOException e) {
-                    System.out.println("Error: " + e);
+                    ServerLogger.log("Error: " + e);
                 }
             }
         });

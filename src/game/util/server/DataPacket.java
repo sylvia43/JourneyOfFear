@@ -53,7 +53,6 @@ public class DataPacket {
         
         for (EnemyPlayer e : enemies) {
             if (e.getId() == get(8)) {
-                System.out.println("Updated enemy of id " + e.getId());
                 e.setX(get(0));
                 e.setY(get(4));
                 return;
@@ -61,7 +60,7 @@ public class DataPacket {
         }
         try {
             enemies.add(new EnemyPlayer(get(0),get(4),get(8)));
-            System.out.println("Created new enemy.");
+            ServerLogger.log("Created new enemy.");
         } catch (SlickException e) {
             System.out.println("Unable to create enemy player: " + e);
         }
