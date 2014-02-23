@@ -2,6 +2,7 @@ package game.environment;
 
 import game.enemy.Enemy;
 import game.map.Area;
+import game.player.Player;
 import game.sprite.AnimationMask;
 import game.sprite.ImageMask;
 import game.state.StateMultiplayer;
@@ -76,4 +77,6 @@ public class Hazard {
         }
         return new AnimationMask(masks);
     }
+    
+    public byte isInHazard(Player player) { return -1; }
 }

@@ -47,10 +47,22 @@ public class Spikes extends Hazard {
         }
         if (getCollisionMask().intersects(player.getCollisionMask(),x,y,player.getX(),player.getY()))
             player.resolveHit(x,y,2);
+        else if(isInHazard(player) == 1)
+            player.resolveHit(x, y, 2);
         for (Enemy e : enemies) {
             if (getCollisionMask().intersects(e.getCollisionMask(),x,y,e.getX(),e.getY())) {
                 e.resolveHit(x,y,attackId,2);
             }
         }
     }
+    /*
+    @Override
+    public byte isInHazard(Player player) {
+        int size = sprite.getImage(0).getWidth();
+        if((player.getX() < x + size && player.getX() > x) &&
+                player.getY() < y + size && player.getY() > y)
+            return 1;
+        return 0;
+    }
+    */
 }

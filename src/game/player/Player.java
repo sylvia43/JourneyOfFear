@@ -338,7 +338,7 @@ public class Player {
         resolveHit(ox,oy,1);
     }
     
-        public void resolveHit(int ox, int oy, int damage) {
+    public void resolveHit(int ox, int oy, int damage) {
         isHit = true;
         if (!invulnerable) {
             invulnerable = true; //Deal damage here somewhere.
