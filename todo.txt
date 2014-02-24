@@ -75,10 +75,10 @@ Single Player:
     [x] Zip all stuff and send it to Shreyas.
     [x] Magic sounds.
     [x] Try for some mellow music w/ NESVST
+    [/] Bow pull sounds.
+    [/] Bow shoot sounds.
     [/] Player death sound.
     [ ] Send Chad's music to Shreyas
-    [ ] Bow pull sounds.
-    [ ] Bow shoot sounds.
 
 Multi Player:
   [x] Copy SlickGame.
