@@ -37,4 +37,14 @@ public class Rectangle {
     public boolean intersects(Rectangle other) {
         return x1<=other.getX2() && x2>=other.getX1() && y1<=other.getY2() && y2>=other.getY1();
     }
+    
+    public boolean intersects(ImageMask other, int ox, int oy) {
+        for(int i = 0; i < other.getMask().length; i++)
+            for(int j = 0; j < other.getMask()[i].length; j++)
+                if(other.getMask()[i][j] && 
+                        ((ox+i*4>=x1 && ox+i*4<=x2) && 
+                        (oy+j*4)>=y1 && (oy+j*4<=y2)))
+                    return true;
+        return false;
+    }
 }

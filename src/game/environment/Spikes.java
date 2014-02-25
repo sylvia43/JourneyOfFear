@@ -2,6 +2,7 @@ package game.environment;
 
 import game.enemy.Enemy;
 import game.player.Player;
+import game.sprite.Rectangle;
 import game.util.resource.AnimationLibrary;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -12,6 +13,7 @@ public class Spikes extends Hazard {
     protected Player player;
     protected int attackId = 0;
     protected boolean wasClosed = true;
+    protected Rectangle mask;
     
     public Spikes(Player player) {
         super();  
@@ -31,7 +33,7 @@ public class Spikes extends Hazard {
     @Override
     protected void initializeSprite() throws SlickException {
         sprite = AnimationLibrary.SPIKES.getAnim();
-        mask = createMask();
+        mask = new Rectangle(x,y,x+sprite.getImage(0).getWidth()*4,y+sprite.getImage(0).getHeight()*4);
         sprite.setDuration(0,1000);
     }
   
@@ -45,22 +47,12 @@ public class Spikes extends Hazard {
             wasClosed = false;
             attackId++;
         }
-        if (getCollisionMask().intersects(player.getCollisionMask(),x,y,player.getX(),player.getY()))
+        if (mask.intersects(player.getCollisionMask(),player.getX(),player.getY()))
             player.resolveHit(x,y,2);
         for (Enemy e : enemies) {
-            if (getCollisionMask().intersects(e.getCollisionMask(),x,y,e.getX(),e.getY())) {
+            if (mask.intersects(e.getCollisionMask(),e.getX(),e.getY())) {
                 e.resolveHit(x,y,attackId,2);
             }
         }
     }
-    /*
-    @Override
-    public byte isInHazard(Player player) {
-        int size = sprite.getImage(0).getWidth();
-        if((player.getX() < x + size && player.getX() > x) &&
-                player.getY() < y + size && player.getY() > y)
-            return 1;
-        return 0;
-    }
-    */
 }

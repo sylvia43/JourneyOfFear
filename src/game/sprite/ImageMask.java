@@ -16,7 +16,7 @@ public class ImageMask {
     }
     
     public ImageMask(Rectangle rectangle) {
-        mask = simplify(getMaskFromRectangle(rectangle));
+        mask = getMaskFromRectangle(rectangle);
     }
     
     public boolean[][] getMask() { return mask; }
