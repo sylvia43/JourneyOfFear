@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class NetworkHandler {
 
@@ -39,17 +40,16 @@ public class NetworkHandler {
                     @SuppressWarnings("empty-statement")
                     public void run() {
                         try {
-                            DataPacket packet;
                             byte[] b = new byte[DataPacket.MAX_SIZE];
                             
                             InputStream socketIn = socket.getInputStream();
+                            int bytesRead;
                             while (running) {
-                                if (socketIn.read(b,0,DataPacket.MAX_SIZE) != DataPacket.MAX_SIZE) {
-                                    System.out.println("Reading error.");
+                                if ((bytesRead=socketIn.read(b,0,DataPacket.MAX_SIZE)) != DataPacket.MAX_SIZE) {
+                                    System.out.println("Reading error: " + bytesRead);
                                     continue;
                                 }
-                                packet = new DataPacket(b);
-                                packet.updateEnemy();
+                                new DataPacket(b);
                             }
                             socket.close();
                         } catch (IOException e) {

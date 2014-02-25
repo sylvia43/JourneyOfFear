@@ -30,11 +30,12 @@ public class StateServer extends BasicGameState {
     
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        server = new Server(port);
     }
     
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
+        ServerLogger.init();
+        server = new Server(port);
         server.start();
     }
     

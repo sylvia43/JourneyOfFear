@@ -3,10 +3,11 @@ package game.util.server;
 import game.enemy.EnemyPlayer;
 import game.state.StateServer;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class Server {
@@ -33,6 +34,7 @@ public class Server {
         
         Thread getClients = new Thread(new Runnable() {
             private volatile boolean running = true;
+            @Override
             public void run() {
                 try {
                     while (running) {
@@ -42,99 +44,93 @@ public class Server {
                         ServerLogger.log("Found new incoming connection.");
                         ServerLogger.log("Creating thread for new connection.");
                         
-                        Thread clientThread = new Thread(new Runnable() {
+                        ServerLogger.log("Creating thread to get data packets.");
+                        
+                        // Getter thread.
+                        new Thread(new Runnable() {
+                            private volatile boolean running = true;
+                            private int localSocketCounter = socketCounter-1;
+                            private Socket socket = sockets.get(localSocketCounter);
+
+                            @Override
+                            @SuppressWarnings("empty-statement")
+                            public void run() {
+                                int id = 0;
+                                try {
+                                    byte[] b = new byte[DataPacket.MAX_SIZE];
+                                    ServerLogger.log(sockets.toString());
+                                    InputStream socketIn = socket.getInputStream();
+                                    int bytesRead;
+                                    while (running) {
+                                        if((bytesRead=socketIn.read(b,0,DataPacket.MAX_SIZE))
+                                                !=DataPacket.MAX_SIZE) {
+                                            ServerLogger.log("Reading error: " + bytesRead);
+                                            continue;
+                                        }
+                                        int newId = DataPacket.get(b,DataPacket.ID);
+                                        if (id==0) {
+                                            id = newId;
+                                            ServerLogger.log("Setting id: " + id);
+                                        } else if (id!=newId) {
+                                            ServerLogger.log("Id mismatch: " + newId);
+                                            continue;
+                                        }
+                                        new DataPacket(b);
+                                    }
+                                } catch (IOException e) {
+                                    ServerLogger.log("Error: " + e);
+                                } finally {
+                                    sockets.remove(localSocketCounter);
+                                    try {
+                                        socket.close();
+                                    } catch (IOException e) {
+                                        ServerLogger.log("Failed to close socket: " + e);
+                                    }
+                                    socket = null;
+                                    ServerLogger.log("Closing connection");
+                                    DataPacket.registerDisconnect(id);
+                                }
+                                ServerLogger.log("Stopping Getter Thread.");
+                            }
+                        }).start();
+                        
+                        ServerLogger.log("Creating thread to send data packets.");
+                        
+                        // Sender Thread.
+                        new Thread(new Runnable() {
                             private volatile boolean running = true;
                             private int localSocketCounter = socketCounter-1;
                             private Socket socket = sockets.get(localSocketCounter);
                             @Override
                             public void run() {
-                                ServerLogger.log("Creating thread to get data packets.");
-                                Thread getterThread;
-                                Thread senderThread;
-                                
-                                getterThread = new Thread(new Runnable() {
-                                    private volatile boolean running = true;
-                                    private int localSocketCounter = socketCounter-1;
-                                    private Socket socket = sockets.get(localSocketCounter);
-                                    
-                                    @Override
-                                    @SuppressWarnings("empty-statement")
-                                    public void run() {
-                                        int id = 0;
-                                        try {
-                                            byte[] b = new byte[DataPacket.MAX_SIZE];
-                                            ServerLogger.log(sockets.toString());
-                                            while (running) {
-                                                if(socket.getInputStream().read(b,0,DataPacket.MAX_SIZE)!=DataPacket.MAX_SIZE) {
-                                                    ServerLogger.log("Reading error.");
-                                                    ServerLogger.log(Arrays.toString(b));
-                                                    continue;
-                                                }
-                                                int newId = DataPacket.get(b,8);
-                                                if (id==0) {
-                                                    id = newId;
-                                                    ServerLogger.log("Setting id: " + id);
-                                                } else if (id!=newId) {
-                                                    ServerLogger.log("Id mismatch: " + id);
-                                                    continue;
-                                                }
-                                                new DataPacket(b);
-                                            }
-                                        } catch (IOException e) {
-                                            ServerLogger.log("Error: " + e);
-                                        } finally {
-                                            sockets.remove(localSocketCounter);
-                                            try {
-                                                socket.close();
-                                            } catch (IOException e) {
-                                                ServerLogger.log("Failed to close socket: " + e);
-                                            }
-                                            socket = null;
-                                            ServerLogger.log("Closing connection");
-                                            DataPacket.registerDisconnect(id);
+                                try {
+                                    ArrayList<EnemyPlayer> temp = new ArrayList<EnemyPlayer>();
+                                    OutputStream out = socket.getOutputStream();
+                                    while (running) {
+                                        temp.clear();
+                                        temp.addAll(DataPacket.enemies);
+                                        for (EnemyPlayer e : temp) {
+                                            out.write(e.getPacket().getBytes());
                                         }
                                     }
-                                });
-                                getterThread.start();
-                                
-                                ServerLogger.log("Creating thread to send data packets.");
-                                senderThread = new Thread(new Runnable() {
-                                    private volatile boolean running = true;
-                                    private int localSocketCounter = socketCounter-1;
-                                    private Socket socket = sockets.get(localSocketCounter);
-                                    @Override
-                                    public void run() {
-                                        try {
-                                            ArrayList<EnemyPlayer> temp = new ArrayList<EnemyPlayer>();
-                                            while (running) {
-                                                temp.clear();
-                                                temp.addAll(DataPacket.enemies);
-                                                for (EnemyPlayer e : temp) {
-                                                    socket.getOutputStream().write(e.getPacket().getBytes());
-                                                }
-                                                Thread.sleep(16);
-                                            }
-                                        } catch (IOException e) {
-                                            ServerLogger.log("Error: " + e);
-                                        } catch (NullPointerException e) {
-                                            ServerLogger.log("Client socket closed.");
-                                        } catch (InterruptedException e) {
-                                            ServerLogger.log("Server Interrupted: " + e);
-                                        } finally {
-                                            sockets.remove(localSocketCounter);
-                                            try {
-                                                socket.close();
-                                            } catch (IOException e) {
-                                                ServerLogger.log("Failed to close socket: " + e);
-                                            }
-                                            socket = null;
-                                        }
+                                } catch (IOException e) {
+                                    ServerLogger.log("Error: " + e);
+                                } catch (NullPointerException e) {
+                                    ServerLogger.log("Client socket closed.");
+                                //} catch (InterruptedException e) {
+                                //    ServerLogger.log("Server Interrupted: " + e);
+                                } finally {
+                                    sockets.remove(localSocketCounter);
+                                    try {
+                                        socket.close();
+                                    } catch (IOException e) {
+                                        ServerLogger.log("Failed to close socket: " + e);
                                     }
-                                });
-                                senderThread.start();
+                                    socket = null;
+                                }
+                                ServerLogger.log("Stopping Sender Thread.");
                             }
-                        });
-                        clientThread.start();
+                        }).start();
                     }
                 } catch (IOException e) {
                     ServerLogger.log("Error: " + e);

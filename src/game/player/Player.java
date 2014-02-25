@@ -101,9 +101,9 @@ public class Player {
     
     public DataPacket getPacket() {
         DataPacket packet = new DataPacket();
-        packet.add(x,0);
-        packet.add(y,4);
-        packet.add(id,8);
+        packet.add(id,DataPacket.ID);
+        packet.add(x,DataPacket.X);
+        packet.add(y,DataPacket.Y);
         return packet;
     }
     

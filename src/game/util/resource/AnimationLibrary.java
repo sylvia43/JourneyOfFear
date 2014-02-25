@@ -32,7 +32,7 @@ public enum AnimationLibrary {
     
     //Environment sprites
     SPIKES("environment/spikes.png",166,32,39),
-    SPIKES_MODULAR("environment/spikes_modular.png", 166, 4, 11),
+    SPIKES_MODULAR("environment/spikes_modular.png",166,4,11),
     GREEN_SLIME_PIT("environment/greenslimepit.png",332,16,16),
     PINK_SLIME_PIT("environment/pinkslimepit.png",332,16,16);
     

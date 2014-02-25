@@ -48,15 +48,19 @@ public class StateMultiplayer extends BasicGameState {
     
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        soundtrack = new Soundtrack();
-        initPlayer(container);
-        setupArea(container,player);
     }
     
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
+        soundtrack = new Soundtrack();
+        try {
+            initPlayer(container);
+        } catch (SlickException e) {
+            System.out.println("Failed to load player: " + e);
+        }
+        setupArea(container,player);
         soundtrack.init();
-        network = new NetworkHandler("192.168.1.105",9999);
+        network = new NetworkHandler("127.0.0.1",9999);
     }
     
     @Override

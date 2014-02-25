@@ -7,6 +7,8 @@ import game.player.Player;
 import game.util.MathHelper;
 import game.util.Soundtrack;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -40,13 +42,17 @@ public class StateSingleplayer extends BasicGameState {
     
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        soundtrack = new Soundtrack();
-        initPlayer(container);
-        setupArea(container,player);
     }
     
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
+        soundtrack = new Soundtrack();
+        try {
+            initPlayer(container);
+        } catch (SlickException e) {
+            System.out.println("Failed to load player: " + e);
+        }
+        setupArea(container,player);
         soundtrack.init();
     }
     

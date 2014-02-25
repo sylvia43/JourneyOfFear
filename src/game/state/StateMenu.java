@@ -2,6 +2,8 @@ package game.state;
 
 import game.Game;
 import java.awt.Font;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -40,16 +42,18 @@ public class StateMenu extends BasicGameState implements ComponentListener {
     }
 
     public void init(GameContainer container,StateBasedGame game) throws SlickException {
-        if (game.getCurrentState().getID() != id)
-            return;
         
+    }
+    
+    @Override
+    public void enter(GameContainer container, StateBasedGame game) {
         this.game = game;
-        
+
         Font awtFont = new Font("Times New Roman",Font.BOLD,24);
         font = new UnicodeFont(awtFont);
         font.getEffects().add(new ColorEffect(java.awt.Color.white));
         font.addAsciiGlyphs();
-        
+
         try {
             font.loadGlyphs();
         } catch (SlickException e) {
@@ -63,7 +67,7 @@ public class StateMenu extends BasicGameState implements ComponentListener {
                 field2.setFocus(true);
             }
         });
-        
+
         field2 = new TextField(container,font,60,70,500,35,new ComponentListener() {
             @Override
             public void componentActivated(AbstractComponent source) {
@@ -71,18 +75,22 @@ public class StateMenu extends BasicGameState implements ComponentListener {
                 field1.setFocus(true);
             }
         });
-        field2.setBorderColor(Color.red);
-                
-        image = new Image("resources/art/menu/button.png");
-        background = new Image("resources/art/menu/background.png");
         
+        field2.setBorderColor(Color.red);
+        try {
+            image = new Image("resources/art/menu/button.png");
+            background = new Image("resources/art/menu/background.png");
+        } catch (SlickException e) {
+            System.out.println("Failed to load menu resources: " + e);
+        }
+
         for (int i=0;i<4;i++) {
             areas[i] = new MouseOverArea(container,image,300,100+(i*100),200,90,this);
             areas[i].setNormalColor(new Color(1,1,1,1f));
             areas[i].setMouseOverColor(new Color(1,1,1,0.3f));
         }
     }
-
+    
     @Override
     public void render(GameContainer container,StateBasedGame game,Graphics g) throws SlickException {
         if (game.getCurrentState().getID() != id)

@@ -1,6 +1,9 @@
 package game.util.server;
 
 import game.enemy.EnemyPlayer;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 
@@ -11,7 +14,17 @@ public class ServerLogger {
     public static String[] toRender = new String[LINES];
     public static ArrayList<EnemyPlayer> enemies = new ArrayList<EnemyPlayer>();
     
+    public static PrintStream out;
+
     public static int pos = 0;
+    
+    public static void init() {
+        try {
+            out = new PrintStream(new FileOutputStream("log.txt"));
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write file: " + e);
+        }
+    }
     
     public static void update() {
         enemies.clear();
@@ -19,7 +32,6 @@ public class ServerLogger {
     }
     
     public static void render(Graphics g) {
-        
         g.drawString("Enemies: ",100,0);
         
         for (int i=0;i<enemies.size();i++) {
@@ -37,6 +49,9 @@ public class ServerLogger {
     private ServerLogger() { }
     
     public static void log(String message) {
+        if (out == null)
+            return;
+        out.println(message);
         toRender[9] = toRender[8];
         toRender[8] = toRender[7];
         toRender[7] = toRender[6];
