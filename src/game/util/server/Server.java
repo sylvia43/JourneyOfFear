@@ -2,8 +2,8 @@ package game.util.server;
 
 import game.enemy.EnemyPlayer;
 import game.state.StateServer;
+import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -59,14 +59,11 @@ public class Server {
                                 try {
                                     byte[] b = new byte[DataPacket.MAX_SIZE];
                                     ServerLogger.log(sockets.toString());
-                                    InputStream socketIn = socket.getInputStream();
+                                    DataInputStream socketIn
+                                            = new DataInputStream(socket.getInputStream());
                                     int bytesRead;
                                     while (running) {
-                                        if((bytesRead=socketIn.read(b,0,DataPacket.MAX_SIZE))
-                                                !=DataPacket.MAX_SIZE) {
-                                            ServerLogger.log("Reading error: " + bytesRead);
-                                            continue;
-                                        }
+                                        socketIn.readFully(b,0,DataPacket.MAX_SIZE);
                                         int newId = DataPacket.get(b,DataPacket.ID);
                                         if (id==0) {
                                             id = newId;

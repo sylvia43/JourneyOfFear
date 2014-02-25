@@ -1,10 +1,9 @@
 package game.util.server;
 
+import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.Arrays;
 
 public class NetworkHandler {
 
@@ -42,13 +41,10 @@ public class NetworkHandler {
                         try {
                             byte[] b = new byte[DataPacket.MAX_SIZE];
                             
-                            InputStream socketIn = socket.getInputStream();
-                            int bytesRead;
+                            DataInputStream socketIn
+                                            = new DataInputStream(socket.getInputStream());
                             while (running) {
-                                if ((bytesRead=socketIn.read(b,0,DataPacket.MAX_SIZE)) != DataPacket.MAX_SIZE) {
-                                    System.out.println("Reading error: " + bytesRead);
-                                    continue;
-                                }
+                                socketIn.readFully(b,0,DataPacket.MAX_SIZE);
                                 new DataPacket(b);
                             }
                             socket.close();
