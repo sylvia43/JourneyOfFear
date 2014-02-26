@@ -16,6 +16,7 @@ import org.newdawn.slick.SlickException;
 public class Hazard {
     
     protected Animation sprite;
+    public Animation getSprite() { return sprite; }
     protected AnimationMask mask;
     
     protected int x;

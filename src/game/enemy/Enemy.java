@@ -14,6 +14,7 @@ import org.newdawn.slick.SlickException;
 public class Enemy {
     
     protected EntitySprite sprite;
+    public EntitySprite getSprite() { return sprite; }
     protected String spritepath;
     protected int spritePointer;
     protected int animationSpeed;

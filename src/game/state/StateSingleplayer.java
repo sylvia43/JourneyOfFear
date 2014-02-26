@@ -7,8 +7,6 @@ import game.player.Player;
 import game.util.MathHelper;
 import game.util.Soundtrack;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -212,13 +210,19 @@ public class StateSingleplayer extends BasicGameState {
     
     private void renderEnemies(GameContainer container, Graphics g) throws SlickException {
         for (Enemy e : currentArea.getEnemies()) {
-            if (e.getX()>camX-64 && e.getY()>camY-64 && e.getX()<camX+VIEW_SIZE_X && e.getY()<camY+VIEW_SIZE_Y)
+            if (e.getX()-e.getSprite().getAnim(0).getWidth()*2>camX-64 && 
+                    e.getY()-e.getSprite().getAnim(0).getHeight()*2>camY-64 && 
+                    e.getX()+e.getSprite().getAnim(0).getWidth()*2<camX+VIEW_SIZE_X && 
+                    e.getY()+e.getSprite().getAnim(0).getWidth()*2<camY+VIEW_SIZE_Y)
                 e.render(container, g);
         }
     }
        private void renderHazards(GameContainer container, Graphics g) throws SlickException {
         for (Hazard h : currentArea.getHazards()) {
-            if (h.getX()>camX-64 && h.getY()>camY-64 && h.getX()<camX+VIEW_SIZE_X && h.getY()<camY+VIEW_SIZE_Y)
+            if (h.getX()-h.getSprite().getImage(0).getWidth()*2>camX-64 && 
+                    h.getY()-h.getSprite().getImage(0).getHeight()*2>camY-64 && 
+                    h.getX()+h.getSprite().getImage(0).getWidth()*2<camX+VIEW_SIZE_X && 
+                    h.getY()+h.getSprite().getImage(0).getHeight()*2<camY+VIEW_SIZE_Y)
                 h.render(container,g);
         }
     }
