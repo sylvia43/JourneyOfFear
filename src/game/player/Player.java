@@ -2,6 +2,7 @@ package game.player;
 
 import game.enemy.Enemy;
 import game.environment.Hazard;
+import game.environment.Obstacle;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
@@ -49,6 +50,7 @@ public class Player {
     
     private ArrayList<Enemy> enemies;
     private ArrayList<Hazard> hazards;
+    private ArrayList<Obstacle> obstacles;
     
     private final int ATTACK_SPEED = 10;
     private final int SWORD_DELAY = 400;
@@ -165,6 +167,9 @@ public class Player {
     }
      public void setHazards(ArrayList<Hazard> hazards) {
         this.hazards = hazards;
+    }
+     public void setObstacles(ArrayList<Obstacle> obstacles) {
+        this.obstacles = obstacles;
     }
     
     public void updateViewPort(int camX, int camY) {
