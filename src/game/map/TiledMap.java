@@ -24,6 +24,13 @@ public class TiledMap {
         randomize(Tile.GRASS_FLOWER,0.01);
     }
     
+    public void fillStandardCobble() {
+        fill(Tile.COBBLE_BASIC);
+        randomize(Tile.COBBLE_VARIANT1,0.2);
+        randomize(Tile.COBBLE_VARIANT2,0.1);
+        randomize(Tile.COBBLE_ACCENT_GRASS,0.05);
+    }
+    
     private void fill(Tile tile) {
         for(int i=0;i<map.length;i++)
             for(int j=0;j<map[i].length;j++)

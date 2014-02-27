@@ -1,7 +1,11 @@
 package game.map;
 
 import game.enemy.Enemy;
+import game.enemy.EnemyBlob;
+import game.enemy.EnemySmartBlob;
+import game.environment.GreenSlimePit;
 import game.environment.Hazard;
+import game.environment.PinkSlimePit;
 import game.environment.Spikes;
 import game.player.Player;
 import java.util.ArrayList;
@@ -41,21 +45,23 @@ public class Area {
         this.width = width;
         this.height = height;
         map = new TiledMap(width/64, height/64);
-        map.fillStandardGrass();
         
-        /*
+        if (Math.random()<0.5)
+            map.fillStandardGrass();
+        else
+            map.fillStandardCobble();
+        
         try {
             addEnemy(new EnemyBlob(player)).init(container);
             addEnemy(new EnemySmartBlob(player)).init(container);
         } catch (SlickException e) {
             System.out.println("Error initializing enemy: " + e);
         }
-        */
         
         try {
             addHazard(new Spikes(player,600,600)).init(container);           
-            //addHazard(new GreenSlimePit(player)).init(container);
-            //addHazard(new PinkSlimePit(player)).init(container);
+            addHazard(new GreenSlimePit(player)).init(container);
+            addHazard(new PinkSlimePit(player)).init(container);
         } catch (SlickException e) { 
             System.out.println("Error initializing hazard: " + e);
         }

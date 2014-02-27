@@ -195,17 +195,17 @@ public class StateSingleplayer extends BasicGameState {
         for (Enemy e : currentArea.getEnemies()){
              g.setColor(e.getColor());
              g.fillRect((int)(posX + width*((double)e.getX())/WORLD_SIZE_X), 
-                    (int)(posY + height*((double)e.getY())/WORLD_SIZE_Y), 3, 3);    
+                    (int)(posY + height*((double)e.getY())/WORLD_SIZE_Y),3,3);    
         }
          for (Hazard h : currentArea.getHazards()){
              g.setColor(h.getColor());
              g.fillRect((int)(posX + width*((double)h.getX())/WORLD_SIZE_X), 
-                    (int)(posY + height*((double)h.getY())/WORLD_SIZE_Y), 3, 3);    
+                    (int)(posY + height*((double)h.getY())/WORLD_SIZE_Y),3,3);    
         }
         
         g.setColor(PLAYER_COLOR);
         g.fillRect((int)(posX + width*((double)player.getX())/WORLD_SIZE_X), 
-                (int)(posY + height*((double)player.getY())/WORLD_SIZE_Y), 3, 3);
+                (int)(posY + height*((double)player.getY())/WORLD_SIZE_Y),3,3);
     }
     
     private void renderEnemies(GameContainer container, Graphics g) throws SlickException {

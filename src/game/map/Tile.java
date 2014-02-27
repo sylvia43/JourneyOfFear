@@ -12,7 +12,11 @@ public enum Tile {
     GRASS_BOLD("grass_bold.png",true),
     GRASS_SHIFT("grass_shift.png",true),
     STONE_BASIC("stone_basic.png",true),
-    DIRT_BASIC("dirt_basic.png",true);
+    DIRT_BASIC("dirt_basic.png",true),
+    COBBLE_BASIC("cobble_basic.png",true),
+    COBBLE_VARIANT1("cobble_variant.png",true),
+    COBBLE_VARIANT2("cobble_variant2.png",true),
+    COBBLE_ACCENT_GRASS("cobble_accent_grass.png",true);
 
     // Transition tiles need to be 8 different tiles here. In fact, they can be
     // 9 and we can use the middle one as the normal tile. We also need a way to
