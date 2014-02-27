@@ -61,7 +61,6 @@ public class Server {
                                     ServerLogger.log(sockets.toString());
                                     DataInputStream socketIn
                                             = new DataInputStream(socket.getInputStream());
-                                    int bytesRead;
                                     while (running) {
                                         socketIn.readFully(b,0,DataPacket.MAX_SIZE);
                                         int newId = DataPacket.get(b,DataPacket.ID);
@@ -114,8 +113,6 @@ public class Server {
                                     ServerLogger.log("Error: " + e);
                                 } catch (NullPointerException e) {
                                     ServerLogger.log("Client socket closed.");
-                                //} catch (InterruptedException e) {
-                                //    ServerLogger.log("Server Interrupted: " + e);
                                 } finally {
                                     sockets.remove(localSocketCounter);
                                     try {

@@ -86,9 +86,13 @@ public class DataPacket {
         
         int id = get(ID);
         
-        if (player != null)
-            if (player.getID() == id)
+        if (player != null) {
+            if (player.getID() == id) {
+                player.setX(get(X));
+                player.setY(get(Y));
                 return;
+            }
+        }
         
         for (EnemyPlayer e : enemies) {
             if (e.getId() == id) {
