@@ -2,6 +2,7 @@ package game.state;
 
 import game.enemy.Enemy;
 import game.environment.Hazard;
+import game.environment.Obstacle;
 import game.map.Area;
 import game.player.Player;
 import game.util.MathHelper;
@@ -84,6 +85,7 @@ public class StateSingleplayer extends BasicGameState {
         renderMap(g);
         renderHazards(container,g);
         renderEnemies(container,g);
+        renderObstacles(container,g);
         renderPlayer(container,g);
     }
     
@@ -91,6 +93,7 @@ public class StateSingleplayer extends BasicGameState {
         currentArea = new Area(WORLD_SIZE_X,WORLD_SIZE_Y,container,player);
         player.setEnemies(currentArea.getEnemies());
         player.setHazards(currentArea.getHazards());
+        player.setObstacles(currentArea.getObstacles());
     }
     
     private void initPlayer(GameContainer container) throws SlickException {
@@ -155,6 +158,13 @@ public class StateSingleplayer extends BasicGameState {
     private void updateHazards(GameContainer container, int delta, Area currentArea) {
         Hazard.updateEnemies(currentArea.getEnemies());
         for (Hazard h : currentArea.getHazards()) {
+            
+            h.update(container,delta, currentArea);
+        }
+    }
+    private void updateObstacles(GameContainer container, int delta, Area currentArea) {
+        Obstacle.updateEnemies(currentArea.getEnemies());
+        for (Obstacle h : currentArea.getObstacles()) {
             
             h.update(container,delta, currentArea);
         }
@@ -224,6 +234,15 @@ public class StateSingleplayer extends BasicGameState {
                     h.getX()-h.getSprite().getImage(0).getWidth()*2<camX+VIEW_SIZE_X && 
                     h.getY()-h.getSprite().getImage(0).getHeight()*2<camY+VIEW_SIZE_Y)
                 h.render(container,g);
+        }
+    }
+       private void renderObstacles(GameContainer container, Graphics g) throws SlickException {
+        for (Obstacle o : currentArea.getObstacles()) {
+            if (o.getX()+o.getSprite().getImage(0).getWidth()*2>camX-64 && 
+                    o.getY()+o.getSprite().getImage(0).getHeight()*2>camY-64 && 
+                    o.getX()-o.getSprite().getImage(0).getWidth()*2<camX+VIEW_SIZE_X && 
+                    o.getY()-o.getSprite().getImage(0).getHeight()*2<camY+VIEW_SIZE_Y)
+                o.render(container,g);
         }
     }
     
