@@ -72,6 +72,7 @@ public class StateSingleplayer extends BasicGameState {
         updateArea();
         updateEnemies(container,delta);
         updateHazards(container,delta, currentArea);
+        updateObstacles(container, delta, currentArea);
         updatePlayer(container,delta);
         updateViewPort();
     }
@@ -212,6 +213,11 @@ public class StateSingleplayer extends BasicGameState {
              g.fillRect((int)(posX + width*((double)h.getX())/WORLD_SIZE_X), 
                     (int)(posY + height*((double)h.getY())/WORLD_SIZE_Y),3,3);    
         }
+         for (Obstacle o : currentArea.getObstacles()){
+             g.setColor(o.getColor());
+             g.fillRect((int)(posX + width*((double)o.getX())/WORLD_SIZE_X), 
+                    (int)(posY + height*((double)o.getY())/WORLD_SIZE_Y),3,3);    
+        }
         
         g.setColor(PLAYER_COLOR);
         g.fillRect((int)(posX + width*((double)player.getX())/WORLD_SIZE_X), 
@@ -238,11 +244,11 @@ public class StateSingleplayer extends BasicGameState {
     }
        private void renderObstacles(GameContainer container, Graphics g) throws SlickException {
         for (Obstacle o : currentArea.getObstacles()) {
-            if (o.getX()+o.getSprite().getImage(0).getWidth()*2>camX-64 && 
-                    o.getY()+o.getSprite().getImage(0).getHeight()*2>camY-64 && 
-                    o.getX()-o.getSprite().getImage(0).getWidth()*2<camX+VIEW_SIZE_X && 
-                    o.getY()-o.getSprite().getImage(0).getHeight()*2<camY+VIEW_SIZE_Y)
-                o.render(container,g);
+          //  if (o.getX()+o.getSprite().getImage(0).getWidth()*2>camX-64 && 
+            //        o.getY()+o.getSprite().getImage(0).getHeight()*2>camY-64 && 
+            //        o.getX()-o.getSprite().getImage(0).getWidth()*2<camX+VIEW_SIZE_X && 
+            //        o.getY()-o.getSprite().getImage(0).getHeight()*2<camY+VIEW_SIZE_Y)
+            //    o.render(container,g);
         }
     }
     

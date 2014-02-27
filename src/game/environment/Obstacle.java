@@ -36,13 +36,13 @@ public class Obstacle {
     }
     
     public Obstacle() {
-        minimapColor = Color.green;
+        minimapColor = Color.red;
         this.x = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_X-100)) + 50;
         this.y = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y-100)) + 50;
     }
     
     public Obstacle(int x, int y) {
-        minimapColor = Color.green;
+        minimapColor = Color.red;
         this.x = x;
         this.y = y;
     }

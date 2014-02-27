@@ -68,13 +68,12 @@ public class Area {
         } catch (SlickException e) { 
             System.out.println("Error initializing hazard: " + e);
         }
-        // try {
-           // addObstacle(new Spikes(player,600,600)).init(container);           
-           // addObstacle(new GreenSlimePit(player)).init(container);
-           // addObstacle(new PinkSlimePit(player)).init(container);
-        //} catch (SlickException e) { 
-           // System.out.println("Error initializing hazard: " + e);
-       // }
+         try {
+            addObstacle(new Obstacle(1200,1200)).init(container);           
+            
+        } catch (SlickException e) { 
+            System.out.println("Error initializing hazard: " + e);
+       }
     }
     
     public Enemy addEnemy(Enemy e) {
