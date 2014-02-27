@@ -2,8 +2,6 @@ package game.state;
 
 import game.Game;
 import java.awt.Font;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -78,8 +76,8 @@ public class StateMenu extends BasicGameState implements ComponentListener {
         
         field2.setBorderColor(Color.red);
         try {
-            image = new Image("resources/art/menu/button.png");
-            background = new Image("resources/art/menu/background.png");
+            image = new Image("resources/art/menu/menu_button.png");
+            background = new Image("resources/art/menu/menu_background.png");
         } catch (SlickException e) {
             System.out.println("Failed to load menu resources: " + e);
         }

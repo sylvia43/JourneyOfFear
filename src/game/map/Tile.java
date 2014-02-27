@@ -14,8 +14,8 @@ public enum Tile {
     STONE_BASIC("stone_basic.png",true),
     DIRT_BASIC("dirt_basic.png",true),
     COBBLE_BASIC("cobble_basic.png",true),
-    COBBLE_VARIANT1("cobble_variant.png",true),
-    COBBLE_VARIANT2("cobble_variant2.png",true),
+    COBBLE_VARIANT1("cobble_variant_1.png",true),
+    COBBLE_VARIANT2("cobble_variant_2.png",true),
     COBBLE_ACCENT_GRASS("cobble_accent_grass.png",true);
 
     // Transition tiles need to be 8 different tiles here. In fact, they can be
