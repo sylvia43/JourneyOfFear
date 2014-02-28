@@ -26,6 +26,7 @@ Table of Contents:
 
   Shreyas (anubiann00b)      -   Programming    -   https://github.com/anubiann00b
   Tarik (QuantamPhi)         -   Programming    -   https://github.com/QuantumPhi
+  Brennan (Brennan-S)	     -   Programming    -   https://github.com/Brennan-S
   Daniel (MrSnrhms)          -   Programming    -   www.ziggywa.com
   David (ForgottenSprite)    -   Music + Sound  -   https://soundcloud.com/forgotten-sprite
   Chad (Shadow of the Beast) -   Music          -   https://soundcloud.com/shadowofthebeast
