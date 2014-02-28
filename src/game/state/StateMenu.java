@@ -13,7 +13,6 @@ import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.MouseOverArea;
-import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -26,9 +25,9 @@ public class StateMenu extends BasicGameState implements ComponentListener {
     
             
     private MouseOverArea[] areas = new MouseOverArea[4];
-    private String message = "Use first button or enter key to start.";
-    private TextField field1;
-    private TextField field2;
+    //private String message = "Use first button or enter key to start.";
+    //private TextField field1;
+    //private TextField field2;
     private Image background;
     private UnicodeFont font;
     
@@ -62,7 +61,8 @@ public class StateMenu extends BasicGameState implements ComponentListener {
         } catch (SlickException e) {
             System.out.println("Error loading font: " + e);
         }
-
+        
+        /*
         field1 = new TextField(container,font,60,20,500,35,new ComponentListener() {
             @Override
             public void componentActivated(AbstractComponent source) {
@@ -80,6 +80,8 @@ public class StateMenu extends BasicGameState implements ComponentListener {
         });
         
         field2.setBorderColor(Color.red);
+        */
+        
         try {
             buttonSP = new Image("resources/art/menu/Singleplayer.png");
             buttonMP = new Image("resources/art/menu/Multiplayer.png");
@@ -110,17 +112,14 @@ public class StateMenu extends BasicGameState implements ComponentListener {
         for (int i=0;i<4;i++)
             areas[i].render(container,g);
 
-        field1.render(container,g);
-        field2.render(container,g);
-
-       
-       
+        //field1.render(container,g);
+        //field2.render(container,g);
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        if (game.getCurrentState().getID() != id)
-            return;
+        if (game.getCurrentState().getID() != id) {
+        }
     }
     
     @Override
@@ -132,16 +131,16 @@ public class StateMenu extends BasicGameState implements ComponentListener {
     @Override
     public void componentActivated(AbstractComponent source) {
         if (source==areas[AREA_SINGLEPLAYER]) {
-            message = "Entering singleplayer.";
+            //message = "Entering singleplayer.";
             game.enterState(Game.STATE_SINGLEPLAYER);
         } else if (source==areas[AREA_MULTIPLAYER]) {
-            message = "Entering multiplayer.";
+            //message = "Entering multiplayer.";
             game.enterState(Game.STATE_MULTIPLAYER);
         } else if (source==areas[AREA_SERVER]) {
-            message = "Hosting server.";
+            //message = "Hosting server.";
             game.enterState(Game.STATE_SERVER);
         } else if (source==areas[3]) {
-            message = "Option 4 " + " clicked.";
+            //message = "Option 4 " + " clicked.";
         } 
     }
 
