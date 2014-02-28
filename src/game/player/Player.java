@@ -232,7 +232,7 @@ public class Player {
         boolean RiHl = input.isKeyDown(Options.MOVE_RIGHT);
         boolean RiPr = input.isKeyPressed(Options.MOVE_RIGHT);
         
-        if ((DnHl || DnHl) && (UpHl || UpHl)) {
+        if ((DnHl || DnPr) && (UpHl || UpPr)) {
             UpHl = false;
             DnHl = false;
         }

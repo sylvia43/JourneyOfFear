@@ -14,7 +14,7 @@ public enum MusicLibrary {
     MONKEY_BLADDERS("monkey_bladders.ogg"),
     RABID_RABBIT("rabid_rabbit.ogg"),
     ROBOT_UVULA("robot_uvula.ogg"),
-    SPACE_BALLS("space_balls.ogg");
+    SPACE_BALLS("space_balls.ogg"); 
     
     private Music music;
     private String filepath;
