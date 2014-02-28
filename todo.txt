@@ -23,13 +23,14 @@ Single Player:
     [x] Give music something to do.
     [x] Hazardous terrain.
     [x] Attack sound implementation.
+    [x] Trees.
+    [x] Make obstacles affect enemies too
     [/] Damage and death.
     [/] Menu state.
+    [/] Tiles you can't walk into (Boulders, trees, holes in the ground, etc).
     [ ] Combo attacks.
     [ ] Make the map randomly generate.
-    [x] Trees.
     [ ] Make Areas more object oriented.
-    [/] Tiles you can't walk into (Boulders, trees, holes in the ground, etc).
     [ ] Smart enemy.
     [ ] Different types of attacks.
     [ ] Different weapons.
