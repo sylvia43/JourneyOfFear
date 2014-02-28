@@ -30,17 +30,14 @@ public class Tree extends Obstacle {
     
      public void init(GameContainer container) throws SlickException {
         initializeSprite();
+       
     }
      
     public void render(GameContainer container, Graphics g) throws SlickException {
         sprite.draw(x,y,64,128);
     }
-    public boolean testForCollision(int x, int y, Player player) {    
-      //  mask.
-      // return (mask.(player.getCollisionMask(),player.getX() + x,player.getY() + y));
-        return (x > mask.getX1() && y > mask.getY1()&& x < mask.getX2() && y < mask.getY2());
-        
-    }
+    
+   
     
     @Override
     protected void initializeSprite() throws SlickException {

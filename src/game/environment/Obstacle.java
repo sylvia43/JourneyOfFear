@@ -16,7 +16,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 public class Obstacle {
-    
+    public static ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
     protected Animation sprite;
     public Animation getSprite() { return sprite; }
     protected AnimationMask mask2;
@@ -37,6 +37,7 @@ public class Obstacle {
     public int getMiniWidth() { return miniWidth; }
      public int getMiniHeight() { return miniHeight; }
     public Color getColor() { return minimapColor; }
+   
     
     public ImageMask getCollisionMask() {
         return mask2.getImageMask(sprite.getFrame());
@@ -48,14 +49,28 @@ public class Obstacle {
         this.y = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y-100)) + 50;
         miniWidth = 3;
         miniHeight = 3;
+        mask = new Rectangle(x-32,y,x+sprite.getImage(0).getWidth()*2,y+sprite.getImage(0).getHeight()*4);
+        
     }
     
-    public Obstacle(int x, int y) {
+    public Obstacle(int x, int y) throws SlickException {
         minimapColor = Color.red;
         this.x = x;
         this.y = y;
         miniWidth = 3;
         miniHeight = 3;
+        sprite = AnimationLibrary.TREE1.getAnim();
+        mask = new Rectangle(x-32,y,x+sprite.getImage(0).getWidth()*2,y+sprite.getImage(0).getHeight()*4);
+        
+    }
+     public  static boolean testForCollision(int x, int y){
+       boolean collide=false;
+       for (Obstacle o : obstacles){
+            if (x > o.mask.getX1() && y > o.mask.getY1()&& x < o.mask.getX2() && y < o.mask.getY2()){
+                collide = true;          
+            }    
+       }
+     return collide;   
     }
     
     public void setX(int x) { this.x = x; }
@@ -77,6 +92,7 @@ public class Obstacle {
     //Game loop methods
     public void init(GameContainer container) throws SlickException {
         initializeSprite();
+       
     }
     
     public void update(GameContainer container, int delta, Area currentArea) {
@@ -94,9 +110,9 @@ public class Obstacle {
     //Empty methods. These methods should be overriden
     
     protected void resolveCollision() { }
-    public boolean testForCollision(int x, int y, Player player) {     
-       return (mask.intersects(player.getCollisionMask(),player.getX() + x,player.getY() + y));
-    }
+    //public boolean testForCollision(int x, int y, Player player) {     
+    //   return (mask.intersects(player.getCollisionMask(),player.getX() + x,player.getY() + y));
+   // }
     
    
     

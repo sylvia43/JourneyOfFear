@@ -215,21 +215,21 @@ public class Player {
     }
     private boolean isObstacle(int dir){
         boolean isObstacle = false;
-        for (Obstacle o : obstacles){
-            if (dir == 0 && (o.testForCollision(x, y - 5, this))){
+       // for (Obstacle o : obstacles){
+            if (dir == 0 && (Obstacle.testForCollision(x, y - 5))){
                 isObstacle = true;
             }
-            if (dir == 1 && (o).testForCollision(x + 5, y, this)){
+            if (dir == 1 && Obstacle.testForCollision(x + 5, y)){
                 isObstacle = true;
             }
-            if (dir == 2 && (o).testForCollision(x, y + 5, this)){
+            if (dir == 2 && Obstacle.testForCollision(x, y + 5)){
                 isObstacle = true;
             }
-           if (dir == 3 && (o).testForCollision(x - 5, y, this)){
+           if (dir == 3 && Obstacle.testForCollision(x - 5, y)){
                 isObstacle = true;
             }
             
-        }
+       // }
         return isObstacle;
         
     }

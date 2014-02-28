@@ -1,5 +1,6 @@
 package game.enemy;
 
+import game.environment.Obstacle;
 import game.player.Player;
 import game.sprite.EntitySprite;
 import game.sprite.Rectangle;
@@ -136,15 +137,19 @@ public class EnemySmartBlob extends Enemy {
         sprite.getAnim(spritePointer).start();
         switch(spritePointer) {
             case 0:
+                if (!Obstacle.testForCollision(x + 5, y))
                 x+=speed*delta;
                 break;
             case 1:
+                if (!Obstacle.testForCollision(x, y - 5))
                 y-=speed*delta;
                 break;
             case 2:
+                if (!Obstacle.testForCollision(x-5, y))
                 x-=speed*delta;
                 break;
             case 3:
+                if (!Obstacle.testForCollision(x, y+5))
                 y+=speed*delta;
                 break;
         }

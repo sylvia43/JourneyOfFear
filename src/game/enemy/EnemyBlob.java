@@ -1,5 +1,6 @@
 package game.enemy;
 
+import game.environment.Obstacle;
 import game.player.Player;
 import game.sprite.EntitySprite;
 import game.state.StateMultiplayer;
@@ -64,13 +65,13 @@ public class EnemyBlob extends Enemy {
         if (Math.random()*20<1) {
             spritePointer=(int)(Math.random()*4);
         }
-        if (spritePointer==0) {
+        if (spritePointer==0 && !Obstacle.testForCollision(x + 5, y)) {
             x+=speed*delta;
-        } else if (spritePointer==1) {
+        } else if (spritePointer==1 && !Obstacle.testForCollision(x, y-5)) {
             y-=speed*delta;
-        } else if (spritePointer==2) {
+        } else if (spritePointer==2 && !Obstacle.testForCollision(x-5, y)) {
             x-=speed*delta;
-        } else if (spritePointer==3) {
+        } else if (spritePointer==3 && !Obstacle.testForCollision(x, y+5)) {
             y+=speed*delta;
         }
     }

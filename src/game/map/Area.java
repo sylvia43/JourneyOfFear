@@ -95,9 +95,11 @@ public class Area {
     }
     public Obstacle addObstacle(Obstacle o){
         obstacles.add(o);
+       Obstacle.obstacles.add(o);
         return o;
     }
     
+     
     public void setLeft(Area area) {
         left = area;
     }
