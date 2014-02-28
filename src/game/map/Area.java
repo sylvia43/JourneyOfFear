@@ -8,6 +8,7 @@ import game.environment.Hazard;
 import game.environment.Obstacle;
 import game.environment.PinkSlimePit;
 import game.environment.Spikes;
+import game.environment.Tree;
 import game.player.Player;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
@@ -69,7 +70,7 @@ public class Area {
             System.out.println("Error initializing hazard: " + e);
         }
          try {
-            addObstacle(new Obstacle(1200,1200)).init(container);           
+            addObstacle(new Tree(player, 1200,1200)).init(container);           
             
         } catch (SlickException e) { 
             System.out.println("Error initializing hazard: " + e);

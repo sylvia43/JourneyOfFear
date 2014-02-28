@@ -4,6 +4,7 @@ import game.Game;
 import game.enemy.Enemy;
 import game.enemy.EnemyPlayer;
 import game.environment.Hazard;
+import game.environment.Obstacle;
 import game.map.Area;
 import game.player.Player;
 import game.util.MathHelper;
@@ -108,6 +109,7 @@ public class StateMultiplayer extends BasicGameState {
         }
         renderEnemies(container,g);
         renderPlayer(container,g);
+        renderObstacles(container, g);
     }
     
     private void setupArea(GameContainer container, Player player) {
@@ -260,6 +262,12 @@ public class StateMultiplayer extends BasicGameState {
     }
        private void renderHazards(GameContainer container, Graphics g) throws SlickException {
         for (Hazard h : currentArea.getHazards()) {
+            if (h.getX()>camX-64 && h.getY()>camY-64 && h.getX()<camX+VIEW_SIZE_X && h.getY()<camY+VIEW_SIZE_Y)
+                h.render(container, g);
+        }
+    }
+       private void renderObstacles(GameContainer container, Graphics g) throws SlickException {
+        for (Obstacle h : currentArea.getObstacles()) {
             if (h.getX()>camX-64 && h.getY()>camY-64 && h.getX()<camX+VIEW_SIZE_X && h.getY()<camY+VIEW_SIZE_Y)
                 h.render(container, g);
         }
