@@ -211,12 +211,12 @@ public class StateSingleplayer extends BasicGameState {
          for (Hazard h : currentArea.getHazards()){
              g.setColor(h.getColor());
              g.fillRect((int)(posX + width*((double)h.getX())/WORLD_SIZE_X), 
-                    (int)(posY + height*((double)h.getY())/WORLD_SIZE_Y),3,3);    
+                    (int)(posY + height*((double)h.getY())/WORLD_SIZE_Y), h.getMiniWidth(),h.getMiniHeight());    
         }
          for (Obstacle o : currentArea.getObstacles()){
              g.setColor(o.getColor());
              g.fillRect((int)(posX + width*((double)o.getX())/WORLD_SIZE_X), 
-                    (int)(posY + height*((double)o.getY())/WORLD_SIZE_Y),3,3);    
+                    (int)(posY + height*((double)o.getY())/WORLD_SIZE_Y),o.getMiniWidth(),o.getMiniHeight());    
         }
         
         g.setColor(PLAYER_COLOR);

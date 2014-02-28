@@ -18,11 +18,15 @@ public class Spikes extends Hazard {
     public Spikes(Player player) {
         super();  
         this.player = player;
+        miniWidth = 6;
+        miniHeight = 6;
     }
     
     public Spikes(Player player, int x, int y) {
         super(x,y);
         this.player = player;
+        miniWidth = 6;
+        miniHeight = 6;
     }
     
     @Override

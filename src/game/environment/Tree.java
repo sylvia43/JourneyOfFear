@@ -17,14 +17,21 @@ public class Tree extends Obstacle {
     public Tree(Player player) {
         super();  
         this.player = player;
+        miniWidth = 3;
+        miniHeight = 6;
     }
     
     public Tree(Player player, int x, int y) {
         super(x,y);
         this.player = player;
+        miniWidth = 3;
+        miniHeight = 6;
     }
     
-    @Override
+     public void init(GameContainer container) throws SlickException {
+        initializeSprite();
+    }
+     
     public void render(GameContainer container, Graphics g) throws SlickException {
         sprite.draw(x,y,64,64);
     }

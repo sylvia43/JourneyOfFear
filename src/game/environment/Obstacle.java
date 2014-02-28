@@ -20,7 +20,9 @@ public class Obstacle {
     protected AnimationMask mask;
     
     protected int x;
-    protected int y;    
+    protected int y;  
+    protected int miniWidth;
+    protected int miniHeight;
     
     protected Color minimapColor;
     
@@ -29,6 +31,8 @@ public class Obstacle {
     //Getters. These methods probably can be left alone.
     public int getX() { return x; }
     public int getY() { return y; }
+    public int getMiniWidth() { return miniWidth; }
+     public int getMiniHeight() { return miniHeight; }
     public Color getColor() { return minimapColor; }
     
     public ImageMask getCollisionMask() {
@@ -39,12 +43,16 @@ public class Obstacle {
         minimapColor = Color.red;
         this.x = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_X-100)) + 50;
         this.y = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y-100)) + 50;
+        miniWidth = 3;
+        miniHeight = 3;
     }
     
     public Obstacle(int x, int y) {
         minimapColor = Color.red;
         this.x = x;
         this.y = y;
+        miniWidth = 3;
+        miniHeight = 3;
     }
     
     public void setX(int x) { this.x = x; }
