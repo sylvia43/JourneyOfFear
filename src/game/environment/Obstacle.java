@@ -43,7 +43,7 @@ public class Obstacle {
         return mask2.getImageMask(sprite.getFrame());
     }
     
-    public Obstacle() {
+    public Obstacle() throws SlickException{
         minimapColor = Color.red;
         this.x = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_X-100)) + 50;
         this.y = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y-100)) + 50;

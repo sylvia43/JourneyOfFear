@@ -14,14 +14,14 @@ public class Tree extends Obstacle {
     protected boolean wasClosed = true;
     protected Rectangle mask;
     
-    public Tree(Player player) {
+    public Tree(Player player) throws SlickException{
         super();  
         this.player = player;
         miniWidth = 3;
         miniHeight = 6;
     }
     
-    public Tree(Player player, int x, int y) {
+    public Tree(Player player, int x, int y) throws SlickException{
         super(x,y);
         this.player = player;
         miniWidth = 3;
