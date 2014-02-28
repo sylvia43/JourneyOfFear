@@ -5,7 +5,9 @@ import game.map.Area;
 import game.player.Player;
 import game.sprite.AnimationMask;
 import game.sprite.ImageMask;
+import game.sprite.Rectangle;
 import game.state.StateMultiplayer;
+import game.util.resource.AnimationLibrary;
 import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -17,7 +19,8 @@ public class Obstacle {
     
     protected Animation sprite;
     public Animation getSprite() { return sprite; }
-    protected AnimationMask mask;
+    protected AnimationMask mask2;
+    protected Rectangle mask;
     
     protected int x;
     protected int y;  
@@ -36,7 +39,7 @@ public class Obstacle {
     public Color getColor() { return minimapColor; }
     
     public ImageMask getCollisionMask() {
-        return mask.getImageMask(sprite.getFrame());
+        return mask2.getImageMask(sprite.getFrame());
     }
     
     public Obstacle() {
@@ -58,6 +61,19 @@ public class Obstacle {
     public void setX(int x) { this.x = x; }
     public void setY(int y) { this.y = y; }
     
+   
+    protected void initializeSprite() throws SlickException {
+        sprite = AnimationLibrary.TREE1.getAnim();
+        mask = new Rectangle(x,y,x+sprite.getImage(0).getWidth()*4,y+sprite.getImage(0).getHeight()*4);
+        sprite.setDuration(0,1000);
+    }
+    protected AnimationMask createMask() {
+        ImageMask[] masks = new ImageMask[4];
+        for (int i=0;i<4;i++) {
+            masks[i] = new ImageMask(sprite.getImage(i));
+        }
+        return new AnimationMask(masks);
+    }
     //Game loop methods
     public void init(GameContainer container) throws SlickException {
         initializeSprite();
@@ -76,16 +92,13 @@ public class Obstacle {
     }
     
     //Empty methods. These methods should be overriden
-    protected void initializeSprite() throws SlickException { }
-    protected void resolveCollision() { }
     
-    protected AnimationMask createMask() {
-        ImageMask[] masks = new ImageMask[4];
-        for (int i=0;i<4;i++) {
-            masks[i] = new ImageMask(sprite.getImage(i));
-        }
-        return new AnimationMask(masks);
+    protected void resolveCollision() { }
+    public boolean testForCollision(int x, int y, Player player) {     
+       return (mask.intersects(player.getCollisionMask(),player.getX() + x,player.getY() + y));
     }
+    
+   
     
     public byte isInObstacle(Player player) { return -1; }
 }

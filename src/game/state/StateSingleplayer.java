@@ -242,19 +242,20 @@ public class StateSingleplayer extends BasicGameState {
                 h.render(container,g);
         }
     }
+        private void renderPlayer(GameContainer container, Graphics g) throws SlickException {
+        player.render(container,g);
+    }
        private void renderObstacles(GameContainer container, Graphics g) throws SlickException {
         for (Obstacle o : currentArea.getObstacles()) {
-          //  if (o.getX()+o.getSprite().getImage(0).getWidth()*2>camX-64 && 
-            //        o.getY()+o.getSprite().getImage(0).getHeight()*2>camY-64 && 
-            //        o.getX()-o.getSprite().getImage(0).getWidth()*2<camX+VIEW_SIZE_X && 
-            //        o.getY()-o.getSprite().getImage(0).getHeight()*2<camY+VIEW_SIZE_Y)
-            //    o.render(container,g);
+            if (o.getX()+o.getSprite().getImage(0).getWidth()*2>camX-64 && 
+                  o.getY()+o.getSprite().getImage(0).getHeight()*2>camY-64 && 
+                  o.getX()-o.getSprite().getImage(0).getWidth()*2<camX+VIEW_SIZE_X && 
+                  o.getY()-o.getSprite().getImage(0).getHeight()*2<camY+VIEW_SIZE_Y)
+              o.render(container,g);
         }
     }
     
-    private void renderPlayer(GameContainer container, Graphics g) throws SlickException {
-        player.render(container,g);
-    }
+   
 
     @Override
     public int getID() {

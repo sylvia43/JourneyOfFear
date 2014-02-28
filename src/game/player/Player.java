@@ -3,6 +3,7 @@ package game.player;
 import game.enemy.Enemy;
 import game.environment.Hazard;
 import game.environment.Obstacle;
+import game.environment.Tree;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
@@ -213,6 +214,26 @@ public class Player {
         }
         return new AnimationMask(masks);
     }
+    private boolean isObstacle(int dir){
+        boolean isObstacle = false;
+        for (Obstacle o : obstacles){
+            if (dir == 0 && ((Tree)o).testForCollision(x, y - 5, this)){
+                isObstacle = true;
+            }
+            if (dir == 1 && ((Tree)o).testForCollision(x + 5, y, this)){
+                isObstacle = true;
+            }
+            if (dir == 2 && ((Tree)o).testForCollision(x, y + 5, this)){
+                isObstacle = true;
+            }
+           if (dir == 3 && ((Tree)o).testForCollision(x - 5, y, this)){
+                isObstacle = true;
+            }
+            
+        }
+        return isObstacle;
+        
+    }
     
     private void movePlayer(Input input, int delta) {
         if (stunTimer>0) {
@@ -223,14 +244,14 @@ public class Player {
             return;
         }
         
-        boolean DnHl = input.isKeyDown(Options.MOVE_DOWN);
-        boolean DnPr = input.isKeyPressed(Options.MOVE_DOWN);
-        boolean UpHl = input.isKeyDown(Options.MOVE_UP);
-        boolean UpPr = input.isKeyPressed(Options.MOVE_UP);
-        boolean LfHl = input.isKeyDown(Options.MOVE_LEFT);
-        boolean LfPr = input.isKeyPressed(Options.MOVE_LEFT);
-        boolean RiHl = input.isKeyDown(Options.MOVE_RIGHT);
-        boolean RiPr = input.isKeyPressed(Options.MOVE_RIGHT);
+        boolean DnHl = input.isKeyDown(Options.MOVE_DOWN) && !isObstacle(2);
+        boolean DnPr = input.isKeyPressed(Options.MOVE_DOWN) && !isObstacle(2);
+        boolean UpHl = input.isKeyDown(Options.MOVE_UP) && !isObstacle(0);
+        boolean UpPr = input.isKeyPressed(Options.MOVE_UP) && !isObstacle(0);
+        boolean LfHl = input.isKeyDown(Options.MOVE_LEFT) && !isObstacle(3);
+        boolean LfPr = input.isKeyPressed(Options.MOVE_LEFT) && !isObstacle(3);
+        boolean RiHl = input.isKeyDown(Options.MOVE_RIGHT) && !isObstacle(1);
+        boolean RiPr = input.isKeyPressed(Options.MOVE_RIGHT) && !isObstacle(1);
         
         if ((DnHl || DnPr) && (UpHl || UpPr)) {
             UpHl = false;
