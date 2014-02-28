@@ -19,7 +19,12 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class StateMenu extends BasicGameState implements ComponentListener {
 
-    private Image image;
+    private Image buttonSP;
+    private Image buttonMP;
+    private Image buttonSH;
+    private Image buttonOP;
+    
+            
     private MouseOverArea[] areas = new MouseOverArea[4];
     private String message = "Use first button or enter key to start.";
     private TextField field1;
@@ -76,14 +81,20 @@ public class StateMenu extends BasicGameState implements ComponentListener {
         
         field2.setBorderColor(Color.red);
         try {
-            image = new Image("resources/art/menu/menu_button.png");
-            background = new Image("resources/art/menu/menu_background.png");
+            buttonSP = new Image("resources/art/menu/Singleplayer.png");
+            buttonMP = new Image("resources/art/menu/Multiplayer.png");
+            buttonSH = new Image("resources/art/menu/ServerHost.png");
+            buttonOP = new Image("resources/art/menu/Options.png");
+            background = new Image("resources/art/menu/menuBG.png");
         } catch (SlickException e) {
             System.out.println("Failed to load menu resources: " + e);
         }
 
+        areas[0] = new MouseOverArea(container,buttonSP,356,118,200,90,this);
+         areas[1] = new MouseOverArea(container,buttonMP,356,206,200,90,this);
+          areas[2] = new MouseOverArea(container,buttonSH,356,294,200,90,this);
+           areas[3] = new MouseOverArea(container,buttonOP,356,382,200,90,this);
         for (int i=0;i<4;i++) {
-            areas[i] = new MouseOverArea(container,image,300,100+(i*100),200,90,this);
             areas[i].setNormalColor(new Color(1,1,1,1f));
             areas[i].setMouseOverColor(new Color(1,1,1,0.3f));
         }
@@ -102,8 +113,8 @@ public class StateMenu extends BasicGameState implements ComponentListener {
         field1.render(container,g);
         field2.render(container,g);
 
-        g.setFont(font);
-        g.drawString(message,50,400);
+       
+       
     }
 
     @Override
