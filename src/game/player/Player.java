@@ -3,7 +3,6 @@ package game.player;
 import game.enemy.Enemy;
 import game.environment.Hazard;
 import game.environment.Obstacle;
-import game.environment.Tree;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
@@ -217,16 +216,16 @@ public class Player {
     private boolean isObstacle(int dir){
         boolean isObstacle = false;
         for (Obstacle o : obstacles){
-            if (dir == 0 && ((Tree)o).testForCollision(x, y - 5, this)){
+            if (dir == 0 && (o.testForCollision(x, y - 5, this))){
                 isObstacle = true;
             }
-            if (dir == 1 && ((Tree)o).testForCollision(x + 5, y, this)){
+            if (dir == 1 && (o).testForCollision(x + 5, y, this)){
                 isObstacle = true;
             }
-            if (dir == 2 && ((Tree)o).testForCollision(x, y + 5, this)){
+            if (dir == 2 && (o).testForCollision(x, y + 5, this)){
                 isObstacle = true;
             }
-           if (dir == 3 && ((Tree)o).testForCollision(x - 5, y, this)){
+           if (dir == 3 && (o).testForCollision(x - 5, y, this)){
                 isObstacle = true;
             }
             
