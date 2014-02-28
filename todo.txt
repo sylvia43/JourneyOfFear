@@ -27,9 +27,9 @@ Single Player:
     [/] Menu state.
     [ ] Combo attacks.
     [ ] Make the map randomly generate.
-    [ ] Trees.
+    [x] Trees.
     [ ] Make Areas more object oriented.
-    [ ] Tiles you can't walk into (Boulders, trees, holes in the ground, etc).
+    [/] Tiles you can't walk into (Boulders, trees, holes in the ground, etc).
     [ ] Smart enemy.
     [ ] Different types of attacks.
     [ ] Different weapons.
