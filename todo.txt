@@ -56,7 +56,7 @@ Single Player:
     [/] Slime death animation for all types of slimes.
     [/] Different types of slimes.
     [ ] Potion bottle full/empty.
-    [ ] Magic blast animations.
+    [./] Magic blast animations.
     [ ] Different weapons.
     [ ] Add tile for rocks.
     [ ] Add tile for holes in the ground.
