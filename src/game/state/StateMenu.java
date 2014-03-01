@@ -62,25 +62,7 @@ public class StateMenu extends BasicGameState implements ComponentListener {
             System.out.println("Error loading font: " + e);
         }
         
-        /*
-        field1 = new TextField(container,font,60,20,500,35,new ComponentListener() {
-            @Override
-            public void componentActivated(AbstractComponent source) {
-                message = "Field 1: " + field1.getText();
-                field2.setFocus(true);
-            }
-        });
-
-        field2 = new TextField(container,font,60,70,500,35,new ComponentListener() {
-            @Override
-            public void componentActivated(AbstractComponent source) {
-                message = "Field 2: " + field2.getText();
-                field1.setFocus(true);
-            }
-        });
         
-        field2.setBorderColor(Color.red);
-        */
         
         try {
             buttonSP = new Image("resources/art/menu/Singleplayer.png");
