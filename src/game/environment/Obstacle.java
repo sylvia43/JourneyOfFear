@@ -64,13 +64,12 @@ public class Obstacle {
         
     }
      public  static boolean testForCollision(int x, int y){
-       boolean collide=false;
-       for (Obstacle o : obstacles){
-            if (x > o.mask.getX1() && y > o.mask.getY1()&& x < o.mask.getX2() && y < o.mask.getY2()){
-                collide = true;          
+        for (Obstacle o : obstacles){
+            if (x>o.mask.getX1() && y>o.mask.getY1()&& x<o.mask.getX2() && y<o.mask.getY2()){
+                return true;          
             }    
-       }
-     return collide;   
+        }
+        return false;
     }
     
     public void setX(int x) { this.x = x; }
@@ -89,6 +88,7 @@ public class Obstacle {
         }
         return new AnimationMask(masks);
     }
+    
     //Game loop methods
     public void init(GameContainer container) throws SlickException {
         initializeSprite();

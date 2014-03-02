@@ -121,10 +121,12 @@ public class StateServerSelect extends BasicGameState implements ComponentListen
     }
     
     public void start() {
-        game.enterState(Game.STATE_SINGLEPLAYER);
         ip = fieldIp.getText();
         port = fieldPort.getText();
         System.out.println(ip + ":" + port);
+        StateMultiplayer.ip = ip;
+        StateMultiplayer.port = Integer.valueOf(port);
+        game.enterState(Game.STATE_SINGLEPLAYER);
     }
 
     @Override

@@ -29,6 +29,9 @@ public class StateMultiplayer extends BasicGameState {
     public static final int WORLD_SIZE_X = VIEW_SIZE_X*4;
     public static final int WORLD_SIZE_Y = VIEW_SIZE_Y*4;
     
+    public static String ip = null;
+    public static int port = 0;
+    
     private final Color MINIMAP_BLACK = new Color(0f,0f,0f,0.5f);
     private final Color PLAYER_COLOR = Color.green;
     
@@ -61,7 +64,7 @@ public class StateMultiplayer extends BasicGameState {
         }
         setupArea(container,player);
         soundtrack.init();
-        network = new NetworkHandler("127.0.0.1",9999);
+        network = new NetworkHandler(ip,port);
     }
     
     @Override

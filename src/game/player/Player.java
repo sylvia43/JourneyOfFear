@@ -214,23 +214,15 @@ public class Player {
         return new AnimationMask(masks);
     }
     private boolean isObstacle(int dir){
-        boolean isObstacle = false;
-       // for (Obstacle o : obstacles){
-            if (dir == 0 && (Obstacle.testForCollision(x, y - 5))){
-                isObstacle = true;
-            }
-            if (dir == 1 && Obstacle.testForCollision(x + 5, y)){
-                isObstacle = true;
-            }
-            if (dir == 2 && Obstacle.testForCollision(x, y + 5)){
-                isObstacle = true;
-            }
-           if (dir == 3 && Obstacle.testForCollision(x - 5, y)){
-                isObstacle = true;
-            }
-            
-       // }
-        return isObstacle;
+        if (dir==0 && (Obstacle.testForCollision(x,y-5)))
+            return true;
+        if (dir==1 && Obstacle.testForCollision(x+5,y))
+            return true;
+        if (dir==2 && Obstacle.testForCollision(x,y+5))
+            return true;
+        if (dir==3 && Obstacle.testForCollision(x-5,y))
+            return true;
+        return false;
         
     }
     
