@@ -93,6 +93,8 @@ Multi Player:
   [/] Create DataPacket class.
   [/] Menu screen.
   
+  [ ] Test it.
+  [ ] Make it work.
   [ ] Server select screen.
   [ ] Potions.
   [ ] Bosses.
