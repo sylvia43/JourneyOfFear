@@ -13,29 +13,30 @@ import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.MouseOverArea;
+import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class StateMenu extends BasicGameState implements ComponentListener {
-
-    private Image buttonSP;
-    private Image buttonMP;
-    private Image buttonSH;
-    private Image buttonOP;
-            
-    private MouseOverArea[] areas = new MouseOverArea[4];
+public class StateServerSelect extends BasicGameState implements ComponentListener {
+    
+    private Image buttonStart;
+    
+    private MouseOverArea startButton;
+    
+    private TextField fieldIp;
+    private TextField fieldPort;
+    
     private Image background;
     private UnicodeFont font;
     
-    public static final int AREA_SINGLEPLAYER = 0;
-    public static final int AREA_MULTIPLAYER = 1;
-    public static final int AREA_SERVER = 2;
+    private String ip;
+    private String port;
     
     private StateBasedGame game;
 
     private int id;
 
-    public StateMenu(int id) {
+    public StateServerSelect(int id) {
         this.id = id;
     }
 
@@ -58,24 +59,33 @@ public class StateMenu extends BasicGameState implements ComponentListener {
             System.out.println("Error loading font: " + e);
         }
         
+        fieldIp = new TextField(container,font,60,20,500,35,new ComponentListener() {
+            @Override
+            public void componentActivated(AbstractComponent source) {
+                ip = fieldIp.getText();
+                fieldPort.setFocus(true);
+            }
+        });
+        fieldIp.setText("127.0.0.1");
+
+        fieldPort = new TextField(container,font,60,70,500,35,new ComponentListener() {
+            @Override
+            public void componentActivated(AbstractComponent source) {
+                port = fieldPort.getText();
+            }
+        });
+        fieldPort.setText("9999");
+        
         try {
-            buttonSP = new Image("resources/art/menu/Singleplayer.png");
-            buttonMP = new Image("resources/art/menu/Multiplayer.png");
-            buttonSH = new Image("resources/art/menu/ServerHost.png");
-            buttonOP = new Image("resources/art/menu/Options.png");
+            buttonStart = new Image("resources/art/menu/Multiplayer.png");
             background = new Image("resources/art/menu/menuBG.png");
         } catch (SlickException e) {
             System.out.println("Failed to load menu resources: " + e);
         }
 
-        areas[0] = new MouseOverArea(container,buttonSP,356,118,200,90,this);
-        areas[1] = new MouseOverArea(container,buttonMP,356,206,200,90,this);
-        areas[2] = new MouseOverArea(container,buttonSH,356,294,200,90,this);
-        areas[3] = new MouseOverArea(container,buttonOP,356,382,200,90,this);
-        for (int i=0;i<4;i++) {
-            areas[i].setNormalColor(new Color(1,1,1,1f));
-            areas[i].setMouseOverColor(new Color(1,1,1,0.3f));
-        }
+        startButton = new MouseOverArea(container,buttonStart,356,294,200,90,this);
+        startButton.setNormalColor(new Color(1,1,1,1f));
+        startButton.setMouseOverColor(new Color(1,1,1,0.3f));
     }
     
     @Override
@@ -85,8 +95,10 @@ public class StateMenu extends BasicGameState implements ComponentListener {
         
         background.draw(0,0,640,512);
 
-        for (int i=0;i<4;i++)
-            areas[i].render(container,g);
+        startButton.render(container,g);
+
+        fieldIp.render(container,g);
+        fieldPort.render(container,g);
     }
 
     @Override
@@ -98,20 +110,21 @@ public class StateMenu extends BasicGameState implements ComponentListener {
     @Override
     public void keyPressed(int key, char c) {
         if (key == Input.KEY_ENTER)
-            game.enterState(Game.STATE_SINGLEPLAYER);
+            start();
     }
     
     @Override
     public void componentActivated(AbstractComponent source) {
-        if (source==areas[AREA_SINGLEPLAYER]) {
-            game.enterState(Game.STATE_SINGLEPLAYER);
-        } else if (source==areas[AREA_MULTIPLAYER]) {
-            game.enterState(Game.STATE_SERVER_SELECT);
-        } else if (source==areas[AREA_SERVER]) {
-            game.enterState(Game.STATE_SERVER);
-        } else if (source==areas[3]) {
-            //game.enterState(Game.STATE_OPTIONS);
-        } 
+        if (source==startButton) {
+            start();
+        }
+    }
+    
+    public void start() {
+        game.enterState(Game.STATE_SINGLEPLAYER);
+        ip = fieldIp.getText();
+        port = fieldPort.getText();
+        System.out.println(ip + ":" + port);
     }
 
     @Override

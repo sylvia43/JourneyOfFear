@@ -3,6 +3,7 @@ package game;
 import game.state.StateMenu;
 import game.state.StateMultiplayer;
 import game.state.StateServer;
+import game.state.StateServerSelect;
 import game.state.StateSingleplayer;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -15,7 +16,8 @@ public class Game extends StateBasedGame {
     public static final int STATE_SINGLEPLAYER = 1;
     public static final int STATE_MULTIPLAYER = 2;
     public static final int STATE_SERVER = 3;
-    public static final int STATE_PAUSE = 4;
+    public static final int STATE_SERVER_SELECT = 4;
+    public static final int STATE_OPTIONS = 5;
     
     public static final int VIEW_SIZE_X = 640;
     public static final int VIEW_SIZE_Y = 512;
@@ -43,6 +45,7 @@ public class Game extends StateBasedGame {
         this.addState(new StateSingleplayer(STATE_SINGLEPLAYER));
         this.addState(new StateMultiplayer(STATE_MULTIPLAYER));
         this.addState(new StateServer(STATE_SERVER));
+        this.addState(new StateServerSelect(STATE_SERVER_SELECT));
     }
     
     /** Sets up the window. */
