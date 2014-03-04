@@ -10,5 +10,5 @@
 7. Right click on the new project and go to Properties then the Libraries tab.
 8. Click 'Add JAR/Folder' and add all of the jars in the lib folder.
 9. Go to the run tab in the properties menu.
-10. In the VM options box, type '-Djava.library.path="[pathtorepo]\lib\native\[osname]"' filling in the path to the repo and the name of your os.
+10. In the VM options box, type '-Djava.library.path="[pathtorepo]\lib\native\\[osname]"' filling in the path to the repo and the name of your os.
 11. Press F6 or click run, select game.Game as the main class, and you have successfully set up Slick! Nice job.
