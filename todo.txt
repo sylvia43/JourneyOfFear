@@ -81,6 +81,7 @@ Single Player:
     [/] Bow shoot sounds.
     [/] Player death sound.
     [ ] Send Chad's music to Shreyas
+    [ ] Make some decent fucking music because apparently no one likes the current ones.
 
 Multi Player:
   [x] Copy SlickGame.
