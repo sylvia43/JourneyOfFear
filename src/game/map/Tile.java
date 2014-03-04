@@ -6,17 +6,17 @@ import org.newdawn.slick.SlickException;
 
 public enum Tile {
     TEST("test_blank.png",true),
-    GRASS_BASIC("grass_basic.png",true),
-    GRASS_VARIANT("grass_variant.png",true),
-    GRASS_FLOWER("grass_flower.png",true),
-    GRASS_BOLD("grass_bold.png",true),
-    GRASS_SHIFT("grass_shift.png",true),
+    GRASS_BASIC("grass/grass_basic.png",true),
+    GRASS_VARIANT("grass/grass_variant.png",true),
+    GRASS_FLOWER("grass/grass_flower.png",true),
+    GRASS_BOLD("grass/grass_bold.png",true),
+    GRASS_SHIFT("grass/grass_shift.png",true),
     STONE_BASIC("stone_basic.png",true),
-    DIRT_BASIC("dirt_basic.png",true),
-    COBBLE_BASIC("cobble_basic.png",true),
-    COBBLE_VARIANT1("cobble_variant_1.png",true),
-    COBBLE_VARIANT2("cobble_variant_2.png",true),
-    COBBLE_ACCENT_GRASS("cobble_accent_grass.png",true);
+    DIRT_BASIC("dirt/dirt_basic.png",true),
+    COBBLE_BASIC("cobble/cobble_basic.png",true),
+    COBBLE_VARIANT1("cobble/cobble_variant_1.png",true),
+    COBBLE_VARIANT2("cobble/cobble_variant_2.png",true),
+    COBBLE_ACCENT_GRASS("grasscobble/cobble_accent_grass.png",true);
 
     // Transition tiles need to be 8 different tiles here. In fact, they can be
     // 9 and we can use the middle one as the normal tile. We also need a way to
