@@ -50,6 +50,7 @@ Single Player:
     [x] Enemy.
     [x] Enemy attack.
     [x] Transition tiles.
+    [/] Potions
     [/] Cave floor and variations.
     [/] Enemies.
     [/] Add tile for trees.
@@ -92,9 +93,9 @@ Multi Player:
   [/] Multiplayer.
   [/] Create DataPacket class.
   [/] Menu screen.
+  [/] Server select screen.
   
   [ ] Test it.
   [ ] Make it work.
-  [ ] Server select screen.
   [ ] Potions.
   [ ] Bosses.
