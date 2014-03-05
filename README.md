@@ -9,10 +9,9 @@ For any questions, contact me (anubiann00b) at skraman1999@gmail.com.
 
 |    Contributers   |      Job      |
 | ------------- | ------------- |
-| Shreyas       | Programming (a lot)   |
-| Joshua        | Most of the Art   |
-| Brennan       | Programming and Art   |
+| Shreyas       | Programming   |
+| Brennan       | Programming   |
+| Tarik         | Programming   |
+| Daniel        | Programming   |
+| Joshua        | Art   |
 | David         | Sound and Music   |
-| Tarik         | Programming (a bit)   |
-| Daniel        | Programming (nope)   |
-| Chad          | Special Music   |
