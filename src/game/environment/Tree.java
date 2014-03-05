@@ -41,7 +41,7 @@ public class Tree extends Obstacle {
     
     @Override
     protected void initializeSprite() throws SlickException {
-        sprite = AnimationLibrary.TREE1.getAnim();
+        sprite = AnimationLibrary.TREE_TRASH.getAnim();
         mask = new Rectangle(x-32,y,x+sprite.getImage(0).getWidth()*2,y+sprite.getImage(0).getHeight()*4);
         sprite.setDuration(0,1000);
     }

@@ -16,27 +16,42 @@ public class ResourceLoader {
     public static Music initializeMusic(String filepath) throws SlickException {
         return new Music("resources/music/" + filepath);
     }
-     
+    
     public static Image initializeImage(String filepath) throws SlickException {
         Image image = new Image("resources/art/" + filepath);
         image.setFilter(Image.FILTER_NEAREST);
         return image;
     }
     
+    public static Animation initializeAnimation(Image image, int delay, int width, int height) throws SlickException {
+        return new Animation(new SpriteSheet(image,width,height),delay);
+    }
+    
+    public static Animation initializeAnimation(Image image, int delay, int size) throws SlickException {
+        return initializeAnimation(image,delay,size,size);
+    }
+    
+    public static Animation initializeAnimation(Image image, int delay) throws SlickException {
+        return initializeAnimation(image,delay,16);
+    }
+    
+    public static Animation initializeAnimation(Image image) throws SlickException {
+        return initializeAnimation(image,100,16);
+    }
+    
     public static Animation initializeAnimation(String filepath, int delay, int width, int height) throws SlickException {
-        Image image = initializeImage(filepath);
-        return new Animation(new SpriteSheet(image, width, height),delay);
+        return initializeAnimation(initializeImage(filepath),delay,width,height);
     }
     
     public static Animation initializeAnimation(String filepath, int delay, int size) throws SlickException {
-        return initializeAnimation(filepath,delay,size,size);
+        return initializeAnimation(initializeImage(filepath),delay,size,size);
     }
     
     public static Animation initializeAnimation(String filepath, int delay) throws SlickException {
-        return initializeAnimation(filepath, delay, 16);
+        return initializeAnimation(initializeImage(filepath),delay,16,16);
     }
     
     public static Animation initializeAnimation(String filepath) throws SlickException {
-        return initializeAnimation(filepath, 100, 16);
+        return initializeAnimation(initializeImage(filepath),100,16,16);
     }
 }

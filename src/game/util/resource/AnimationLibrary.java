@@ -11,40 +11,40 @@ import org.newdawn.slick.SlickException;
 public enum AnimationLibrary {
     
     // Player sprites.
-    PLAYER_RIGHT("player/right.png",166,16,16),
-    PLAYER_UP("player/up.png",166,16,16),
-    PLAYER_LEFT("player/left.png",166,16,16),
-    PLAYER_DOWN("player/down.png",166,16,16),
+    PLAYER_RIGHT(ImageLibrary.PLAYER_RIGHT,166,16,16),
+    PLAYER_UP(ImageLibrary.PLAYER_UP,166,16,16),
+    PLAYER_LEFT(ImageLibrary.PLAYER_LEFT,166,16,16),
+    PLAYER_DOWN(ImageLibrary.PLAYER_DOWN,166,16,16),
     
     // Player attack sprites.
-    PLAYER_SWORD_SLASH("player/attacks/sword_slash.png",20,48,48),
+    PLAYER_SWORD_SLASH(ImageLibrary.PLAYER_SWORD_SLASH,20,48,48),
     
     // Enemy sprites.
-    BLOB_RIGHT("blobred/right.png",332,16,16),
-    BLOB_UP("blobred/up.png",332,16,16),
-    BLOB_DOWN("blobred/down.png",332,16,16),
-    BLOB_LEFT("blobred/left.png",332,16,16),
+    BLOB_RIGHT(ImageLibrary.BLOB_RIGHT,332,16,16),
+    BLOB_UP(ImageLibrary.BLOB_UP,332,16,16),
+    BLOB_DOWN(ImageLibrary.BLOB_DOWN,332,16,16),
+    BLOB_LEFT(ImageLibrary.BLOB_LEFT,332,16,16),
     
-    SIRBLOB_RIGHT("blobgreen/right.png",332,16,16), 
-    SIRBLOB_UP("blobgreen/up.png",332,16,16),
-    SIRBLOB_DOWN("blobgreen/down.png",332,16,16),
-    SIRBLOB_LEFT("blobgreen/left.png",332,16,16),
+    SIRBLOB_RIGHT(ImageLibrary.SIRBLOB_RIGHT,332,16,16), 
+    SIRBLOB_UP(ImageLibrary.SIRBLOB_UP,332,16,16),
+    SIRBLOB_DOWN(ImageLibrary.SIRBLOB_DOWN,332,16,16),
+    SIRBLOB_LEFT(ImageLibrary.SIRBLOB_LEFT,332,16,16),
     
     //Environment sprites
-    SPIKES("environment/spikes.png",166,32,39),
-    SPIKES_MODULAR("environment/spikes_modular.png",166,4,11),
-    GREEN_SLIME_PIT("environment/greenslimepit.png",332,16,16),
-    PINK_SLIME_PIT("environment/pinkslimepit.png",332,16,16),
-    TREE1("environment/badTree.png",332,16, 32);
+    SPIKES(ImageLibrary.SPIKES,166,32,39),
+    SPIKES_MODULAR(ImageLibrary.SPIKES_MODULAR,166,4,11),
+    GREEN_SLIME_PIT(ImageLibrary.GREEN_SLIME_PIT,332,16,16),
+    PINK_SLIME_PIT(ImageLibrary.PINK_SLIME_PIT,332,16,16),
+    TREE_TRASH(ImageLibrary.TREE_TRASH,332,16,32);
     
-    private String filepath;
+    private ImageLibrary image;
     private Animation anim;
     private int speed;
     private int width;
     private int height;
     
-    AnimationLibrary(String filepath, int speed, int width, int height) {
-        this.filepath = filepath;
+    AnimationLibrary(ImageLibrary image, int speed, int width, int height) {
+        this.image = image;
         this.speed = speed;
         this.width = width;
         this.height = height;
@@ -52,7 +52,7 @@ public enum AnimationLibrary {
     
     public Animation getAnim() throws SlickException {
         if (anim == null)
-            anim = ResourceLoader.initializeAnimation(filepath,speed,width,height);
+            anim = ResourceLoader.initializeAnimation(image.getImage(),speed,width,height);
         return anim.copy();  
     }
 }
