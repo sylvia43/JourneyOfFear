@@ -24,10 +24,14 @@ Single Player:
     [x] Hazardous terrain.
     [x] Attack sound implementation.
     [x] Trees.
-    [x] Make obstacles affect enemies too
+    [x] Make obstacles affect enemies too.
+    [x] Move rendering to its own class.
+    [x] Minimap.
+    [x] Environmental Hazards.
     [/] Damage and death.
     [/] Menu state.
     [/] Tiles you can't walk into (Boulders, trees, holes in the ground, etc).
+    [ ] Make the map render things in order of y position.
     [ ] Combo attacks.
     [ ] Make the map randomly generate.
     [ ] Make Areas more object oriented.
@@ -81,19 +85,15 @@ Single Player:
     [/] Bow shoot sounds.
     [/] Player death sound.
     [ ] Send Chad's music to Shreyas
-    [ ] Make some decent fucking music because apparently no one likes the current ones.
 
 Multi Player:
   [x] Copy SlickGame.
-  [x] Minimap.
-  [x] Environmental Hazards.
 
   [/] Server.
   [/] DataPacket.
   [/] Enemy players.
   [/] Multiplayer.
   [/] Create DataPacket class.
-  [/] Menu screen.
   [/] Server select screen.
   
   [ ] Test it.
