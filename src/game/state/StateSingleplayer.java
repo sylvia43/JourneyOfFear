@@ -6,9 +6,9 @@ import game.environment.Obstacle;
 import game.map.Area;
 import game.player.Player;
 import game.util.MathHelper;
+import game.util.Renderer;
 import game.util.Soundtrack;
 import java.util.ArrayList;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -25,15 +25,14 @@ public class StateSingleplayer extends BasicGameState {
     public static final int WORLD_SIZE_X = VIEW_SIZE_X*4;
     public static final int WORLD_SIZE_Y = VIEW_SIZE_Y*4;
     
-    private final Color MINIMAP_BLACK = new Color(0f,0f,0f,0.5f);
-    private final Color PLAYER_COLOR = Color.green;
-    
     private int camX;
     private int camY;
     private Area currentArea;
     private Player player;
     private int id;
     private Soundtrack soundtrack;
+    
+    private Renderer renderer;
     
     public StateSingleplayer(int id) {
         this.id = id;
@@ -53,6 +52,7 @@ public class StateSingleplayer extends BasicGameState {
         }
         setupArea(container,player);
         soundtrack.init();
+        renderer = new Renderer(currentArea,player,container);
     }
     
     @Override
@@ -71,10 +71,11 @@ public class StateSingleplayer extends BasicGameState {
                 
         updateArea();
         updateEnemies(container,delta);
-        updateHazards(container,delta, currentArea);
-        updateObstacles(container, delta, currentArea);
+        updateHazards(container,delta,currentArea);
+        updateObstacles(container, delta,currentArea);
         updatePlayer(container,delta);
         updateViewPort();
+        renderer.updateCamera(camX,camY);
     }
     
     @Override
@@ -83,11 +84,12 @@ public class StateSingleplayer extends BasicGameState {
             return;
         
         translateView(g);
-        renderMap(g);
-        renderHazards(container,g);
-        renderEnemies(container,g);
-        renderObstacles(container,g);
-        renderPlayer(container,g);
+        renderer.renderMap(g);
+        renderer.renderHazards(g);
+        renderer.renderEnemies(g);
+        renderer.renderObstacles(g);
+        renderer.renderPlayer(g);
+        renderer.renderMinimap(g);
     }
     
     private void setupArea(GameContainer container, Player player) {
@@ -156,6 +158,7 @@ public class StateSingleplayer extends BasicGameState {
             e.update(container, delta); 
         }
     }
+    
     private void updateHazards(GameContainer container, int delta, Area currentArea) {
         Hazard.updateEnemies(currentArea.getEnemies());
         for (Hazard h : currentArea.getHazards()) {
@@ -163,6 +166,7 @@ public class StateSingleplayer extends BasicGameState {
             h.update(container,delta, currentArea);
         }
     }
+    
     private void updateObstacles(GameContainer container, int delta, Area currentArea) {
         Obstacle.updateEnemies(currentArea.getEnemies());
         for (Obstacle h : currentArea.getObstacles()) {
@@ -187,76 +191,6 @@ public class StateSingleplayer extends BasicGameState {
         g.translate(-(float)camX,-(float)camY);
     }
     
-    private void renderMap(Graphics g) {
-        for(int x=camX/64;x<Math.min(WORLD_SIZE_X/64,(camX+VIEW_SIZE_X)/64+1);x++) {
-            for(int y=camY/64;y<Math.min(WORLD_SIZE_Y/64,(camY+VIEW_SIZE_Y)/64+1);y++) {
-                 currentArea.getTile(x,y).image().draw(x*64,y*64,64,64);
-            }
-        }
-        
-        g.setColor(MINIMAP_BLACK);
-        
-        int posX = (int)(7.5 *VIEW_SIZE_X)/10 + camX;
-        int posY = (int)(.75 *VIEW_SIZE_Y)/10 + camY;
-        int width = (int)(2.3 *VIEW_SIZE_X)/10;
-        int height = (int)(((double)WORLD_SIZE_Y / WORLD_SIZE_X)*(2.3 *VIEW_SIZE_X)/10);
-        
-        g.fillRect(posX, posY, width, height);
-        
-        for (Enemy e : currentArea.getEnemies()){
-             g.setColor(e.getColor());
-             g.fillRect((int)(posX + width*((double)e.getX())/WORLD_SIZE_X), 
-                    (int)(posY + height*((double)e.getY())/WORLD_SIZE_Y),3,3);    
-        }
-         for (Hazard h : currentArea.getHazards()){
-             g.setColor(h.getColor());
-             g.fillRect((int)(posX + width*((double)h.getX())/WORLD_SIZE_X), 
-                    (int)(posY + height*((double)h.getY())/WORLD_SIZE_Y), h.getMiniWidth(),h.getMiniHeight());    
-        }
-         for (Obstacle o : currentArea.getObstacles()){
-             g.setColor(o.getColor());
-             g.fillRect((int)(posX + width*((double)o.getX())/WORLD_SIZE_X), 
-                    (int)(posY + height*((double)o.getY())/WORLD_SIZE_Y),o.getMiniWidth(),o.getMiniHeight());    
-        }
-        
-        g.setColor(PLAYER_COLOR);
-        g.fillRect((int)(posX + width*((double)player.getX())/WORLD_SIZE_X), 
-                (int)(posY + height*((double)player.getY())/WORLD_SIZE_Y),3,3);
-    }
-    
-    private void renderEnemies(GameContainer container, Graphics g) throws SlickException {
-        for (Enemy e : currentArea.getEnemies()) {
-            if (e.getX()+e.getSprite().getAnim(0).getWidth()*2>camX-64 && 
-                    e.getY()+e.getSprite().getAnim(0).getHeight()*2>camY-64 && 
-                    e.getX()-e.getSprite().getAnim(0).getWidth()*2<camX+VIEW_SIZE_X && 
-                    e.getY()-e.getSprite().getAnim(0).getWidth()*2<camY+VIEW_SIZE_Y)
-                e.render(container, g);
-        }
-    }
-       private void renderHazards(GameContainer container, Graphics g) throws SlickException {
-        for (Hazard h : currentArea.getHazards()) {
-            if (h.getX()+h.getSprite().getImage(0).getWidth()*2>camX-64 && 
-                    h.getY()+h.getSprite().getImage(0).getHeight()*2>camY-64 && 
-                    h.getX()-h.getSprite().getImage(0).getWidth()*2<camX+VIEW_SIZE_X && 
-                    h.getY()-h.getSprite().getImage(0).getHeight()*2<camY+VIEW_SIZE_Y)
-                h.render(container,g);
-        }
-    }
-        private void renderPlayer(GameContainer container, Graphics g) throws SlickException {
-        player.render(container,g);
-    }
-       private void renderObstacles(GameContainer container, Graphics g) throws SlickException {
-        for (Obstacle o : currentArea.getObstacles()) {
-            if (o.getX()+o.getSprite().getImage(0).getWidth()*2>camX-64 && 
-                  o.getY()+o.getSprite().getImage(0).getHeight()*2>camY-64 && 
-                  o.getX()-o.getSprite().getImage(0).getWidth()*2<camX+VIEW_SIZE_X && 
-                  o.getY()-o.getSprite().getImage(0).getHeight()*2<camY+VIEW_SIZE_Y)
-              o.render(container,g);
-        }
-    }
-    
-   
-
     @Override
     public int getID() {
         return id;
