@@ -58,14 +58,19 @@ Single Player:
     [/] Cave floor and variations.
     [/] Enemies.
     [/] Add tile for trees.
+    [/] Add tile for rocks.
     [/] Slime death animation for all types of slimes.
     [/] Different types of slimes.
     [/] Potion bottle full/empty.
     [/] Magic blast animations.
+    [/] Game title page w/ selecting arrow and font.
+    [ ] Player death animation
+    [ ] Experience bar
+    [ ] Level up animation
+    [ ] Bosses
+    [ ] Heal animation
     [ ] Different weapons.
-    [ ] Add tile for rocks.
     [ ] Add tile for holes in the ground.
-    [ ] Game title page w/ selecting arrow and font.
     [ ] Intro animation (optional).
 
   Music:
