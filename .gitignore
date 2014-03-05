@@ -9,3 +9,5 @@
 /*.pdf
 /website/
 /log.txt
+*.db
+*.zip
