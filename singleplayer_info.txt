@@ -55,13 +55,13 @@ Table of Contents:
     2.1.3 Dungeons
       Dungeons are semi-randomly generated, and are tests of strategy and skill rather that action. They are
       created with predetermined puzzle pieces which are stitched together. Dungeons strive to be like the early
-      Legend of Zelda games, where you can spend hours and miss a  crucial detail vital to beating the dungeon.
+      Legend of Zelda games, where you can spend hours and miss a crucial detail vital to beating the dungeon.
       However, since they are partially randomized, you can't always look it up. Dungeons also include powerful
       boss monster at crucial points, as well as rooms of weaker enemies, just to keep you on your toes. These
       fights are meant to be strategic, as facing a roomful of enemies is not generally fun, if it can be avoided.
-      Boss monster are also meant to be strategic as well as difficult.
+      Boss monsters are also meant to be strategic as well as difficult.
 	  
-  2.2 Levelling and Experience
+  2.2 Leveling and Experience
     One of the main goals of levelling is to reward time spent in game while preventing the player from outright
     grinding. Items will probably have their own levels, and OOD (Out of Depth) monsters as well as trash mobs and
     underlevel enemies will grant no experience.
