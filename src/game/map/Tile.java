@@ -16,7 +16,7 @@ public enum Tile {
     COBBLE_BASIC("cobble/cobble_basic.png",true),
     COBBLE_VARIANT1("cobble/cobble_variant_1.png",true),
     COBBLE_VARIANT2("cobble/cobble_variant_2.png",true),
-    COBBLE_ACCENT_GRASS("grasscobble/cobble_accent_grass.png",true);
+    COBBLE_ACCENT_GRASS("grass/cobble_accent_grass.png",true);
 
     // Transition tiles need to be 8 different tiles here. In fact, they can be
     // 9 and we can use the middle one as the normal tile. We also need a way to
