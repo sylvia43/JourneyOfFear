@@ -3,11 +3,15 @@ Journey of Fear
 
 All the source code and assets for Journey of Fear. It's kinda a mess but it's all here.
 
-See singleplayer_info.txt and and multiplayer_info.txt for storyline/gameplay details.
+Resources:
 
-See setup.md for help getting Slick setup.
+* [Singleplayer Information](singleplayer_info.txt)
+* [Multiplayer Information](multiplayer_info.txt)
+* [Setup Instructions](setup.md)
 
-For any questions, contact me (anubiann00b) at skraman1999@gmail.com.
+If you have any questions, contact me (anubiann00b) at skraman1999@gmail.com.
+
+Current contributers:
 
 |    Contributers   |      Job      |
 | ------------- | ------------- |
