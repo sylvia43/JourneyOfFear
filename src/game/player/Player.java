@@ -130,9 +130,9 @@ public class Player {
     public void update(GameContainer container, int delta) {
         this.delta = delta;
         resolveInvulnerability(delta); //and knockback
-        movePlayer(container.getInput(), delta);
+        movePlayer(container.getInput(),delta);
         resolveCollision();
-        resolveAttack(container.getInput(), delta);
+        resolveAttack(container.getInput(),delta);
     }
     
     public void render(GameContainer container, Graphics g) throws SlickException {
@@ -213,18 +213,6 @@ public class Player {
         }
         return new AnimationMask(masks);
     }
-    private boolean isObstacle(int dir){
-        if (dir==0 && (Obstacle.testForCollision(x,y-5)))
-            return true;
-        if (dir==1 && Obstacle.testForCollision(x+5,y))
-            return true;
-        if (dir==2 && Obstacle.testForCollision(x,y+5))
-            return true;
-        if (dir==3 && Obstacle.testForCollision(x-5,y))
-            return true;
-        return false;
-        
-    }
     
     private void movePlayer(Input input, int delta) {
         if (stunTimer>0) {
@@ -235,14 +223,14 @@ public class Player {
             return;
         }
         
-        boolean DnHl = input.isKeyDown(Options.MOVE_DOWN) && !isObstacle(2);
-        boolean DnPr = input.isKeyPressed(Options.MOVE_DOWN) && !isObstacle(2);
-        boolean UpHl = input.isKeyDown(Options.MOVE_UP) && !isObstacle(0);
-        boolean UpPr = input.isKeyPressed(Options.MOVE_UP) && !isObstacle(0);
-        boolean LfHl = input.isKeyDown(Options.MOVE_LEFT) && !isObstacle(3);
-        boolean LfPr = input.isKeyPressed(Options.MOVE_LEFT) && !isObstacle(3);
-        boolean RiHl = input.isKeyDown(Options.MOVE_RIGHT) && !isObstacle(1);
-        boolean RiPr = input.isKeyPressed(Options.MOVE_RIGHT) && !isObstacle(1);
+        boolean DnHl = input.isKeyDown(Options.MOVE_DOWN);
+        boolean DnPr = input.isKeyPressed(Options.MOVE_DOWN);
+        boolean UpHl = input.isKeyDown(Options.MOVE_UP);
+        boolean UpPr = input.isKeyPressed(Options.MOVE_UP);
+        boolean LfHl = input.isKeyDown(Options.MOVE_LEFT);
+        boolean LfPr = input.isKeyPressed(Options.MOVE_LEFT);
+        boolean RiHl = input.isKeyDown(Options.MOVE_RIGHT);
+        boolean RiPr = input.isKeyPressed(Options.MOVE_RIGHT);
         
         if ((DnHl || DnPr) && (UpHl || UpPr)) {
             UpHl = false;
@@ -254,6 +242,9 @@ public class Player {
             RiHl = false;
         }
         
+        int dx = 0;
+        int dy = 0;
+        
         if (DnPr) {
             spritePointer = 3;
         } else {
@@ -261,7 +252,7 @@ public class Player {
         }
         if (DnHl) {
             sprite.getAnim(3).start();
-            y += speed*delta;
+            dy += speed*delta;
             if (!UpHl && !LfHl && !RiHl) {
                 spritePointer = 3;
             }
@@ -276,7 +267,7 @@ public class Player {
         }
         if (RiHl) {
             sprite.getAnim(0).start();
-            x += speed*delta;
+            dx += speed*delta;
             if (!UpHl && !LfHl && !DnHl) {
                 spritePointer = 0;
             }
@@ -291,7 +282,7 @@ public class Player {
         }
         if (UpHl) {
             sprite.getAnim(1).start();
-            y -= speed*delta;
+            dy -= speed*delta;
             if (!DnHl && !LfHl && !RiHl) {
                 spritePointer = 1;
             }
@@ -306,12 +297,24 @@ public class Player {
         }
         if (LfHl) {
             sprite.getAnim(2).start();
-            x -= speed*delta;
+            dx -= speed*delta;
             if (!UpHl && !DnHl && !RiHl) {
                 spritePointer = 2;
             }
         } else {
             sprite.getAnim(2).setCurrentFrame(1);
+        }
+        
+        for(int i=0;i<Math.abs(dx);i++) {
+            if (Obstacle.testForCollision(x+(dx>0?1:-1),y,getCollisionMask()))
+                return;
+            x+=dx>0?1:-1;
+        }
+        
+        for(int i=0;i<Math.abs(dy);i++) {
+            if (Obstacle.testForCollision(x,y+(dy>0?1:-1),getCollisionMask()))
+                return;
+            y+=dy>0?1:-1;
         }
     }
     

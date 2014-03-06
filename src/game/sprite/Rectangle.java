@@ -1,5 +1,7 @@
 package game.sprite;
 
+import org.newdawn.slick.Graphics;
+
 /**
  * Stores a rectangle by its vertices.
  */
@@ -46,5 +48,9 @@ public class Rectangle {
                         (oy+j*4)>=y1 && (oy+j*4<=y2)))
                     return true;
         return false;
+    }
+    
+    public void render(Graphics g) {
+        g.drawRect(x1,y1,x2-x1,y2-y1);
     }
 }

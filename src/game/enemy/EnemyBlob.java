@@ -61,18 +61,34 @@ public class EnemyBlob extends Enemy {
             y+=(knockbackDY*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER);
             return;
         }
+        
         sprite.getAnim(spritePointer).start();
         if (Math.random()*20<1) {
-            spritePointer=(int)(Math.random()*4);
+            spritePointer = (int)(Math.random()*4);
         }
-        if (spritePointer==0 && !Obstacle.testForCollision(x + 5, y)) {
-            x+=speed*delta;
-        } else if (spritePointer==1 && !Obstacle.testForCollision(x, y-5)) {
-            y-=speed*delta;
-        } else if (spritePointer==2 && !Obstacle.testForCollision(x-5, y)) {
-            x-=speed*delta;
-        } else if (spritePointer==3 && !Obstacle.testForCollision(x, y+5)) {
-            y+=speed*delta;
+        
+        int dx = 0;
+        int dy = 0;
+        
+        if (spritePointer == 0)
+            dx+=speed*delta;
+        else if (spritePointer == 1)
+            dy-=speed*delta;
+        else if (spritePointer == 2)
+            dx-=speed*delta;
+        else if (spritePointer == 3)
+            dy+=speed*delta;
+        
+        for(int i=0;i<Math.abs(dx);i++) {
+            if (Obstacle.testForCollision(x+(dx>0?1:-1),y,getCollisionMask()))
+                return;
+            x+=dx>0?1:-1;
+        }
+        
+        for(int i=0;i<Math.abs(dy);i++) {
+            if (Obstacle.testForCollision(x,y+(dy>0?1:-1),getCollisionMask()))
+                return;
+            y+=dy>0?1:-1;
         }
     }
     

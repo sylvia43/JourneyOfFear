@@ -13,7 +13,6 @@ public class Spikes extends Hazard {
     protected Player player;
     protected int attackId = 0;
     protected boolean wasClosed = true;
-    protected Rectangle mask;
     
     public Spikes(Player player) {
         super();  

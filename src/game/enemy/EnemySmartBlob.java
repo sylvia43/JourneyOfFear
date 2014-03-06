@@ -135,23 +135,35 @@ public class EnemySmartBlob extends Enemy {
             updateSpritePointer(delta);
         }
         sprite.getAnim(spritePointer).start();
+        
+        int dx = 0;
+        int dy = 0;
+        
         switch(spritePointer) {
             case 0:
-                if (!Obstacle.testForCollision(x + 5, y))
-                x+=speed*delta;
+                dx+=speed*delta;
                 break;
             case 1:
-                if (!Obstacle.testForCollision(x, y - 5))
-                y-=speed*delta;
+                dy-=speed*delta;
                 break;
             case 2:
-                if (!Obstacle.testForCollision(x-5, y))
-                x-=speed*delta;
+                dx-=speed*delta;
                 break;
             case 3:
-                if (!Obstacle.testForCollision(x, y+5))
-                y+=speed*delta;
+                dy+=speed*delta;
                 break;
+        }
+        
+        for(int i=0;i<Math.abs(dx);i++) {
+            if (Obstacle.testForCollision(x+(dx>0?1:-1),y,getCollisionMask()))
+                return;
+            x+=dx>0?1:-1;
+        }
+        
+        for(int i=0;i<Math.abs(dy);i++) {
+            if (Obstacle.testForCollision(x,y+(dy>0?1:-1),getCollisionMask()))
+                return;
+            y+=dy>0?1:-1;
         }
     }
     

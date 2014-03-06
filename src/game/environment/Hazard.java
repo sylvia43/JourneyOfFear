@@ -3,8 +3,7 @@ package game.environment;
 import game.enemy.Enemy;
 import game.map.Area;
 import game.player.Player;
-import game.sprite.AnimationMask;
-import game.sprite.ImageMask;
+import game.sprite.Rectangle;
 import game.state.StateMultiplayer;
 import java.util.ArrayList;
 import org.newdawn.slick.Animation;
@@ -17,7 +16,7 @@ public class Hazard {
     
     protected Animation sprite;
     public Animation getSprite() { return sprite; }
-    protected AnimationMask mask;
+    protected Rectangle mask;
     
     protected int miniWidth;
     protected int miniHeight;
@@ -33,8 +32,8 @@ public class Hazard {
     public int getY() { return y; }
     public Color getColor() { return minimapColor; }
     
-    public ImageMask getCollisionMask() {
-        return mask.getImageMask(sprite.getFrame());
+    public Rectangle getCollisionMask() {
+        return mask;
     }
     
     public Hazard() {
@@ -79,12 +78,8 @@ public class Hazard {
     protected void initializeSprite() throws SlickException { }
     protected void resolveCollision() { }
     
-    protected AnimationMask createMask() {
-        ImageMask[] masks = new ImageMask[4];
-        for (int i=0;i<4;i++) {
-            masks[i] = new ImageMask(sprite.getImage(i));
-        }
-        return new AnimationMask(masks);
+    protected Rectangle createMask() {
+        return new Rectangle(x,y,x+sprite.getWidth(),y+sprite.getHeight());
     }
     
     public byte isInHazard(Player player) { return -1; }

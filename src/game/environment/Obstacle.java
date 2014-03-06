@@ -19,11 +19,14 @@ public class Obstacle {
     public static ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
     protected Animation sprite;
     public Animation getSprite() { return sprite; }
+    /** @deprecated  */
     protected AnimationMask mask2;
     protected Rectangle mask;
     
     protected int x;
-    protected int y;  
+    protected int y;
+    protected int width;
+    protected int height;
     protected int miniWidth;
     protected int miniHeight;
     
@@ -38,7 +41,7 @@ public class Obstacle {
      public int getMiniHeight() { return miniHeight; }
     public Color getColor() { return minimapColor; }
    
-    
+    /** @deprecated  */
     public ImageMask getCollisionMask() {
         return mask2.getImageMask(sprite.getFrame());
     }
@@ -63,11 +66,11 @@ public class Obstacle {
         mask = new Rectangle(x-32,y,x+sprite.getImage(0).getWidth()*2,y+sprite.getImage(0).getHeight()*4);
         
     }
-     public  static boolean testForCollision(int x, int y){
+     public  static boolean testForCollision(int ox, int oy, ImageMask mask) {
         for (Obstacle o : obstacles){
-            if (x>o.mask.getX1() && y>o.mask.getY1()&& x<o.mask.getX2() && y<o.mask.getY2()){
-                return true;          
-            }    
+            if (mask.intersects(o.mask,ox,oy)) {
+                return true;
+            }
         }
         return false;
     }

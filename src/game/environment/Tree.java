@@ -12,7 +12,6 @@ public class Tree extends Obstacle {
     protected Player player;
     protected int attackId = 0;
     protected boolean wasClosed = true;
-    protected Rectangle mask;
     
     public Tree(Player player) throws SlickException{
         super();  
@@ -35,19 +34,18 @@ public class Tree extends Obstacle {
      
     public void render(GameContainer container, Graphics g) throws SlickException {
         sprite.draw(x,y,256,192);
+        mask.render(g);
     }
-    
-   
     
     @Override
     protected void initializeSprite() throws SlickException {
         sprite = AnimationLibrary.TREE_LARGE.getAnim();
-        mask = new Rectangle(x-32,y,x+sprite.getImage(0).getWidth()*2,y+sprite.getImage(0).getHeight()*4);
+        mask = new Rectangle(x,y,x+256,x+192);
         sprite.setDuration(0,1000);
     }
-  
+    
     @Override
     protected void resolveCollision() {
-    
+        
     }
 }
