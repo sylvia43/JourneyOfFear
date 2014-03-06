@@ -1,7 +1,9 @@
 Journey of Fear
 ===============
 
-See singleplayer_info.txt and and multiplayer_info.txt for details.
+All the source code and assets for Journey of Fear. It's kinda a mess but it's all here.
+
+See singleplayer_info.txt and and multiplayer_info.txt for storyline/gameplay details.
 
 See setup.md for help getting Slick setup.
 
