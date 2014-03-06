@@ -35,7 +35,7 @@ public enum AnimationLibrary {
     SPIKES_MODULAR(ImageLibrary.SPIKES_MODULAR,166,4,11),
     GREEN_SLIME_PIT(ImageLibrary.GREEN_SLIME_PIT,332,16,16),
     PINK_SLIME_PIT(ImageLibrary.PINK_SLIME_PIT,332,16,16),
-    TREE_TRASH(ImageLibrary.TREE_TRASH,332,16,32);
+    TREE_LARGE(ImageLibrary.TREE_LARGE,332,64,48);
     
     private ImageLibrary image;
     private Animation anim;

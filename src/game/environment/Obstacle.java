@@ -59,7 +59,7 @@ public class Obstacle {
         this.y = y;
         miniWidth = 3;
         miniHeight = 3;
-        sprite = AnimationLibrary.TREE_TRASH.getAnim();
+        sprite = AnimationLibrary.TREE_LARGE.getAnim();
         mask = new Rectangle(x-32,y,x+sprite.getImage(0).getWidth()*2,y+sprite.getImage(0).getHeight()*4);
         
     }
@@ -77,7 +77,7 @@ public class Obstacle {
     
    
     protected void initializeSprite() throws SlickException {
-        sprite = AnimationLibrary.TREE_TRASH.getAnim();
+        sprite = AnimationLibrary.TREE_LARGE.getAnim();
         mask = new Rectangle(x,y,x+sprite.getImage(0).getWidth()*4,y+sprite.getImage(0).getHeight()*4);
         sprite.setDuration(0,1000);
     }

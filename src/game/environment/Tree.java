@@ -34,14 +34,14 @@ public class Tree extends Obstacle {
     }
      
     public void render(GameContainer container, Graphics g) throws SlickException {
-        sprite.draw(x,y,64,128);
+        sprite.draw(x,y,256,192);
     }
     
    
     
     @Override
     protected void initializeSprite() throws SlickException {
-        sprite = AnimationLibrary.TREE_TRASH.getAnim();
+        sprite = AnimationLibrary.TREE_LARGE.getAnim();
         mask = new Rectangle(x-32,y,x+sprite.getImage(0).getWidth()*2,y+sprite.getImage(0).getHeight()*4);
         sprite.setDuration(0,1000);
     }
@@ -50,5 +50,4 @@ public class Tree extends Obstacle {
     protected void resolveCollision() {
     
     }
-    
 }

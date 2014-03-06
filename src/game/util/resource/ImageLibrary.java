@@ -40,7 +40,7 @@ public enum ImageLibrary {
     SPIKES_MODULAR("environment/spikes_modular.png"),
     GREEN_SLIME_PIT("environment/greenslimepit.png"),
     PINK_SLIME_PIT("environment/pinkslimepit.png"),
-    TREE_TRASH("environment/badTree.png"),
+    TREE_LARGE("tiles/objects/tree_large.png"),
     
     // Tiles.
     TEST("tiles/test_blank.png"),
