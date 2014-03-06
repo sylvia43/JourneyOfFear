@@ -12,7 +12,6 @@ import game.util.Soundtrack;
 import game.util.server.DataPacket;
 import game.util.server.NetworkHandler;
 import java.util.ArrayList;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -31,10 +30,7 @@ public class StateMultiplayer extends BasicGameState {
     
     public static String ip = null;
     public static int port = 0;
-    
-    private final Color MINIMAP_BLACK = new Color(0f,0f,0f,0.5f);
-    private final Color PLAYER_COLOR = Color.green;
-    
+        
     private int camX;
     private int camY;
     private Area currentArea;
@@ -164,18 +160,22 @@ public class StateMultiplayer extends BasicGameState {
         currentArea.getEnemies().addAll(newCurrentAreaEnemyList);
         if (player.getX()<-16) {
             currentArea = currentArea.getLeft();
+            renderer.updateArea(currentArea);
             player.setX(currentArea.getWidth()-48);
         }
         if (player.getY()<-16) {
             currentArea = currentArea.getUp();
+            renderer.updateArea(currentArea);
             player.setY(currentArea.getHeight()-48);
         }
         if (player.getX()>currentArea.getWidth()-48) {
             currentArea = currentArea.getRight();
+            renderer.updateArea(currentArea);
             player.setX(-16);
         }
         if (player.getY()>currentArea.getHeight()-48) {
             currentArea = currentArea.getDown();
+            renderer.updateArea(currentArea);
             player.setY(-16);
         }
     }

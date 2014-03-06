@@ -137,18 +137,22 @@ public class StateSingleplayer extends BasicGameState {
         currentArea.getEnemies().addAll(newCurrentAreaEnemyList);
         if (player.getX()<-16) {
             currentArea = currentArea.getLeft();
+            renderer.updateArea(currentArea);
             player.setX(currentArea.getWidth()-48);
         }
         if (player.getY()<-16) {
             currentArea = currentArea.getUp();
+            renderer.updateArea(currentArea);
             player.setY(currentArea.getHeight()-48);
         }
         if (player.getX()>currentArea.getWidth()-48) {
             currentArea = currentArea.getRight();
+            renderer.updateArea(currentArea);
             player.setX(-16);
         }
         if (player.getY()>currentArea.getHeight()-48) {
             currentArea = currentArea.getDown();
+            renderer.updateArea(currentArea);
             player.setY(-16);
         }
     }
