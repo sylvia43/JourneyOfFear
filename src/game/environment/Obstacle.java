@@ -66,9 +66,19 @@ public class Obstacle {
         mask = new Rectangle(x-32,y,x+sprite.getImage(0).getWidth()*2,y+sprite.getImage(0).getHeight()*4);
         
     }
-     public  static boolean testForCollision(int ox, int oy, ImageMask mask) {
-        for (Obstacle o : obstacles){
+    
+    public  static boolean testForCollision(int ox, int oy, ImageMask mask) {
+        for (Obstacle o : obstacles) {
             if (mask.intersects(o.mask,ox,oy)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public  static boolean testForCollision(int ox, int oy, Rectangle mask) {
+        for (Obstacle o : obstacles) {
+            if (mask.intersects(o.mask)) {
                 return true;
             }
         }

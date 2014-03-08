@@ -27,6 +27,7 @@ import org.newdawn.slick.SlickException;
 public class Player {
 
     private EntitySprite sprite;
+    private Rectangle hitbox;
 
     private Animation sword;
     private Animation bow;
@@ -119,6 +120,7 @@ public class Player {
     
     public void init(GameContainer container) throws SlickException {
         initializeSprite();
+        hitbox = new Rectangle(x,y,x+64,y+64);
         emptyHeart = ImageLibrary.EMPTY_HEART.getImage();
         halfHeart = ImageLibrary.HALF_HEART.getImage();
         fullHeart = ImageLibrary.FULL_HEART.getImage();
@@ -129,6 +131,7 @@ public class Player {
     
     public void update(GameContainer container, int delta) {
         this.delta = delta;
+        hitbox.set(x,y,x+64,y+64);
         resolveInvulnerability(delta); //and knockback
         movePlayer(container.getInput(),delta);
         resolveCollision();
@@ -306,13 +309,13 @@ public class Player {
         }
         
         for(int i=0;i<Math.abs(dx);i++) {
-            if (Obstacle.testForCollision(x+(dx>0?1:-1),y,getCollisionMask()))
+            if (Obstacle.testForCollision(x+(dx>0?1:-1),y,hitbox))
                 return;
             x+=dx>0?1:-1;
         }
         
         for(int i=0;i<Math.abs(dy);i++) {
-            if (Obstacle.testForCollision(x,y+(dy>0?1:-1),getCollisionMask()))
+            if (Obstacle.testForCollision(x,y+(dy>0?1:-1),hitbox))
                 return;
             y+=dy>0?1:-1;
         }
