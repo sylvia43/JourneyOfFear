@@ -5,7 +5,6 @@ import game.map.Area;
 import game.player.Player;
 import game.sprite.Rectangle;
 import game.state.StateMultiplayer;
-import game.util.resource.AnimationLibrary;
 import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -59,20 +58,13 @@ public class Obstacle {
     
     public void setX(int x) { this.x = x; }
     public void setY(int y) { this.y = y; }
-    
    
-    protected void initializeSprite() throws SlickException {
-        sprite = AnimationLibrary.TREE_LARGE.getAnim();
-        mask = new Rectangle(x,y,x+sprite.getImage(0).getWidth()*4,y+sprite.getImage(0).getHeight()*4);
-        sprite.setDuration(0,1000);
-        mask = new Rectangle(x-32,y,x+sprite.getImage(0).getWidth()*2,y+sprite.getImage(0).getHeight()*4);
-    }
+    protected void initializeSprite() throws SlickException { }
     
     protected Rectangle createMask() {
         return new Rectangle(x,y,x+sprite.getWidth(),y+sprite.getHeight());
     }
     
-    //Game loop methods
     public void init(GameContainer container) throws SlickException {
         initializeSprite();
     }

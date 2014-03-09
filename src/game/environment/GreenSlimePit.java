@@ -9,8 +9,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
 public class GreenSlimePit extends Hazard {
-
-    protected Player player;
+    
     protected int attackId = 0;
     protected boolean wasClosed = true;
 
@@ -20,7 +19,8 @@ public class GreenSlimePit extends Hazard {
         this.x = (int) (Math.random() * StateMultiplayer.WORLD_SIZE_X);
         this.y = (int) (Math.random() * StateMultiplayer.WORLD_SIZE_Y);
     }
-
+    
+    @Override
     public void update(GameContainer container, int delta, Area currentArea) {
         if (currentArea.getEnemies().size()>25)
             return;

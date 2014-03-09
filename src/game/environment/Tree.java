@@ -9,8 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 public class Tree extends Obstacle {
-
-    protected Player player;
+    
     protected int attackId = 0;
     protected boolean wasClosed = true;
 
@@ -21,17 +20,14 @@ public class Tree extends Obstacle {
         miniHeight = 6;
     }
 
-    public Tree(Player player,int x,int y) throws SlickException {
+    public Tree(Player player, int x, int y) throws SlickException {
         super(x,y);
         this.player = player;
         miniWidth = 3;
         miniHeight = 6;
     }
-
-    public void init(GameContainer container) throws SlickException {
-        initializeSprite();
-    }
-
+    
+    @Override
     public void render(GameContainer container,Graphics g) throws SlickException {
         sprite.draw(x,y,256,192);
         mask.render(g);
