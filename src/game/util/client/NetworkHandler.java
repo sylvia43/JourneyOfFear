@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import org.newdawn.slick.Graphics;
@@ -27,7 +28,7 @@ public class NetworkHandler {
         this.player = localPlayer;
         
         try {
-            socket = new MulticastSocket(port);
+            socket = new MulticastSocket();
         } catch (IOException e) {
             switch (e.getMessage()) {
                 case "Connection refused: connect":
@@ -50,6 +51,11 @@ public class NetworkHandler {
             socket.joinGroup(group);
         } catch (IOException e) {
             System.out.println("Unable to join group: " + e);
+        }
+        try {
+            socket.setLoopbackMode(true);
+        } catch (SocketException e) {
+            System.out.println("Failed to disable loopback: " + e);
         }
         
         get = new Thread(new Runnable() {
