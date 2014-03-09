@@ -1,113 +1,51 @@
 package game.util.server;
 
-import game.enemy.EnemyPlayer;
-import game.player.Player;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import org.newdawn.slick.SlickException;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+import java.util.List;
 
 public class DataPacket {
 
+    public static final int MAX_SIZE = 8;
+    
+    public static final int X = 0;
+    public static final int Y = 4;
+    
     private byte[] data;
-    private volatile boolean update = false;
+    private SocketAddress address;
     
-    private static HashMap<Integer,DataPacket> packets = new HashMap<Integer,DataPacket>();
+    public static List<EnemyPlayerData> players;
     
-    public static final int MAX_SIZE = 12;
-    public static ArrayList<EnemyPlayer> enemies = new ArrayList<EnemyPlayer>();
-    public static Player player;
-    
-    public static final int ID = 0;
-    public static final int X = 4;
-    public static final int Y = 8;
-    
-    public static volatile boolean WAIT = false;
-    
-    private static HashMap<Integer,DataPacket> tempItr = new HashMap<Integer,DataPacket>();
-    
-    public DataPacket() {
-        data = new byte[MAX_SIZE];
-    }
-    
-    @SuppressWarnings("empty-statement")
-    public DataPacket(byte[] data) {
+    public DataPacket(byte[] data, InetSocketAddress address) {
         if (data.length != MAX_SIZE)
             return;
         this.data = data;
-        update = true;
-        while(WAIT); // Wait until tempItr is updated to avoid concurrent modification.
-        packets.put(get(ID),this);
+        this.address = address;
+        this.update(address);
+    }
+
+    public DataPacket(EnemyPlayerData e) {
+        add(e.x,X);
+        add(e.y,Y);
     }
     
-    public static void updatePlayer(Player newPlayer) {
-        player = newPlayer;
-    }
-    
-    public static void update(ArrayList<EnemyPlayer> newEnemies) {
-        WAIT = true;
-        tempItr.clear();
-        tempItr.putAll(packets);
-        WAIT = false;
-        for (Map.Entry<Integer,DataPacket> entry : tempItr.entrySet()) {
-            DataPacket packet = entry.getValue();
-            if (packet == null)
-                continue;
-            packet.update();
-        }
-        
-        newEnemies.clear();
-        newEnemies.addAll(enemies);
-    }
-    
-    public static void registerDisconnect(int id) {
-        EnemyPlayer enemy = null;
-        for (EnemyPlayer e : enemies) {
-            if (e.getId() == id) {
-                enemy = e;
-                break;
+    public void update(InetSocketAddress address) {
+        System.out.println("Updateing");
+        synchronized(players) {
+            for (EnemyPlayerData e : players) {
+                if (e.address.equals(address)) {
+                    e.x = this.get(X);
+                    e.y = this.get(Y);
+                    break;
+                }
             }
+            
+            EnemyPlayerData e = new EnemyPlayerData();
+            e.address = address;
+            e.x = this.get(X);
+            e.y = this.get(Y);
+            players.add(e);
         }
-        if (enemy == null) {
-            ServerLogger.log("No such enemy with id " + id);
-            return;
-        }
-        ServerLogger.log("Removing enemy of id " + id);
-        if (!enemies.remove(enemy))
-            ServerLogger.log("Failed to remove enemy.");
-        enemy = null;
-    }
-    
-    public void update() {
-        if (!update)
-            return;
-        
-        update = false;
-        
-        int id = get(ID);
-        
-        if (player != null) {
-            if (player.getID() == id) {
-                player.setX(get(X));
-                player.setY(get(Y));
-                return;
-            }
-        }
-        
-        for (EnemyPlayer e : enemies) {
-            if (e.getId() == id) {
-                e.setX(get(X));
-                e.setY(get(Y));
-                return;
-            }
-        }
-        try {
-            enemies.add(new EnemyPlayer(get(X),get(Y),id));
-            ServerLogger.log("Created new enemy: " + id);
-        } catch (SlickException e) {
-            System.out.println("Unable to create enemy player: " + e);
-        }
-        packets.remove(get(ID));
     }
     
     public void add(int i, int pos) {
@@ -137,9 +75,5 @@ public class DataPacket {
     
     public byte[] getBytes() {
         return data;
-    }
-
-    public void updateEnemy() {
-        update = true;
     }
 }

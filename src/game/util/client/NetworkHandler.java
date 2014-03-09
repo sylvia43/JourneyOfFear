@@ -1,24 +1,30 @@
-package game.util.server;
+package game.util.client;
 
-import java.io.DataInputStream;
+import game.player.Player;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.Socket;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+import java.net.UnknownHostException;
 
 public class NetworkHandler {
-
-    private Socket socket;
+    
+    private MulticastSocket socket;
+    private InetAddress group = null;
     private Thread get;
     private Thread send;
+    private Player player;
     private volatile boolean running = true;
     private String ip = "";
     private int port = 0;
 
-    public NetworkHandler(String newIp, int newPort) {
+    public NetworkHandler(String newIp, int newPort, Player localPlayer) {
         this.ip = newIp;
         this.port = newPort;
+        this.player = localPlayer;
+        
         try {
-            socket = new Socket(ip,port);
+            socket = new MulticastSocket(port);
         } catch (IOException e) {
             switch (e.getMessage()) {
                 case "Connection refused: connect":
@@ -26,23 +32,30 @@ public class NetworkHandler {
                     break;
                 default:
                     System.out.println("Fatal Error: " + e);
+                    e.printStackTrace();
                     break;
             }
             return;
         }
-
+        
+        try {
+            group = InetAddress.getByName(ip);
+        } catch (UnknownHostException e) {
+            System.out.println("Error connecting to group: " + e);
+        }
+        try {
+            socket.joinGroup(group);
+        } catch (IOException e) {
+            System.out.println("Unable to join group: " + e);
+        }
+        
         get = new Thread(new Runnable() {
             @Override
             @SuppressWarnings("empty-statement")
             public void run() {
                 try {
-                    byte[] b = new byte[DataPacket.MAX_SIZE];
-
-                    DataInputStream socketIn
-                                    = new DataInputStream(socket.getInputStream());
                     while (running) {
-                        socketIn.readFully(b,0,DataPacket.MAX_SIZE);
-                        new DataPacket(b);
+                        if (false) throw new IOException("asd");
                     }
                     socket.close();
                 } catch (IOException e) {
@@ -50,6 +63,7 @@ public class NetworkHandler {
                 } finally {
                     if (socket != null && !socket.isClosed()) {
                         try {
+                            socket.leaveGroup(group);
                             socket.close();
                         } catch (IOException e) {
                             System.out.println("Failed to close socket: " + e);
@@ -64,9 +78,11 @@ public class NetworkHandler {
             @Override
             public void run() {
                 try {
-                    OutputStream socketOut = socket.getOutputStream();
+                    byte[] data = new byte[8];
                     while (running) {
-                        socketOut.write(DataPacket.player.getPacket().getBytes());
+                        data = player.getBytes();
+                        DatagramPacket packet = new DatagramPacket(data,data.length,group,port);
+                        socket.send(packet);
                     }
                     socket.close();
                 } catch (IOException e) {
@@ -74,6 +90,7 @@ public class NetworkHandler {
                 } finally {
                     if (socket != null && !socket.isClosed()) {
                         try {
+                            socket.leaveGroup(group);
                             socket.close();
                         } catch (IOException e) {
                             System.out.println("Failed to close socket: " + e);
@@ -83,9 +100,5 @@ public class NetworkHandler {
             }
         });
         send.start();
-    }
-    
-    public void close() {
-        running = false;
     }
 }

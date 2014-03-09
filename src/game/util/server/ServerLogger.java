@@ -1,6 +1,5 @@
 package game.util.server;
 
-import game.enemy.EnemyPlayer;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
@@ -12,31 +11,27 @@ public class ServerLogger {
     public static final int LINES = 10;
     
     public static String[] toRender = new String[LINES];
-    public static ArrayList<EnemyPlayer> enemies = new ArrayList<EnemyPlayer>();
+    public static ArrayList<EnemyPlayerData> enemies = new ArrayList<EnemyPlayerData>();
     
     public static PrintStream out;
 
     public static int pos = 0;
     
-    public static void init() {
+    public static void init(ArrayList<EnemyPlayerData> otherEnemies) {
         try {
             out = new PrintStream(new FileOutputStream("log.txt"));
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write file: " + e);
         }
-    }
-    
-    public static void update() {
-        enemies.clear();
-        enemies.addAll(DataPacket.enemies);
+        enemies = otherEnemies;
     }
     
     public static void render(Graphics g) {
         g.drawString("Enemies: ",100,0);
         
         for (int i=0;i<enemies.size();i++) {
-            EnemyPlayer e = enemies.get(i);
-            g.drawString(e.getId() + " " + e.getX() + " " + e.getY(),100,20+20*i);
+            EnemyPlayerData e = enemies.get(i);
+            g.drawString(e.x + " " + e.y,100,20+20*i);
         }
         
         for (int i=0;i<LINES;i++) {
@@ -49,6 +44,7 @@ public class ServerLogger {
     private ServerLogger() { }
     
     public static void log(String message) {
+        System.out.println(message);
         if (out == null)
             return;
         out.println(message);

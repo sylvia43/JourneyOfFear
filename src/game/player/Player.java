@@ -93,16 +93,20 @@ public class Player {
         
         return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
     }
-        
-    /*
-    public ClientDataPacket getPacket() {
-        ClientDataPacket packet = new ClientDataPacket();
-        packet.add(id,ClientDataPacket.ID);
-        packet.add(x,ClientDataPacket.X);
-        packet.add(y,ClientDataPacket.Y);
-        return packet;
+    
+    public byte[] getBytes() {
+        byte[] data = new byte[8];
+        addByte(data,x,0);
+        addByte(data,y,4);
+        return data;
     }
-    */
+    
+    public void addByte(byte[] arr, int i, int pos) {
+        arr[pos] = (byte) (i >> 24);
+        arr[pos+1] = (byte) (i >> 16);
+        arr[pos+2] = (byte) (i >> 8);
+        arr[pos+3] = (byte) (i);
+    }
     
     public void setX(int x) { this.x = x; }
     public void setY(int y) { this.y = y; }

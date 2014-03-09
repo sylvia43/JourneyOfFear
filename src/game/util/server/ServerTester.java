@@ -4,16 +4,20 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.net.Socket;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 public class ServerTester {
     
     public static int portNumber = 9999;
-    public static String ipaddress = "0.0.0.0";
+    public static String ipaddress = "127.0.0.1";
     
-    public static Socket socket;
+    public static MulticastSocket socket;
+    public static InetAddress group = null;
     
     public static void main(String[] args) {
         PrintStream out;
@@ -27,7 +31,13 @@ public class ServerTester {
         try {
             System.out.println("Attempting to connect to server.");
             
-            socket = new Socket(ipaddress,portNumber);
+            socket = new MulticastSocket(portNumber);
+            try {
+                group = InetAddress.getByName("127.0.0.1");
+            } catch (UnknownHostException e) {
+                ServerLogger.log("Error forming group: " + e);
+            }
+            socket.joinGroup(group);
             
             System.out.println("Connected to Server.");
                         
@@ -35,10 +45,9 @@ public class ServerTester {
             
             int x = 0;
             int y = 0;
-            int id = 0;
             
-            byte[] data = new byte[12];
-            
+            byte[] data = new byte[DataPacket.MAX_SIZE];
+            DatagramPacket p = new DatagramPacket(data,data.length);
             while (!consoleInputLine.equals("q")) {
                 consoleInputLine = consoleIn.readLine();
                 
@@ -47,13 +56,13 @@ public class ServerTester {
                 
                 x = Integer.valueOf(consoleInputLine.substring(0,3));
                 y = Integer.valueOf(consoleInputLine.substring(3,6));
-                id = Integer.valueOf(consoleInputLine.substring(6,9));
                 
-                data = ByteBuffer.allocate(12).putInt(x).putInt(y).putInt(id).array();
+                data = ByteBuffer.allocate(DataPacket.MAX_SIZE).putInt(x).putInt(y).array();
                 
                 System.out.println("Sending data: " + Arrays.toString(data));
                 
-                socket.getOutputStream().write(data);
+                p.setData(data);
+                socket.send(p);
             }
             
             System.out.println("Closing Connections.");
@@ -71,7 +80,7 @@ public class ServerTester {
                     System.out.println("Fatal Error: " + e);
                     break;
             }
-            
+            e.printStackTrace();
             System.out.println("Fatal: Aborting.");
             
         } catch (StringIndexOutOfBoundsException e) {
