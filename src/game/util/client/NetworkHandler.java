@@ -28,7 +28,7 @@ public class NetworkHandler {
         this.player = localPlayer;
         
         try {
-            socket = new MulticastSocket(9999);
+            socket = new MulticastSocket(port);
         } catch (IOException e) {
             switch (e.getMessage()) {
                 case "Connection refused: connect":

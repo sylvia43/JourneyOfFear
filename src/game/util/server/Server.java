@@ -36,7 +36,7 @@ public class Server {
         ServerLogger.log("Creating Server.");
         
         try {
-            server = new DatagramSocket(port);
+            server = new DatagramSocket();
         } catch (SocketException e) {
             System.out.println("Error creating socket: " + e);
         }
