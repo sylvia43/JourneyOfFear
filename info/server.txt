@@ -1,0 +1,14 @@
+Server
+
+	Thread:
+		receives data
+		if source exists
+			Update.
+		else if source is new
+			Create New enemy.
+	
+	Thread:
+		for (enemy e : enemies)
+			for (socket s : sockets)
+				e -> s
+		

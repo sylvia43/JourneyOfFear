@@ -1,6 +1,8 @@
 To Do
 =======
 
+Todo includes all of the tasks to be completed.
+
 Key:
   x - Done
   / - Partial

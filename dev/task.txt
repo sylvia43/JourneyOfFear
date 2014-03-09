@@ -1,0 +1,19 @@
+To Do
+=======
+
+Todo includes all of the tasks to be completed.
+
+Code
+    Primary: Get the server and multiplayer working.
+    Secondary: Make area generation cooler by using all the tiles.
+    Tertiary: Implement support for different weapons.
+
+Art
+    Primary: Fix the old sprites (all of the ones you didn't make).
+    Secondary: Multiplayer sprites (other players, new attacks, etc).
+    Tertiary: Village/Town sprites.
+
+Music
+    Primary: Make a website for Snake Squared.
+    Secondary: Make a website for this game so I can publicize it.
+    Tertiary: More music of different varieties.

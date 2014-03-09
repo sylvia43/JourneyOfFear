@@ -11,4 +11,5 @@
 /log.txt
 /*.db
 /*.zip
-/*.txt
+/log.txt
+/server.txt
