@@ -30,7 +30,6 @@ public class DataPacket {
     }
     
     public void update(InetSocketAddress address) {
-        System.out.println("Updateing");
         synchronized(players) {
             for (EnemyPlayerData e : players) {
                 if (e.address.equals(address)) {
