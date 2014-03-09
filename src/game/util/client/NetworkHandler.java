@@ -6,6 +6,8 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.UnknownHostException;
+import java.util.Arrays;
+import org.newdawn.slick.Graphics;
 
 public class NetworkHandler {
     
@@ -17,6 +19,7 @@ public class NetworkHandler {
     private volatile boolean running = true;
     private String ip = "";
     private int port = 0;
+    public Graphics g;
 
     public NetworkHandler(String newIp, int newPort, Player localPlayer) {
         this.ip = newIp;
@@ -54,8 +57,16 @@ public class NetworkHandler {
             @SuppressWarnings("empty-statement")
             public void run() {
                 try {
+                    byte[] data = new byte[8];
+                    DatagramPacket p = new DatagramPacket(data,data.length);
+                    String oldData = null;
                     while (running) {
-                        if (false) throw new IOException("asd");
+                        socket.receive(p);
+                        String newData = Arrays.toString(p.getData());
+                        if (!newData.equals(oldData)) {
+                            System.out.println(newData);
+                            oldData = newData;
+                        }
                     }
                     socket.close();
                 } catch (IOException e) {

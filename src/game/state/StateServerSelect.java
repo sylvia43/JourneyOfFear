@@ -66,8 +66,8 @@ public class StateServerSelect extends BasicGameState implements ComponentListen
                 fieldPort.setFocus(true);
             }
         });
-        fieldIp.setText("127.0.0.1");
-
+        fieldIp.setText("224.0.0.1");
+        
         fieldPort = new TextField(container,font,60,70,500,35,new ComponentListener() {
             @Override
             public void componentActivated(AbstractComponent source) {

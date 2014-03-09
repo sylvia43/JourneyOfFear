@@ -35,5 +35,6 @@ public class StateMultiplayer extends StateSingleplayer {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         super.render(container,game,g);
+        network.g = g;
     }
 }
