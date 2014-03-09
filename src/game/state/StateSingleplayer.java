@@ -83,8 +83,8 @@ public class StateSingleplayer extends BasicGameState {
         
         translateView(g);
         renderer.renderMap(g);
-        renderer.renderEnemies(g);
         renderer.renderObstacles(g);
+        renderer.renderEnemies(g);
         renderer.renderPlayer(g);
         renderer.renderMinimap(g);
     }

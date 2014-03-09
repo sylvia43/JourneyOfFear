@@ -86,7 +86,7 @@ public class Area {
         return e;
     }
     
-    public Obstacle addObstacle(Obstacle o){
+    public Obstacle addObstacle(Obstacle o) {
         obstacles.add(o);
         return o;
     }
