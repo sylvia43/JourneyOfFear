@@ -8,7 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class StateMultiplayer extends StateSingleplayer {
     
-    public static String ip = "127.0.0.1";
+    public static String ip = "230.0.0.1";
     public static int port = 9999;
     
     private NetworkHandler network;

@@ -28,7 +28,7 @@ public class NetworkHandler {
         this.player = localPlayer;
         
         try {
-            socket = new MulticastSocket();
+            socket = new MulticastSocket(9999);
         } catch (IOException e) {
             switch (e.getMessage()) {
                 case "Connection refused: connect":
@@ -47,11 +47,13 @@ public class NetworkHandler {
         } catch (UnknownHostException e) {
             System.out.println("Error connecting to group: " + e);
         }
+        
         try {
             socket.joinGroup(group);
         } catch (IOException e) {
             System.out.println("Unable to join group: " + e);
         }
+        
         try {
             socket.setLoopbackMode(true);
         } catch (SocketException e) {
@@ -67,7 +69,9 @@ public class NetworkHandler {
                     DatagramPacket p = new DatagramPacket(data,data.length);
                     String oldData = null;
                     while (running) {
+                        System.out.println("Ready to receive.");
                         socket.receive(p);
+                        System.out.println("Got data.");
                         String newData = Arrays.toString(p.getData());
                         if (!newData.equals(oldData)) {
                             System.out.println(newData);

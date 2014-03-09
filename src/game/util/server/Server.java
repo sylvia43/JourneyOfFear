@@ -5,14 +5,9 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Server {
     
@@ -21,30 +16,28 @@ public class Server {
         server.start();
     }
     
-    private static final String ip = "224.0.0.1";
+    private static final String ip = "230.0.0.1";
     
     private int port;
-    private MulticastSocket server;
+    private DatagramSocket server;
     private InetAddress group = null;
     
-    private List<EnemyPlayerData> players;
-    public List<EnemyPlayerData> synchronizedPlayers;
-
+    private CopyOnWriteArrayList<EnemyPlayerData> players;
+    
     public Server(int port) {
-        players = new ArrayList<EnemyPlayerData>();
-        synchronizedPlayers = (List<EnemyPlayerData>) Collections.synchronizedList(players);
+        players = new CopyOnWriteArrayList<EnemyPlayerData>();
         ServerLogger.log("Set port.");
         this.port = port;
     }
     
     public void start() {
-        DataPacket.players = synchronizedPlayers;
+        DataPacket.players = players;
         
         ServerLogger.log("Creating Server.");
         
         try {
-            server = new MulticastSocket(port);
-        } catch (IOException e) {
+            server = new DatagramSocket(port);
+        } catch (SocketException e) {
             System.out.println("Error creating socket: " + e);
         }
         
@@ -53,7 +46,7 @@ public class Server {
         } catch (UnknownHostException e) {
             ServerLogger.log("Error forming group: " + e);
         }
-        server.connect(group,port);
+        
         ServerLogger.log("Started server.");
         
         Thread receiveThread = new Thread(new Runnable() {
@@ -63,8 +56,9 @@ public class Server {
                 DatagramPacket p = new DatagramPacket(bytes,bytes.length);
                 while (true) {
                     try {
+                        System.out.println("Ready to receive.");
                         server.receive(p);
-                        System.out.println("Recieved.");
+                        System.out.println("Got data.");
                         new DataPacket(p.getData(),(InetSocketAddress)p.getSocketAddress());
                     } catch (IOException e) {
                         ServerLogger.log("Unable to recieve data: " + e);
@@ -79,16 +73,13 @@ public class Server {
             public void run() {
                 byte[] data = new byte[DataPacket.MAX_SIZE];
                 while(true) {
-                    synchronized(players) {
-                        for (EnemyPlayerData e : players) {
-                            System.out.println(e);
-                            data = new DataPacket(e).getBytes();
-                            DatagramPacket packet = new DatagramPacket(data,data.length,group,port);
-                            try {
-                                server.send(packet);
-                            } catch (IOException ex) {
-                                ServerLogger.log("Failed to send data: " + ex);
-                            }
+                    for (EnemyPlayerData e : players) {
+                        data = new DataPacket(e).getBytes();
+                        DatagramPacket packet = new DatagramPacket(data,data.length,group,port);
+                        try {
+                            server.send(packet);
+                        } catch (IOException ex) {
+                            ServerLogger.log("Failed to send data: " + ex);
                         }
                     }
                 }
