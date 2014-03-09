@@ -34,7 +34,7 @@ public class Rectangle {
      * @param x1 A x-vertex of the rectangle.
      * @param x2 A x-vertex of the rectangle.
      * @param y1 A y-vertex of the rectangle.
-     * @param x2 A y-vertex of the rectangle.
+     * @param y2 A y-vertex of the rectangle.
      */
     public Rectangle(int x1, int y1, int x2, int y2) {
         this.x1 = x1;
