@@ -4,7 +4,6 @@ import game.enemy.Enemy;
 import game.enemy.EnemyBlob;
 import game.enemy.EnemySmartBlob;
 import game.environment.GreenSlimePit;
-import game.environment.Hazard;
 import game.environment.Obstacle;
 import game.environment.PinkSlimePit;
 import game.environment.Spikes;
@@ -22,7 +21,6 @@ public class Area {
     
     private TiledMap map;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    private ArrayList<Hazard> hazards = new ArrayList<Hazard>();
     private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
     
     private Area left;
@@ -38,7 +36,6 @@ public class Area {
     
     public Tile getTile(int x, int y) { return map.getTile(x,y); }
     public ArrayList<Enemy> getEnemies() { return enemies; }
-    public ArrayList<Hazard> getHazards() { return hazards; }
     public ArrayList<Obstacle> getObstacles() { return obstacles; }
     public int getWidth() { return width; }
     public int getHeight() { return height; }
@@ -63,9 +60,9 @@ public class Area {
         }
         
         try {
-            addHazard(new Spikes(player,600,600)).init(container);           
-            addHazard(new GreenSlimePit(player)).init(container);
-            addHazard(new PinkSlimePit(player)).init(container);
+            addObstacle(new Spikes(player,600,600)).init(container);           
+            addObstacle(new GreenSlimePit(player)).init(container);
+            addObstacle(new PinkSlimePit(player)).init(container);
         } catch (SlickException e) { 
             System.out.println("Error initializing hazard: " + e);
         }
@@ -89,17 +86,11 @@ public class Area {
         return e;
     }
     
-    public Hazard addHazard(Hazard h){
-        hazards.add(h);
-        return h;
-    }
     public Obstacle addObstacle(Obstacle o){
         obstacles.add(o);
-       Obstacle.obstacles.add(o);
         return o;
     }
     
-     
     public void setLeft(Area area) {
         left = area;
     }

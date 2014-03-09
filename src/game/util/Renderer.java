@@ -1,7 +1,6 @@
 package game.util;
 
 import game.enemy.Enemy;
-import game.environment.Hazard;
 import game.environment.Obstacle;
 import game.map.Area;
 import game.player.Player;
@@ -49,16 +48,6 @@ public class Renderer {
         }
     }
     
-    public void renderHazards(Graphics g) throws SlickException {
-        for (Hazard h : currentArea.getHazards()) {
-            if (h.getX()+h.getSprite().getImage(0).getWidth()*2>camX-64 && 
-                    h.getY()+h.getSprite().getImage(0).getHeight()*2>camY-64 && 
-                    h.getX()-h.getSprite().getImage(0).getWidth()*2<camX+VIEW_SIZE_X && 
-                    h.getY()-h.getSprite().getImage(0).getHeight()*2<camY+VIEW_SIZE_Y)
-                h.render(container,g);
-        }
-    }
-    
     public void renderEnemies(Graphics g) throws SlickException {
         for (Enemy e : currentArea.getEnemies()) {
             if (e.getX()+e.getSprite().getAnim(0).getWidth()*2>camX-64 && 
@@ -97,12 +86,6 @@ public class Renderer {
              g.setColor(e.getColor());
              g.fillRect((int)(posX + width*((double)e.getX())/WORLD_SIZE_X), 
                     (int)(posY + height*((double)e.getY())/WORLD_SIZE_Y),3,3);    
-        }
-        
-        for (Hazard h : currentArea.getHazards()){
-             g.setColor(h.getColor());
-             g.fillRect((int)(posX + width*((double)h.getX())/WORLD_SIZE_X), 
-                    (int)(posY + height*((double)h.getY())/WORLD_SIZE_Y), h.getMiniWidth(),h.getMiniHeight());    
         }
         
         for (Obstacle o : currentArea.getObstacles()){

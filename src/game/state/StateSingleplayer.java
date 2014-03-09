@@ -1,7 +1,6 @@
 package game.state;
 
 import game.enemy.Enemy;
-import game.environment.Hazard;
 import game.environment.Obstacle;
 import game.map.Area;
 import game.player.Player;
@@ -25,14 +24,14 @@ public class StateSingleplayer extends BasicGameState {
     public static final int WORLD_SIZE_X = VIEW_SIZE_X*4;
     public static final int WORLD_SIZE_Y = VIEW_SIZE_Y*4;
     
-    private int camX;
-    private int camY;
-    private Area currentArea;
-    private Player player;
-    private int id;
-    private Soundtrack soundtrack;
+    protected int camX;
+    protected int camY;
+    protected Area currentArea;
+    protected Player player;
+    protected int id;
+    protected Soundtrack soundtrack;
     
-    private Renderer renderer;
+    protected Renderer renderer;
     
     public StateSingleplayer(int id) {
         this.id = id;
@@ -68,10 +67,9 @@ public class StateSingleplayer extends BasicGameState {
         if (container.getInput().isKeyPressed(Input.KEY_R))
             soundtrack.restart();
         soundtrack.update();
-                
+        
         updateArea();
         updateEnemies(container,delta);
-        updateHazards(container,delta,currentArea);
         updateObstacles(container, delta,currentArea);
         updatePlayer(container,delta);
         updateViewPort();
@@ -85,7 +83,6 @@ public class StateSingleplayer extends BasicGameState {
         
         translateView(g);
         renderer.renderMap(g);
-        renderer.renderHazards(g);
         renderer.renderEnemies(g);
         renderer.renderObstacles(g);
         renderer.renderPlayer(g);
@@ -95,7 +92,6 @@ public class StateSingleplayer extends BasicGameState {
     private void setupArea(GameContainer container, Player player) {
         currentArea = new Area(WORLD_SIZE_X,WORLD_SIZE_Y,container,player);
         player.setEnemies(currentArea.getEnemies());
-        player.setHazards(currentArea.getHazards());
         player.setObstacles(currentArea.getObstacles());
     }
     
@@ -163,25 +159,14 @@ public class StateSingleplayer extends BasicGameState {
         }
     }
     
-    private void updateHazards(GameContainer container, int delta, Area currentArea) {
-        Hazard.updateEnemies(currentArea.getEnemies());
-        for (Hazard h : currentArea.getHazards()) {
-            
-            h.update(container,delta, currentArea);
-        }
-    }
-    
     private void updateObstacles(GameContainer container, int delta, Area currentArea) {
-        Obstacle.updateEnemies(currentArea.getEnemies());
-        for (Obstacle h : currentArea.getObstacles()) {
-            
-            h.update(container,delta, currentArea);
+        for (Obstacle o : currentArea.getObstacles()) {
+            o.update(container,delta, currentArea);
         }
     }
         
     private void updatePlayer(GameContainer container, int delta) {
         player.setEnemies(currentArea.getEnemies());
-        player.setHazards(currentArea.getHazards());
         player.update(container,delta);
     }
     

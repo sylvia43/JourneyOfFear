@@ -1,7 +1,6 @@
 package game.player;
 
 import game.enemy.Enemy;
-import game.environment.Hazard;
 import game.environment.Obstacle;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
@@ -11,10 +10,8 @@ import game.state.StateMultiplayer;
 import game.util.Options;
 import game.util.resource.AnimationLibrary;
 import game.util.resource.ImageLibrary;
-import game.util.resource.ResourceLoader;
 import game.util.resource.SoundLibrary;
 import game.util.resource.SoundPlayer;
-import game.util.server.DataPacket;
 import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -50,7 +47,6 @@ public class Player {
     private static Image fullHeart = null;
     
     private ArrayList<Enemy> enemies;
-    private ArrayList<Hazard> hazards;
     private ArrayList<Obstacle> obstacles;
     
     private final int ATTACK_SPEED = 10;
@@ -79,9 +75,7 @@ public class Player {
     //How slippery knockback is. Less means more slide.
     private final int KNOCKBACK_MULTIPLIER = 30;
     private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*3;
-        
-    private final int id;
-
+    
     public int getX() { return x; }
     public int getY() { return y; }
     
@@ -99,23 +93,21 @@ public class Player {
         
         return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
     }
-    
-    public int getID() { return id; }
-    
-    public DataPacket getPacket() {
-        DataPacket packet = new DataPacket();
-        packet.add(id,DataPacket.ID);
-        packet.add(x,DataPacket.X);
-        packet.add(y,DataPacket.Y);
+        
+    /*
+    public ClientDataPacket getPacket() {
+        ClientDataPacket packet = new ClientDataPacket();
+        packet.add(id,ClientDataPacket.ID);
+        packet.add(x,ClientDataPacket.X);
+        packet.add(y,ClientDataPacket.Y);
         return packet;
     }
+    */
     
     public void setX(int x) { this.x = x; }
     public void setY(int y) { this.y = y; }
     
     public Player() {
-        this.id = this.hashCode();
-        System.out.println(id);
     }
     
     public void init(GameContainer container) throws SlickException {
@@ -141,7 +133,7 @@ public class Player {
     public void render(GameContainer container, Graphics g) throws SlickException {
         Animation currentSprite = sprite.getAnim(spritePointer);
         currentSprite.draw(x,y,64,64,damageBlink?Color.red:Color.white);
-        renderHealth(camX,camY);
+        renderHealth();
         if (attacking)
             sword.draw(x-64,y-64,192,192);
         if (StateMultiplayer.DEBUG_MODE)
@@ -149,7 +141,7 @@ public class Player {
         isHit = false;
     }
     
-    public void renderHealth(int camX, int camY) {
+    public void renderHealth() {
         int fullNum = this.currentHealth/2;
         int halfNum = this.currentHealth%2;
         int emptyNum = 5-(fullNum+halfNum);
@@ -168,10 +160,8 @@ public class Player {
     public void setEnemies(ArrayList<Enemy> enemies) {
         this.enemies = enemies;
     }
-     public void setHazards(ArrayList<Hazard> hazards) {
-        this.hazards = hazards;
-    }
-     public void setObstacles(ArrayList<Obstacle> obstacles) {
+
+    public void setObstacles(ArrayList<Obstacle> obstacles) {
         this.obstacles = obstacles;
     }
     
@@ -195,18 +185,9 @@ public class Player {
             initializeMask(2),
             initializeMask(3)
         );
-        initializeSword();
-        initializeBow();
-    }
-    
-    private void initializeSword() throws SlickException {
+        
         sword = AnimationLibrary.PLAYER_SWORD_SLASH.getAnim();
         sword.stop();
-    }
-    
-    private void initializeBow() throws SlickException {
-        bow = ResourceLoader.initializeAnimation("player/attacks/bow_pull.png", ATTACK_SPEED * 6, 20);
-        bow.stop();
     }
     
     private AnimationMask initializeMask(int index) {
@@ -308,6 +289,9 @@ public class Player {
             sprite.getAnim(2).setCurrentFrame(1);
         }
         
+        x += dx;
+        y += dy;
+        /*
         for(int i=0;i<Math.abs(dx);i++) {
             if (Obstacle.testForCollision(x+(dx>0?1:-1),y,hitbox))
                 return;
@@ -319,6 +303,7 @@ public class Player {
                 return;
             y+=dy>0?1:-1;
         }
+        */
     }
     
     private void resolveCollision() {

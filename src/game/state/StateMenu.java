@@ -107,8 +107,6 @@ public class StateMenu extends BasicGameState implements ComponentListener {
             game.enterState(Game.STATE_SINGLEPLAYER);
         } else if (source==areas[AREA_MULTIPLAYER]) {
             game.enterState(Game.STATE_SERVER_SELECT);
-        } else if (source==areas[AREA_SERVER]) {
-            game.enterState(Game.STATE_SERVER);
         } else if (source==areas[3]) {
             //game.enterState(Game.STATE_OPTIONS);
         } 

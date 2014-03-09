@@ -1,6 +1,7 @@
 package game.environment;
 
 import game.enemy.Enemy;
+import game.map.Area;
 import game.player.Player;
 import game.sprite.Rectangle;
 import game.util.resource.AnimationLibrary;
@@ -10,7 +11,6 @@ import org.newdawn.slick.SlickException;
 
 public class Spikes extends Hazard {
     
-    protected Player player;
     protected int attackId = 0;
     protected boolean wasClosed = true;
     
@@ -28,6 +28,10 @@ public class Spikes extends Hazard {
         miniHeight = 6;
     }
     
+    public void update(GameContainer container, int delta, Area currentArea) {
+        resolveCollision();
+    }
+    
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException {
         sprite.draw(x,y,128,156);
@@ -39,8 +43,7 @@ public class Spikes extends Hazard {
         mask = new Rectangle(x,y,x+sprite.getImage(0).getWidth()*4,y+sprite.getImage(0).getHeight()*4);
         sprite.setDuration(0,1000);
     }
-  
-    @Override
+    
     protected void resolveCollision() {
         if (sprite.getFrame() == 0) {
             wasClosed = true;

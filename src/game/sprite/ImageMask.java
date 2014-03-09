@@ -44,7 +44,7 @@ public class ImageMask {
     public boolean intersects(Rectangle other, int ix, int iy) {
         if (other == null)
             return false;
-        return this.intersects(new ImageMask(other), ix, iy, other.getX1(), other.getY1());
+        return this.intersects(new ImageMask(other),ix,iy,other.getX1(),other.getY1());
     }
     
     public String toString(boolean[][] array) {

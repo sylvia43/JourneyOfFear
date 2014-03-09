@@ -1,6 +1,5 @@
 package game.enemy;
 
-import game.environment.Obstacle;
 import game.player.Player;
 import game.sprite.EntitySprite;
 import game.state.StateMultiplayer;
@@ -79,6 +78,10 @@ public class EnemyBlob extends Enemy {
         else if (spritePointer == 3)
             dy+=speed*delta;
         
+        x += dx;
+        y += dy;
+        
+        /*
         for(int i=0;i<Math.abs(dx);i++) {
             if (Obstacle.testForCollision(x+(dx>0?1:-1),y,getCollisionMask()))
                 return;
@@ -90,6 +93,7 @@ public class EnemyBlob extends Enemy {
                 return;
             y+=dy>0?1:-1;
         }
+        */
     }
     
     @Override
