@@ -56,11 +56,11 @@ Single Player:
     [x] Enemy.
     [x] Enemy attack.
     [x] Transition tiles.
+    [x] Add tile for trees.
+    [x] Add tile for rocks.
     [/] Potions
     [/] Cave floor and variations.
     [/] Enemies.
-    [/] Add tile for trees.
-    [/] Add tile for rocks.
     [/] Slime death animation for all types of slimes.
     [/] Different types of slimes.
     [/] Potion bottle full/empty.
