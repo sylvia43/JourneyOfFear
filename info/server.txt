@@ -5,3 +5,6 @@ Server
 Client
     Send: One Datagram.
     Recieve: One Datagram.
+
+Alternatively just use the same method as with TCP
+sockets (one thread per client) but with UDP.
