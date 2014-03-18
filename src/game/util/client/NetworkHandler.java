@@ -1,13 +1,15 @@
 package game.util.client;
 
+import game.enemy.EnemyPlayer;
 import game.player.Player;
+import game.util.server.DataPacket;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import org.newdawn.slick.Graphics;
+import java.util.ArrayList;
 
 public class NetworkHandler {
     
@@ -18,9 +20,10 @@ public class NetworkHandler {
     private volatile boolean running = true;
     private InetAddress ip;
     private int port = 0;
-    public Graphics g;
-
-    public NetworkHandler(String newIp, int newPort, Player localPlayer) {
+    private ArrayList<EnemyPlayer> enemies;
+    
+    public NetworkHandler(String newIp, int newPort, Player localPlayer, ArrayList<EnemyPlayer> newEnemies) {
+        this.enemies = newEnemies;
         try {
             this.ip = InetAddress.getByName(newIp);
         } catch (UnknownHostException e) {
@@ -42,9 +45,11 @@ public class NetworkHandler {
                 try {
                     byte[] data = new byte[8];
                     DatagramPacket p = new DatagramPacket(data,data.length);
+                    enemies.add(new EnemyPlayer());
                     while (running) {
                         socket.receive(p);
-                        
+                        enemies.get(0).x = DataPacket.get(data,DataPacket.X);
+                        enemies.get(0).y = DataPacket.get(data,DataPacket.Y);
                     }
                     socket.close();
                 } catch (IOException e) {
