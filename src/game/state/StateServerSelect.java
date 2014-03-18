@@ -40,9 +40,7 @@ public class StateServerSelect extends BasicGameState implements ComponentListen
         this.id = id;
     }
 
-    public void init(GameContainer container,StateBasedGame game) throws SlickException {
-        
-    }
+    public void init(GameContainer container,StateBasedGame game) throws SlickException { }
     
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
@@ -66,7 +64,7 @@ public class StateServerSelect extends BasicGameState implements ComponentListen
                 fieldPort.setFocus(true);
             }
         });
-        fieldIp.setText("224.0.0.1");
+        fieldIp.setText("127.0.0.1");
         
         fieldPort = new TextField(container,font,60,70,500,35,new ComponentListener() {
             @Override

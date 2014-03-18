@@ -22,12 +22,12 @@ public class Game extends StateBasedGame {
     
     public static final boolean DEBUG_MODE = false;
     public static final boolean DEBUG_COLLISION = false;
-    public static final boolean DEV_MODE = true; // Always true.
+    public static final boolean DEV_MODE = true;
     
     public Game() {
         super("Journey of Fear");
     }
-        
+    
     public static void main(String[] args) {
         try {
             AppGameContainer app = new AppGameContainer(new Game());

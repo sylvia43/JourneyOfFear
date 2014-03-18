@@ -1,7 +1,5 @@
 package game.util.server;
 
-import java.net.InetSocketAddress;
-import java.net.SocketAddress;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DataPacket {
@@ -12,41 +10,19 @@ public class DataPacket {
     public static final int Y = 4;
     
     private byte[] data;
-    private SocketAddress address;
     
     public static CopyOnWriteArrayList<EnemyPlayerData> players;
     
-    public DataPacket(byte[] data, InetSocketAddress address) {
-        if (data.length != MAX_SIZE)
-            return;
+    public DataPacket(byte[] data) {
         this.data = data;
-        this.address = address;
-        this.update(address);
     }
-
+    
     public DataPacket(EnemyPlayerData e) {
         data = new byte[MAX_SIZE];
         add(e.x,X);
         add(e.y,Y);
     }
-    
-    public void update(InetSocketAddress address) {
-        for (EnemyPlayerData e : players) {
-            if (e.address.equals(address)) {
-                e.x = this.get(X);
-                e.y = this.get(Y);
-                return;
-            }
-        }
         
-        EnemyPlayerData e = new EnemyPlayerData();
-        e.address = address;
-        e.x = this.get(X);
-        e.y = this.get(Y);
-        System.out.println("Created new enemy: " + e);
-        players.add(e);
-    }
-    
     public void add(int i, int pos) {
         data[pos] = (byte) (i >> 24);
         data[pos+1] = (byte) (i >> 16);
@@ -74,5 +50,11 @@ public class DataPacket {
     
     public byte[] getBytes() {
         return data;
+    }
+
+    public void update(EnemyPlayerData e, ClientID client) {
+        e.x = this.get(X);
+        e.y = this.get(Y);
+        e.client = client;
     }
 }

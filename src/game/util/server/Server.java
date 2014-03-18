@@ -3,26 +3,19 @@ package game.util.server;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Server {
+    
+    private int port;
+    private DatagramSocket socket;
+    private CopyOnWriteArrayList<EnemyPlayerData> players;
     
     public static void main(String[] args) {
         Server server = new Server(9999);
         server.start();
     }
-    
-    private static final String ip = "230.0.0.1";
-    
-    private int port;
-    private DatagramSocket server;
-    private InetAddress group = null;
-    
-    private CopyOnWriteArrayList<EnemyPlayerData> players;
     
     public Server(int port) {
         players = new CopyOnWriteArrayList<EnemyPlayerData>();
@@ -36,15 +29,9 @@ public class Server {
         ServerLogger.log("Creating Server.");
         
         try {
-            server = new DatagramSocket(port);
+            socket = new DatagramSocket(port);
         } catch (SocketException e) {
             System.out.println("Error creating socket: " + e);
-        }
-        
-        try {
-            group = InetAddress.getByName(ip);
-        } catch (UnknownHostException e) {
-            ServerLogger.log("Error forming group: " + e);
         }
         
         ServerLogger.log("Started server.");
@@ -53,38 +40,46 @@ public class Server {
             @Override
             public void run() {
                 byte[] bytes = new byte[DataPacket.MAX_SIZE];
-                DatagramPacket p = new DatagramPacket(bytes,bytes.length);
+                DatagramPacket recvPacket = new DatagramPacket(bytes,bytes.length);
+                DataPacket packet;
+                ClientID client;
+                boolean updated = false;
+                
                 while (true) {
+                    
+                    // prints data
+                    //for (EnemyPlayerData e : players) {
+                        //System.out.println(e.client.toString() + ": " + e.x + ", " + e.y);
+                    //}
+                    
                     try {
-                        System.out.println("Ready to receive.");
-                        server.receive(p);
-                        System.out.println("Got data.");
-                        new DataPacket(p.getData(),(InetSocketAddress)p.getSocketAddress());
+                        socket.receive(recvPacket);
                     } catch (IOException e) {
                         ServerLogger.log("Unable to recieve data: " + e);
                     }
+                    
+                    client = new ClientID(recvPacket.getAddress(),recvPacket.getPort());
+                    packet = new DataPacket(recvPacket.getData());
+                    
+                    updated = false;
+                    for (EnemyPlayerData e : players) {
+                        if (e.client.equals(client)) {
+                            packet.update(e,client);
+                            updated = true;
+                            break;
+                        }
+                    }
+                    
+                    if (updated)
+                        continue;
+                    
+                    players.add(new EnemyPlayerData(client,packet.get(DataPacket.X),packet.get(DataPacket.Y)));
+                    
+                    Runnable r = new ServerSendThread(players,socket,client);
+                    new Thread(r).start();
                 }
             }
         });
         receiveThread.start();
-        
-        Thread sendThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                byte[] data = new byte[DataPacket.MAX_SIZE];
-                while(true) {
-                    for (EnemyPlayerData e : players) {
-                        data = new DataPacket(e).getBytes();
-                        DatagramPacket packet = new DatagramPacket(data,data.length,group,port);
-                        try {
-                            server.send(packet);
-                        } catch (IOException ex) {
-                            ServerLogger.log("Failed to send data: " + ex);
-                        }
-                    }
-                }
-            }
-        });
-        sendThread.start();
     }
 }
