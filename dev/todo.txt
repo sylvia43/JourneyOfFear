@@ -33,6 +33,7 @@ Single Player:
     [/] Damage and death.
     [/] Menu state.
     [/] Tiles you can't walk into (Boulders, trees, holes in the ground, etc).
+    [ ] Blocking attacks (defence).
     [ ] Make the map render things in order of y position.
     [ ] Combo attacks.
     [ ] Make the map randomly generate.
@@ -58,7 +59,6 @@ Single Player:
     [x] Transition tiles.
     [x] Add tile for trees.
     [x] Add tile for rocks.
-    [/] Potions
     [/] Cave floor and variations.
     [/] Enemies.
     [/] Slime death animation for all types of slimes.
@@ -80,7 +80,6 @@ Single Player:
     [x] Blob sound effects.
     [x] Background music.
     [x] Hit sound effect.
-    [x] Get hit sound effect.
     [x] Bat sound effects.
     [x] Lots of music.
     [x] Unelectric sound effects.
@@ -91,6 +90,7 @@ Single Player:
     [/] Bow pull sounds.
     [/] Bow shoot sounds.
     [/] Player death sound.
+    [/] Better loop-ability in music.
     [ ] Send Chad's music to Shreyas
 
 Multi Player:
