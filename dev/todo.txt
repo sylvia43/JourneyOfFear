@@ -93,17 +93,13 @@ Single Player:
     [/] Better loop-ability in music.
     [ ] Send Chad's music to Shreyas
 
-Multi Player:
-  [x] Copy SlickGame.
-
-  [/] Server.
-  [/] DataPacket.
-  [/] Enemy players.
-  [/] Multiplayer.
-  [/] Create DataPacket class.
-  [/] Server select screen.
-  
-  [ ] Test it.
-  [ ] Make it work.
-  [ ] Potions.
-  [ ] Bosses.
+  Multiplayer:
+    [x] Sending of data.
+    [ ] Elimination of duplicates.
+    [ ] Disconnect handling.
+    [ ] Complete sending of player data.
+    [ ] Full interaction over server.
+	[ ] Scorekeeping.
+    [ ] Sending of all data (world and score).
+    [ ] Bosses.
+	[ ] Host it!
