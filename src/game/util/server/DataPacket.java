@@ -4,10 +4,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DataPacket {
 
-    public static final int MAX_SIZE = 8;
+    public static final int MAX_SIZE = 16;
     
-    public static final int X = 0;
-    public static final int Y = 4;
+    public static final int CLIENT_ID = 0;
+    public static final int PORT = 4;
+    public static final int X = 8;
+    public static final int Y = 12;
     
     private byte[] data;
     
@@ -17,8 +19,15 @@ public class DataPacket {
         this.data = data;
     }
     
+    // Called by server send thread.
     public DataPacket(EnemyPlayerData e) {
         data = new byte[MAX_SIZE];
+        byte[] ip = e.client.ip.getAddress();
+        add(ip[0],CLIENT_ID);
+        add(ip[1],CLIENT_ID+1);
+        add(ip[2],CLIENT_ID+2);
+        add(ip[3],CLIENT_ID+3);
+        add(e.client.port,PORT);
         add(e.x,X);
         add(e.y,Y);
     }
@@ -48,10 +57,25 @@ public class DataPacket {
         return ret;
     }
     
+    public static void add(byte[] arr, int i, int pos) {
+        arr[pos] = (byte) (i >> 24);
+        arr[pos+1] = (byte) (i >> 16);
+        arr[pos+2] = (byte) (i >> 8);
+        arr[pos+3] = (byte) (i);
+    }
+    
     public byte[] getBytes() {
         return data;
     }
-
+    
+    public ClientID getClient() {
+        return new ClientID(
+                get(CLIENT_ID) + "." +
+                get(CLIENT_ID+1) + "." +
+                get(CLIENT_ID+2) + "." +
+                get(CLIENT_ID+3),get(PORT));
+    }
+    
     public void update(EnemyPlayerData e, ClientID client) {
         e.x = this.get(X);
         e.y = this.get(Y);

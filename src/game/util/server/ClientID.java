@@ -1,6 +1,7 @@
 package game.util.server;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Objects;
 
 public class ClientID {
@@ -10,6 +11,15 @@ public class ClientID {
     
     public ClientID(InetAddress ip, int port) {
         this.ip = ip;
+        this.port = port;
+    }
+    
+    public ClientID(String ip, int port) {
+        try {
+            this.ip = InetAddress.getByName(ip);
+        } catch (UnknownHostException e) {
+            System.out.println(e);
+        }
         this.port = port;
     }
     

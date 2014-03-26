@@ -48,14 +48,21 @@ public class Server {
                 while (true) {
                     
                     // prints data
-                    //for (EnemyPlayerData e : players) {
-                        //System.out.println(e.client.toString() + ": " + e.x + ", " + e.y);
-                    //}
+                    /*
+                    for (EnemyPlayerData e : players) {
+                        System.out.println(e.client.toString() + ": " + e.x + ", " + e.y);
+                    }
+                    */
                     
                     try {
                         socket.receive(recvPacket);
                     } catch (IOException e) {
                         ServerLogger.log("Unable to recieve data: " + e);
+                    }
+                    
+                    if (recvPacket.getLength() == 0) {
+                        System.out.println("New client!");
+                        continue;
                     }
                     
                     client = new ClientID(recvPacket.getAddress(),recvPacket.getPort());

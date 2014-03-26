@@ -2,6 +2,7 @@ package game.util.client;
 
 import game.enemy.EnemyPlayer;
 import game.player.Player;
+import game.util.server.ClientID;
 import game.util.server.DataPacket;
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -22,6 +23,8 @@ public class NetworkHandler {
     private int port = 0;
     private ArrayList<EnemyPlayer> enemies;
     
+    private ClientID myClientID;
+    
     public NetworkHandler(String newIp, int newPort, Player localPlayer, ArrayList<EnemyPlayer> newEnemies) {
         this.enemies = newEnemies;
         try {
@@ -39,17 +42,45 @@ public class NetworkHandler {
             System.out.println("Fatal Error: " + e);
         }
         
+        try {
+            socket.send(new DatagramPacket(new byte[]{},0,ip,port));
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
+        }
+        
+        myClientID = new ClientID(socket.getInetAddress(),socket.getLocalPort());
+        
         get = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    byte[] data = new byte[8];
-                    DatagramPacket p = new DatagramPacket(data,data.length);
-                    enemies.add(new EnemyPlayer());
+                    byte[] data = new byte[DataPacket.MAX_SIZE];
+                    DatagramPacket packet = new DatagramPacket(data,data.length);
+                    
                     while (running) {
-                        socket.receive(p);
-                        enemies.get(0).x = DataPacket.get(data,DataPacket.X);
-                        enemies.get(0).y = DataPacket.get(data,DataPacket.Y);
+                        socket.receive(packet);
+                        DataPacket p = new DataPacket(data);
+                        
+                        System.out.println(p.getClient() + " " + myClientID);
+                        
+                        if (p.getClient().equals(myClientID))
+                            continue;
+                        
+                        boolean updated = false;
+                        
+                        for (EnemyPlayer e : enemies) {
+                            if (p.getClient().equals(e.client)) {
+                                e.x = p.get(DataPacket.X);
+                                e.y = p.get(DataPacket.Y);
+                                updated = true;
+                                break;
+                            }
+                        }
+                        
+                        if (updated)
+                            continue;
+                        
+                        enemies.add(new EnemyPlayer(p.get(DataPacket.X),p.get(DataPacket.Y),p.getClient()));
                     }
                     socket.close();
                 } catch (IOException e) {
@@ -66,9 +97,9 @@ public class NetworkHandler {
             @Override
             public void run() {
                 try {
-                    byte[] data = new byte[8];
+                    byte[] data = new byte[DataPacket.MAX_SIZE];
                     while (running) {
-                        data = player.getBytes();
+                        data = player.getBytes(myClientID);
                         DatagramPacket packet = new DatagramPacket(data,data.length,ip,port);
                         socket.send(packet);
                     }

@@ -12,6 +12,9 @@ import game.util.resource.AnimationLibrary;
 import game.util.resource.ImageLibrary;
 import game.util.resource.SoundLibrary;
 import game.util.resource.SoundPlayer;
+import game.util.server.ClientID;
+import game.util.server.DataPacket;
+import game.util.server.EnemyPlayerData;
 import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -94,18 +97,9 @@ public class Player {
         return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
     }
     
-    public byte[] getBytes() {
-        byte[] data = new byte[8];
-        addByte(data,x,0);
-        addByte(data,y,4);
-        return data;
-    }
-    
-    public void addByte(byte[] arr, int i, int pos) {
-        arr[pos] = (byte) (i >> 24);
-        arr[pos+1] = (byte) (i >> 16);
-        arr[pos+2] = (byte) (i >> 8);
-        arr[pos+3] = (byte) (i);
+    public byte[] getBytes(ClientID id) {
+        DataPacket packet = new DataPacket(new EnemyPlayerData(id,x,y));
+        return packet.getBytes();
     }
     
     public void setX(int x) { this.x = x; }
