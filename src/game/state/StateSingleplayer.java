@@ -50,7 +50,8 @@ public class StateSingleplayer extends BasicGameState {
         }
         setupArea(container,player);
         soundtrack.init();
-        renderer = new Renderer(currentArea,player,container);
+        renderer = new Renderer(currentArea,player,container,
+                VIEW_SIZE_X,VIEW_SIZE_Y,WORLD_SIZE_X,WORLD_SIZE_Y);
     }
     
     @Override
