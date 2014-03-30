@@ -42,7 +42,7 @@ public class Player {
     private int camY;
     private int delta;
     
-    private int MAX_HEALTH = 10;
+    private static final int MAX_HEALTH = 10;
     private int currentHealth = MAX_HEALTH;
     
     private static Image emptyHeart = null;
@@ -52,8 +52,8 @@ public class Player {
     private ArrayList<Enemy> enemies;
     private ArrayList<Obstacle> obstacles;
     
-    private final int ATTACK_SPEED = 10;
-    private final int SWORD_DELAY = 400;
+    private static final int ATTACK_SPEED = 10;
+    private static final int SWORD_DELAY = 400;
     
     private int direction;
     
@@ -71,13 +71,13 @@ public class Player {
     private int stunTimer;
     private int knockbackDX;
     private int knockbackDY;
-    private final int DAMAGE_BLINK_TIME = 200;
-    private final int KNOCKBACK_DISTANCE = 200;
-    private final int STUN_DURATION = 400;
+    private static final int DAMAGE_BLINK_TIME = 200;
+    private static final int KNOCKBACK_DISTANCE = 200;
+    private static final int STUN_DURATION = 400;
     
     //How slippery knockback is. Less means more slide.
-    private final int KNOCKBACK_MULTIPLIER = 30;
-    private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*3;
+    private static final int KNOCKBACK_MULTIPLIER = 30;
+    private static final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*3;
     
     public int getX() { return x; }
     public int getY() { return y; }
