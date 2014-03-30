@@ -20,14 +20,12 @@ public class Server {
     
     public Server(int port) {
         players = new CopyOnWriteArrayList<EnemyPlayerData>();
-        ServerLogger.log("Set port.");
+        System.out.println("Set port.");
         this.port = port;
     }
     
-    public void start() {
-        DataPacket.players = players;
-        
-        ServerLogger.log("Creating Server.");
+    public void start() {        
+        System.out.println("Creating Server.");
         
         try {
             socket = new DatagramSocket(port);
@@ -35,7 +33,7 @@ public class Server {
             System.out.println("Error creating socket: " + e);
         }
         
-        ServerLogger.log("Started server.");
+        System.out.println("Started server.");
         
         Thread receiveThread = new Thread(new Runnable() {
             @Override
@@ -47,18 +45,10 @@ public class Server {
                 boolean updated = false;
                 
                 while (true) {
-                    
-                    // prints data
-                    /*
-                    for (EnemyPlayerData e : players) {
-                        System.out.println(e.client.toString() + ": " + e.x + ", " + e.y);
-                    }
-                    */
-                    
                     try {
                         socket.receive(recvPacket);
                     } catch (IOException e) {
-                        ServerLogger.log("Unable to recieve data: " + e);
+                        System.out.println("Unable to recieve data: " + e);
                     }
                                         
                     if (recvPacket.getLength() == 0) {
@@ -90,7 +80,7 @@ public class Server {
                     
                     players.add(new EnemyPlayerData(clientId,packet.get(DataPacket.X),packet.get(DataPacket.Y)));
                     
-                    Runnable r = new ServerSendThread(players,socket,clientId,recvPacket.getAddress(),recvPacket.getPort());
+                    Runnable r = new ServerSendThread(players,socket,recvPacket.getAddress(),recvPacket.getPort());
                     new Thread(r).start();
                 }
             }

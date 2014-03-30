@@ -10,15 +10,13 @@ public class ServerSendThread implements Runnable {
     
     private CopyOnWriteArrayList<EnemyPlayerData> players;
     private DatagramSocket socket;    
-    private int client;
     private InetAddress destIp;
     private int destPort;
     
     public ServerSendThread(CopyOnWriteArrayList<EnemyPlayerData> players,
-            DatagramSocket socket, int client, InetAddress destIp, int destPort) {
+            DatagramSocket socket, InetAddress destIp, int destPort) {
         this.players = players;
         this.socket = socket;
-        this.client = client;
         this.destIp = destIp;
         this.destPort = destPort;
     }
@@ -33,7 +31,7 @@ public class ServerSendThread implements Runnable {
                 try {
                     socket.send(packet);
                 } catch (IOException ex) {
-                    ServerLogger.log("Failed to send data: " + ex);
+                    System.out.println("Failed to send data: " + ex);
                 }
             }
         }

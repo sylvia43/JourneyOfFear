@@ -1,7 +1,5 @@
 package game.util.server;
 
-import java.util.concurrent.CopyOnWriteArrayList;
-
 public class DataPacket {
 
     public static final int MAX_SIZE = 12;
@@ -11,9 +9,7 @@ public class DataPacket {
     public static final int Y = 8;
     
     private byte[] data;
-    
-    public static CopyOnWriteArrayList<EnemyPlayerData> players;
-    
+        
     public DataPacket(byte[] data) {
         this.data = data;
     }
