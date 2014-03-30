@@ -1,4 +1,4 @@
-package game.util.server;
+package game.network.server;
 
 public class EnemyPlayerData {
     

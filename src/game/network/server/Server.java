@@ -1,4 +1,4 @@
-package game.util.server;
+package game.network.server;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

@@ -1,8 +1,8 @@
-package game.util.client;
+package game.network.client;
 
 import game.enemy.EnemyPlayer;
 import game.player.Player;
-import game.util.server.DataPacket;
+import game.network.server.DataPacket;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;

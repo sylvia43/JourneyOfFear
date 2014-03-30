@@ -1,7 +1,7 @@
 package game.state;
 
 import game.enemy.EnemyPlayer;
-import game.util.client.NetworkHandler;
+import game.network.client.NetworkHandler;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
