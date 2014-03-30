@@ -34,6 +34,7 @@ public class StateMultiplayer extends StateSingleplayer {
         super.enter(container,game);
         enemies = new ArrayList<EnemyPlayer>();
         network = new NetworkHandler(ip,port,player,enemies);
+        network.start();
     }
     
     @Override

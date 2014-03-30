@@ -37,9 +37,7 @@ public class Obstacle implements Comparator {
     public int getMiniHeight() { return miniHeight; }
     public Color getColor() { return minimapColor; }
     
-    public Rectangle getCollisionMask() {
-        return mask;
-    }
+    public Rectangle getCollisionMask() { return mask; }
     
     public Obstacle() {
         minimapColor = Color.red;
@@ -59,7 +57,7 @@ public class Obstacle implements Comparator {
     
     public void setX(int x) { this.x = x; }
     public void setY(int y) { this.y = y; }
-   
+    
     protected void initializeSprite() throws SlickException { }
     
     protected Rectangle createMask() {
@@ -78,6 +76,11 @@ public class Obstacle implements Comparator {
 
     @Override
     public int compare(Object c1, Object c2) {
+        if (c1 == null || c2==null)
+            return 0;
+        if (!(c1 instanceof Obstacle) || !(c2 instanceof Obstacle))
+            return 0;
+        
         Obstacle o1 = (Obstacle) c1;
         Obstacle o2 = (Obstacle) c2;
         

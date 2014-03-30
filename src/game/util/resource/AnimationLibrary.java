@@ -16,6 +16,8 @@ public enum AnimationLibrary {
     PLAYER_LEFT(ImageLibrary.PLAYER_LEFT,166,16,16),
     PLAYER_DOWN(ImageLibrary.PLAYER_DOWN,166,16,16),
     
+    ENEMY_PLAYER_PLACEHOLDER(ImageLibrary.TEST,166,16,16),
+    
     // Player attack sprites.
     PLAYER_SWORD_SLASH(ImageLibrary.PLAYER_SWORD_SLASH,20,48,48),
     
@@ -51,8 +53,14 @@ public enum AnimationLibrary {
     }
     
     public Animation getAnim() throws SlickException {
-        if (anim == null)
-            anim = ResourceLoader.initializeAnimation(image.getImage(),speed,width,height);
+        if (anim == null) {
+            try {
+                anim = ResourceLoader.initializeAnimation(image.getImage(),speed,width,height);
+            } catch (SlickException e) {
+                System.out.println("Error loading resources! " + e);
+                throw new RuntimeException("Error loading resources! " + e);
+            }
+        }
         return anim.copy();  
     }
 }

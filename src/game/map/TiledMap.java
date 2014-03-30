@@ -4,18 +4,16 @@ public class TiledMap {
     
     private Tile[][] map;
     
-    public Tile getTile(int x, int y) { return map[x][y]; }
+    public Tile getTile(int x, int y) {
+        if (x<0 || y<0 || x>map.length || y>map[x].length)
+            return null;
+        return map[x][y];
+    }
     
-    /**
-     * By default, this constructor doesn't do anything.
-     */
     public TiledMap(int width, int height) {
         map = new Tile[width][height];
     }
     
-    /**
-     * Fills map with grass and grass variants.
-     */
     public void fillStandardGrass() {
         fill(Tile.GRASS_BASIC);
         randomize(Tile.GRASS_VARIANT,0.2);

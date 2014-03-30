@@ -20,13 +20,10 @@ import org.newdawn.slick.SlickException;
 public class Area {
     
     private TiledMap map;
-    private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
+    private ArrayList<Enemy> enemies;
+    private ArrayList<Obstacle> obstacles;
     
-    private Area left;
-    private Area right;
-    private Area up;
-    private Area down;
+    private Area[] adjacent;
     
     private final int width;
     private final int height;
@@ -39,8 +36,13 @@ public class Area {
     public ArrayList<Obstacle> getObstacles() { return obstacles; }
     public int getWidth() { return width; }
     public int getHeight() { return height; }
-        
+    
+    // Move adding of creatues out of here; need a factory.
     public Area(int width, int height, GameContainer container, Player player) {
+        this.adjacent = new Area[4];
+        this.enemies = new ArrayList<Enemy>();
+        this.obstacles = new ArrayList<Obstacle>();
+        
         this.player = player;
         this.container = container;
         this.width = width;
@@ -68,12 +70,12 @@ public class Area {
         }
          try {
             addObstacle(new Tree(player, 1200,1200)).init(container);           
-            
         } catch (SlickException e) { 
             System.out.println("Error initializing hazard: " + e);
-       }
+        }
     }
     
+    // Returns enemy added for chaining.
     public Enemy addEnemy(Enemy e) {
         enemies.add(e);
         return e;
@@ -82,8 +84,7 @@ public class Area {
     public Enemy addEnemy(Enemy e, int x, int y) {
         e.setX(x);
         e.setY(y);
-        enemies.add(e);
-        return e;
+        return addEnemy(e);
     }
     
     public Obstacle addObstacle(Obstacle o) {
@@ -91,51 +92,17 @@ public class Area {
         return o;
     }
     
-    public void setLeft(Area area) {
-        left = area;
+    public void setAdjacent(Area area, int index) {
+        adjacent[index] = area;
     }
     
-    public Area getLeft() {
-        if (left!=null)
-            return left;
-        left = new Area(width,height,container,player);
-        left.setRight(this);
-        return left;
+    public Area getAdjacent(int index) {
+        Area adjacentArea = adjacent[index];
+        if (adjacentArea != null)
+            return adjacentArea;
+        adjacentArea = new Area(width,height,container,player);
+        adjacentArea.setAdjacent(this,(index+2)%4);
+        adjacent[index] = adjacentArea;
+        return adjacentArea;
     }
-
-    public void setRight(Area area) { right = area; }
-    
-    public Area getRight() {
-        if (right!=null)
-            return right;
-        right = new Area(width,height,container,player);
-        right.setLeft(this);
-        return right;
-    }
-    
-    public void setUp(Area area) {
-        up = area;
-    }
-    
-    public Area getUp() {
-        if (up!=null)
-            return up;
-        up = new Area(width,height,container,player);
-        up.setDown(this);
-        return up;
-    }
-
-    public void setDown(Area area) {
-        down = area;
-    }
-    
-    public Area getDown() {
-        if (down!=null)
-            return down;
-        down = new Area(width,height,container,player);
-        down.setUp(this);
-        return down;
-    }
-
-    
 }

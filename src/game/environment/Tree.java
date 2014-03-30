@@ -1,6 +1,5 @@
 package game.environment;
 
-import game.enemy.Enemy;
 import game.player.Player;
 import game.sprite.Rectangle;
 import game.util.resource.AnimationLibrary;
@@ -10,9 +9,6 @@ import org.newdawn.slick.SlickException;
 
 public class Tree extends Obstacle {
     
-    protected int attackId = 0;
-    protected boolean wasClosed = true;
-
     public Tree(Player player) throws SlickException {
         super();
         this.player = player;
@@ -41,20 +37,6 @@ public class Tree extends Obstacle {
     }
     
     protected void resolveCollision() {
-        if (sprite.getFrame() == 0) {
-            wasClosed = true;
-            return;
-        }
-        if (wasClosed) {
-            wasClosed = false;
-            attackId++;
-        }
-        if (mask.intersects(player.getCollisionMask(),player.getX(),player.getY()))
-            player.resolveHit(x+32,y+32,2);
-        for (Enemy e : enemies) {
-            if (mask.intersects(e.getCollisionMask(),e.getX(),e.getY())) {
-                e.resolveHit(x,y,attackId,2);
-            }
-        }
+        
     }
 }

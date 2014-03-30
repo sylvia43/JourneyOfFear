@@ -14,7 +14,6 @@ import org.newdawn.slick.SlickException;
 public class Enemy {
     
     protected EntitySprite sprite;
-    public EntitySprite getSprite() { return sprite; }
     protected String spritepath;
     protected int spritePointer;
     protected int animationSpeed;
@@ -28,7 +27,7 @@ public class Enemy {
     
     protected int health;
     
-    protected int lastAttackId=-1;
+    protected int lastAttackId = -1;
 
     protected Player player;
     
@@ -41,6 +40,7 @@ public class Enemy {
     public int getY() { return y; }
     public Color getColor() { return minimapColor; }
     public boolean readyToDie() { return readyToDie; }
+    public EntitySprite getSprite() { return sprite; }
     
     public ImageMask getCollisionMask() {
         return sprite.getAnimationMask(spritePointer)
@@ -116,12 +116,13 @@ public class Enemy {
     
     //Other methods. These can be overriden if necessary.
     protected void initializeMask() throws SlickException {
-        sprite.setMasks(
-                createMask(0),
-                createMask(1),
-                createMask(2),
-                createMask(3)
-        );
+        AnimationMask[] animMaskList = {
+            createMask(0),
+            createMask(1),
+            createMask(2),
+            createMask(3)
+        };
+        sprite.setMasks(animMaskList);
     }
     
     protected AnimationMask createMask(int index) {

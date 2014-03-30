@@ -55,8 +55,8 @@ public class EnemySmartBlob extends Enemy {
     public EnemySmartBlob(Player player) {
         super(player);
         this.spritepath = "blobredsir";
-        this.x=500;
-        this.y=500;
+        this.x = 500;
+        this.y = 500;
         this.speed = 0.125;
         this.animationSpeed = 332;
         this.health = 10;
@@ -98,9 +98,8 @@ public class EnemySmartBlob extends Enemy {
         if (attackTimer<500)
             attackTimer+=delta;
         attackDelay-=delta;
-        if (attackTimer > ATTACK_SPEED*6+160) {
+        if (attackTimer > ATTACK_SPEED*6+160)
             attacking = false;
-        }
         resolveAttackCollision();
     }
     
@@ -128,11 +127,12 @@ public class EnemySmartBlob extends Enemy {
             y+=(knockbackDY*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER);
             return;
         }
-        if (dirChangeCounter<DIR_SWITCH_SPEED) {
+        
+        if (dirChangeCounter<DIR_SWITCH_SPEED)
             dirChangeCounter += (int) (2*delta*Math.random());
-        } else {
+        else
             updateSpritePointer(delta);
-        }
+        
         sprite.getAnim(spritePointer).start();
         
         int dx = 0;
@@ -206,9 +206,8 @@ public class EnemySmartBlob extends Enemy {
     
     @Override
     protected void renderAttack() {
-        if (attacking) {
+        if (attacking)
             attack.draw(x-64,y-64,192,192);
-        }
     }
     
     @Override

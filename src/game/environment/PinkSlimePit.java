@@ -10,9 +10,6 @@ import org.newdawn.slick.SlickException;
 
 public class PinkSlimePit extends Hazard {
     
-    protected int attackId = 0;
-    protected boolean wasClosed = true;
-
     public PinkSlimePit(Player player) {
         super();
         this.player = player;

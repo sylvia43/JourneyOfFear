@@ -169,19 +169,22 @@ public class Player {
     
     private void initializeSprite() throws SlickException {
         sprite = new EntitySprite(4);
+        
         Animation[] animList = {
             AnimationLibrary.PLAYER_RIGHT.getAnim(),
             AnimationLibrary.PLAYER_UP.getAnim(),
             AnimationLibrary.PLAYER_LEFT.getAnim(),
-            AnimationLibrary.PLAYER_DOWN.getAnim(),
+            AnimationLibrary.PLAYER_DOWN.getAnim()
         };
         sprite.setAnimations(animList);
-        sprite.setMasks(
+        
+        AnimationMask[] animMaskList = {
             initializeMask(0),
             initializeMask(1),
             initializeMask(2),
             initializeMask(3)
-        );
+        };
+        sprite.setMasks(animMaskList);
         
         sword = AnimationLibrary.PLAYER_SWORD_SLASH.getAnim();
         sword.stop();
@@ -404,7 +407,7 @@ public class Player {
     
     private void renderDebugInfo(Graphics g) {
         g.setColor(Color.white);
-        g.drawString("delat: " + String.valueOf(delta),10+camX,24+camY);
+        g.drawString("delta: " + String.valueOf(delta),10+camX,24+camY);
         g.drawString("x: " + String.valueOf(x),10+camX,38+camY);
         g.drawString("y: " + String.valueOf(y),10+camX,52+camY);
         g.drawString(attacking?"Attacking":"Not attacking",10+camX,66+camY);

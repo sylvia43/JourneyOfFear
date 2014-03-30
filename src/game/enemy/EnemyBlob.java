@@ -25,12 +25,12 @@ public class EnemyBlob extends Enemy {
 
     public EnemyBlob(Player player) {
         super(player);
-        this.x=(int)(Math.random()*StateMultiplayer.WORLD_SIZE_X);
-        this.y=(int)(Math.random()*StateMultiplayer.WORLD_SIZE_Y);
+        this.x = (int)(Math.random()*StateMultiplayer.WORLD_SIZE_X);
+        this.y = (int)(Math.random()*StateMultiplayer.WORLD_SIZE_Y);
         this.speed = 0.0625;
         this.animationSpeed = 332;
         this.health = 5;
-        this.minimapColor = new Color(255, 128, 128);
+        this.minimapColor = new Color(255,128,128);
     }
     
     @Override

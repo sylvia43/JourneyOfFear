@@ -2,9 +2,9 @@ package game.map;
 
 import game.util.resource.ImageLibrary;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 
 public enum Tile {
+    
     TEST(ImageLibrary.TEST,true),
     GRASS_BASIC(ImageLibrary.GRASS_BASIC,true),
     GRASS_VARIANT(ImageLibrary.GRASS_VARIANT,true),
@@ -18,18 +18,14 @@ public enum Tile {
     COBBLE_VARIANT2(ImageLibrary.COBBLE_VARIANT2,true),
     COBBLE_ACCENT_GRASS(ImageLibrary.COBBLE_ACCENT_GRASS,true);
     
-    private Image image;
+    private ImageLibrary image;
     private boolean passable;
     
-    public Image image() { return image; }
     public boolean isPassable() { return passable; }
+    public Image image() { return image.getImage(); }
     
     Tile(ImageLibrary image, boolean passable) {
         this.passable = passable;
-        try {
-            this.image = image.getImage();
-        } catch (SlickException e) {
-            System.out.println("Error loading tile: " + e);
-        }
+        this.image = image;
     }
 }

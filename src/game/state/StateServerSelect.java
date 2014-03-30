@@ -101,8 +101,8 @@ public class StateServerSelect extends BasicGameState implements ComponentListen
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        if (game.getCurrentState().getID() != id) {
-        }
+        if (game.getCurrentState().getID() != id)
+            return;
     }
     
     @Override
@@ -113,17 +113,20 @@ public class StateServerSelect extends BasicGameState implements ComponentListen
     
     @Override
     public void componentActivated(AbstractComponent source) {
-        if (source==startButton) {
+        if (source == startButton)
             start();
-        }
     }
     
     public void start() {
         ip = fieldIp.getText();
         port = fieldPort.getText();
-        System.out.println(ip + ":" + port);
         StateMultiplayer.ip = ip;
-        StateMultiplayer.port = Integer.valueOf(port);
+        try {
+            StateMultiplayer.port = Integer.valueOf(port);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid port!");
+            return;
+        }
         game.enterState(Game.STATE_MULTIPLAYER);
     }
 

@@ -34,17 +34,19 @@ public class NetworkHandler {
         }
         this.port = newPort;
         this.player = localPlayer;
-        
+    }
+    
+    public void start() {
         try {
-            socket = new DatagramSocket(); // Created at any open port.
+            socket = new DatagramSocket();
         } catch (SocketException e) {
-            System.out.println("Fatal Error: " + e);
+            System.out.println("Error creating socket: " + e);
         }
         
         try {
             socket.send(new DatagramPacket(new byte[]{},0,ip,port));
         } catch (IOException e) {
-            System.out.println("Error: " + e);
+            System.out.println("Error sending handshake data: " + e);
         }
         
         byte[] bytes = new byte[4];
@@ -53,34 +55,32 @@ public class NetworkHandler {
         try {
             socket.receive(recvPacket);
         } catch (IOException e) {
-            System.out.println("Error: " + e);
+            System.out.println("Error recieving handshake data: " + e);
         }
         
-        DataPacket p = new DataPacket(recvPacket.getData());
-        myClientID = p.getClient();
+        DataPacket tempPacket = new DataPacket(recvPacket.getData());
+        myClientID = tempPacket.getClient();
         
         get = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    byte[] data = new byte[DataPacket.MAX_SIZE];
-                    DatagramPacket packet = new DatagramPacket(data,data.length);
+                    byte[] recvData = new byte[DataPacket.MAX_SIZE];
+                    DatagramPacket recvPacket = new DatagramPacket(recvData,recvData.length);
                     
                     while (running) {
-                        socket.receive(packet);
-                        DataPacket p = new DataPacket(data);
-                                                
-                        //System.out.println(p.getClient() + " " + myClientID);
+                        socket.receive(recvPacket);
+                        DataPacket recvDataPacket = new DataPacket(recvData);
                         
-                        if (p.getClient() == myClientID)
+                        if (recvDataPacket.getClient() == myClientID)
                             continue;
                         
                         boolean updated = false;
                         
                         for (EnemyPlayer e : enemies) {
-                            if (p.getClient() == e.client) {
-                                e.x = p.get(DataPacket.X);
-                                e.y = p.get(DataPacket.Y);
+                            if (recvDataPacket.getClient() == e.client) {
+                                e.x = recvDataPacket.get(DataPacket.X);
+                                e.y = recvDataPacket.get(DataPacket.Y);
                                 updated = true;
                                 break;
                             }
@@ -89,7 +89,7 @@ public class NetworkHandler {
                         if (updated)
                             continue;
                         
-                        enemies.add(new EnemyPlayer(p.get(DataPacket.X),p.get(DataPacket.Y),p.getClient()));
+                        enemies.add(new EnemyPlayer(recvDataPacket.get(DataPacket.X),recvDataPacket.get(DataPacket.Y),recvDataPacket.getClient()));
                     }
                     socket.close();
                 } catch (IOException e) {
@@ -106,11 +106,11 @@ public class NetworkHandler {
             @Override
             public void run() {
                 try {
-                    byte[] data = new byte[DataPacket.MAX_SIZE];
+                    byte[] sendData = new byte[DataPacket.MAX_SIZE];
                     while (running) {
-                        data = player.getBytes(myClientID);
-                        DatagramPacket packet = new DatagramPacket(data,data.length,ip,port);
-                        socket.send(packet);
+                        sendData = player.getBytes(myClientID);
+                        DatagramPacket sendPacket = new DatagramPacket(sendData,sendData.length,ip,port);
+                        socket.send(sendPacket);
                     }
                     socket.close();
                 } catch (IOException e) {

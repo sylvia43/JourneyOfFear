@@ -3,11 +3,6 @@ package game.util.resource;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-/** 
- * This class exists to prevent multiple objects from creating duplicate images,
- * the heap; that's just a waste of memory. Put all resources here so to avoid
- * duplicates in the heap, and make things simpler (except this class).
- */
 public enum ImageLibrary {
     
     // Player sprites.
@@ -63,9 +58,15 @@ public enum ImageLibrary {
         this.filepath = filepath;
     }
     
-    public Image getImage() throws SlickException {
-        if (image == null)
-            image = ResourceLoader.initializeImage(filepath);
+    public Image getImage() {
+        if (image == null) {
+            try {
+                image = ResourceLoader.initializeImage(filepath);
+            } catch (SlickException e) {
+                System.out.println("Error loading resources! " + e);
+                throw new RuntimeException("Error loading resources! " + e);
+            }
+        }
         return image.copy();
     }
 }

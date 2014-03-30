@@ -7,8 +7,7 @@ Key:
   x - Done
   / - Partial
   . - Incomplete
-
-Single Player:
+  
   Code:
     [x] Install Slick2D.
     [x] Make a window that can be drawn on.
@@ -33,6 +32,8 @@ Single Player:
     [/] Damage and death.
     [/] Menu state.
     [/] Tiles you can't walk into (Boulders, trees, holes in the ground, etc).
+	[ ] MUCH better error handling.
+	[ ] Add debug mode things for obstacles (Brennan).
     [ ] Blocking attacks (defence).
     [ ] Make the map render things in order of y position.
     [ ] Combo attacks.
@@ -84,9 +85,9 @@ Single Player:
     [x] Lots of music.
     [x] Unelectric sound effects.
     [x] Boss themes.
-    [x] Zip all stuff and send it to Shreyas.
-    [x] Magic sounds.
-    [x] Try for some mellow music w/ NESVST
+    [/] Zip all stuff and send it to Shreyas.
+    [/] Magic sounds.
+    [/] Try for some mellow music w/ NESVST
     [/] Bow pull sounds.
     [/] Bow shoot sounds.
     [/] Player death sound.
@@ -95,11 +96,17 @@ Single Player:
 
   Multiplayer:
     [x] Sending of data.
-    [ ] Elimination of duplicates.
+    [x] Elimination of duplicates.
     [ ] Disconnect handling.
+	[ ] Make handshake TCP.
+	[ ] Better error handling.
     [ ] Complete sending of player data.
     [ ] Full interaction over server.
 	[ ] Scorekeeping.
     [ ] Sending of all data (world and score).
     [ ] Bosses.
 	[ ] Host it!
+  
+  Other:
+    [ ] Make a Snake Squared website.
+	[ ] Make a Journey of Fear webpage.

@@ -18,11 +18,11 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class StateMenu extends BasicGameState implements ComponentListener {
 
-    private Image buttonSP;
-    private Image buttonMP;
-    private Image buttonSH;
-    private Image buttonOP;
-            
+    private Image buttonSingle; // buttonForeverAlone
+    private Image buttonMulti; // buttonIHaveFriends
+    private Image buttonServer; // buttonDoesntDoAnything
+    private Image buttonOption; // buttonThisGameIsPerfect
+    
     private MouseOverArea[] areas = new MouseOverArea[4];
     private Image background;
     private UnicodeFont font;
@@ -59,19 +59,19 @@ public class StateMenu extends BasicGameState implements ComponentListener {
         }
         
         try {
-            buttonSP = new Image("resources/art/menu/Singleplayer.png");
-            buttonMP = new Image("resources/art/menu/Multiplayer.png");
-            buttonSH = new Image("resources/art/menu/ServerHost.png");
-            buttonOP = new Image("resources/art/menu/Options.png");
+            buttonSingle = new Image("resources/art/menu/Singleplayer.png");
+            buttonMulti = new Image("resources/art/menu/Multiplayer.png");
+            buttonServer = new Image("resources/art/menu/ServerHost.png");
+            buttonOption = new Image("resources/art/menu/Options.png");
             background = new Image("resources/art/menu/menuBG.png");
         } catch (SlickException e) {
             System.out.println("Failed to load menu resources: " + e);
         }
 
-        areas[0] = new MouseOverArea(container,buttonSP,356,118,200,90,this);
-        areas[1] = new MouseOverArea(container,buttonMP,356,206,200,90,this);
-        areas[2] = new MouseOverArea(container,buttonSH,356,294,200,90,this);
-        areas[3] = new MouseOverArea(container,buttonOP,356,382,200,90,this);
+        areas[0] = new MouseOverArea(container,buttonSingle,356,118,200,90,this);
+        areas[1] = new MouseOverArea(container,buttonMulti,356,206,200,90,this);
+        areas[2] = new MouseOverArea(container,buttonServer,356,294,200,90,this);
+        areas[3] = new MouseOverArea(container,buttonOption,356,382,200,90,this);
         for (int i=0;i<4;i++) {
             areas[i].setNormalColor(new Color(1,1,1,1f));
             areas[i].setMouseOverColor(new Color(1,1,1,0.3f));
@@ -91,8 +91,8 @@ public class StateMenu extends BasicGameState implements ComponentListener {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        if (game.getCurrentState().getID() != id) {
-        }
+        if (game.getCurrentState().getID() != id)
+            return;
     }
     
     @Override

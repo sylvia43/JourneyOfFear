@@ -3,7 +3,7 @@ package game.sprite;
 import org.newdawn.slick.Graphics;
 
 /**
- * Stores a rectangle by its vertices.
+ * Stores a rectangle by its vertices (not width/height).
  */
 public class Rectangle {
     

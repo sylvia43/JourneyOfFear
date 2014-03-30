@@ -17,8 +17,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class StateSingleplayer extends BasicGameState {
     
-    public static final boolean DEBUG_MODE = false;
-    public static final boolean DEBUG_COLLISION = false;
+    public static final boolean DEBUG_MODE = true;
+    public static final boolean DEBUG_COLLISION = true;
     public static final int VIEW_SIZE_X = 640;
     public static final int VIEW_SIZE_Y = 512;
     public static final int WORLD_SIZE_X = VIEW_SIZE_X*4;
@@ -38,8 +38,7 @@ public class StateSingleplayer extends BasicGameState {
     }
     
     @Override
-    public void init(GameContainer container, StateBasedGame game) throws SlickException {
-    }
+    public void init(GameContainer container, StateBasedGame game) throws SlickException { }
     
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
@@ -56,9 +55,8 @@ public class StateSingleplayer extends BasicGameState {
     
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
-            // Pause game.
-        }
+        if (container.getInput().isKeyPressed(Input.KEY_ESCAPE))
+            container.exit();
         
         if (container.getInput().isKeyPressed(Input.KEY_N))
             soundtrack.playNext();
@@ -110,44 +108,45 @@ public class StateSingleplayer extends BasicGameState {
             }
             if (e.getX()<-16) {
                 newCurrentAreaEnemyList.remove(e);
-                currentArea.getLeft().getEnemies().add(e);
+                currentArea.getAdjacent(2).getEnemies().add(e);
                 e.setX(currentArea.getWidth()-160);
             }
             if (e.getY()<-16) {
                 newCurrentAreaEnemyList.remove(e);
-                currentArea.getUp().getEnemies().add(e);
+                currentArea.getAdjacent(1).getEnemies().add(e);
                 e.setY(currentArea.getHeight()-160);
             }
             if (e.getX()>currentArea.getWidth()-48) {
                 newCurrentAreaEnemyList.remove(e);
-                currentArea.getRight().getEnemies().add(e);
+                currentArea.getAdjacent(0).getEnemies().add(e);
                 e.setX(96);
             }
             if (e.getY()>currentArea.getHeight()-48) {
                 newCurrentAreaEnemyList.remove(e);
-                currentArea.getDown().getEnemies().add(e);
+                currentArea.getAdjacent(3).getEnemies().add(e);
                 e.setY(96);
             }
         }
         currentArea.getEnemies().clear();
         currentArea.getEnemies().addAll(newCurrentAreaEnemyList);
+        
         if (player.getX()<-16) {
-            currentArea = currentArea.getLeft();
+            currentArea = currentArea.getAdjacent(2);
             renderer.updateArea(currentArea);
             player.setX(currentArea.getWidth()-48);
         }
         if (player.getY()<-16) {
-            currentArea = currentArea.getUp();
+            currentArea = currentArea.getAdjacent(1);
             renderer.updateArea(currentArea);
             player.setY(currentArea.getHeight()-48);
         }
         if (player.getX()>currentArea.getWidth()-48) {
-            currentArea = currentArea.getRight();
+            currentArea = currentArea.getAdjacent(0);
             renderer.updateArea(currentArea);
             player.setX(-16);
         }
         if (player.getY()>currentArea.getHeight()-48) {
-            currentArea = currentArea.getDown();
+            currentArea = currentArea.getAdjacent(3);
             renderer.updateArea(currentArea);
             player.setY(-16);
         }
