@@ -12,7 +12,6 @@ import game.util.resource.AnimationLibrary;
 import game.util.resource.ImageLibrary;
 import game.util.resource.SoundLibrary;
 import game.util.resource.SoundPlayer;
-import game.util.server.ClientID;
 import game.util.server.DataPacket;
 import game.util.server.EnemyPlayerData;
 import java.util.ArrayList;
@@ -97,7 +96,7 @@ public class Player {
         return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
     }
     
-    public byte[] getBytes(ClientID id) {
+    public byte[] getBytes(int id) {
         DataPacket packet = new DataPacket(new EnemyPlayerData(id,x,y));
         return packet.getBytes();
     }

@@ -1,7 +1,6 @@
 package game.enemy;
 
 import game.util.resource.AnimationLibrary;
-import game.util.server.ClientID;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -11,9 +10,9 @@ public class EnemyPlayer {
     
     public int x;
     public int y;
-    public ClientID client;
+    public int client;
     
-    public EnemyPlayer(int x, int y, ClientID client) {
+    public EnemyPlayer(int x, int y, int client) {
         this.x = x;
         this.y = y;
         this.client = client;

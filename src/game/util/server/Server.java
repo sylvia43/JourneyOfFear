@@ -11,6 +11,7 @@ public class Server {
     private int port;
     private DatagramSocket socket;
     private CopyOnWriteArrayList<EnemyPlayerData> players;
+    private int clientCounter = 0;
     
     public static void main(String[] args) {
         Server server = new Server(9999);
@@ -42,7 +43,7 @@ public class Server {
                 byte[] bytes = new byte[DataPacket.MAX_SIZE];
                 DatagramPacket recvPacket = new DatagramPacket(bytes,bytes.length);
                 DataPacket packet;
-                ClientID client;
+                int clientId;
                 boolean updated = false;
                 
                 while (true) {
@@ -59,19 +60,26 @@ public class Server {
                     } catch (IOException e) {
                         ServerLogger.log("Unable to recieve data: " + e);
                     }
-                    
+                                        
                     if (recvPacket.getLength() == 0) {
-                        System.out.println("New client!");
+                        System.out.println("New client! " + clientCounter);
+                        try {
+                            socket.send(new DatagramPacket(DataPacket.valueOf(clientCounter),
+                                    4,recvPacket.getAddress(),recvPacket.getPort()));
+                        } catch (IOException e) {
+                            System.out.println("Handshake error: " + e);
+                        }
+                        clientCounter++;
                         continue;
                     }
                     
-                    client = new ClientID(recvPacket.getAddress(),recvPacket.getPort());
                     packet = new DataPacket(recvPacket.getData());
+                    clientId = packet.getClient();
                     
                     updated = false;
                     for (EnemyPlayerData e : players) {
-                        if (e.client.equals(client)) {
-                            packet.update(e,client);
+                        if (e.id == clientId) {
+                            packet.update(e);
                             updated = true;
                             break;
                         }
@@ -80,9 +88,9 @@ public class Server {
                     if (updated)
                         continue;
                     
-                    players.add(new EnemyPlayerData(client,packet.get(DataPacket.X),packet.get(DataPacket.Y)));
+                    players.add(new EnemyPlayerData(clientId,packet.get(DataPacket.X),packet.get(DataPacket.Y)));
                     
-                    Runnable r = new ServerSendThread(players,socket,client);
+                    Runnable r = new ServerSendThread(players,socket,clientId,recvPacket.getAddress(),recvPacket.getPort());
                     new Thread(r).start();
                 }
             }

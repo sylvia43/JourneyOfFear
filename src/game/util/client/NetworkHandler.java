@@ -2,7 +2,6 @@ package game.util.client;
 
 import game.enemy.EnemyPlayer;
 import game.player.Player;
-import game.util.server.ClientID;
 import game.util.server.DataPacket;
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -23,7 +22,7 @@ public class NetworkHandler {
     private int port = 0;
     private ArrayList<EnemyPlayer> enemies;
     
-    private ClientID myClientID;
+    private int myClientID;
     
     public NetworkHandler(String newIp, int newPort, Player localPlayer, ArrayList<EnemyPlayer> newEnemies) {
         this.enemies = newEnemies;
@@ -48,7 +47,17 @@ public class NetworkHandler {
             System.out.println("Error: " + e);
         }
         
-        myClientID = new ClientID(socket.getInetAddress(),socket.getLocalPort());
+        byte[] bytes = new byte[4];
+        DatagramPacket recvPacket = new DatagramPacket(bytes,bytes.length);
+        
+        try {
+            socket.receive(recvPacket);
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
+        }
+        
+        DataPacket p = new DataPacket(recvPacket.getData());
+        myClientID = p.getClient();
         
         get = new Thread(new Runnable() {
             @Override
@@ -60,16 +69,16 @@ public class NetworkHandler {
                     while (running) {
                         socket.receive(packet);
                         DataPacket p = new DataPacket(data);
+                                                
+                        //System.out.println(p.getClient() + " " + myClientID);
                         
-                        System.out.println(p.getClient() + " " + myClientID);
-                        
-                        if (p.getClient().equals(myClientID))
+                        if (p.getClient() == myClientID)
                             continue;
                         
                         boolean updated = false;
                         
                         for (EnemyPlayer e : enemies) {
-                            if (p.getClient().equals(e.client)) {
+                            if (p.getClient() == e.client) {
                                 e.x = p.get(DataPacket.X);
                                 e.y = p.get(DataPacket.Y);
                                 updated = true;

@@ -2,18 +2,17 @@ package game.util.server;
 
 public class EnemyPlayerData {
     
-    public ClientID client;
-    
+    public int id;
     public int x;
     public int y;
     
-    public EnemyPlayerData(ClientID client, int x, int y) {
-        this.client = client;
+    public EnemyPlayerData(int id, int x, int y) {
+        this.id = id;
         this.x = x;
         this.y = y;
     }
     
     public String toString() {
-        return "x:" + x + " y:" + y;
+        return id + " - x:" + x + " y:" + y;
     }
 }
