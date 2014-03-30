@@ -27,18 +27,13 @@ public enum MusicLibrary {
         return loading;
     }
     
+    private boolean bound() { return music!=null; }
     public boolean isPlaying() { return (bound()&&music.playing()) || queued; }
-    
     public boolean isPaused() { return music != null && music.playing(); }
     
     public void pause() { music.pause(); }
-    
     public void resume() { music.resume(); }
-
     public void restart() { music.play(1.0f,VOLUME); }
-    
-    public boolean bound() { return music!=null; }
-    
     public void release() { music = null; }
     
     public void bind() {
@@ -47,6 +42,16 @@ public enum MusicLibrary {
         } catch (SlickException e) {
             System.out.println("Error loading sound: " + e);
         }
+    }
+    
+    public void stop() {
+        queued = false;
+        music.stop();
+        release();
+    }
+        
+    MusicLibrary(String filepath) {
+        this.filepath = filepath;
     }
     
     public void playMusic() {
@@ -70,15 +75,5 @@ public enum MusicLibrary {
             }
         });
         bindMusic.start();
-    }
-    
-    public void stop() {
-        queued = false;
-        music.stop();
-        release();
-    }
-        
-    MusicLibrary(String filepath) {
-        this.filepath = filepath;
     }
 }

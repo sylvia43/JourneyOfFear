@@ -4,7 +4,7 @@ import game.util.resource.MusicLibrary;
 
 public class Soundtrack {
     
-    private int currentTrack = -1;
+    private int currentTrackIndex = -1;
     private MusicLibrary[] music;
     private MusicLibrary currentMusic = null;
     
@@ -48,10 +48,10 @@ public class Soundtrack {
         
         int newTrack = (int)(music.length*Math.random());
         
-        while (newTrack == currentTrack) {
+        while (newTrack == currentTrackIndex) {
             newTrack = (int)(music.length*Math.random());
         }
-        currentTrack = newTrack;
+        currentTrackIndex = newTrack;
         
         currentMusic = music[newTrack];
         currentMusic.playMusic();

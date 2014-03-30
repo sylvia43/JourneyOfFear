@@ -10,15 +10,22 @@ public enum SoundLibrary {
     SWORD_SWING_3("swing3.ogg"),
     SWORD_HIT("hit_sound.ogg");
     
+    private String filepath;
     private Sound sound;
     
-    public Sound getSound() { return sound; }
+    public Sound getSound() {
+        if (sound == null) {
+            try {
+            this.sound = ResourceLoader.initializeSound(filepath);
+            } catch (SlickException e) {
+                System.out.println("Error loading resources! " + e);
+                throw new RuntimeException("Error loading resources! " + e);
+            }
+        }
+        return sound;
+    }
     
     SoundLibrary(String filepath) {
-        try {
-            this.sound = ResourceLoader.initializeSound(filepath);
-        } catch (SlickException e) {
-            System.out.println("Error loading sound: " + e);
-        }
+        this.filepath = filepath;
     }
 }
