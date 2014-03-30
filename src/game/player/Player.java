@@ -207,14 +207,14 @@ public class Player {
             return;
         }
         
-        boolean DnHl = input.isKeyDown(Options.MOVE_DOWN);
-        boolean DnPr = input.isKeyPressed(Options.MOVE_DOWN);
-        boolean UpHl = input.isKeyDown(Options.MOVE_UP);
-        boolean UpPr = input.isKeyPressed(Options.MOVE_UP);
-        boolean LfHl = input.isKeyDown(Options.MOVE_LEFT);
-        boolean LfPr = input.isKeyPressed(Options.MOVE_LEFT);
-        boolean RiHl = input.isKeyDown(Options.MOVE_RIGHT);
-        boolean RiPr = input.isKeyPressed(Options.MOVE_RIGHT);
+        boolean DnHl = input.isKeyDown(Options.MOVE_DOWN.key());
+        boolean DnPr = input.isKeyPressed(Options.MOVE_DOWN.key());
+        boolean UpHl = input.isKeyDown(Options.MOVE_UP.key());
+        boolean UpPr = input.isKeyPressed(Options.MOVE_UP.key());
+        boolean LfHl = input.isKeyDown(Options.MOVE_LEFT.key());
+        boolean LfPr = input.isKeyPressed(Options.MOVE_LEFT.key());
+        boolean RiHl = input.isKeyDown(Options.MOVE_RIGHT.key());
+        boolean RiPr = input.isKeyPressed(Options.MOVE_RIGHT.key());
         
         if ((DnHl || DnPr) && (UpHl || UpPr)) {
             UpHl = false;
@@ -314,10 +314,10 @@ public class Player {
     }
     
     private void resolveAttack(Input input, int delta) {
-        if ((input.isKeyDown(Options.ATTACK_UP)
-                || input.isKeyDown(Options.ATTACK_DOWN)
-                || input.isKeyDown(Options.ATTACK_LEFT)
-                || input.isKeyDown(Options.ATTACK_RIGHT))
+        if ((input.isKeyDown(Options.ATTACK_UP.key())
+                || input.isKeyDown(Options.ATTACK_DOWN.key())
+                || input.isKeyDown(Options.ATTACK_LEFT.key())
+                || input.isKeyDown(Options.ATTACK_RIGHT.key()))
                 && !attacking && attackDelay < 1 && !invulnerable) {
             getAttackDirection(input);
             direction = (direction+6)%8;
@@ -384,13 +384,13 @@ public class Player {
     }
     
     private void getAttackDirection(Input input) {
-        if (input.isKeyDown(Options.ATTACK_RIGHT))
+        if (input.isKeyDown(Options.ATTACK_RIGHT.key()))
             direction = 0;
-        else if (input.isKeyDown(Options.ATTACK_UP))
+        else if (input.isKeyDown(Options.ATTACK_UP.key()))
             direction = 2;
-        else if (input.isKeyDown(Options.ATTACK_LEFT))
+        else if (input.isKeyDown(Options.ATTACK_LEFT.key()))
             direction = 4;
-        else if (input.isKeyDown(Options.ATTACK_DOWN))
+        else if (input.isKeyDown(Options.ATTACK_DOWN.key()))
             direction = 6;
     }
     
