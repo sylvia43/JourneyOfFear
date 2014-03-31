@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Server {
@@ -12,6 +15,8 @@ public class Server {
     private DatagramSocket socket;
     private CopyOnWriteArrayList<EnemyPlayerData> players;
     private int clientCounter = 0;
+    private HashMap<Integer,Long> ping;
+    private ArrayList<Integer> killIds;
     
     public static void main(String[] args) {
         Server server = new Server(9999);
@@ -20,11 +25,22 @@ public class Server {
     
     public Server(int port) {
         players = new CopyOnWriteArrayList<EnemyPlayerData>();
+        ping = new HashMap<Integer,Long>();
+        killIds = new ArrayList<Integer>();
         System.out.println("Set port.");
         this.port = port;
     }
     
-    public void start() {        
+    public boolean isKillId(int id) {
+        return killIds.contains(id);
+    }
+    
+    public void killId(int id) {
+        killIds.remove(id);
+        ping.remove(id);
+    }
+    
+    public void start() {
         System.out.println("Creating Server.");
         
         try {
@@ -43,8 +59,21 @@ public class Server {
                 DataPacket packet;
                 int clientId;
                 boolean updated = false;
+                long iterationNanos = 0;
+                long lastNanos = System.nanoTime();
                 
                 while (true) {
+                    long tempNanos = System.nanoTime();
+                    iterationNanos = tempNanos - lastNanos;
+                    lastNanos = tempNanos;
+                    
+                    for (Map.Entry<Integer,Long> entry : ping.entrySet()) {
+                        Long l = entry.getValue();
+                        entry.setValue(l+iterationNanos);
+                        if (l > 2000000)
+                            killIds.add(entry.getKey());
+                    }
+                    
                     try {
                         socket.receive(recvPacket);
                     } catch (IOException e) {
@@ -59,6 +88,7 @@ public class Server {
                         } catch (IOException e) {
                             System.out.println("Handshake error: " + e);
                         }
+                        ping.put(clientCounter,0l);
                         clientCounter++;
                         continue;
                     }
@@ -69,6 +99,7 @@ public class Server {
                     updated = false;
                     for (EnemyPlayerData e : players) {
                         if (e.id == clientId) {
+                            ping.put(clientId,0l);
                             packet.update(e);
                             updated = true;
                             break;
@@ -80,7 +111,8 @@ public class Server {
                     
                     players.add(new EnemyPlayerData(clientId,packet.get(DataPacket.X),packet.get(DataPacket.Y)));
                     
-                    Runnable r = new ServerSendThread(players,socket,recvPacket.getAddress(),recvPacket.getPort());
+                    Runnable r = new ServerSendThread(players,socket,Server.this,
+                            recvPacket.getAddress(),recvPacket.getPort(),clientId);
                     new Thread(r).start();
                 }
             }
