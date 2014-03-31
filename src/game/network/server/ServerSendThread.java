@@ -30,7 +30,6 @@ public class ServerSendThread implements Runnable {
     public void run() {
         byte[] data = new byte[DataPacket.MAX_SIZE];
         while(true) {
-            System.out.println(destPort);
             if (server.isKillId(id)) {
                 System.out.println("Client " + id + " disconnected.");
                 server.killId(id);

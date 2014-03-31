@@ -17,6 +17,7 @@ public class Server {
     private int clientCounter = 0;
     private HashMap<Integer,Long> ping;
     private ArrayList<Integer> killIds;
+    private long currentIteration;
     
     public static void main(String[] args) {
         Server server = new Server(9999);
@@ -59,21 +60,23 @@ public class Server {
                 DataPacket packet;
                 int clientId;
                 boolean updated = false;
-                long iterationNanos = 0;
-                long lastNanos = System.nanoTime();
+                currentIteration = 0;
+                
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while(true) {
+                            currentIteration++;
+                            for (Map.Entry<Integer,Long> entry : ping.entrySet()) {
+                                long oldIteration = entry.getValue();
+                                if (currentIteration-oldIteration > 1000000)
+                                    killIds.add(entry.getKey());
+                            }
+                        }
+                    }
+                }).start();
                 
                 while (true) {
-                    long tempNanos = System.nanoTime();
-                    iterationNanos = tempNanos - lastNanos;
-                    lastNanos = tempNanos;
-                    
-                    for (Map.Entry<Integer,Long> entry : ping.entrySet()) {
-                        Long l = entry.getValue();
-                        entry.setValue(l+iterationNanos);
-                        if (l > 2000000)
-                            killIds.add(entry.getKey());
-                    }
-                    
                     try {
                         socket.receive(recvPacket);
                     } catch (IOException e) {
@@ -88,7 +91,7 @@ public class Server {
                         } catch (IOException e) {
                             System.out.println("Handshake error: " + e);
                         }
-                        ping.put(clientCounter,0l);
+                        ping.put(clientCounter,currentIteration);
                         clientCounter++;
                         continue;
                     }
@@ -99,7 +102,7 @@ public class Server {
                     updated = false;
                     for (EnemyPlayerData e : players) {
                         if (e.id == clientId) {
-                            ping.put(clientId,0l);
+                            ping.put(clientId,currentIteration);
                             packet.update(e);
                             updated = true;
                             break;
