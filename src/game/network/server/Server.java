@@ -18,6 +18,7 @@ public class Server {
     private HashMap<Integer,Long> ping;
     private ArrayList<Integer> killIds;
     private long currentIteration;
+    private boolean running = true;
     
     public static void main(String[] args) {
         Server server = new Server(9999);
@@ -65,7 +66,7 @@ public class Server {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        while(true) {
+                        while(running) {
                             currentIteration++;
                             for (Map.Entry<Integer,Long> entry : ping.entrySet()) {
                                 long oldIteration = entry.getValue();
@@ -76,7 +77,7 @@ public class Server {
                     }
                 }).start();
                 
-                while (true) {
+                while (running) {
                     try {
                         socket.receive(recvPacket);
                     } catch (IOException e) {
