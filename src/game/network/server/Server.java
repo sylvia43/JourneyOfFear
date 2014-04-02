@@ -5,18 +5,19 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Server {
     
     private int port;
     private DatagramSocket socket;
-    private CopyOnWriteArrayList<EnemyPlayerData> players;
+    private List<EnemyPlayerData> players;
     private int clientCounter = 0;
-    private HashMap<Integer,Long> ping;
-    private ArrayList<Integer> killIds;
+    private Map<Integer,Long> ping;
+    private List<Integer> killIds;
     private long currentIteration;
     private boolean running = true;
     
@@ -27,7 +28,7 @@ public class Server {
     
     public Server(int port) {
         players = new CopyOnWriteArrayList<EnemyPlayerData>();
-        ping = new HashMap<Integer,Long>();
+        ping = new ConcurrentHashMap<Integer,Long>();
         killIds = new ArrayList<Integer>();
         System.out.println("Set port.");
         this.port = port;
@@ -38,8 +39,7 @@ public class Server {
     }
     
     public void killId(int id) {
-        killIds.remove(id);
-        ping.remove(id);
+        killIds.remove(new Integer(id));
     }
     
     public void start() {
@@ -70,8 +70,10 @@ public class Server {
                             currentIteration++;
                             for (Map.Entry<Integer,Long> entry : ping.entrySet()) {
                                 long oldIteration = entry.getValue();
-                                if (currentIteration-oldIteration > 1000000)
+                                if (currentIteration-oldIteration > 1000000) {
                                     killIds.add(entry.getKey());
+                                    ping.remove(entry.getKey());
+                                }
                             }
                         }
                     }

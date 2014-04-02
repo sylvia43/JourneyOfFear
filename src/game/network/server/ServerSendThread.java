@@ -4,18 +4,18 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.List;
 
 public class ServerSendThread implements Runnable {
     
-    private CopyOnWriteArrayList<EnemyPlayerData> players;
+    private List<EnemyPlayerData> players;
     private DatagramSocket socket;
     private Server server;
     private InetAddress destIp;
     private int destPort;
     private int id;
     
-    public ServerSendThread(CopyOnWriteArrayList<EnemyPlayerData> players,
+    public ServerSendThread(List<EnemyPlayerData> players,
             DatagramSocket socket, Server server, InetAddress destIp,
             int destPort, int id) {
         this.players = players;
