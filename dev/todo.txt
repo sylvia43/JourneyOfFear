@@ -50,6 +50,7 @@ Key:
     [ ] Enemy death sound implementation.
     [ ] Inventory.
     [ ] Potions.
+    [ ] Fix knockback bug.
     
   Art:
     [x] Player in 4 directions, 4 frames each.
