@@ -80,9 +80,9 @@ public class NetworkHandler {
                         boolean updated = false;
                         
                         for (EnemyPlayer e : enemies) {
-                            if (recvDataPacket.getClient() == e.client) {
-                                e.x = recvDataPacket.get(DataPacket.X);
-                                e.y = recvDataPacket.get(DataPacket.Y);
+                            if (recvDataPacket.getClient() == e.getClient()) {
+                                e.setX(recvDataPacket.get(DataPacket.X));
+                                e.setY(recvDataPacket.get(DataPacket.Y));
                                 updated = true;
                                 break;
                             }
