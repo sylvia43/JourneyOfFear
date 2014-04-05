@@ -36,7 +36,10 @@ public class StateMultiplayer extends StateSingleplayer {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         super.render(container,game,g);
-        for (EnemyPlayer e : enemies)
+        
+        ArrayList<EnemyPlayer> tempEnemies = new ArrayList<EnemyPlayer>(enemies);
+        
+        for (EnemyPlayer e : tempEnemies)
             e.render(container,g);
         
         int posX = (int)(7.5 *VIEW_SIZE_X)/10 + camX;
@@ -44,7 +47,7 @@ public class StateMultiplayer extends StateSingleplayer {
         int width = (int)(2.3 *VIEW_SIZE_X)/10;
         int height = (int)(((double)WORLD_SIZE_Y / WORLD_SIZE_X)*(2.3 *VIEW_SIZE_X)/10);
                 
-        for (EnemyPlayer e : enemies) {
+        for (EnemyPlayer e : tempEnemies) {
              g.setColor(Color.magenta);
              g.fillRect((int)(posX + width*((double)e.getX())/WORLD_SIZE_X), 
                     (int)(posY + height*((double)e.getY())/WORLD_SIZE_Y),3,3);    

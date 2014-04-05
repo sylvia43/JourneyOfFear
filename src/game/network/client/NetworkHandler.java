@@ -80,7 +80,7 @@ public class NetworkHandler {
                         boolean updated = false;
                         
                         for (EnemyPlayer e : enemies) {
-                            if (recvDataPacket.getClient() == e.getClient()) {
+                            if (recvDataPacket.getClient() == e.getId()) {
                                 e.setX(recvDataPacket.get(DataPacket.X));
                                 e.setY(recvDataPacket.get(DataPacket.Y));
                                 updated = true;
@@ -91,7 +91,8 @@ public class NetworkHandler {
                         if (updated)
                             continue;
                         
-                        enemies.add(new EnemyPlayer(recvDataPacket.get(DataPacket.X),recvDataPacket.get(DataPacket.Y),recvDataPacket.getClient()));
+                        enemies.add(new EnemyPlayer(recvDataPacket.getClient(),
+                                recvDataPacket.get(DataPacket.X),recvDataPacket.get(DataPacket.Y)));
                     }
                 } catch (IOException e) {
                     if (e.toString().equals("java.net.SocketException: socket closed"))
