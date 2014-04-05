@@ -33,6 +33,7 @@ Key:
     [/] Damage and death.
     [/] Menu state.
     [/] Tiles you can't walk into (Boulders, trees, holes in the ground, etc).
+    [ ] Clean up Tile. It currently sucks.
     [ ] Add debug mode things for obstacles (Brennan).
     [ ] Blocking attacks (defence).
     [ ] Make the map render things in order of y position.

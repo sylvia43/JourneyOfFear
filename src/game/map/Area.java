@@ -46,12 +46,9 @@ public class Area {
         this.container = container;
         this.width = width;
         this.height = height;
-        map = new TiledMap(width/64, height/64);
         
-        if (Math.random()<0.5)
-            map.fillStandardGrass();
-        else
-            map.fillStandardCobble();
+        map = new TiledMap(width/64, height/64);
+        map.init();
         
         addEnemy(new EnemyBlob(player)).init(container);
         addEnemy(new EnemySmartBlob(player)).init(container);
@@ -59,7 +56,6 @@ public class Area {
         addObstacle(new Spikes(player,600,600)).init(container);           
         addObstacle(new GreenSlimePit(player)).init(container);
         addObstacle(new PinkSlimePit(player)).init(container);
-        
         addObstacle(new Tree(player,1200,1200)).init(container);           
     }
     

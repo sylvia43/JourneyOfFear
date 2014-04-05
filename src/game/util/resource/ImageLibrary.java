@@ -49,7 +49,9 @@ public enum ImageLibrary {
     COBBLE_BASIC("tiles/cobble/cobble_basic.png"),
     COBBLE_VARIANT1("tiles/cobble/cobble_variant_1.png"),
     COBBLE_VARIANT2("tiles/cobble/cobble_variant_2.png"),
-    COBBLE_ACCENT_GRASS("tiles/grass/cobble_accent_grass.png");
+    COBBLE_ACCENT_GRASS("tiles/cobble/cobble_accent_grass.png"),
+    
+    GRASS_COBBLE_TRANS_SMALL("tiles/grass/grass_cobble_trans_small.png");
     
     private String filepath;
     private Image image;

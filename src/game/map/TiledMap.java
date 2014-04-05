@@ -14,6 +14,23 @@ public class TiledMap {
         map = new Tile[width][height];
     }
     
+    public void init() {
+        if (Math.random()<0.5)
+            fillStandardGrass();
+        else
+            fillStandardCobble();
+        
+        map[6][5] = Tile.GRASS_COBBLE_TRANS_SMALL_RIGHT;
+        map[6][4] = Tile.GRASS_COBBLE_TRANS_SMALL_TOP_RIGHT;
+        map[5][4] = Tile.GRASS_COBBLE_TRANS_SMALL_TOP;
+        map[4][4] = Tile.GRASS_COBBLE_TRANS_SMALL_TOP_LEFT;
+        map[4][5] = Tile.GRASS_COBBLE_TRANS_SMALL_LEFT;
+        map[4][6] = Tile.GRASS_COBBLE_TRANS_SMALL_BOTTOM_LEFT;
+        map[5][6] = Tile.GRASS_COBBLE_TRANS_SMALL_BOTTOM;
+        map[6][6] = Tile.GRASS_COBBLE_TRANS_SMALL_BOTTOM_RIGHT;
+        map[5][5] = Tile.GRASS_BASIC;
+    }
+    
     public void fillStandardGrass() {
         fill(Tile.GRASS_BASIC);
         randomize(Tile.GRASS_VARIANT,0.2);
