@@ -69,6 +69,7 @@ Key:
     [/] Potion bottle full/empty.
     [/] Magic blast animations.
     [/] Game title page w/ selecting arrow and font.
+    [ ] Fix transition tiles (We need to meet and discuss this).
     [ ] Player death animation
     [ ] Experience bar
     [ ] Level up animation
