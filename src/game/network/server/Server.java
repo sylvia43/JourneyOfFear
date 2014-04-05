@@ -67,10 +67,15 @@ public class Server {
                     @Override
                     public void run() {
                         while(running) {
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                System.out.println(e);
+                            }
                             currentIteration++;
                             for (Map.Entry<Integer,Long> entry : ping.entrySet()) {
                                 long oldIteration = entry.getValue();
-                                if (currentIteration-oldIteration > 1000000) {
+                                if (currentIteration-oldIteration > 5) {
                                     killIds.add(entry.getKey());
                                     ping.remove(entry.getKey());
                                 }
