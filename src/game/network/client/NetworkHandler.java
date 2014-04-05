@@ -9,7 +9,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
+import java.util.List;
 
 public class NetworkHandler {
     
@@ -20,12 +20,12 @@ public class NetworkHandler {
     private volatile boolean running = true;
     private InetAddress ip;
     private int port = 0;
-    private ArrayList<EnemyPlayer> enemies;
+    private List<EnemyPlayer> enemies;
     
     private int myClientID;
     private long responseTime = -1;
     
-    public NetworkHandler(String newIp, int newPort, Player localPlayer, ArrayList<EnemyPlayer> newEnemies) {
+    public NetworkHandler(String newIp, int newPort, Player localPlayer, List<EnemyPlayer> newEnemies) {
         this.enemies = newEnemies;
         try {
             this.ip = InetAddress.getByName(newIp);

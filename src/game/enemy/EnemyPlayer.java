@@ -8,16 +8,13 @@ import org.newdawn.slick.Graphics;
 
 public class EnemyPlayer extends EnemyPlayerData {
     
-    private Animation anim = null;
-    
     public EnemyPlayer(int id, int x, int y) {
-        super(x,y,id);
+        super(id,x,y);
     }
     
     public void render(GameContainer container, Graphics g) {
-        if (anim == null)
-             anim = AnimationLibrary.ENEMY_PLAYER_PLACEHOLDER.getAnim();
+        Animation anim = AnimationLibrary.ENEMY_PLAYER_PLACEHOLDER.getAnim();
         anim.setCurrentFrame(0);
-        anim.draw(x,y,64,64);
+        anim.draw(getX(),getY(),64,64);
     }
 }

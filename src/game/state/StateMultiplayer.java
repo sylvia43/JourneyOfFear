@@ -3,6 +3,7 @@ package game.state;
 import game.enemy.EnemyPlayer;
 import game.network.client.NetworkHandler;
 import java.util.ArrayList;
+import java.util.List;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -19,7 +20,7 @@ public class StateMultiplayer extends StateSingleplayer {
     
     private NetworkHandler network;
     
-    private ArrayList<EnemyPlayer> enemies;
+    private List<EnemyPlayer> enemies;
     
     public StateMultiplayer(int id) {
         super(id);
@@ -37,19 +38,17 @@ public class StateMultiplayer extends StateSingleplayer {
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         super.render(container,game,g);
         
-        ArrayList<EnemyPlayer> tempEnemies = new ArrayList<EnemyPlayer>(enemies);
-        
-        for (EnemyPlayer e : tempEnemies)
+        for (EnemyPlayer e : enemies)
             e.render(container,g);
         
         int posX = (int)(7.5 *VIEW_SIZE_X)/10 + camX;
         int posY = (int)(.75 *VIEW_SIZE_Y)/10 + camY;
         int width = (int)(2.3 *VIEW_SIZE_X)/10;
         int height = (int)(((double)WORLD_SIZE_Y / WORLD_SIZE_X)*(2.3 *VIEW_SIZE_X)/10);
-                
-        for (EnemyPlayer e : tempEnemies) {
-             g.setColor(Color.magenta);
-             g.fillRect((int)(posX + width*((double)e.getX())/WORLD_SIZE_X), 
+        
+        for (EnemyPlayer e : enemies) {
+            g.setColor(Color.magenta);
+            g.fillRect((int)(posX + width*((double)e.getX())/WORLD_SIZE_X), 
                     (int)(posY + height*((double)e.getY())/WORLD_SIZE_Y),3,3);    
         }
     }

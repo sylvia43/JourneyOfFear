@@ -17,9 +17,9 @@ public class DataPacket {
     // Called by server send thread.
     public DataPacket(EnemyPlayerData e) {
         data = new byte[MAX_SIZE];
-        add(e.id,ID);
-        add(e.x,X);
-        add(e.y,Y);
+        add(e.getId(),ID);
+        add(e.getX(),X);
+        add(e.getY(),Y);
     }
         
     public void add(int i, int pos) {
@@ -72,9 +72,9 @@ public class DataPacket {
     }
     
     public void update(EnemyPlayerData e) {
-        if (e.id != this.get(ID))
+        if (e.getId() != this.get(ID))
             throw new RuntimeException("Buggy code @ DataPacket.update(EnemyPlayerData e)");
-        e.x = this.get(X);
-        e.y = this.get(Y);
+        e.setX(this.get(X));
+        e.setY(this.get(Y));
     }
 }

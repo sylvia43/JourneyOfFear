@@ -2,9 +2,9 @@ package game.network.server;
 
 public class EnemyPlayerData {
     
-    protected int x;
-    protected int y;
-    protected int id;
+    private int x;
+    private int y;
+    private int id;
     
     public int getX() { return x; }
     public int getY() { return y; }
