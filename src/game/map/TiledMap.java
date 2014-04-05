@@ -3,6 +3,8 @@ package game.map;
 public class TiledMap {
     
     private Tile[][] map;
+    private int width;
+    private int height;
     
     public Tile getTile(int x, int y) {
         if (x<0 || y<0 || x>map.length || y>map[x].length)
@@ -11,6 +13,9 @@ public class TiledMap {
     }
     
     public TiledMap(int width, int height) {
+        this.width = width;
+        this.height = height;
+        
         map = new Tile[width][height];
     }
     
@@ -20,15 +25,41 @@ public class TiledMap {
         else
             fillStandardCobble();
         
-        map[6][5] = Tile.GRASS_COBBLE_TRANS_SMALL_RIGHT;
-        map[6][4] = Tile.GRASS_COBBLE_TRANS_SMALL_TOP_RIGHT;
-        map[5][4] = Tile.GRASS_COBBLE_TRANS_SMALL_TOP;
-        map[4][4] = Tile.GRASS_COBBLE_TRANS_SMALL_TOP_LEFT;
-        map[4][5] = Tile.GRASS_COBBLE_TRANS_SMALL_LEFT;
-        map[4][6] = Tile.GRASS_COBBLE_TRANS_SMALL_BOTTOM_LEFT;
-        map[5][6] = Tile.GRASS_COBBLE_TRANS_SMALL_BOTTOM;
-        map[6][6] = Tile.GRASS_COBBLE_TRANS_SMALL_BOTTOM_RIGHT;
-        map[5][5] = Tile.GRASS_BASIC;
+        for (int i=0;i<10;i++)
+            createGrassPatch();
+    }
+    
+    private void createGrassPatch() {
+        
+        int size = (int)(Math.random()*3);
+        
+        int x = (int)(Math.random()*(width-2*size)+size);
+        int y = (int)(Math.random()*(height-2*size)+size);
+        
+        for (int i=-size;i<=size;i++) {
+            for (int j=-size;j<=size;j++) {
+                if (i>-size && j>-size && i<size && j<size) {
+                    map[x+i][y+j] = Tile.GRASS_BASIC;
+                    continue;
+                }
+                if (i>0 && j>0)
+                    map[x+i][y+j] = Tile.GRASS_COBBLE_TRANS_SMALL_BOTTOM_RIGHT;
+                else if (i>0 && j<0)
+                    map[x+i][y+j] = Tile.GRASS_COBBLE_TRANS_SMALL_TOP_RIGHT;
+                else if (i<0 && j>0)
+                    map[x+i][y+j] = Tile.GRASS_COBBLE_TRANS_SMALL_BOTTOM_LEFT;
+                else if (i<0 && j<0)
+                    map[x+i][y+j] = Tile.GRASS_COBBLE_TRANS_SMALL_TOP_LEFT;
+                else if (i>0)
+                    map[x+i][y+j] = Tile.GRASS_COBBLE_TRANS_SMALL_RIGHT;
+                else if (i<0)
+                    map[x+i][y+j] = Tile.GRASS_COBBLE_TRANS_SMALL_LEFT;
+                else if (j>0)
+                    map[x+i][y+j] = Tile.GRASS_COBBLE_TRANS_SMALL_BOTTOM;
+                else if (j<0)
+                    map[x+i][y+j] = Tile.GRASS_COBBLE_TRANS_SMALL_TOP;
+            }
+        }
     }
     
     public void fillStandardGrass() {
