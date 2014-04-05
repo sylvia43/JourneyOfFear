@@ -2,18 +2,19 @@ package game.player;
 
 import game.enemy.Enemy;
 import game.environment.Obstacle;
+import game.network.server.DataPacket;
+import game.network.server.EnemyPlayerData;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
 import game.sprite.Rectangle;
 import game.state.StateMultiplayer;
+import game.state.StateSingleplayer;
 import game.util.Options;
 import game.util.resource.AnimationLibrary;
 import game.util.resource.ImageLibrary;
 import game.util.resource.SoundLibrary;
 import game.util.resource.SoundPlayer;
-import game.network.server.DataPacket;
-import game.network.server.EnemyPlayerData;
 import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -127,13 +128,13 @@ public class Player {
         resolveAttack(container.getInput(),delta);
     }
     
-    public void render(GameContainer container, Graphics g) throws SlickException {
+    public void render(GameContainer container, Graphics g) {
         Animation currentSprite = sprite.getAnim(spritePointer);
         currentSprite.draw(x,y,64,64,damageBlink?Color.red:Color.white);
         renderHealth();
         if (attacking)
             sword.draw(x-64,y-64,192,192);
-        if (StateMultiplayer.DEBUG_MODE)
+        if (StateSingleplayer.DEBUG_MODE)
             renderDebugInfo(g);
         isHit = false;
     }

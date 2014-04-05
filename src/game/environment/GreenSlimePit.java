@@ -6,7 +6,6 @@ import game.player.Player;
 import game.state.StateMultiplayer;
 import game.util.resource.AnimationLibrary;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.SlickException;
 
 public class GreenSlimePit extends Hazard {
     
@@ -22,17 +21,12 @@ public class GreenSlimePit extends Hazard {
         if (currentArea.getEnemies().size()>25)
             return;
         
-        if ((int)(Math.random()*3000) == 0) {
-            try {
-                currentArea.addEnemy(new EnemySmartBlob(player),x,y).init(container);
-            } catch (SlickException e) {
-                System.out.println("Failed to initialize enemy: " + e);
-            }
-        }
+        if ((int)(Math.random()*3000) == 0)
+            currentArea.addEnemy(new EnemySmartBlob(player),x,y).init(container);
     }
 
     @Override
-    protected void initializeSprite() throws SlickException {
+    protected void initializeSprite() {
         sprite = AnimationLibrary.GREEN_SLIME_PIT.getAnim();
         mask = createMask();
         this.sprite.setDuration(0, 1000);

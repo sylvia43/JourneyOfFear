@@ -53,7 +53,7 @@ public class Renderer {
         }
     }
     
-    public void renderEnemies(Graphics g) throws SlickException {
+    public void renderEnemies(Graphics g) {
         for (Enemy e : currentArea.getEnemies()) {
             if (e.getX()+e.getSprite().getAnim(0).getWidth()*2>camX-64 && 
                     e.getY()+e.getSprite().getAnim(0).getHeight()*2>camY-64 && 
@@ -63,12 +63,12 @@ public class Renderer {
         }
     }
     
-    public void renderObstacles(Graphics g) throws SlickException {
+    public void renderObstacles(Graphics g) {
         for (Obstacle o : currentArea.getObstacles()) {
             if (o.getX()+o.getSprite().getImage(0).getWidth()*2>camX-64 && 
-                  o.getY()+o.getSprite().getImage(0).getHeight()*2>camY-64 && 
-                  o.getX()-o.getSprite().getImage(0).getWidth()*2<camX+viewX && 
-                  o.getY()-o.getSprite().getImage(0).getHeight()*2<camY+viewY)
+                    o.getY()+o.getSprite().getImage(0).getHeight()*2>camY-64 && 
+                    o.getX()-o.getSprite().getImage(0).getWidth()*2<camX+viewX && 
+                    o.getY()-o.getSprite().getImage(0).getHeight()*2<camY+viewY)
                 o.render(container,g);
         }
     }

@@ -16,7 +16,7 @@ public class Tree extends Obstacle {
         miniHeight = 6;
     }
 
-    public Tree(Player player, int x, int y) throws SlickException {
+    public Tree(Player player, int x, int y) {
         super(x,y);
         this.player = player;
         miniWidth = 3;
@@ -24,13 +24,13 @@ public class Tree extends Obstacle {
     }
     
     @Override
-    public void render(GameContainer container,Graphics g) throws SlickException {
+    public void render(GameContainer container, Graphics g) {
         sprite.draw(x,y,256,192);
         mask.render(g);
     }
 
     @Override
-    protected void initializeSprite() throws SlickException {
+    protected void initializeSprite() {
         sprite = AnimationLibrary.TREE_LARGE.getAnim();
         mask = new Rectangle(x,y,x+256,x+192);
         sprite.setDuration(0,1000);

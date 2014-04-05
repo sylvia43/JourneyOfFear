@@ -54,7 +54,7 @@ public class StateServerSelect extends BasicGameState implements ComponentListen
         try {
             font.loadGlyphs();
         } catch (SlickException e) {
-            System.out.println("Error loading font: " + e);
+            throw new RuntimeException("Error loading font: " + e);
         }
         
         fieldIp = new TextField(container,font,60,20,500,35,new ComponentListener() {
@@ -78,7 +78,7 @@ public class StateServerSelect extends BasicGameState implements ComponentListen
             buttonStart = new Image("resources/art/menu/Multiplayer.png");
             background = new Image("resources/art/menu/menuBG.png");
         } catch (SlickException e) {
-            System.out.println("Failed to load menu resources: " + e);
+            throw new RuntimeException("Failed to load menu resources: " + e);
         }
 
         startButton = new MouseOverArea(container,buttonStart,356,294,200,90,this);

@@ -52,7 +52,7 @@ public enum AnimationLibrary {
         this.height = height;
     }
     
-    public Animation getAnim() throws SlickException {
+    public Animation getAnim() {
         if (anim == null) {
             try {
                 anim = ResourceLoader.initializeAnimation(image.getImage(),speed,width,height);

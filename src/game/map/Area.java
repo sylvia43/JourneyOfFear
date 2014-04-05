@@ -11,7 +11,6 @@ import game.environment.Tree;
 import game.player.Player;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.SlickException;
 
 /**
  * Area functions as a linked list in two dimensions,
@@ -54,25 +53,14 @@ public class Area {
         else
             map.fillStandardCobble();
         
-        try {
-            addEnemy(new EnemyBlob(player)).init(container);
-            addEnemy(new EnemySmartBlob(player)).init(container);
-        } catch (SlickException e) {
-            System.out.println("Error initializing enemy: " + e);
-        }
+        addEnemy(new EnemyBlob(player)).init(container);
+        addEnemy(new EnemySmartBlob(player)).init(container);
         
-        try {
-            addObstacle(new Spikes(player,600,600)).init(container);           
-            addObstacle(new GreenSlimePit(player)).init(container);
-            addObstacle(new PinkSlimePit(player)).init(container);
-        } catch (SlickException e) { 
-            System.out.println("Error initializing hazard: " + e);
-        }
-         try {
-            addObstacle(new Tree(player, 1200,1200)).init(container);           
-        } catch (SlickException e) { 
-            System.out.println("Error initializing hazard: " + e);
-        }
+        addObstacle(new Spikes(player,600,600)).init(container);           
+        addObstacle(new GreenSlimePit(player)).init(container);
+        addObstacle(new PinkSlimePit(player)).init(container);
+        
+        addObstacle(new Tree(player,1200,1200)).init(container);           
     }
     
     // Returns enemy added for chaining.

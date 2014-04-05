@@ -9,7 +9,6 @@ import game.state.StateMultiplayer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
 
 public class Enemy {
     
@@ -59,7 +58,7 @@ public class Enemy {
     public void setY(int y) { this.y = y; }
     
     //Game loop methods
-    public void init(GameContainer container) throws SlickException {
+    public void init(GameContainer container) {
         initializeVariables();
         initializeSprite();
         initializeAttack();
@@ -72,7 +71,7 @@ public class Enemy {
         resolveAttack(delta);
     }
     
-    public void render(GameContainer container, Graphics g) throws SlickException {
+    public void render(GameContainer container, Graphics g) {
         sprite.getAnim(spritePointer).draw(x,y,64,64);
         renderAttack();
         if (StateMultiplayer.DEBUG_MODE)
@@ -106,8 +105,8 @@ public class Enemy {
     
     //Empty methods. These methods should be overriden
     protected void initializeVariables() { }
-    protected void initializeSprite() throws SlickException { initializeMask(); }
-    protected void initializeAttack() throws SlickException { }
+    protected void initializeSprite() { initializeMask(); }
+    protected void initializeAttack() { }
     protected void move(int delta) { } // Default move behavior
     protected void resolveCollision() { }
     protected void resolveAttack(int delta) { }
@@ -115,7 +114,7 @@ public class Enemy {
     public void resolveHit(int ox, int oy, int attackId, int damage) { }
     
     //Other methods. These can be overriden if necessary.
-    protected void initializeMask() throws SlickException {
+    protected void initializeMask() {
         AnimationMask[] animMaskList = {
             createMask(0),
             createMask(1),

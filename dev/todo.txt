@@ -29,11 +29,11 @@ Key:
     [x] Move rendering to its own class.
     [x] Minimap.
     [x] Environmental Hazards.
+    [x] MUCH better error handling.
     [/] Damage and death.
     [/] Menu state.
     [/] Tiles you can't walk into (Boulders, trees, holes in the ground, etc).
-	[ ] MUCH better error handling.
-	[ ] Add debug mode things for obstacles (Brennan).
+    [ ] Add debug mode things for obstacles (Brennan).
     [ ] Blocking attacks (defence).
     [ ] Make the map render things in order of y position.
     [ ] Combo attacks.
@@ -98,16 +98,18 @@ Key:
   Multiplayer:
     [x] Sending of data.
     [x] Elimination of duplicates.
-    [ ] Disconnect handling.
-	[ ] Make handshake TCP.
-	[ ] Better error handling.
+    [x] Disconnect handling.
+    [/] Better error handling.
+    [ ] Make handshake TCP.
     [ ] Complete sending of player data.
     [ ] Full interaction over server.
-	[ ] Scorekeeping.
+    [ ] Scorekeeping.
     [ ] Sending of all data (world and score).
     [ ] Bosses.
-	[ ] Host it!
+    [ ] Host it!
   
   Other:
+    [x] Obtain a domain name.
+    [/] Obtain domain hosting.
     [ ] Make a Snake Squared website.
-	[ ] Make a Journey of Fear webpage.
+    [ ] Make a Journey of Fear webpage.

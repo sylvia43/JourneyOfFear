@@ -11,7 +11,6 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
 
 public class Obstacle implements Comparator {
     
@@ -58,19 +57,19 @@ public class Obstacle implements Comparator {
     public void setX(int x) { this.x = x; }
     public void setY(int y) { this.y = y; }
     
-    protected void initializeSprite() throws SlickException { }
+    protected void initializeSprite() { }
     
     protected Rectangle createMask() {
         return new Rectangle(x,y,x+sprite.getWidth(),y+sprite.getHeight());
     }
     
-    public void init(GameContainer container) throws SlickException {
+    public void init(GameContainer container) {
         initializeSprite();
     }
     
     public void update(GameContainer container, int delta, Area currentArea) { }
     
-    public void render(GameContainer container, Graphics g) throws SlickException {
+    public void render(GameContainer container, Graphics g) {
         sprite.draw(x,y,64,64);
     }
 

@@ -26,20 +26,11 @@ public class StateMultiplayer extends StateSingleplayer {
     }
     
     @Override
-    public void init(GameContainer container, StateBasedGame game) throws SlickException {
-    }
-    
-    @Override
     public void enter(GameContainer container, StateBasedGame game) {
         super.enter(container,game);
         enemies = new ArrayList<EnemyPlayer>();
         network = new NetworkHandler(ip,port,player,enemies);
         network.start();
-    }
-    
-    @Override
-    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        super.update(container,game,delta);
     }
     
     @Override

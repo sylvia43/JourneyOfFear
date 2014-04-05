@@ -10,7 +10,6 @@ import game.util.resource.SoundPlayer;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
 
 public class EnemySmartBlob extends Enemy {
 
@@ -71,7 +70,7 @@ public class EnemySmartBlob extends Enemy {
     }
     
     @Override
-    protected void initializeSprite() throws SlickException {
+    protected void initializeSprite() {
         sprite = new EntitySprite(4);
         Animation[] animList = {
             AnimationLibrary.SIRBLOB_RIGHT.getAnim(),
@@ -84,7 +83,7 @@ public class EnemySmartBlob extends Enemy {
     }
     
     @Override
-    protected void initializeAttack() throws SlickException {
+    protected void initializeAttack() {
         attack = AnimationLibrary.PLAYER_SWORD_SLASH.getAnim();
         attack.stop();
     }

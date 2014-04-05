@@ -9,7 +9,6 @@ import game.util.resource.SoundPlayer;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
 
 public class EnemyBlob extends Enemy {
     
@@ -39,7 +38,7 @@ public class EnemyBlob extends Enemy {
     }
     
     @Override
-    protected void initializeSprite() throws SlickException {
+    protected void initializeSprite() {
         sprite = new EntitySprite(4);
         Animation[] animList = {
             AnimationLibrary.BLOB_RIGHT.getAnim(),

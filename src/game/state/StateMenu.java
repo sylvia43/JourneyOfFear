@@ -55,7 +55,7 @@ public class StateMenu extends BasicGameState implements ComponentListener {
         try {
             font.loadGlyphs();
         } catch (SlickException e) {
-            System.out.println("Error loading font: " + e);
+            throw new RuntimeException("Error loading font: " + e);
         }
         
         try {
@@ -65,13 +65,14 @@ public class StateMenu extends BasicGameState implements ComponentListener {
             buttonOption = new Image("resources/art/menu/Options.png");
             background = new Image("resources/art/menu/menuBG.png");
         } catch (SlickException e) {
-            System.out.println("Failed to load menu resources: " + e);
+            throw new RuntimeException("Failed to load menu resources: " + e);
         }
 
         areas[0] = new MouseOverArea(container,buttonSingle,356,118,200,90,this);
         areas[1] = new MouseOverArea(container,buttonMulti,356,206,200,90,this);
         areas[2] = new MouseOverArea(container,buttonServer,356,294,200,90,this);
         areas[3] = new MouseOverArea(container,buttonOption,356,382,200,90,this);
+        
         for (int i=0;i<4;i++) {
             areas[i].setNormalColor(new Color(1,1,1,1f));
             areas[i].setMouseOverColor(new Color(1,1,1,0.3f));

@@ -7,7 +7,6 @@ import game.sprite.Rectangle;
 import game.util.resource.AnimationLibrary;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
 
 public class Spikes extends Hazard {
     
@@ -33,12 +32,12 @@ public class Spikes extends Hazard {
     }
     
     @Override
-    public void render(GameContainer container, Graphics g) throws SlickException {
+    public void render(GameContainer container, Graphics g) {
         sprite.draw(x,y,128,156);
     }
     
     @Override
-    protected void initializeSprite() throws SlickException {
+    protected void initializeSprite() {
         sprite = AnimationLibrary.SPIKES.getAnim();
         mask = new Rectangle(x,y,x+sprite.getImage(0).getWidth()*4,y+sprite.getImage(0).getHeight()*4);
         sprite.setDuration(0,1000);
