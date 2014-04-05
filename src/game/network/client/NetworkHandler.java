@@ -1,8 +1,8 @@
 package game.network.client;
 
 import game.enemy.EnemyPlayer;
-import game.player.Player;
 import game.network.server.DataPacket;
+import game.player.Player;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -23,6 +23,7 @@ public class NetworkHandler {
     private ArrayList<EnemyPlayer> enemies;
     
     private int myClientID;
+    private long responseTime = -1;
     
     public NetworkHandler(String newIp, int newPort, Player localPlayer, ArrayList<EnemyPlayer> newEnemies) {
         this.enemies = newEnemies;
@@ -70,6 +71,7 @@ public class NetworkHandler {
                     
                     while (running) {
                         socket.receive(recvPacket);
+                        responseTime = System.currentTimeMillis();
                         DataPacket recvDataPacket = new DataPacket(recvData);
                         
                         if (recvDataPacket.getClient() == myClientID)
@@ -91,12 +93,11 @@ public class NetworkHandler {
                         
                         enemies.add(new EnemyPlayer(recvDataPacket.get(DataPacket.X),recvDataPacket.get(DataPacket.Y),recvDataPacket.getClient()));
                     }
-                    socket.close();
                 } catch (IOException e) {
-                    System.out.println("Error: " + e);
-                } finally {
-                    if (socket != null && !socket.isClosed())
-                        socket.close();
+                    if (e.toString().equals("java.net.SocketException: socket closed"))
+                        System.out.println("Reciever thread disconnected.");
+                    else
+                        System.out.println("Error: " + e);
                 }
             }
         });
@@ -108,16 +109,20 @@ public class NetworkHandler {
                 try {
                     byte[] sendData = new byte[DataPacket.MAX_SIZE];
                     while (running) {
+                        if (responseTime != -1 && System.currentTimeMillis()-responseTime > 1000) {
+                            System.out.println("Disconnecting.");
+                            running = false;
+                        }
                         sendData = player.getBytes(myClientID);
                         DatagramPacket sendPacket = new DatagramPacket(sendData,sendData.length,ip,port);
                         socket.send(sendPacket);
                     }
-                    socket.close();
+                    if (socket != null && !socket.isClosed()) {
+                        System.out.println("Closing socket.");
+                        socket.close();
+                    }
                 } catch (IOException e) {
                     System.out.println("Error: " + e);
-                } finally {
-                    if (socket != null && !socket.isClosed())
-                        socket.close();
                 }
             }
         });
