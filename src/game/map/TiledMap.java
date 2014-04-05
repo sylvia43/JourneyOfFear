@@ -25,12 +25,11 @@ public class TiledMap {
         else
             fillStandardCobble();
         
-        for (int i=0;i<10;i++)
+        for (int i=0;i<20;i++)
             createGrassPatch();
     }
     
     private void createGrassPatch() {
-        
         int size = (int)(Math.random()*3);
         
         int x = (int)(Math.random()*(width-2*size)+size);
