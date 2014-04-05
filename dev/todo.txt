@@ -101,6 +101,7 @@ Key:
     [x] Elimination of duplicates.
     [x] Disconnect handling.
     [/] Better error handling.
+    [ ] Better disconnect handling.
     [ ] Make handshake TCP.
     [ ] Complete sending of player data.
     [ ] Full interaction over server.
