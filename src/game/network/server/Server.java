@@ -1,8 +1,11 @@
 package game.network.server;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +56,46 @@ public class Server {
         
         System.out.println("Started server.");
         
+        Thread handshakeThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ServerSocket socket = null;
+                try {
+                    socket = new ServerSocket(port);
+                } catch (IOException e) {
+                    System.out.println("Error creating TCP socket: " + e);
+                }
+                while (running) {
+                    Socket clientSocket = null;
+                    try {
+                        clientSocket = socket.accept();
+                    } catch (IOException e) {
+                        System.out.println("Error accepting socket: " + e);
+                    }
+                    OutputStream out = null;
+                    try {
+                        out = clientSocket.getOutputStream();
+                    } catch (IOException e) {
+                        System.out.println("Error getting output stream: " + e);
+                    }
+                    try {
+                        out.write(clientCounter);
+                    } catch (IOException e) {
+                        System.out.println("Error sending handshake data: " + e);
+                    }
+                    try {
+                        clientSocket.close();
+                    } catch (IOException e) {
+                        System.out.println("Error closing handshake socket: " + e);
+                    }
+                    ping.put(clientCounter,currentIteration);
+                    System.out.println("New client! " + clientCounter);
+                    clientCounter++;
+                }
+            }
+        });
+        handshakeThread.start();
+        
         Thread receiveThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -89,19 +132,6 @@ public class Server {
                         socket.receive(recvPacket);
                     } catch (IOException e) {
                         System.out.println("Unable to recieve data: " + e);
-                    }
-                                        
-                    if (recvPacket.getLength() == 0) {
-                        System.out.println("New client! " + clientCounter);
-                        try {
-                            socket.send(new DatagramPacket(DataPacket.valueOf(clientCounter),
-                                    4,recvPacket.getAddress(),recvPacket.getPort()));
-                        } catch (IOException e) {
-                            System.out.println("Handshake error: " + e);
-                        }
-                        ping.put(clientCounter,currentIteration);
-                        clientCounter++;
-                        continue;
                     }
                     
                     packet = new DataPacket(recvPacket.getData());

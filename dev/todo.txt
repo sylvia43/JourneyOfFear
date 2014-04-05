@@ -100,9 +100,9 @@ Key:
     [x] Sending of data.
     [x] Elimination of duplicates.
     [x] Disconnect handling.
+    [x] Make handshake TCP.
     [/] Better error handling.
-    [ ] Better disconnect handling.
-    [ ] Make handshake TCP.
+    [ ] OP disconnect handling (no new thread).
     [ ] Complete sending of player data.
     [ ] Full interaction over server.
     [ ] Scorekeeping.

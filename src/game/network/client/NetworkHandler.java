@@ -4,9 +4,11 @@ import game.enemy.EnemyPlayer;
 import game.network.server.DataPacket;
 import game.player.Player;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.List;
@@ -22,7 +24,7 @@ public class NetworkHandler {
     private int port = 0;
     private List<EnemyPlayer> enemies;
     
-    private int myClientID;
+    private int myClientId;
     private long responseTime = -1;
     
     public NetworkHandler(String newIp, int newPort, Player localPlayer, List<EnemyPlayer> newEnemies) {
@@ -44,23 +46,7 @@ public class NetworkHandler {
             System.out.println("Error creating socket: " + e);
         }
         
-        try {
-            socket.send(new DatagramPacket(new byte[]{},0,ip,port));
-        } catch (IOException e) {
-            System.out.println("Error sending handshake data: " + e);
-        }
-        
-        byte[] bytes = new byte[4];
-        DatagramPacket recvPacket = new DatagramPacket(bytes,bytes.length);
-        
-        try {
-            socket.receive(recvPacket);
-        } catch (IOException e) {
-            System.out.println("Error recieving handshake data: " + e);
-        }
-        
-        DataPacket tempPacket = new DataPacket(recvPacket.getData());
-        myClientID = tempPacket.getClient();
+        handshake();
         
         get = new Thread(new Runnable() {
             @Override
@@ -74,7 +60,7 @@ public class NetworkHandler {
                         responseTime = System.currentTimeMillis();
                         DataPacket recvDataPacket = new DataPacket(recvData);
                         
-                        if (recvDataPacket.getClient() == myClientID)
+                        if (recvDataPacket.getClient() == myClientId)
                             continue;
                         
                         boolean updated = false;
@@ -114,7 +100,7 @@ public class NetworkHandler {
                             System.out.println("Disconnecting.");
                             running = false;
                         }
-                        sendData = player.getBytes(myClientID);
+                        sendData = player.getBytes(myClientId);
                         DatagramPacket sendPacket = new DatagramPacket(sendData,sendData.length,ip,port);
                         socket.send(sendPacket);
                     }
@@ -128,5 +114,31 @@ public class NetworkHandler {
             }
         });
         send.start();
+    }
+
+    private void handshake() {
+        Socket handshakeSocket = null;
+        try {
+            handshakeSocket = new Socket(ip.getHostAddress(),port);
+        } catch (IOException e) {
+            System.out.println("Error creating TCP socket: " + e);
+        }
+        
+        InputStream in = null;
+        try {
+            in = handshakeSocket.getInputStream();
+        } catch (IOException e) {
+            System.out.println("Error getting input stream: " + e);
+        }
+        try {
+            myClientId = in.read();
+        } catch (IOException e) {
+            System.out.println("Error recieving handshake data: " + e);
+        }
+        try {
+            handshakeSocket.close();
+        } catch (IOException e) {
+            System.out.println("Error closing handshake socket: " + e);
+        }
     }
 }
