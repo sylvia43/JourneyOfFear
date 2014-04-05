@@ -5,7 +5,6 @@ import game.sprite.EntitySprite;
 import game.state.StateMultiplayer;
 import game.util.resource.AnimationLibrary;
 import game.util.resource.SoundLibrary;
-import game.util.resource.SoundPlayer;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -108,7 +107,7 @@ public class EnemyBlob extends Enemy {
             isHit = true;
             initializeKnockback(x-ox,y-oy);
             health-=damage;
-            SoundPlayer.play(SoundLibrary.SWORD_HIT);
+            SoundLibrary.SWORD_HIT.play();
         }
     }
     

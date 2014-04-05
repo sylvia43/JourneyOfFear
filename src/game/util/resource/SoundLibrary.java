@@ -16,7 +16,7 @@ public enum SoundLibrary {
     public Sound getSound() {
         if (sound == null) {
             try {
-            this.sound = ResourceLoader.initializeSound(filepath);
+                this.sound = ResourceLoader.initializeSound(filepath);
             } catch (SlickException e) {
                 System.out.println("Error loading resources! " + e);
                 throw new RuntimeException("Error loading resources! " + e);
@@ -27,5 +27,17 @@ public enum SoundLibrary {
     
     SoundLibrary(String filepath) {
         this.filepath = filepath;
+    }
+    
+    public void play() {
+        play(0.5f);
+    }
+    
+    public void play(float volume) {
+        play(volume,1.0f);
+    }
+    
+    public void play(float volume, float pitch) {
+        getSound().play(pitch,volume);
     }
 }
