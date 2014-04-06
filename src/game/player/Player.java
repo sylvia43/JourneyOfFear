@@ -337,7 +337,7 @@ public class Player {
         if (!invulnerable) {
             invulnerable = true;
             invulnerabilityTimer = INVULNERABILITY_DURATION;
-            initializeKnockback(x-ox,y-oy);
+            initializeKnockback(x+32-ox,y+32-oy);
             currentHealth -= damage;
             SoundLibrary.SWORD_HIT.play();
         }
