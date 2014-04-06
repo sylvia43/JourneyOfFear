@@ -5,21 +5,21 @@ import game.map.Area;
 import game.player.Player;
 import game.sprite.Rectangle;
 import game.state.StateMultiplayer;
+import game.util.GameObject;
 import java.util.ArrayList;
-import java.util.Comparator;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
-public class Obstacle implements Comparator {
+public class Obstacle extends GameObject {
     
     protected Animation sprite;
     protected Rectangle mask;
-
+    
     protected static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     protected Player player;
-
+    
     protected int x;
     protected int y;
     protected int width;
@@ -28,7 +28,7 @@ public class Obstacle implements Comparator {
     protected int miniHeight;
     
     protected Color minimapColor;
-             
+    
     public int getX() { return x; }
     public int getY() { return y; }
     public Animation getSprite() { return sprite; }
@@ -71,23 +71,5 @@ public class Obstacle implements Comparator {
     
     public void render(GameContainer container, Graphics g) {
         sprite.draw(x,y,64,64);
-    }
-
-    @Override
-    public int compare(Object c1, Object c2) {
-        if (c1 == null || c2==null)
-            return 0;
-        if (!(c1 instanceof Obstacle) || !(c2 instanceof Obstacle))
-            return 0;
-        
-        Obstacle o1 = (Obstacle) c1;
-        Obstacle o2 = (Obstacle) c2;
-        
-        if (o1.getY() > o2.getY())
-            return -1;
-        else if (o1.getY() == o2.getY())
-            return 0;
-        else
-            return 1;
     }
 }

@@ -3,12 +3,13 @@ package game.environment;
 import game.player.Player;
 import game.sprite.Rectangle;
 import game.util.resource.AnimationLibrary;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 public class Tree extends Obstacle {
-    
+        
     public Tree(Player player) throws SlickException {
         super();
         this.player = player;
@@ -26,6 +27,7 @@ public class Tree extends Obstacle {
     @Override
     public void render(GameContainer container, Graphics g) {
         sprite.draw(x,y,256,192);
+        g.setColor(Color.cyan);
         mask.render(g);
     }
 

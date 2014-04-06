@@ -8,7 +8,7 @@ import game.util.resource.AnimationLibrary;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
-public class Spikes extends Hazard {
+public class Spikes extends Obstacle {
     
     protected int attackId = 0;
     protected boolean wasClosed = true;

@@ -7,7 +7,7 @@ import game.state.StateMultiplayer;
 import game.util.resource.AnimationLibrary;
 import org.newdawn.slick.GameContainer;
 
-public class PinkSlimePit extends Hazard {
+public class PinkSlimePit extends Obstacle {
     
     public PinkSlimePit(Player player) {
         super();
