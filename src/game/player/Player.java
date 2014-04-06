@@ -290,19 +290,6 @@ public class Player {
         
         x += dx;
         y += dy;
-        /*
-        for(int i=0;i<Math.abs(dx);i++) {
-            if (Obstacle.testForCollision(x+(dx>0?1:-1),y,hitbox))
-                return;
-            x+=dx>0?1:-1;
-        }
-        
-        for(int i=0;i<Math.abs(dy);i++) {
-            if (Obstacle.testForCollision(x,y+(dy>0?1:-1),hitbox))
-                return;
-            y+=dy>0?1:-1;
-        }
-        */
     }
     
     private void resolveCollision() {
