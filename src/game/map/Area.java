@@ -1,11 +1,11 @@
 package game.map;
 
 import game.enemy.Enemy;
-import game.enemy.EnemyBlob;
-import game.enemy.EnemySmartBlob;
-import game.environment.GreenSlimePit;
+import game.enemy.EnemyRedSlime;
+import game.enemy.EnemyGreenSlime;
+import game.environment.GreenSlimeSpawner;
 import game.environment.Obstacle;
-import game.environment.PinkSlimePit;
+import game.environment.PinkSlimeSpawner;
 import game.environment.Spikes;
 import game.environment.Tree;
 import game.player.Player;
@@ -50,12 +50,12 @@ public class Area {
         map = new TiledMap(width/64, height/64);
         map.init();
         
-        addEnemy(new EnemyBlob(player)).init(container);
-        addEnemy(new EnemySmartBlob(player)).init(container);
+        addEnemy(new EnemyRedSlime(player)).init(container);
+        addEnemy(new EnemyGreenSlime(player)).init(container);
         
         addObstacle(new Spikes(player,enemies)).init(container);           
-        addObstacle(new GreenSlimePit(player,enemies)).init(container);
-        addObstacle(new PinkSlimePit(player,enemies)).init(container);
+        addObstacle(new GreenSlimeSpawner(player,enemies)).init(container);
+        addObstacle(new PinkSlimeSpawner(player,enemies)).init(container);
         addObstacle(new Tree()).init(container);           
     }
     

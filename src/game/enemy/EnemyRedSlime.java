@@ -9,7 +9,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-public class EnemyBlob extends Enemy {
+public class EnemyRedSlime extends EnemySlime {
     
     protected boolean isHit;
     protected boolean damageBlink;
@@ -21,7 +21,7 @@ public class EnemyBlob extends Enemy {
     protected final int KNOCKBACK_MULTIPLIER = 30;
     protected final int STUN_DURATION = 400;
 
-    public EnemyBlob(Player player) {
+    public EnemyRedSlime(Player player) {
         super(player);
         this.x = (int)(Math.random()*StateMultiplayer.WORLD_SIZE_X);
         this.y = (int)(Math.random()*StateMultiplayer.WORLD_SIZE_Y);

@@ -10,7 +10,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-public class EnemySmartBlob extends Enemy {
+public class EnemyGreenSlime extends EnemySlime {
 
     protected Animation attack;
     
@@ -50,7 +50,7 @@ public class EnemySmartBlob extends Enemy {
         return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
     }
 
-    public EnemySmartBlob(Player player) {
+    public EnemyGreenSlime(Player player) {
         super(player);
         this.spritepath = "blobredsir";
         this.x = 500;
