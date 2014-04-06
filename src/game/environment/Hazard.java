@@ -5,6 +5,7 @@ import game.map.Area;
 import game.player.Player;
 import java.util.ArrayList;
 import java.util.List;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 
 public class Hazard extends Obstacle {
@@ -16,6 +17,7 @@ public class Hazard extends Obstacle {
     
     public Hazard(Player player, ArrayList<Enemy> enemies) {
         super();
+        this.minimapColor = Color.red;
         this.enemies = enemies;
         this.player = player;
     }

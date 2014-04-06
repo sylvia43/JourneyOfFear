@@ -35,18 +35,19 @@ public class Obstacle extends GameObject {
     public void canMove(int x, int y) { }
     
     public Obstacle() {
-        minimapColor = Color.red;
-        initializeSprite();
-        this.x = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_X-sprite.getWidth()));
-        this.y = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y-sprite.getHeight()));
-        miniWidth = 3;
-        miniHeight = 3;
+        this(-1,-1);
     }
     
     public Obstacle(int x, int y) {
-        minimapColor = Color.red;
-        this.x = x;
-        this.y = y;
+        initializeSprite();
+        minimapColor = Color.blue;
+        if (x==-1 && y==-1) {
+            this.x = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_X-sprite.getWidth()));
+            this.y = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y-sprite.getHeight()));
+        } else {
+            this.x = x;
+            this.y = y;
+        }
         miniWidth = 3;
         miniHeight = 3;
     }

@@ -4,6 +4,7 @@ import game.enemy.Enemy;
 import game.map.Area;
 import game.player.Player;
 import java.util.ArrayList;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 
 public class Spawner extends Hazard {
@@ -15,6 +16,7 @@ public class Spawner extends Hazard {
     public Spawner(Player player, ArrayList<Enemy> enemies, int chance) {
         super(player,enemies);
         this.chance = chance;
+        this.minimapColor = Color.magenta;
     }
     
     public Spawner(Player player, ArrayList<Enemy> enemies, int x, int y, int chance) {

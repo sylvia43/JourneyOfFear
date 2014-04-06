@@ -47,7 +47,7 @@ public class StateMultiplayer extends StateSingleplayer {
         int height = (int)(((double)WORLD_SIZE_Y / WORLD_SIZE_X)*(2.3 *VIEW_SIZE_X)/10);
         
         for (EnemyPlayer e : enemies) {
-            g.setColor(Color.magenta);
+            g.setColor(Color.orange);
             g.fillRect((int)(posX + width*((double)e.getX())/WORLD_SIZE_X), 
                     (int)(posY + height*((double)e.getY())/WORLD_SIZE_Y),3,3);    
         }
