@@ -10,7 +10,6 @@ import org.newdawn.slick.Graphics;
 
 public class Spikes extends Hazard {
     
-    protected int attackId = 0;
     protected boolean wasClosed = true;
     
     public Spikes(Player player, ArrayList<Enemy> enemies) {

@@ -12,6 +12,8 @@ public class Hazard extends Obstacle {
     protected List<Enemy> enemies;
     protected Player player;
     
+    protected int attackId = 0;
+    
     public Hazard(Player player, ArrayList<Enemy> enemies) {
         super();
         this.enemies = enemies;
