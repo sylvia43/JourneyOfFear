@@ -2,7 +2,7 @@ package game.environment;
 
 import game.enemy.Enemy;
 import game.player.Player;
-import game.sprite.Rectangle;
+import game.sprite.ImageMask;
 import game.util.resource.AnimationLibrary;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
@@ -27,12 +27,13 @@ public class Spikes extends Hazard {
     @Override
     public void render(GameContainer container, Graphics g) {
         sprite.draw(x,y,128,156);
+        mask.draw(x,y,g);
     }
     
     @Override
     protected void initializeSprite() {
         sprite = AnimationLibrary.SPIKES.getAnim();
-        mask = new Rectangle(x,y,x+sprite.getImage(0).getWidth()*4,y+sprite.getImage(0).getHeight()*4);
+        mask = new ImageMask(sprite.getImage(0));
         sprite.setDuration(0,1000);
     }
     
@@ -46,10 +47,10 @@ public class Spikes extends Hazard {
             wasClosed = false;
             attackId++;
         }
-        if (mask.intersects(player.getCollisionMask(),player.getX(),player.getY()))
+        if (mask.intersects(player.getCollisionMask(),x,y,player.getX(),player.getY()))
             player.resolveHit(x+64,y+64,2);
         for (Enemy e : enemies) {
-            if (mask.intersects(e.getCollisionMask(),e.getX(),e.getY())) {
+            if (mask.intersects(e.getCollisionMask(),x,y,e.getX(),e.getY())) {
                 e.resolveHit(x,y,attackId,2);
             }
         }

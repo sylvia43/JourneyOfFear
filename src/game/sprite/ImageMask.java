@@ -1,5 +1,6 @@
 package game.sprite;
 
+import game.state.StateSingleplayer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
@@ -55,6 +56,8 @@ public class ImageMask {
     }
     
     public void draw(int x, int y, Graphics g) {
+        if (!StateSingleplayer.DEBUG_COLLISION)
+            return;
         for (int i=0;i<mask.length;i++)
             for (int j=0;j<mask[i].length;j++)
                 if (mask[i][j])

@@ -4,7 +4,6 @@ import java.util.Comparator;
 
 public abstract class GameObject implements Comparator {
     
-    public abstract int getX();
     public abstract int getY();
     
     @Override

@@ -210,9 +210,7 @@ public class EnemySmartBlob extends Enemy {
     
     @Override
     protected void renderDebugInfo(Graphics g) {
-        g.setColor(Color.white);
-        g.drawString("x: " + String.valueOf(x),10+x+64,38+y+64);
-        g.drawString("y: " + String.valueOf(y),10+x+64,52+y+64);
+        super.renderDebugInfo(g);
         g.drawString(isHit?"Hit":"Not Hit",10+x+64,66+y+64);
         g.drawString(attackHit?"Hitting!":"Not Hitting",10+x+64,80+y+64);
         if (StateMultiplayer.DEBUG_COLLISION) {

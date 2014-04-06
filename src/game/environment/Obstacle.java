@@ -1,7 +1,7 @@
 package game.environment;
 
 import game.map.Area;
-import game.sprite.Rectangle;
+import game.sprite.ImageMask;
 import game.state.StateMultiplayer;
 import game.util.GameObject;
 import org.newdawn.slick.Animation;
@@ -12,7 +12,7 @@ import org.newdawn.slick.Graphics;
 public class Obstacle extends GameObject {
     
     protected Animation sprite;
-    protected Rectangle mask;
+    protected ImageMask mask;
         
     protected int x;
     protected int y;
@@ -30,7 +30,7 @@ public class Obstacle extends GameObject {
     public int getMiniHeight() { return miniHeight; }
     public Color getColor() { return minimapColor; }
     
-    public Rectangle getCollisionMask() { return mask; }
+    public ImageMask getCollisionMask() { return mask; }
     
     public void canMove(int x, int y) { }
     
@@ -55,10 +55,6 @@ public class Obstacle extends GameObject {
     
     protected void initializeSprite() { }
     
-    protected Rectangle createMask() {
-        return new Rectangle(x,y,x+sprite.getWidth(),y+sprite.getHeight());
-    }
-    
     public void init(GameContainer container) {
         initializeSprite();
     }
@@ -67,5 +63,6 @@ public class Obstacle extends GameObject {
         
     public void render(GameContainer container, Graphics g) {
         sprite.draw(x,y,64,64);
+        mask.draw(x,y,g);
     }
 }
