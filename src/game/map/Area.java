@@ -1,8 +1,8 @@
 package game.map;
 
 import game.enemy.Enemy;
-import game.enemy.EnemyRedSlime;
 import game.enemy.EnemyGreenSlime;
+import game.enemy.EnemyRedSlime;
 import game.environment.GreenSlimeSpawner;
 import game.environment.Obstacle;
 import game.environment.PinkSlimeSpawner;
@@ -53,10 +53,10 @@ public class Area {
         addEnemy(new EnemyRedSlime(player)).init(container);
         addEnemy(new EnemyGreenSlime(player)).init(container);
         
-        addObstacle(new Spikes(player,enemies)).init(container);           
-        addObstacle(new GreenSlimeSpawner(player,enemies)).init(container);
-        addObstacle(new PinkSlimeSpawner(player,enemies)).init(container);
-        addObstacle(new Tree()).init(container);           
+        addObstacle(new Spikes(player,enemies));           
+        addObstacle(new GreenSlimeSpawner(player,enemies));
+        addObstacle(new PinkSlimeSpawner(player,enemies));
+        addObstacle(new Tree());           
     }
     
     // Returns enemy added for chaining.

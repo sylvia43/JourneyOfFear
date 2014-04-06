@@ -36,8 +36,9 @@ public class Obstacle extends GameObject {
     
     public Obstacle() {
         minimapColor = Color.red;
-        this.x = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_X-100)) + 50;
-        this.y = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y-100)) + 50;
+        initializeSprite();
+        this.x = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_X-sprite.getWidth()));
+        this.y = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y-sprite.getHeight()));
         miniWidth = 3;
         miniHeight = 3;
     }
@@ -54,10 +55,6 @@ public class Obstacle extends GameObject {
     public void setY(int y) { this.y = y; }
     
     protected void initializeSprite() { }
-    
-    public void init(GameContainer container) {
-        initializeSprite();
-    }
     
     public void update(GameContainer container, int delta, Area currentArea) { }
         
