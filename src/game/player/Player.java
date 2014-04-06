@@ -29,8 +29,7 @@ public class Player {
     private Rectangle hitbox;
 
     private Animation sword;
-    private Animation bow;
-
+    
     private int spritePointer;
     
     private int x = 640;
