@@ -1,19 +1,21 @@
 package game.environment;
 
+import game.enemy.Enemy;
 import game.enemy.EnemyBlob;
 import game.map.Area;
 import game.player.Player;
-import game.state.StateMultiplayer;
 import game.util.resource.AnimationLibrary;
+import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 
-public class PinkSlimePit extends Obstacle {
+public class PinkSlimePit extends Hazard {
+
+    public PinkSlimePit(Player player, ArrayList<Enemy> enemies) {
+        super(player,enemies);
+    }
     
-    public PinkSlimePit(Player player) {
-        super();
-        this.player = player;
-        this.x = (int) (Math.random() * StateMultiplayer.WORLD_SIZE_X);
-        this.y = (int) (Math.random() * StateMultiplayer.WORLD_SIZE_Y);
+    public PinkSlimePit(Player player, ArrayList<Enemy> enemies, int x, int y) {
+        super(player,enemies,x,y);
     }
     
     @Override

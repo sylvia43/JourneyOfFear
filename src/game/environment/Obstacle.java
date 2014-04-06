@@ -1,12 +1,9 @@
 package game.environment;
 
-import game.enemy.Enemy;
 import game.map.Area;
-import game.player.Player;
 import game.sprite.Rectangle;
 import game.state.StateMultiplayer;
 import game.util.GameObject;
-import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -16,10 +13,7 @@ public class Obstacle extends GameObject {
     
     protected Animation sprite;
     protected Rectangle mask;
-    
-    protected static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    protected Player player;
-    
+        
     protected int x;
     protected int y;
     protected int width;
@@ -37,6 +31,8 @@ public class Obstacle extends GameObject {
     public Color getColor() { return minimapColor; }
     
     public Rectangle getCollisionMask() { return mask; }
+    
+    public void canMove(int x, int y) { }
     
     public Obstacle() {
         minimapColor = Color.red;
@@ -68,7 +64,7 @@ public class Obstacle extends GameObject {
     }
     
     public void update(GameContainer container, int delta, Area currentArea) { }
-    
+        
     public void render(GameContainer container, Graphics g) {
         sprite.draw(x,y,64,64);
     }

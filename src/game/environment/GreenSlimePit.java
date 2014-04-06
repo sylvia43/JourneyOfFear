@@ -1,19 +1,21 @@
 package game.environment;
 
+import game.enemy.Enemy;
 import game.enemy.EnemySmartBlob;
 import game.map.Area;
 import game.player.Player;
-import game.state.StateMultiplayer;
 import game.util.resource.AnimationLibrary;
+import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 
-public class GreenSlimePit extends Obstacle {
+public class GreenSlimePit extends Hazard {
     
-    public GreenSlimePit(Player player) {
-        super();
-        this.player = player;
-        this.x = (int) (Math.random() * StateMultiplayer.WORLD_SIZE_X);
-        this.y = (int) (Math.random() * StateMultiplayer.WORLD_SIZE_Y);
+    public GreenSlimePit(Player player, ArrayList<Enemy> enemies) {
+        super(player,enemies);
+    }
+    
+    public GreenSlimePit(Player player, ArrayList<Enemy> enemies, int x, int y) {
+        super(player,enemies,x,y);
     }
     
     @Override

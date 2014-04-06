@@ -1,25 +1,21 @@
 package game.environment;
 
-import game.player.Player;
 import game.sprite.Rectangle;
 import game.util.resource.AnimationLibrary;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
 
 public class Tree extends Obstacle {
         
-    public Tree(Player player) throws SlickException {
+    public Tree() {
         super();
-        this.player = player;
         miniWidth = 3;
         miniHeight = 6;
     }
 
-    public Tree(Player player, int x, int y) {
+    public Tree(int x, int y) {
         super(x,y);
-        this.player = player;
         miniWidth = 3;
         miniHeight = 6;
     }
@@ -34,11 +30,7 @@ public class Tree extends Obstacle {
     @Override
     protected void initializeSprite() {
         sprite = AnimationLibrary.TREE_LARGE.getAnim();
-        mask = new Rectangle(x,y,x+256,x+192);
+        mask = new Rectangle(x,y,x+256,y+192);
         sprite.setDuration(0,1000);
-    }
-    
-    protected void resolveCollision() {
-        
     }
 }

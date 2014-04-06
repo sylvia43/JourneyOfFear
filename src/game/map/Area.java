@@ -53,10 +53,10 @@ public class Area {
         addEnemy(new EnemyBlob(player)).init(container);
         addEnemy(new EnemySmartBlob(player)).init(container);
         
-        addObstacle(new Spikes(player,600,600)).init(container);           
-        addObstacle(new GreenSlimePit(player)).init(container);
-        addObstacle(new PinkSlimePit(player)).init(container);
-        addObstacle(new Tree(player,1200,1200)).init(container);           
+        addObstacle(new Spikes(player,enemies)).init(container);           
+        addObstacle(new GreenSlimePit(player,enemies)).init(container);
+        addObstacle(new PinkSlimePit(player,enemies)).init(container);
+        addObstacle(new Tree()).init(container);           
     }
     
     // Returns enemy added for chaining.
