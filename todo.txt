@@ -31,7 +31,7 @@ Key:
     [x] Environmental Hazards.
     [x] MUCH better error handling.
     [x] Add debug mode things for obstacles.
-	[x] Fix obstacles in general (again).
+    [x] Fix obstacles in general (again).
     [/] Damage and death.
     [/] Menu state.
     [/] Tiles you can't walk into (Boulders, trees, holes in the ground, etc).
