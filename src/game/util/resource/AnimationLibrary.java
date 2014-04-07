@@ -3,11 +3,6 @@ package game.util.resource;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 
-/** 
- * This class exists to prevent multiple objects from creating duplicate animations,
- * the heap; that's just a waste of memory. Put all resources here so to avoid
- * duplicates in the heap, and make things simpler (except this class).
- */
 public enum AnimationLibrary {
     
     // Player sprites.
@@ -15,8 +10,6 @@ public enum AnimationLibrary {
     PLAYER_UP(ImageLibrary.PLAYER_UP,166,16,16),
     PLAYER_LEFT(ImageLibrary.PLAYER_LEFT,166,16,16),
     PLAYER_DOWN(ImageLibrary.PLAYER_DOWN,166,16,16),
-    
-    ENEMY_PLAYER_PLACEHOLDER(ImageLibrary.TEST,166,16,16),
     
     // Player attack sprites.
     PLAYER_SWORD_SLASH(ImageLibrary.PLAYER_SWORD_SLASH,20,48,48),
@@ -31,6 +24,8 @@ public enum AnimationLibrary {
     SIRBLOB_UP(ImageLibrary.SIRBLOB_UP,332,16,16),
     SIRBLOB_DOWN(ImageLibrary.SIRBLOB_DOWN,332,16,16),
     SIRBLOB_LEFT(ImageLibrary.SIRBLOB_LEFT,332,16,16),
+    
+    ENEMY_PLAYER_PLACEHOLDER(ImageLibrary.TEST,166,16,16),
     
     //Environment sprites
     SPIKES(ImageLibrary.SPIKES,166,32,39),
