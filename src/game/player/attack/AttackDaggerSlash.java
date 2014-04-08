@@ -17,8 +17,10 @@ public class AttackDaggerSlash extends Attack {
         if (!attacking)
             return null;
         
-        int dx = (int) Math.round(Math.sin(Math.toRadians((targetDirection/2+2)*45)));
-        int dy = (int) Math.round(Math.cos(Math.toRadians((targetDirection/2+2)*45)));
+        int frame = anim.getFrame()+16;
+        
+        int dx = frame>=14&&frame<=18||frame==31 ? 1 : (frame>=22&&frame<=26)?-1:0;
+        int dy = frame>=26&&frame<=30 ? 1 : (frame>=18&&frame<=22)?-1:0;
         
         return new ImageMask(new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64));
     }

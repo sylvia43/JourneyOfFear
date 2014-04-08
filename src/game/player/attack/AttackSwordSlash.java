@@ -17,8 +17,10 @@ public class AttackSwordSlash extends Attack {
         if (!attacking)
             return null;
         
-        int dx = (int) Math.round(Math.sin(Math.toRadians((anim.getFrame()+2)*45)));
-        int dy = (int) Math.round(Math.cos(Math.toRadians((anim.getFrame()+2)*45)));
+        int frame = anim.getFrame()+8;
+        
+        int dx = frame>=7&&frame<=9 ? 1 : (frame>=11&&frame<=13)?-1:0;
+        int dy = frame>=13&&frame<=15 ? 1 : (frame>=9&&frame<=11)?-1:0;
         
         return new ImageMask(new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64));
     }
