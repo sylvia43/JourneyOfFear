@@ -32,6 +32,7 @@ Key:
     [x] MUCH better error handling.
     [x] Add debug mode things for obstacles.
     [x] Fix obstacles in general (again).
+    [/] Different weapons.
     [/] Damage and death.
     [/] Menu state.
     [/] Tiles you can't walk into (Boulders, trees, holes in the ground, etc).
@@ -43,7 +44,6 @@ Key:
     [ ] Make Areas more object oriented.
     [ ] Smart enemy.
     [ ] Different types of attacks.
-    [ ] Different weapons.
     [ ] Different blobs and bats (More enemies).
     [ ] Boss fight.
     [ ] Integrate transition tiles.
