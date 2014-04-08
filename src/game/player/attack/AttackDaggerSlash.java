@@ -1,27 +1,17 @@
 package game.player.attack;
 
-import game.sprite.Hittable;
 import game.sprite.ImageMask;
 import game.sprite.Rectangle;
 import game.util.resource.AnimationLibrary;
 import game.util.resource.SoundLibrary;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
 
 public class AttackDaggerSlash extends Attack {
     
-    private final int ATTACK_SPEED = 200;
-    private final int SWORD_DELAY = 300;
+     public AttackDaggerSlash() {
+        swingEndRest = 200;
+        attackRest = 300;
+    }
         
-    private boolean attacking;
-    private int attackTimer;
-    private int attackDelay;
-    
-    private int currentAttackId = 0;
-    private int attackId = 0;
-    
-    private int targetDirection = 0;
-    
     @Override
     public ImageMask getMask(int x, int y) {
         if (!attacking)
@@ -40,63 +30,18 @@ public class AttackDaggerSlash extends Attack {
         anim = AnimationLibrary.ATTACK_DAGGER_SLASH.getAnim();
         anim.stop();
     }
-
-    @Override
-    public void render(int x, int y) {
-        if (attacking)
-            anim.draw(x-64,y-64,192,192);
-    }
-    
-    @Override
-    public void update(int delta, int x, int y) {
-        if (attackTimer<500)
-            attackTimer+=delta;
-        attackDelay-=delta;
-        if (attackTimer > ATTACK_SPEED)
-            attacking = false;
-    }
-    
-    @Override
-    public void resolveAttackHit(Hittable other, int x, int y) {
-        if (!attacking)
-            return;
-        if(other.getCollisionMask().intersects(getMask(x,y)))
-            other.resolveHit(x,y,currentAttackId);
-    }
-    
-    @Override
-    public boolean canAttack() {
-        return !attacking && attackDelay<1;
-    }
     
     public void attack(int direction, boolean sound) {
         direction = direction*2;
         currentAttackId = getAttackId();
         attacking = true;
         attackTimer = 0;
-        attackDelay = anim.getDuration(0)*2 + SWORD_DELAY;
+        attackDelay = anim.getDuration(0)*2 + attackRest;
         anim.restart();
         anim.setCurrentFrame((direction+15)%16);
         targetDirection = direction;
         anim.stopAt((direction+17)%16);
         if (sound)
             SoundLibrary.values()[(int)(3*Math.random())].play();
-    }
-    
-    private int getAttackId() {
-        attackId = attackId>Integer.MAX_VALUE-1?0:attackId+1;
-        return attackId;
-    }
-    
-    public void renderDebugInfo(int camX, int camY, Graphics g) {
-        g.drawString(attacking?"Attacking":"Not attacking",camX,camY);
-        g.drawString(String.valueOf(targetDirection),camX,14+camY);
-    }
-    
-    public void renderMask(int x, int y, Graphics g) {
-        if (attacking) {
-            g.setColor(Color.red);
-            getMask(x,y).render(g);
-        }
     }
 }
