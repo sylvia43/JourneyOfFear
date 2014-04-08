@@ -25,7 +25,7 @@ public abstract class Attack {
     public abstract void render(int x, int y);
     public abstract boolean canAttack();
     public abstract void attack(int direction, boolean sound);
-    public abstract void resolveAttack(int delta, int x, int y);
+    public abstract void update(int delta, int x, int y);
     public abstract void resolveAttackHit(Hittable other, int x, int y);
     public abstract void renderMask(int x, int y, Graphics g);
     public abstract void renderDebugInfo(int camX, int camY, Graphics g);

@@ -77,7 +77,7 @@ public class EnemyGreenSlime extends EnemySlime {
             direction = directionToPlayer()*2;
             attack.attack(direction,false);
         }
-        attack.resolveAttack(delta,x,y);
+        attack.update(delta,x,y);
         resolveAttackCollision();
     }
     
@@ -122,19 +122,6 @@ public class EnemyGreenSlime extends EnemySlime {
         
         x += dx;
         y += dy;
-        /*
-        for(int i=0;i<Math.abs(dx);i++) {
-            if (Obstacle.testForCollision(x+(dx>0?1:-1),y,getCollisionMask()))
-                return;
-            x+=dx>0?1:-1;
-        }
-        
-        for(int i=0;i<Math.abs(dy);i++) {
-            if (Obstacle.testForCollision(x,y+(dy>0?1:-1),getCollisionMask()))
-                return;
-            y+=dy>0?1:-1;
-        }
-        */
     }
     
     protected void updateSpritePointer(int delta) {
@@ -178,10 +165,8 @@ public class EnemyGreenSlime extends EnemySlime {
     @Override
     protected void renderDebugInfo(Graphics g) {
         super.renderDebugInfo(g);
-        g.drawString(isHit?"Hit":"Not Hit",x+64,y+64+56);
-        attack.renderDebugInfo(x+64,y+64+70,g);
+        attack.renderDebugInfo(x+64,y+64+56,g);
         if (StateMultiplayer.DEBUG_COLLISION) {
-            getCollisionMask().render(g);
             attack.renderMask(x,y,g);
         }
     }

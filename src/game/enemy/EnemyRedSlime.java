@@ -7,7 +7,6 @@ import game.util.resource.AnimationLibrary;
 import game.util.resource.SoundLibrary;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
 
 public class EnemyRedSlime extends EnemySlime {
     
@@ -73,20 +72,6 @@ public class EnemyRedSlime extends EnemySlime {
         
         x += dx;
         y += dy;
-        
-        /*
-        for(int i=0;i<Math.abs(dx);i++) {
-            if (Obstacle.testForCollision(x+(dx>0?1:-1),y,getCollisionMask()))
-                return;
-            x+=dx>0?1:-1;
-        }
-        
-        for(int i=0;i<Math.abs(dy);i++) {
-            if (Obstacle.testForCollision(x,y+(dy>0?1:-1),getCollisionMask()))
-                return;
-            y+=dy>0?1:-1;
-        }
-        */
     }
     
     @Override
@@ -106,19 +91,10 @@ public class EnemyRedSlime extends EnemySlime {
     }
     
     protected void initializeKnockback(int dx, int dy) {
-        if (stunTimer<=0) {
-            knockbackDX=(int)(KNOCKBACK_DISTANCE*Math.cos(Math.atan2(dy,dx)));
-            knockbackDY=(int)(KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx)));
-            stunTimer = STUN_DURATION;
-        }
-    }
-    
-    @Override
-    protected void renderDebugInfo(Graphics g) {
-        super.renderDebugInfo(g);
-        g.drawString(isHit?"Hit":"Not Hit",x+64,y+64+56);
-        if (StateMultiplayer.DEBUG_COLLISION) {
-            getCollisionMask().render(g);
-        }
+        if (stunTimer>0)
+            return;
+        knockbackDX=(int)(KNOCKBACK_DISTANCE*Math.cos(Math.atan2(dy,dx)));
+        knockbackDY=(int)(KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx)));
+        stunTimer = STUN_DURATION;
     }
 }

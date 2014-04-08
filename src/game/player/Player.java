@@ -117,7 +117,7 @@ public class Player implements Hittable {
             attackDirection = (attackDirection+6)%8;
             attack.attack(attackDirection,true);
         }
-        attack.resolveAttack(delta,x,y);
+        attack.update(delta,x,y);
         for (Enemy e : enemies)
             attack.resolveAttackHit(e,x,y);
     }

@@ -46,7 +46,7 @@ public class AttackSwordSlash extends Attack {
     }
     
     @Override
-    public void resolveAttack(int delta, int x, int y) {
+    public void update(int delta, int x, int y) {
         if (attackTimer<500)
             attackTimer+=delta;
         attackDelay-=delta;
