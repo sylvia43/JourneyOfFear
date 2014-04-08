@@ -6,15 +6,14 @@ import org.newdawn.slick.SlickException;
 public enum ImageLibrary {
     
     // Player sprites.
-// Player sprites.
     PLAYER_RIGHT("player/right.png"),
     PLAYER_UP("player/up.png"),
     PLAYER_LEFT("player/left.png"),
     PLAYER_DOWN("player/down.png"),
     
     // Attack sprites.
-    ATTACK_SWORD_SLASH("player/attacks/sword_slash.png"),
-    ATTACK_DAGGER_SLASH("player/attacks/sword_slash_smooth.png"),
+    ATTACK_SWORD_SLASH("attacks/sword_slash.png"),
+    ATTACK_DAGGER_SLASH("attacks/dagger_slash.png"),
     
     // Hearts.
     EMPTY_HEART("player/health/health_empty.png"),
