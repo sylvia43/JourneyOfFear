@@ -6,9 +6,6 @@ import org.newdawn.slick.SlickException;
 public enum AnimationLibrary {
     
     // Player sprites.
-// Player sprites.
-// Player sprites.
-// Player sprites.
     PLAYER_RIGHT(ImageLibrary.PLAYER_RIGHT,166,16,16),
     PLAYER_UP(ImageLibrary.PLAYER_UP,166,16,16),
     PLAYER_LEFT(ImageLibrary.PLAYER_LEFT,166,16,16),
