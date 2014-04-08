@@ -11,7 +11,7 @@ public abstract class Attack {
     
     protected List<Enemy> enemies;
     
-    protected Animation sword;
+    protected Animation anim;
     
     protected int x = 0;
     protected int y = 0;

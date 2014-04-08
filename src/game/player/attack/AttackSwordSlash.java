@@ -19,16 +19,14 @@ public class AttackSwordSlash extends Attack {
     
     private int currentAttackId = 0;
     private int attackId = 0;
-    
-    private boolean attackHit;
-    
+        
     @Override
     public ImageMask getMask(int x, int y) {
         if (!attacking)
             return null;
         
-        int dx = (int) Math.round(Math.sin(Math.toRadians((sword.getFrame()+2)*45)));
-        int dy = (int) Math.round(Math.cos(Math.toRadians((sword.getFrame()+2)*45)));
+        int dx = (int) Math.round(Math.sin(Math.toRadians((anim.getFrame()+2)*45)));
+        int dy = (int) Math.round(Math.cos(Math.toRadians((anim.getFrame()+2)*45)));
         
         return new ImageMask(new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64));
     }
@@ -37,14 +35,14 @@ public class AttackSwordSlash extends Attack {
     public void init() {
         attacking = false;
         attackDelay = 0;
-        sword = AnimationLibrary.PLAYER_SWORD_SLASH.getAnim();
-        sword.stop();
+        anim = AnimationLibrary.PLAYER_SWORD_SLASH.getAnim();
+        anim.stop();
     }
 
     @Override
     public void render(int x, int y) {
         if (attacking)
-            sword.draw(x-64,y-64,192,192);
+            anim.draw(x-64,y-64,192,192);
     }
     
     @Override
@@ -60,12 +58,11 @@ public class AttackSwordSlash extends Attack {
     public void resolveAttackHit(Hittable other, int x, int y) {
         if (!attacking)
             return;
-        if(other.getCollisionMask().intersects(getMask(x,y))) {
+        if(other.getCollisionMask().intersects(getMask(x,y)))
             other.resolveHit(x,y,currentAttackId);
-            attackHit = true;
-        }
     }
     
+    @Override
     public boolean canAttack() {
         return !attacking && attackDelay<1;
     }
@@ -74,10 +71,10 @@ public class AttackSwordSlash extends Attack {
         currentAttackId = getAttackId();
         attacking = true;
         attackTimer = 0;
-        attackDelay = sword.getDuration(0)*2 + SWORD_DELAY;
-        sword.restart();
-        sword.setCurrentFrame(direction);
-        sword.stopAt((direction + 10) % 8);
+        attackDelay = anim.getDuration(0)*2 + SWORD_DELAY;
+        anim.restart();
+        anim.setCurrentFrame(direction);
+        anim.stopAt((direction + 10) % 8);
         if (sound)
             SoundLibrary.values()[(int)(3*Math.random())].play();
     }
@@ -90,7 +87,6 @@ public class AttackSwordSlash extends Attack {
     public void renderDebugInfo(int camX, int camY, Graphics g) {
         g.drawString(attacking?"Attacking":"Not attacking",camX,camY);
         g.drawString(String.valueOf(attackTimer),camX,14+camY);
-        g.drawString(attackHit?"Hitting!":"Not Hitting",camX,28+camY);
     }
     
     public void renderMask(int x, int y, Graphics g) {
