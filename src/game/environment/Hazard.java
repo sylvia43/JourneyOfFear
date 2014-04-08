@@ -33,10 +33,10 @@ public class Hazard extends Obstacle {
     }
     
     protected void resolveCollision() {
-        if (mask.intersects(player.getCollisionMask(),x,y,player.getX(),player.getY()))
+        if (mask.intersects(player.getCollisionMask()))
             player.resolveHit(x+64,y+64,2);
         for (Enemy e : enemies) {
-            if (mask.intersects(e.getCollisionMask(),x,y,e.getX(),e.getY())) {
+            if (mask.intersects(e.getCollisionMask())) {
                 e.resolveHit(x,y,attackId,2);
             }
         }

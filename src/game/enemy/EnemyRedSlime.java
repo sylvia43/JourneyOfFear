@@ -91,8 +91,7 @@ public class EnemyRedSlime extends EnemySlime {
     
     @Override
     protected void resolveCollision() {
-        isHit = getCollisionMask()
-                .intersects(player.getCollisionMask(),x,y,player.getX(),player.getY());
+        isHit = getCollisionMask().intersects(player.getCollisionMask());
     }
     
     @Override
@@ -119,7 +118,7 @@ public class EnemyRedSlime extends EnemySlime {
         super.renderDebugInfo(g);
         g.drawString(isHit?"Hit":"Not Hit",10+x+64,66+y+64);
         if (StateMultiplayer.DEBUG_COLLISION) {
-            getCollisionMask().draw(x,y,g);
+            getCollisionMask().render(g);
         }
     }
 }

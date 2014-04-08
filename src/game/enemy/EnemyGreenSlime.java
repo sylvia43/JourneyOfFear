@@ -4,7 +4,7 @@ import game.player.Player;
 import game.player.attack.Attack;
 import game.player.attack.AttackSwordSlash;
 import game.sprite.EntitySprite;
-import game.sprite.Rectangle;
+import game.sprite.ImageMask;
 import game.state.StateMultiplayer;
 import game.util.resource.AnimationLibrary;
 import game.util.resource.SoundLibrary;
@@ -37,7 +37,7 @@ public class EnemyGreenSlime extends EnemySlime {
     protected final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME;
     
     @Override
-    public Rectangle getAttackMask() {
+    public ImageMask getAttackMask() {
         return attack.getMask(x,y);
     }
 
@@ -82,7 +82,7 @@ public class EnemyGreenSlime extends EnemySlime {
     }
     
     protected void resolveAttackCollision() {
-        attack.resolveAttackHit(player,x,y,player.getX(),player.getY());
+        attack.resolveAttackHit(player,x,y);
     }
     
     @Override
@@ -148,8 +148,7 @@ public class EnemyGreenSlime extends EnemySlime {
     
     @Override
     protected void resolveCollision() {
-        isHit = getCollisionMask()
-                .intersects(player.getCollisionMask(),x,y,player.getX(),player.getY());
+        isHit = getCollisionMask().intersects(player.getCollisionMask());
     }
     
     @Override
@@ -182,7 +181,7 @@ public class EnemyGreenSlime extends EnemySlime {
         g.drawString(isHit?"Hit":"Not Hit",10+x+64,66+y+64);
         attack.renderDebugInfo(x+10+64,y+80+64,g);
         if (StateMultiplayer.DEBUG_COLLISION) {
-            getCollisionMask().draw(x,y,g);
+            getCollisionMask().render(g);
             attack.renderMask(x,y,g);
         }
     }

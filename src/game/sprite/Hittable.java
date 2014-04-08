@@ -1,7 +1,10 @@
 package game.sprite;
 
-public abstract class Hittable {
+public interface Hittable {
     
-    public abstract ImageMask getCollisionMask();
-    public abstract void resolveHit(int x, int y, int attackId);
+    public int getX();
+    public int getY();
+    
+    public ImageMask getCollisionMask();
+    public void resolveHit(int x, int y, int attackId);
 }

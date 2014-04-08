@@ -38,16 +38,17 @@ public class Obstacle extends GameObject {
         this(-1,-1);
     }
     
-    public Obstacle(int x, int y) {
+    public Obstacle(int nx, int ny) {
         initializeSprite();
         minimapColor = Color.blue;
-        if (x==-1 && y==-1) {
+        if (nx==-1 && ny==-1) {
             this.x = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_X-sprite.getWidth()));
             this.y = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y-sprite.getHeight()));
         } else {
-            this.x = x;
-            this.y = y;
+            this.x = nx;
+            this.y = ny;
         }
+        mask.update(x,y);
         miniWidth = 3;
         miniHeight = 3;
     }
@@ -61,6 +62,6 @@ public class Obstacle extends GameObject {
         
     public void render(GameContainer container, Graphics g) {
         sprite.draw(x,y,64,64);
-        mask.draw(x,y,g);
+        mask.render(g);
     }
 }

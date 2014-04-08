@@ -24,20 +24,20 @@ public class Tree extends SolidObstacle {
     public void render(GameContainer container, Graphics g) {
         sprite.draw(x,y,256,192);
         g.setColor(Color.cyan);
-        mask.draw(x,y,g);
+        mask.render(g);
     }
 
     @Override
     protected void initializeSprite() {
         sprite = AnimationLibrary.TREE_LARGE.getAnim();
-        mask = new ImageMask(sprite.getImage(0));
+        mask = new ImageMask(sprite.getImage(0),x,y);
         sprite.setDuration(0,1000);
     }
     
     @Override
     public int canMoveSteps(int ox, int oy, ImageMask otherMask, int steps, int dx, int dy) {
         for (int i=0;i<steps;i++) {
-            if (mask.intersects(otherMask,x,y,ox+i*dx,oy+i*dy))
+            if (mask.intersects(otherMask))
                 return i;
         }
         return steps;

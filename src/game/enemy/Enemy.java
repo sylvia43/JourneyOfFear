@@ -5,13 +5,12 @@ import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.Hittable;
 import game.sprite.ImageMask;
-import game.sprite.Rectangle;
 import game.state.StateMultiplayer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
-public class Enemy extends Hittable {
+public class Enemy implements Hittable {
     
     protected EntitySprite sprite;
     protected String spritepath;
@@ -44,11 +43,11 @@ public class Enemy extends Hittable {
     
     public ImageMask getCollisionMask() {
         return sprite.getAnimationMask(spritePointer)
-                .getImageMask(sprite.getAnim(spritePointer).getFrame());
+                .getImageMask(sprite.getAnim(spritePointer).getFrame()).update(x,y);
     }
     
     // By default enemies don't have attacks.
-    public Rectangle getAttackMask() { return null; }
+    public ImageMask getAttackMask() { return null; }
     
     public Enemy(Player player) {
         this.player = player;
@@ -128,7 +127,7 @@ public class Enemy extends Hittable {
     protected AnimationMask createMask(int index) {
         ImageMask[] masks = new ImageMask[4];
         for (int i=0;i<4;i++) {
-            masks[i] = new ImageMask(sprite.getAnim(index).getImage(i));
+            masks[i] = new ImageMask(sprite.getAnim(index).getImage(i),x,y);
         }
         return new AnimationMask(masks);
     }

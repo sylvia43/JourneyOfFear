@@ -8,8 +8,18 @@ public class ImageMask {
     
     private boolean[][] mask;
     
-    public ImageMask(Image image) {                
+    private int x;
+    private int y;
+    
+    public int getX() { return x; }
+    public int getY() { return y; }
+    
+    public ImageMask update(int x, int y) {this.x = x; this.y = y; return this; }
+    
+    public ImageMask(Image image, int x, int y) {
         mask = simplify(getMaskFromImage(image));
+        this.x = x;
+        this.y = y;
     }
     
     public ImageMask(Rectangle rectangle) {
@@ -18,12 +28,14 @@ public class ImageMask {
     
     public boolean[][] getMask() { return mask; }
     
-    public boolean intersects(ImageMask other, int tx, int ty, int ox, int oy) {
+    public boolean intersects(ImageMask other) {
+        int ox = other.getX();
+        int oy = other.getY();
         boolean[][] otherMask = other.getMask();
-        if ((tx+mask.length*4<ox)
-                || ty+mask[0].length*4<oy
-                || ox+otherMask.length*4<tx
-                || oy+otherMask[0].length*4<ty)
+        if ((x+mask.length*4<ox)
+                || y+mask[0].length*4<oy
+                || ox+otherMask.length*4<x
+                || oy+otherMask[0].length*4<y)
             return false;
                         boolean up = false;
                 boolean down = false;
@@ -37,13 +49,13 @@ public class ImageMask {
                     for (int l=0;l<otherMask[k].length;l++) {
                         if (!otherMask[k][l])
                             continue;
-                        if (tx+i*4<=ox+k*4+4)
+                        if (x+i*4<=ox+k*4+4)
                             right = true;
-                        if(tx+i*4+4>=ox+k*4)
+                        if(x+i*4+4>=ox+k*4)
                             left = true;
-                        if (ty+j*4<=oy+l*4+4)
+                        if (y+j*4<=oy+l*4+4)
                             down = true;
-                        if (ty+j*4+4>=oy+l*4)
+                        if (y+j*4+4>=oy+l*4)
                             up = true;
                         if (up && down && left && right)
                             return true;
@@ -52,12 +64,6 @@ public class ImageMask {
             }
         }
         return false;
-    }
-
-    public boolean intersects(Rectangle other, int ix, int iy) {
-        if (other == null)
-            return false;
-        return this.intersects(new ImageMask(other),ix,iy,other.getX1(),other.getY1());
     }
     
     public String toString(boolean[][] array) {
@@ -71,7 +77,7 @@ public class ImageMask {
         return s.toString();
     }
     
-    public void draw(int x, int y, Graphics g) {
+    public void render(Graphics g) {
         if (!StateSingleplayer.DEBUG_COLLISION)
             return;
         for (int i=0;i<mask.length;i++)
@@ -96,15 +102,18 @@ public class ImageMask {
         return imageMask;
     }
     
-    private boolean[][] getMaskFromRectangle(Rectangle rectangle) {
-        boolean[][] imageMask = new boolean[rectangle.getWidth()/4][rectangle.getHeight()/4];
+    private boolean[][] getMaskFromRectangle(Rectangle r) {
+        boolean[][] imageMask = new boolean[r.getWidth()/4][r.getHeight()/4];
+        
+        x = r.getX1();
+        y = r.getY1();
         
         for (int i=0;i<imageMask.length;i++) {
             for (int j=0;j<imageMask[i].length;j++) {
                 imageMask[i][j] = true;
             }
         }
-        return imageMask;
+        return simplify(imageMask);
     }
     
     private boolean[][] simplify(boolean[][] startMask) {

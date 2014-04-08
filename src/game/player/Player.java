@@ -10,7 +10,6 @@ import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.Hittable;
 import game.sprite.ImageMask;
-import game.sprite.Rectangle;
 import game.state.StateMultiplayer;
 import game.state.StateSingleplayer;
 import game.util.Options;
@@ -26,10 +25,9 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-public class Player extends Hittable {
+public class Player implements Hittable {
 
     private EntitySprite sprite;
-    private Rectangle hitbox;
     
     private Attack attack;
     
@@ -76,10 +74,10 @@ public class Player extends Hittable {
     @Override
     public ImageMask getCollisionMask() {
         return sprite.getAnimationMask(spritePointer)
-                .getImageMask(sprite.getAnim(spritePointer).getFrame());
+                .getImageMask(sprite.getAnim(spritePointer).getFrame()).update(x,y);
     }
 
-    public Rectangle getAttackMask() {
+    public ImageMask getAttackMask() {
         return attack.getMask(x,y);
     }
     
@@ -97,7 +95,6 @@ public class Player extends Hittable {
     
     public void init(GameContainer container) throws SlickException {
         initializeSprite();
-        hitbox = new Rectangle(x,y,x+64,y+64);
         emptyHeart = ImageLibrary.EMPTY_HEART.getImage();
         halfHeart = ImageLibrary.HALF_HEART.getImage();
         fullHeart = ImageLibrary.FULL_HEART.getImage();
@@ -107,7 +104,6 @@ public class Player extends Hittable {
     
     public void update(GameContainer container, int delta) {
         this.delta = delta;
-        hitbox.set(x,y,x+64,y+64);
         resolveInvulnerability(delta); //and knockback
         movePlayer(container.getInput(),delta);
         resolveCollision();
@@ -123,7 +119,7 @@ public class Player extends Hittable {
         }
         attack.resolveAttack(delta,x,y);
         for (Enemy e : enemies)
-            attack.resolveAttackHit(e,x,y,e.getX(),e.getY());
+            attack.resolveAttackHit(e,x,y);
     }
     
     public void render(GameContainer container, Graphics g) {
@@ -189,7 +185,7 @@ public class Player extends Hittable {
     private AnimationMask initializeMask(int index) {
         ImageMask[] masks = new ImageMask[4];
         for (int i=0;i<4;i++) {
-            masks[i] = new ImageMask(sprite.getAnim(index).getImage(i));
+            masks[i] = new ImageMask(sprite.getAnim(index).getImage(i),x,y);
         }
         return new AnimationMask(masks);
     }
@@ -302,7 +298,7 @@ public class Player extends Hittable {
     
     private void resolveCollision() {
         for (Enemy e : enemies) {
-            if(getCollisionMask().intersects(e.getCollisionMask(),x,y,e.getX(),e.getY()))
+            if(getCollisionMask().intersects(e.getCollisionMask()))
                 resolveHit(e.getX(),e.getY());
         }
     }
@@ -356,7 +352,7 @@ public class Player extends Hittable {
         g.drawString(isHit?"Hit":"Not Hit",10+camX,66+camY);
         attack.renderDebugInfo(camX+10,camY+80,g);
         if (StateMultiplayer.DEBUG_COLLISION) {
-            getCollisionMask().draw(x,y,g);
+            getCollisionMask().render(g);
             attack.renderMask(x,y,g);
         }
     }

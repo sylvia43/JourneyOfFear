@@ -1,6 +1,7 @@
 package game.player.attack;
 
 import game.sprite.Hittable;
+import game.sprite.ImageMask;
 import game.sprite.Rectangle;
 import game.util.resource.AnimationLibrary;
 import game.util.resource.SoundLibrary;
@@ -22,14 +23,14 @@ public class AttackSwordSlash extends Attack {
     private boolean attackHit;
     
     @Override
-    public Rectangle getMask(int x, int y) {
+    public ImageMask getMask(int x, int y) {
         if (!attacking)
             return null;
         
         int dx = (int) Math.round(Math.sin(Math.toRadians((sword.getFrame()+2)*45)));
         int dy = (int) Math.round(Math.cos(Math.toRadians((sword.getFrame()+2)*45)));
         
-        return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
+        return new ImageMask(new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64));
     }
 
     @Override
@@ -56,8 +57,10 @@ public class AttackSwordSlash extends Attack {
     }
     
     @Override
-    public void resolveAttackHit(Hittable other, int x, int y, int ox, int oy) {
-        if(other.getCollisionMask().intersects(getMask(x,y),ox,oy)) {
+    public void resolveAttackHit(Hittable other, int x, int y) {
+        if (!attacking)
+            return;
+        if(other.getCollisionMask().intersects(getMask(x,y))) {
             other.resolveHit(x,y,currentAttackId);
             attackHit = true;
         }
@@ -93,8 +96,7 @@ public class AttackSwordSlash extends Attack {
     public void renderMask(int x, int y, Graphics g) {
         if (attacking) {
             g.setColor(Color.red);
-            Rectangle r = getMask(x,y);
-            g.drawRect(r.getX1(),r.getY1(),r.getWidth(),r.getHeight());
+            getMask(x,y).render(g);
         }
     }
 }
