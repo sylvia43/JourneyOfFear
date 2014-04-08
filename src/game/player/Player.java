@@ -4,6 +4,8 @@ import game.enemy.Enemy;
 import game.environment.Obstacle;
 import game.network.server.DataPacket;
 import game.network.server.EnemyPlayerData;
+import game.player.attack.Attack;
+import game.player.attack.AttackSwordSlash;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
@@ -27,8 +29,8 @@ public class Player {
 
     private EntitySprite sprite;
     private Rectangle hitbox;
-
-    private Animation sword;
+    
+    private Attack attack;
     
     private int spritePointer;
     
@@ -50,18 +52,6 @@ public class Player {
     private ArrayList<Enemy> enemies;
     private ArrayList<Obstacle> obstacles;
     
-    private final int ATTACK_SPEED = 10;
-    private final int SWORD_DELAY = 400;
-    
-    private int direction;
-    
-    private boolean attacking;
-    private int attackTimer;
-    private int attackDelay;
-
-    private int currentAttackId = 0;
-    private int attackId = 0;
-    private boolean attackHit;
     private boolean isHit;
     private boolean damageBlink;
     private boolean invulnerable = false;
@@ -86,13 +76,7 @@ public class Player {
     }
 
     public Rectangle getAttackMask() {
-        if (!attacking)
-            return null;
-        
-        int dx = (int) Math.round(Math.sin(Math.toRadians((sword.getFrame()+2)*45)));
-        int dy = (int) Math.round(Math.cos(Math.toRadians((sword.getFrame()+2)*45)));
-        
-        return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
+        return attack.getMask(x,y);
     }
     
     public byte[] getBytes(int id) {
@@ -104,6 +88,7 @@ public class Player {
     public void setY(int y) { this.y = y; }
     
     public Player() {
+        attack = new AttackSwordSlash();
     }
     
     public void init(GameContainer container) throws SlickException {
@@ -113,8 +98,7 @@ public class Player {
         halfHeart = ImageLibrary.HALF_HEART.getImage();
         fullHeart = ImageLibrary.FULL_HEART.getImage();
         spritePointer = 3;
-        attacking = false;
-        attackDelay = 0;
+        attack.init();
     }
     
     public void update(GameContainer container, int delta) {
@@ -123,15 +107,14 @@ public class Player {
         resolveInvulnerability(delta); //and knockback
         movePlayer(container.getInput(),delta);
         resolveCollision();
-        resolveAttack(container.getInput(),delta);
+        attack.resolveAttack(container.getInput(),delta,x,y,invulnerable);
     }
     
     public void render(GameContainer container, Graphics g) {
         Animation currentSprite = sprite.getAnim(spritePointer);
         currentSprite.draw(x,y,64,64,damageBlink?Color.red:Color.white);
         renderHealth();
-        if (attacking)
-            sword.draw(x-64,y-64,192,192);
+        attack.render(x,y);
         if (StateSingleplayer.DEBUG_MODE)
             renderDebugInfo(g);
         isHit = false;
@@ -155,6 +138,7 @@ public class Player {
     
     public void setEnemies(ArrayList<Enemy> enemies) {
         this.enemies = enemies;
+        attack.setEnemies(enemies);
     }
 
     public void setObstacles(ArrayList<Obstacle> obstacles) {
@@ -166,7 +150,7 @@ public class Player {
         this.camY = camY;
     }
     
-    private void initializeSprite() throws SlickException {
+    private void initializeSprite() {
         sprite = new EntitySprite(4);
         
         Animation[] animList = {
@@ -184,9 +168,6 @@ public class Player {
             initializeMask(3)
         };
         sprite.setMasks(animMaskList);
-        
-        sword = AnimationLibrary.PLAYER_SWORD_SLASH.getAnim();
-        sword.stop();
     }
     
     private AnimationMask initializeMask(int index) {
@@ -299,35 +280,6 @@ public class Player {
         }
     }
     
-    private void resolveAttack(Input input, int delta) {
-        if ((input.isKeyDown(Options.ATTACK_UP.key())
-                || input.isKeyDown(Options.ATTACK_DOWN.key())
-                || input.isKeyDown(Options.ATTACK_LEFT.key())
-                || input.isKeyDown(Options.ATTACK_RIGHT.key()))
-                && !attacking && attackDelay < 1 && !invulnerable) {
-            getAttackDirection(input);
-            direction = (direction+6)%8;
-            attack(direction);
-        }
-        if (attackTimer<500)
-            attackTimer+=delta;
-        attackDelay-=delta;
-        if (attackTimer > ATTACK_SPEED*6+160) {
-            attacking = false;
-        }
-        resolveAttackHit();
-    }
-    
-    private void resolveAttackHit() {
-        attackHit = false;
-        for (Enemy e : enemies) {
-            if(e.getCollisionMask().intersects(getAttackMask(),e.getX(),e.getY())) {
-                e.resolveHit(x,y,currentAttackId);
-                attackHit = true;
-            }
-        }
-    }
-    
     public void resolveHit(int ox, int oy) {
         resolveHit(ox,oy,1);
     }
@@ -369,49 +321,18 @@ public class Player {
             damageBlink = (invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0;
     }
     
-    private void getAttackDirection(Input input) {
-        if (input.isKeyDown(Options.ATTACK_RIGHT.key()))
-            direction = 0;
-        else if (input.isKeyDown(Options.ATTACK_UP.key()))
-            direction = 2;
-        else if (input.isKeyDown(Options.ATTACK_LEFT.key()))
-            direction = 4;
-        else if (input.isKeyDown(Options.ATTACK_DOWN.key()))
-            direction = 6;
-    }
-    
-    private void attack(int direction) {
-        currentAttackId = getAttackId();
-        attacking = true;
-        attackTimer = 0;
-        attackDelay = sword.getDuration(0)*2 + SWORD_DELAY;
-        sword.restart();
-        sword.setCurrentFrame(direction);
-        sword.stopAt((direction + 10) % 8);
-        SoundLibrary.values()[(int)(3*Math.random())].play();
-    }
-    
     private void renderDebugInfo(Graphics g) {
         g.setColor(Color.white);
         g.drawString("delta: " + String.valueOf(delta),10+camX,24+camY);
         g.drawString("x: " + String.valueOf(x),10+camX,38+camY);
         g.drawString("y: " + String.valueOf(y),10+camX,52+camY);
-        g.drawString(attacking?"Attacking":"Not attacking",10+camX,66+camY);
-        g.drawString(String.valueOf(attackTimer),10+camX,80+camY);
-        g.drawString(isHit?"Hit":"Not Hit",10+camX,94+camY);
-        g.drawString(attackHit?"Hitting!":"Not Hitting",10+camX,108+camY);
+        g.drawString(isHit?"Hit":"Not Hit",10+camX,66+camY);
+        attack.renderDebugInfo(camX,camY,g);
         if (StateMultiplayer.DEBUG_COLLISION) {
             getCollisionMask().draw(x,y,g);
-            if (attacking) {
-                g.setColor(Color.red);
-                Rectangle r = getAttackMask();
-                g.drawRect(r.getX1(),r.getY1(),r.getWidth(),r.getHeight());
-            }
+            attack.renderMask(x,y,g);
         }
     }
 
-    private int getAttackId() {
-        attackId = attackId>Integer.MAX_VALUE-1?0:attackId+1;
-        return attackId;
-    }
+    
 }
