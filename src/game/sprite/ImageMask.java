@@ -31,16 +31,19 @@ public class ImageMask {
     public boolean intersects(ImageMask other) {
         int ox = other.getX();
         int oy = other.getY();
+        
         boolean[][] otherMask = other.getMask();
         if ((x+mask.length*4<ox)
                 || y+mask[0].length*4<oy
                 || ox+otherMask.length*4<x
                 || oy+otherMask[0].length*4<y)
             return false;
-                        boolean up = false;
-                boolean down = false;
-                boolean left = false;
-                boolean right = false;
+        
+        boolean up = false;
+        boolean down = false;
+        boolean left = false;
+        boolean right = false;
+        
         for (int i=0;i<mask.length;i++) {
             for (int j=0;j<mask[i].length;j++) {
                 if (!mask[i][j])
