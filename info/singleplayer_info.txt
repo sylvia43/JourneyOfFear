@@ -25,13 +25,12 @@ Table of Contents:
 0) Contributers
 
   Shreyas (anubiann00b)      -   Programming    -   https://github.com/anubiann00b
-  Tarik (QuantumPhi)         -   Programming    -   https://github.com/QuantumPhi
-  Brennan (Brennan-S)	     -   Programming    -   https://github.com/Brennan-S
-  Daniel (MrSnrhms)          -   Programming    -   www.ziggywa.com
   David (ForgottenSprite)    -   Music + Sound  -   https://soundcloud.com/forgotten-sprite
   Joshua (cesiumrabbit)      -   Art            -   No website.
-  Justin (justinchen673)     -   Moral Support  -   No website.
-
+  
+  Thanks to Daniel (MrSnrhms), Tarik (QuantumPhi), and Brennan (Brennan-S) for help with programming, and
+  Justin (justinchen673) for moral support.
+  
 1) Storyline
 
   See storyline.txt for storyline related information (gasp).

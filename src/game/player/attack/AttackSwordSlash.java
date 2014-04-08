@@ -22,7 +22,7 @@ public class AttackSwordSlash extends Attack {
         
         return new ImageMask(new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64));
     }
-
+    
     @Override
     public void init() {
         attacking = false;

@@ -11,7 +11,7 @@ public class AttackDaggerSlash extends Attack {
         swingEndRest = 200;
         attackRest = 300;
     }
-        
+    
     @Override
     public ImageMask getMask(int x, int y) {
         if (!attacking)
@@ -22,7 +22,7 @@ public class AttackDaggerSlash extends Attack {
         
         return new ImageMask(new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64));
     }
-
+    
     @Override
     public void init() {
         attacking = false;

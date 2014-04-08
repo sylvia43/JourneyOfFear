@@ -22,8 +22,8 @@ Current contributers:
 |    Contributers   |      Job      |
 | ------------- | ------------- |
 | Shreyas       | Programming   |
-| Brennan       | Programming   |
-| Tarik         | Programming   |
 | Daniel        | Programming   |
 | Joshua        | Art   |
 | David         | Sound and Music   |
+
+Thanks to Daniel (MrSnrhms), Tarik (QuantumPhi), and Brennan (Brennan-S) for help with programming.
