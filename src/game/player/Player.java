@@ -5,7 +5,7 @@ import game.environment.Obstacle;
 import game.network.server.DataPacket;
 import game.network.server.EnemyPlayerData;
 import game.player.attack.Attack;
-import game.player.attack.AttackSmoothSwordSlash;
+import game.player.attack.AttackDaggerSlash;
 import game.player.attack.AttackSwordSlash;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
@@ -112,8 +112,8 @@ public class Player implements Hittable {
         
         if (input.isKeyPressed(Options.SWITCH_WEAPON.key())) {
             if (attack instanceof AttackSwordSlash)
-                attack = new AttackSmoothSwordSlash();
-            else if (attack instanceof AttackSmoothSwordSlash)
+                attack = new AttackDaggerSlash();
+            else if (attack instanceof AttackDaggerSlash)
                 attack = new AttackSwordSlash();
             attack.init();
         }

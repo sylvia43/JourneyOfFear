@@ -7,6 +7,8 @@ public enum AnimationLibrary {
     
     // Player sprites.
 // Player sprites.
+// Player sprites.
+// Player sprites.
     PLAYER_RIGHT(ImageLibrary.PLAYER_RIGHT,166,16,16),
     PLAYER_UP(ImageLibrary.PLAYER_UP,166,16,16),
     PLAYER_LEFT(ImageLibrary.PLAYER_LEFT,166,16,16),
@@ -14,7 +16,7 @@ public enum AnimationLibrary {
     
     // Attack sprites.
     ATTACK_SWORD_SLASH(ImageLibrary.ATTACK_SWORD_SLASH,20,48,48),
-    ATTACK_SMOOTH_SWORD_SLASH(ImageLibrary.ATTACK_SMOOTH_SWORD_SLASH,30,48,48),
+    ATTACK_DAGGER_SLASH(ImageLibrary.ATTACK_DAGGER_SLASH,30,48,48),
     
     // Enemy sprites.
     BLOB_RIGHT(ImageLibrary.BLOB_RIGHT,332,16,16),

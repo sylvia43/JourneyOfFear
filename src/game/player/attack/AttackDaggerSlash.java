@@ -8,7 +8,7 @@ import game.util.resource.SoundLibrary;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-public class AttackSmoothSwordSlash extends Attack {
+public class AttackDaggerSlash extends Attack {
     
     private final int ATTACK_SPEED = 200;
     private final int SWORD_DELAY = 300;
@@ -37,7 +37,7 @@ public class AttackSmoothSwordSlash extends Attack {
     public void init() {
         attacking = false;
         attackDelay = 0;
-        anim = AnimationLibrary.ATTACK_SMOOTH_SWORD_SLASH.getAnim();
+        anim = AnimationLibrary.ATTACK_DAGGER_SLASH.getAnim();
         anim.stop();
     }
 

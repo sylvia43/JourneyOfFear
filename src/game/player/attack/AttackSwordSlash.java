@@ -11,7 +11,7 @@ import org.newdawn.slick.Graphics;
 public class AttackSwordSlash extends Attack {
     
     private final int ATTACK_SPEED = 220;
-    private final int SWORD_DELAY = 400;
+    private final int SWORD_DELAY = 600;
         
     private boolean attacking;
     private int attackTimer;
