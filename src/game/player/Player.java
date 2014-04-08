@@ -5,6 +5,7 @@ import game.environment.Obstacle;
 import game.network.server.DataPacket;
 import game.network.server.EnemyPlayerData;
 import game.player.attack.Attack;
+import game.player.attack.AttackSmoothSwordSlash;
 import game.player.attack.AttackSwordSlash;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
@@ -108,13 +109,20 @@ public class Player implements Hittable {
         movePlayer(container.getInput(),delta);
         resolveCollision();
         Input input = container.getInput();
+        
+        if (input.isKeyPressed(Options.SWITCH_WEAPON.key())) {
+            if (attack instanceof AttackSwordSlash)
+                attack = new AttackSmoothSwordSlash();
+            else if (attack instanceof AttackSmoothSwordSlash)
+                attack = new AttackSwordSlash();
+            attack.init();
+        }
         if ((input.isKeyDown(Options.ATTACK_UP.key())
                 || input.isKeyDown(Options.ATTACK_DOWN.key())
                 || input.isKeyDown(Options.ATTACK_LEFT.key())
                 || input.isKeyDown(Options.ATTACK_RIGHT.key()))
                 && attack.canAttack() && !invulnerable) {
             getAttackDirection(input);
-            attackDirection = (attackDirection+6)%8;
             attack.attack(attackDirection,true);
         }
         attack.update(delta,x,y);

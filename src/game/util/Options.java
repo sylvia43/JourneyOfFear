@@ -12,7 +12,9 @@ public enum Options {
     ATTACK_UP(Input.KEY_UP),
     ATTACK_DOWN(Input.KEY_DOWN),
     ATTACK_LEFT(Input.KEY_LEFT),
-    ATTACK_RIGHT(Input.KEY_RIGHT);
+    ATTACK_RIGHT(Input.KEY_RIGHT),
+    
+    SWITCH_WEAPON(Input.KEY_SPACE);
     
     private int key;
     public int key() { return key; }

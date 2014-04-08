@@ -11,8 +11,9 @@ public enum ImageLibrary {
     PLAYER_LEFT("player/left.png"),
     PLAYER_DOWN("player/down.png"),
     
-    // Player attack sprites.
-    PLAYER_SWORD_SLASH("player/attacks/sword_slash.png"),
+    // Attack sprites.
+    ATTACK_SWORD_SLASH("player/attacks/sword_slash.png"),
+    ATTACK_SMOOTH_SWORD_SLASH("player/attacks/sword_slash_smooth.png"),
     
     // Hearts.
     EMPTY_HEART("player/health/health_empty.png"),
