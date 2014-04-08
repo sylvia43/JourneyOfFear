@@ -8,6 +8,7 @@ import game.player.attack.Attack;
 import game.player.attack.AttackSwordSlash;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
+import game.sprite.Hittable;
 import game.sprite.ImageMask;
 import game.sprite.Rectangle;
 import game.state.StateMultiplayer;
@@ -25,7 +26,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-public class Player {
+public class Player extends Hittable {
 
     private EntitySprite sprite;
     private Rectangle hitbox;
@@ -52,6 +53,8 @@ public class Player {
     private ArrayList<Enemy> enemies;
     private ArrayList<Obstacle> obstacles;
     
+    private int attackDirection;
+    
     private boolean isHit;
     private boolean damageBlink;
     private boolean invulnerable = false;
@@ -70,6 +73,7 @@ public class Player {
     public int getX() { return x; }
     public int getY() { return y; }
     
+    @Override
     public ImageMask getCollisionMask() {
         return sprite.getAnimationMask(spritePointer)
                 .getImageMask(sprite.getAnim(spritePointer).getFrame());
@@ -107,7 +111,19 @@ public class Player {
         resolveInvulnerability(delta); //and knockback
         movePlayer(container.getInput(),delta);
         resolveCollision();
-        attack.resolveAttack(container.getInput(),delta,x,y,invulnerable);
+        Input input = container.getInput();
+        if ((input.isKeyDown(Options.ATTACK_UP.key())
+                || input.isKeyDown(Options.ATTACK_DOWN.key())
+                || input.isKeyDown(Options.ATTACK_LEFT.key())
+                || input.isKeyDown(Options.ATTACK_RIGHT.key()))
+                && attack.canAttack() && !invulnerable) {
+            getAttackDirection(input);
+            attackDirection = (attackDirection+6)%8;
+            attack.attack(attackDirection,true);
+        }
+        attack.resolveAttack(delta,x,y);
+        for (Enemy e : enemies)
+            attack.resolveAttackHit(e,x,y,e.getX(),e.getY());
     }
     
     public void render(GameContainer container, Graphics g) {
@@ -273,6 +289,17 @@ public class Player {
         y += dy;
     }
     
+    private void getAttackDirection(Input input) {
+        if (input.isKeyDown(Options.ATTACK_RIGHT.key()))
+            attackDirection = 0;
+        else if (input.isKeyDown(Options.ATTACK_UP.key()))
+            attackDirection = 2;
+        else if (input.isKeyDown(Options.ATTACK_LEFT.key()))
+            attackDirection = 4;
+        else if (input.isKeyDown(Options.ATTACK_DOWN.key()))
+            attackDirection = 6;
+    }
+    
     private void resolveCollision() {
         for (Enemy e : enemies) {
             if(getCollisionMask().intersects(e.getCollisionMask(),x,y,e.getX(),e.getY()))
@@ -327,7 +354,7 @@ public class Player {
         g.drawString("x: " + String.valueOf(x),10+camX,38+camY);
         g.drawString("y: " + String.valueOf(y),10+camX,52+camY);
         g.drawString(isHit?"Hit":"Not Hit",10+camX,66+camY);
-        attack.renderDebugInfo(camX,camY,g);
+        attack.renderDebugInfo(camX+10,camY+80,g);
         if (StateMultiplayer.DEBUG_COLLISION) {
             getCollisionMask().draw(x,y,g);
             attack.renderMask(x,y,g);

@@ -32,11 +32,6 @@ public class EnemyRedSlime extends EnemySlime {
     }
     
     @Override
-    protected void initializeVariables() {
-        spritePointer = 3;
-    }
-    
-    @Override
     protected void initializeSprite() {
         sprite = new EntitySprite(4);
         Animation[] animList = {

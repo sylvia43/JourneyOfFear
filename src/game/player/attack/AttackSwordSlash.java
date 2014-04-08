@@ -1,21 +1,17 @@
 package game.player.attack;
 
-import game.enemy.Enemy;
+import game.sprite.Hittable;
 import game.sprite.Rectangle;
-import game.util.Options;
 import game.util.resource.AnimationLibrary;
 import game.util.resource.SoundLibrary;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 
 public class AttackSwordSlash extends Attack {
     
     private final int ATTACK_SPEED = 10;
     private final int SWORD_DELAY = 400;
-    
-    private int attackDirection;
-    
+        
     private boolean attacking;
     private int attackTimer;
     private int attackDelay;
@@ -51,47 +47,27 @@ public class AttackSwordSlash extends Attack {
     }
     
     @Override
-    public void resolveAttack(Input input, int delta, int x, int y, boolean canAttack) {
-        if ((input.isKeyDown(Options.ATTACK_UP.key())
-                || input.isKeyDown(Options.ATTACK_DOWN.key())
-                || input.isKeyDown(Options.ATTACK_LEFT.key())
-                || input.isKeyDown(Options.ATTACK_RIGHT.key()))
-                && !attacking && attackDelay < 1 && !canAttack) {
-            getAttackDirection(input);
-            attackDirection = (attackDirection+6)%8;
-            attack(attackDirection);
-        }
+    public void resolveAttack(int delta, int x, int y) {
         if (attackTimer<500)
             attackTimer+=delta;
         attackDelay-=delta;
-        if (attackTimer > ATTACK_SPEED*6+160) {
+        if (attackTimer > ATTACK_SPEED*6+160)
             attacking = false;
-        }
-        resolveAttackHit(x,y);
     }
     
-    private void resolveAttackHit(int x, int y) {
-        attackHit = false;
-        for (Enemy e : enemies) {
-            if(e.getCollisionMask().intersects(getMask(x,y),e.getX(),e.getY())) {
-                e.resolveHit(x,y,currentAttackId);
-                attackHit = true;
-            }
+    @Override
+    public void resolveAttackHit(Hittable other, int x, int y, int ox, int oy) {
+        if(other.getCollisionMask().intersects(getMask(x,y),ox,oy)) {
+            other.resolveHit(x,y,currentAttackId);
+            attackHit = true;
         }
     }
     
-    private void getAttackDirection(Input input) {
-        if (input.isKeyDown(Options.ATTACK_RIGHT.key()))
-            attackDirection = 0;
-        else if (input.isKeyDown(Options.ATTACK_UP.key()))
-            attackDirection = 2;
-        else if (input.isKeyDown(Options.ATTACK_LEFT.key()))
-            attackDirection = 4;
-        else if (input.isKeyDown(Options.ATTACK_DOWN.key()))
-            attackDirection = 6;
+    public boolean canAttack() {
+        return !attacking && attackDelay<1;
     }
     
-    private void attack(int direction) {
+    public void attack(int direction, boolean sound) {
         currentAttackId = getAttackId();
         attacking = true;
         attackTimer = 0;
@@ -99,7 +75,8 @@ public class AttackSwordSlash extends Attack {
         sword.restart();
         sword.setCurrentFrame(direction);
         sword.stopAt((direction + 10) % 8);
-        SoundLibrary.values()[(int)(3*Math.random())].play();
+        if (sound)
+            SoundLibrary.values()[(int)(3*Math.random())].play();
     }
     
     private int getAttackId() {
@@ -108,9 +85,9 @@ public class AttackSwordSlash extends Attack {
     }
     
     public void renderDebugInfo(int camX, int camY, Graphics g) {
-        g.drawString(attacking?"Attacking":"Not attacking",10+camX,80+camY);
-        g.drawString(String.valueOf(attackTimer),10+camX,94+camY);
-        g.drawString(attackHit?"Hitting!":"Not Hitting",10+camX,108+camY);
+        g.drawString(attacking?"Attacking":"Not attacking",camX,camY);
+        g.drawString(String.valueOf(attackTimer),camX,14+camY);
+        g.drawString(attackHit?"Hitting!":"Not Hitting",camX,28+camY);
     }
     
     public void renderMask(int x, int y, Graphics g) {

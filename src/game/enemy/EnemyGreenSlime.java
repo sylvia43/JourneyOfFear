@@ -1,6 +1,8 @@
 package game.enemy;
 
 import game.player.Player;
+import game.player.attack.Attack;
+import game.player.attack.AttackSwordSlash;
 import game.sprite.EntitySprite;
 import game.sprite.Rectangle;
 import game.state.StateMultiplayer;
@@ -12,7 +14,7 @@ import org.newdawn.slick.Graphics;
 
 public class EnemyGreenSlime extends EnemySlime {
 
-    protected Animation attack;
+    protected Attack attack;
     
     protected final int ATTACK_SPEED = 10;
     protected final int SWORD_DELAY = 800;
@@ -21,11 +23,6 @@ public class EnemyGreenSlime extends EnemySlime {
     
     protected int direction;
     
-    protected boolean attacking;
-    protected int attackTimer;
-    protected int attackDelay;
-    
-    protected boolean attackHit;
     protected boolean isHit;
     protected boolean damageBlink;
     protected boolean invulnerable = false;
@@ -41,31 +38,19 @@ public class EnemyGreenSlime extends EnemySlime {
     
     @Override
     public Rectangle getAttackMask() {
-        if (!attacking)
-            return null;
-        
-        int dx = (int) Math.round(Math.sin((attack.getFrame()+2)*0.25*Math.PI));
-        int dy = (int) Math.round(Math.cos((attack.getFrame()+2)*0.25*Math.PI));
-        
-        return new Rectangle(x+64*dx,y+64*dy,x+64*dx+64,y+64*dy+64);
+        return attack.getMask(x,y);
     }
 
     public EnemyGreenSlime(Player player) {
         super(player);
-        this.spritepath = "blobredsir";
-        this.x = 500;
-        this.y = 500;
-        this.speed = 0.125;
-        this.animationSpeed = 332;
-        this.health = 10;
-        this.minimapColor = new Color(181, 230, 29);
-    }
-    
-    @Override
-    protected void initializeVariables() {
-        spritePointer = 3;
-        attacking = false;
-        attackDelay = 0;
+        attack = new AttackSwordSlash();
+        spritepath = "blobredsir";
+        x = 500;
+        y = 500;
+        speed = 0.125;
+        animationSpeed = 332;
+        health = 10;
+        minimapColor = new Color(181, 230, 29);
     }
     
     @Override
@@ -83,37 +68,21 @@ public class EnemyGreenSlime extends EnemySlime {
     
     @Override
     protected void initializeAttack() {
-        attack = AnimationLibrary.PLAYER_SWORD_SLASH.getAnim();
-        attack.stop();
+        attack.init();
     }
     
     @Override
     protected void resolveAttack(int delta) {
-        if (!attacking && attackDelay < 1) {
+        if (attack.canAttack()) {
             direction = directionToPlayer()*2;
-            attack(direction);
+            attack.attack(direction,false);
         }
-        if (attackTimer<500)
-            attackTimer+=delta;
-        attackDelay-=delta;
-        if (attackTimer > ATTACK_SPEED*6+160)
-            attacking = false;
+        attack.resolveAttack(delta,x,y);
         resolveAttackCollision();
     }
     
     protected void resolveAttackCollision() {
-        attackHit = player.getCollisionMask().intersects(getAttackMask(),player.getX(),player.getY());
-        if (attackHit)
-            player.resolveHit(x,y);
-    }
-    
-    protected void attack(int direction) {
-        attacking = true;
-        attackTimer = 0;
-        attackDelay = attack.getDuration(0)*2 + SWORD_DELAY;
-        attack.restart();
-        attack.setCurrentFrame(direction);
-        attack.stopAt((direction+10)%8);
+        attack.resolveAttackHit(player,x,y,player.getX(),player.getY());
     }
     
     @Override
@@ -204,22 +173,17 @@ public class EnemyGreenSlime extends EnemySlime {
     
     @Override
     protected void renderAttack() {
-        if (attacking)
-            attack.draw(x-64,y-64,192,192);
+        attack.render(x,y);
     }
     
     @Override
     protected void renderDebugInfo(Graphics g) {
         super.renderDebugInfo(g);
         g.drawString(isHit?"Hit":"Not Hit",10+x+64,66+y+64);
-        g.drawString(attackHit?"Hitting!":"Not Hitting",10+x+64,80+y+64);
+        attack.renderDebugInfo(x+10+64,y+80+64,g);
         if (StateMultiplayer.DEBUG_COLLISION) {
             getCollisionMask().draw(x,y,g);
-            if (attacking) {
-                g.setColor(Color.red);
-                Rectangle r = getAttackMask();
-                g.drawRect(r.getX1(),r.getY1(),r.getWidth(),r.getHeight());
-            }
+            attack.renderMask(x,y,g);
         }
     }
 }

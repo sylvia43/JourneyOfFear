@@ -3,6 +3,7 @@ package game.enemy;
 import game.player.Player;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
+import game.sprite.Hittable;
 import game.sprite.ImageMask;
 import game.sprite.Rectangle;
 import game.state.StateMultiplayer;
@@ -10,7 +11,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
-public class Enemy {
+public class Enemy extends Hittable {
     
     protected EntitySprite sprite;
     protected String spritepath;
