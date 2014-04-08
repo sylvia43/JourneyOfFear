@@ -12,11 +12,5 @@ public class SolidObstacle extends Obstacle {
         super(x,y);
     }
     
-    public int canMoveSteps(int ox, int oy, ImageMask otherMask, int steps, int dx, int dy) {
-        for (int i=0;i<steps;i++) {
-            if (mask.intersects(otherMask))
-                return i;
-        }
-        return steps;
-    }
+    public int canMoveSteps(ImageMask otherMask, int steps, int dx, int dy) { return 0; }
 }

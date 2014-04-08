@@ -29,9 +29,10 @@ public class ImageMask {
     public boolean[][] getMask() { return mask; }
     
     public boolean intersects(ImageMask other) {
-        int ox = other.getX();
-        int oy = other.getY();
-        
+        return intersects(other,other.getX(),other.getY());
+    }
+    
+    public boolean intersects(ImageMask other, int ox, int oy) {
         boolean[][] otherMask = other.getMask();
         if ((x+mask.length*4<ox)
                 || y+mask[0].length*4<oy

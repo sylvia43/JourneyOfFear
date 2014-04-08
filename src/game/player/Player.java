@@ -2,6 +2,7 @@ package game.player;
 
 import game.enemy.Enemy;
 import game.environment.Obstacle;
+import game.environment.Tree;
 import game.network.server.DataPacket;
 import game.network.server.EnemyPlayerData;
 import game.player.attack.Attack;
@@ -158,7 +159,6 @@ public class Player implements Hittable {
     
     public void setEnemies(ArrayList<Enemy> enemies) {
         this.enemies = enemies;
-        attack.setEnemies(enemies);
     }
 
     public void setObstacles(ArrayList<Obstacle> obstacles) {
@@ -236,7 +236,7 @@ public class Player implements Hittable {
         }
         if (DnHl) {
             sprite.getAnim(3).start();
-            dy += speed*delta;
+            dy += 1;
             if (!UpHl && !LfHl && !RiHl) {
                 spritePointer = 3;
             }
@@ -251,7 +251,7 @@ public class Player implements Hittable {
         }
         if (RiHl) {
             sprite.getAnim(0).start();
-            dx += speed*delta;
+            dx += 1;
             if (!UpHl && !LfHl && !DnHl) {
                 spritePointer = 0;
             }
@@ -266,7 +266,7 @@ public class Player implements Hittable {
         }
         if (UpHl) {
             sprite.getAnim(1).start();
-            dy -= speed*delta;
+            dy -= 1;
             if (!DnHl && !LfHl && !RiHl) {
                 spritePointer = 1;
             }
@@ -281,7 +281,7 @@ public class Player implements Hittable {
         }
         if (LfHl) {
             sprite.getAnim(2).start();
-            dx -= speed*delta;
+            dx -= 1;
             if (!UpHl && !DnHl && !RiHl) {
                 spritePointer = 2;
             }
@@ -289,8 +289,20 @@ public class Player implements Hittable {
             sprite.getAnim(2).setCurrentFrame(1);
         }
         
-        x += dx;
-        y += dy;
+        int steps = (int) (delta*speed);
+        int actualSteps = 0;
+        
+        for (Obstacle o : obstacles) {
+            if (!(o instanceof Tree))
+                continue;
+            Tree tree = (Tree) o;
+            int newSteps = tree.canMoveSteps(getCollisionMask(),steps,dx,dy);
+            if (newSteps>actualSteps)
+                actualSteps = newSteps;
+        }
+        
+        x += actualSteps*dx;
+        y += actualSteps*dy;
     }
     
     private void getAttackDirection(Input input) {

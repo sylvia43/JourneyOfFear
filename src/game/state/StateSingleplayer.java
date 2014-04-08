@@ -167,6 +167,7 @@ public class StateSingleplayer extends BasicGameState {
         
     private void updatePlayer(GameContainer container, int delta) {
         player.setEnemies(currentArea.getEnemies());
+        player.setObstacles(currentArea.getObstacles());
         player.update(container,delta);
     }
     
