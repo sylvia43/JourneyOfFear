@@ -178,8 +178,8 @@ public class EnemyGreenSlime extends EnemySlime {
     @Override
     protected void renderDebugInfo(Graphics g) {
         super.renderDebugInfo(g);
-        g.drawString(isHit?"Hit":"Not Hit",10+x+64,66+y+64);
-        attack.renderDebugInfo(x+10+64,y+80+64,g);
+        g.drawString(isHit?"Hit":"Not Hit",x+64,y+64+56);
+        attack.renderDebugInfo(x+64,y+64+70,g);
         if (StateMultiplayer.DEBUG_COLLISION) {
             getCollisionMask().render(g);
             attack.renderMask(x,y,g);

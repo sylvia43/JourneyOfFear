@@ -116,7 +116,7 @@ public class EnemyRedSlime extends EnemySlime {
     @Override
     protected void renderDebugInfo(Graphics g) {
         super.renderDebugInfo(g);
-        g.drawString(isHit?"Hit":"Not Hit",10+x+64,66+y+64);
+        g.drawString(isHit?"Hit":"Not Hit",x+64,y+64+56);
         if (StateMultiplayer.DEBUG_COLLISION) {
             getCollisionMask().render(g);
         }

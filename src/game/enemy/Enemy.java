@@ -85,8 +85,8 @@ public class Enemy implements Hittable {
     
     protected void renderDebugInfo(Graphics g) {
         g.setColor(Color.white);
-        g.drawString("x: " + String.valueOf(x),10+x+64,38+y+64);
-        g.drawString("y: " + String.valueOf(y),10+x+64,52+y+64);
+        g.drawString("x: " + String.valueOf(x),x+64,y+64+28);
+        g.drawString("y: " + String.valueOf(y),x+64,y+64+42);
     }
         
     protected void resolveInvulnerability(int delta) {
