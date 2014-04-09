@@ -13,6 +13,7 @@ import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.Hittable;
 import game.sprite.ImageMask;
+import game.sprite.Rectangle;
 import game.state.StateMultiplayer;
 import game.state.StateSingleplayer;
 import game.util.Options;
@@ -32,7 +33,7 @@ import org.newdawn.slick.SlickException;
 public class Player implements Hittable {
 
     private EntitySprite sprite;
-    
+        
     private List<Attack> attacks;
     private Attack attack;
     private int attackIndex;
@@ -42,6 +43,8 @@ public class Player implements Hittable {
     private int x = 640;
     private int y = 512;
     private final double speed = 0.5;
+    
+    private Rectangle collisionMask = new Rectangle(x,y,x+64,y+64);
     
     private int camX;
     private int camY;
@@ -118,6 +121,7 @@ public class Player implements Hittable {
         resolveInvulnerability(delta); //and knockback
         movePlayer(container.getInput(),delta);
         resolveCollision();
+        collisionMask.set(x,y,x+64,y+64);
         Input input = container.getInput();
         
         if (input.isKeyPressed(Options.SWITCH_WEAPON.key())) {
@@ -303,11 +307,10 @@ public class Player implements Hittable {
             if (!(o instanceof Tree))
                 continue;
             Tree tree = (Tree) o;
-            int newSteps = tree.canMoveSteps(getCollisionMask(),steps,dx,dy);
+            int newSteps = tree.canMoveSteps(collisionMask,steps,dx,dy);
             if (newSteps>actualSteps)
                 actualSteps = newSteps;
         }
-        
         x += actualSteps*dx;
         y += actualSteps*dy;
     }
@@ -392,6 +395,7 @@ public class Player implements Hittable {
         attack.renderDebugInfo(camX+10,camY+80,g);
         if (StateMultiplayer.DEBUG_COLLISION) {
             getCollisionMask().render(g);
+            collisionMask.render(g);
             attack.renderMask(x,y,g);
         }
     }

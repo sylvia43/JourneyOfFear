@@ -1,6 +1,6 @@
 package game.environment;
 
-import game.sprite.ImageMask;
+import game.sprite.Rectangle;
 
 public class SolidObstacle extends Obstacle {
         
@@ -12,5 +12,5 @@ public class SolidObstacle extends Obstacle {
         super(x,y);
     }
     
-    public int canMoveSteps(ImageMask otherMask, int steps, int dx, int dy) { return 0; }
+    public int canMoveSteps(Rectangle otherMask, int steps, int dx, int dy) { return 0; }
 }

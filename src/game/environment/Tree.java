@@ -9,20 +9,20 @@ import org.newdawn.slick.Graphics;
 
 public class Tree extends SolidObstacle {
     
-    private ImageMask collisionMask;
+    private Rectangle collisionMask;
     
     public Tree() {
         super();
         miniWidth = 3;
         miniHeight = 6;
-        collisionMask = new ImageMask(new Rectangle(x+108,y+108,x+256-108,y+148));
+        collisionMask = new Rectangle(x+108,y+108,x+256-108,y+148);
     }
 
     public Tree(int x, int y) {
         super(x,y);
         miniWidth = 3;
         miniHeight = 6;
-        collisionMask = new ImageMask(new Rectangle(x+108,y+108,x+256-108,y+148));
+        collisionMask = new Rectangle(x+108,y+108,x+256-108,y+148);
     }
     
     @Override
@@ -42,14 +42,13 @@ public class Tree extends SolidObstacle {
     }
     
     @Override
-    public int canMoveSteps(ImageMask otherMask, int steps, int dx, int dy) {
-        if (!collisionMask.intersects(otherMask,otherMask.getX()+dx*steps,otherMask.getY()+dy*steps)) {
+    public int canMoveSteps(Rectangle otherMask, int steps, int dx, int dy) {
+        if (collisionMask.intersectsShifted(otherMask,dx*steps,dy*steps) != 2)
             return steps;
-        }
-        for (int i=0;i<steps;i++) {
-            if (collisionMask.intersects(otherMask,otherMask.getX()+dx*i,otherMask.getY()+dy*i))
+        
+        for (int i=0;i<steps;i++)
+            if (collisionMask.intersectsShifted(otherMask,dx*i,dy*i) != 2)
                 return i;
-        }
         return steps;
     }
 }

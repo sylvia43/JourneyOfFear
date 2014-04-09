@@ -29,6 +29,13 @@ public class Rectangle {
         this.y2 = y2;
     }
     
+    public void shift(int x, int y) {
+        this.x1 += x;
+        this.x2 += x;
+        this.y1 += y;
+        this.y2 += y;
+    }
+    
     public Rectangle(int x1, int y1, int x2, int y2) {
         this.x1 = x1;
         this.x2 = x2;
@@ -36,11 +43,22 @@ public class Rectangle {
         this.y2 = y2;
     }
     
-    public boolean intersects(Rectangle other) {
-        return x1<=other.getX2() && x2>=other.getX1() && y1<=other.getY2() && y2>=other.getY1();
+    public int intersects(Rectangle other) {
+        return intersectsShifted(other,0,0);
+    }
+    
+    public int intersectsShifted(Rectangle other, int dx, int dy) {
+        return (x1<other.getX2()+dx && x2>other.getX1()+dx && y1<other.getY2()+dy && y2>other.getY1()+dy)
+                ? 2 : (x1==other.getX2()+dx || x2==other.getX1()+dx || y1==other.getY2()+dy || y2==other.getY1()+dy)
+                ? 1 : 0;
     }
     
     public void render(Graphics g) {
         g.drawRect(x1,y1,x2-x1,y2-y1);
+    }
+    
+    @Override
+    public String toString() {
+        return x1 + " " + x2 + " " + y1 + " " + y2;
     }
 }
