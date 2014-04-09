@@ -8,14 +8,19 @@ import game.util.resource.SoundLibrary;
 
 public class AttackSwordSlash extends Attack {
     
+    protected static final int defaultDamage = 2;
+    protected static final double defaultKnockback = 1;
+    protected static final int defaultSwingEndRest = 220;
+    protected static final int defaultAttackRest = 600;
+    
     protected AttackSwordSlash() { }
     
     public static AttackSwordSlash create() {
-        return create(2,1);
+        return create(defaultDamage,defaultKnockback);
     }
     
     public static AttackSwordSlash create(int damage, double knockback) {
-        return create(damage,knockback,220,600);
+        return create(damage,knockback,defaultSwingEndRest,defaultAttackRest);
     }
     
     public static AttackSwordSlash create(int damage, double knockback,

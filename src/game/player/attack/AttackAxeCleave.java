@@ -8,14 +8,19 @@ import game.util.resource.SoundLibrary;
 
 public class AttackAxeCleave extends Attack {
     
+    protected static final int defaultDamage = 3;
+    protected static final double defaultKnockback = 1.5;
+    protected static final int defaultSwingEndRest = 350;
+    protected static final int defaultAttackRest = 1000;
+    
     protected AttackAxeCleave() { }
     
     public static AttackAxeCleave create() {
-        return create(3,1.5);
+        return create(defaultDamage,defaultKnockback);
     }
     
     public static AttackAxeCleave create(int damage, double knockback) {
-        return create(damage,knockback,350,1000);
+        return create(damage,knockback,defaultSwingEndRest,defaultAttackRest);
     }
     
     public static AttackAxeCleave create(int damage, double knockback,
