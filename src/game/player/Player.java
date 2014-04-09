@@ -6,6 +6,7 @@ import game.environment.Tree;
 import game.network.server.DataPacket;
 import game.network.server.EnemyPlayerData;
 import game.player.attack.Attack;
+import game.player.attack.AttackAxeCleave;
 import game.player.attack.AttackDaggerSlash;
 import game.player.attack.AttackSwordSlash;
 import game.sprite.AnimationMask;
@@ -92,7 +93,7 @@ public class Player implements Hittable {
     public void setY(int y) { this.y = y; }
     
     public Player() {
-        attack = new AttackSwordSlash();
+        attack = new AttackAxeCleave();
     }
     
     public void init(GameContainer container) throws SlickException {
