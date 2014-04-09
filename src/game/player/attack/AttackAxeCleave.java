@@ -8,9 +8,24 @@ import game.util.resource.SoundLibrary;
 
 public class AttackAxeCleave extends Attack {
     
-    public AttackAxeCleave() {
-        swingEndRest = 350;
-        attackRest = 1000;
+    protected AttackAxeCleave() { }
+    
+    public static AttackAxeCleave create() {
+        return create(3,1.5);
+    }
+    
+    public static AttackAxeCleave create(int damage, double knockback) {
+        return create(damage,knockback,350,1000);
+    }
+    
+    public static AttackAxeCleave create(int damage, double knockback,
+            int swingEndRest, int attackRest) {
+        AttackAxeCleave a = new AttackAxeCleave();
+        a.damage = damage;
+        a.knockback = knockback;
+        a.swingEndRest = swingEndRest;
+        a.attackRest = attackRest;
+        return a;
     }
     
     @Override
@@ -67,7 +82,7 @@ public class AttackAxeCleave extends Attack {
         if (!attacking)
             return;
         if(other.getCollisionMask().intersects(getMask(x,y)))
-            other.resolveHit(x,y,currentAttackId,3,1.5);
+            other.resolveHit(x,y,currentAttackId,damage,knockback);
     }
     
     @Override

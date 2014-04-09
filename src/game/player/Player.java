@@ -97,9 +97,9 @@ public class Player implements Hittable {
     
     public Player() {
         attacks = new ArrayList<Attack>();
-        attacks.add(new AttackAxeCleave());
-        attacks.add(new AttackSwordSlash());
-        attacks.add(new AttackDaggerSlash());
+        attacks.add(AttackAxeCleave.create());
+        attacks.add(AttackSwordSlash.create());
+        attacks.add(AttackDaggerSlash.create());
         attackIndex = 0;
         attack = attacks.get(0);
     }
@@ -347,7 +347,7 @@ public class Player implements Hittable {
         if (!invulnerable) {
             invulnerable = true;
             invulnerabilityTimer = INVULNERABILITY_DURATION;
-            initializeKnockback(x+32-ox,y+32-oy);
+            initializeKnockback(x+32-ox,y+32-oy,mult);
             currentHealth -= damage;
             SoundLibrary.SWORD_HIT.play();
         }
@@ -359,9 +359,13 @@ public class Player implements Hittable {
     }
     
     private void initializeKnockback(int dx, int dy) {
+        initializeKnockback(dx,dy,1);
+    }
+    
+    private void initializeKnockback(int dx, int dy, double mult) {
         if (stunTimer<=0) {
-            knockbackDX=(int)(KNOCKBACK_DISTANCE*Math.cos(Math.atan2(dy,dx)));
-            knockbackDY=(int)(KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx)));
+            knockbackDX=(int)(mult*KNOCKBACK_DISTANCE*Math.cos(Math.atan2(dy,dx)));
+            knockbackDY=(int)(mult*KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx)));
             stunTimer = STUN_DURATION;
         }
     }

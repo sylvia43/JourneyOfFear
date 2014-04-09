@@ -17,7 +17,8 @@ public abstract class Attack {
     public abstract void init();
     public abstract void attack(int direction, boolean sound);
     
-    public int knockback;
+    protected double knockback;
+    protected int damage;
     
     protected int swingEndRest;
     protected int attackRest;
@@ -30,6 +31,11 @@ public abstract class Attack {
     protected int attackId = 0;
     
     protected int targetDirection = 0;
+    
+    public Attack setDamage(int damage) { this.damage = damage; return this; }
+    public Attack setKnockback(int knockback) { this.knockback = knockback; return this; }
+    public Attack setSwingEndRest(int swingEndRest) { this.swingEndRest = swingEndRest; return this; }
+    public Attack setAttackRest(int attackRest) { this.attackRest = attackRest; return this; }
     
     public boolean canAttack() {
         return !attacking && attackDelay<1;

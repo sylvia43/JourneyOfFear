@@ -8,9 +8,24 @@ import game.util.resource.SoundLibrary;
 
 public class AttackDaggerSlash extends Attack {
     
-     public AttackDaggerSlash() {
-        swingEndRest = 200;
-        attackRest = 300;
+    protected AttackDaggerSlash() { }
+    
+    public static AttackDaggerSlash create() {
+        return create(4,0.5);
+    }
+    
+    public static AttackDaggerSlash create(int damage, double knockback) {
+        return create(damage,knockback,200,300);
+    }
+    
+    public static AttackDaggerSlash create(int damage, double knockback,
+            int swingEndRest, int attackRest) {
+        AttackDaggerSlash a = new AttackDaggerSlash();
+        a.damage = damage;
+        a.knockback = knockback;
+        a.swingEndRest = swingEndRest;
+        a.attackRest = attackRest;
+        return a;
     }
     
     @Override
@@ -39,7 +54,7 @@ public class AttackDaggerSlash extends Attack {
         if (!attacking)
             return;
         if(other.getCollisionMask().intersects(getMask(x,y)))
-            other.resolveHit(x,y,currentAttackId,4,0.5);
+            other.resolveHit(x,y,currentAttackId,damage,knockback);
     }
     
     @Override

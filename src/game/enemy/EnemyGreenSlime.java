@@ -43,7 +43,7 @@ public class EnemyGreenSlime extends EnemySlime {
 
     public EnemyGreenSlime(Player player) {
         super(player);
-        attack = new AttackSwordSlash();
+        attack = AttackSwordSlash.create().setAttackRest(1000);
         spritepath = "blobredsir";
         x = 500;
         y = 500;
