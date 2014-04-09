@@ -67,7 +67,6 @@ public class Enemy implements Hittable {
     public void update(GameContainer container, int delta) {
         resolveInvulnerability(delta);
         move(delta);
-        resolveCollision();
         resolveAttack(delta);
     }
     
@@ -81,6 +80,10 @@ public class Enemy implements Hittable {
     // Miscelleneous universal methods.    
     public void resolveHit(int ox, int oy, int attackId) {
         resolveHit(ox,oy,attackId,1);
+    }
+    
+    public void resolveHit(int ox, int oy, int attackId, int damage) {
+        resolveHit(ox,oy,attackId,damage,1);
     }
     
     protected void renderDebugInfo(Graphics g) {
@@ -111,10 +114,9 @@ public class Enemy implements Hittable {
     protected void initializeSprite() { initializeMask(); }
     protected void initializeAttack() { }
     protected void move(int delta) { } // Default move behavior
-    protected void resolveCollision() { }
     protected void resolveAttack(int delta) { }
     protected void renderAttack() { }
-    public void resolveHit(int ox, int oy, int attackId, int damage) { }
+    public void resolveHit(int ox, int oy, int attackId, int damage, double mult) { }
     
     //Other methods. These can be overriden if necessary.
     protected void initializeMask() {

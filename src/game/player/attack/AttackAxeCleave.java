@@ -1,5 +1,6 @@
 package game.player.attack;
 
+import game.sprite.Hittable;
 import game.sprite.ImageMask;
 import game.sprite.Rectangle;
 import game.util.resource.AnimationLibrary;
@@ -22,7 +23,20 @@ public class AttackAxeCleave extends Attack {
         int dx = frame>=7&&frame<=9 ? 1 : (frame>=11&&frame<=13)?-1:0;
         int dy = frame>=13&&frame<=15 ? 1 : (frame>=9&&frame<=11)?-1:0;
         
-        return new ImageMask(new Rectangle(x+96*dx,y+96*dy,x+96*dx+96,y+96*dy+96));
+        int ndx = 0;
+        int ndy = 0;
+        
+        if (dx == 1)
+            ndx = 64;
+        else
+            ndx = 96*dx;
+        
+        if (dy == 1)
+            ndy = 64;
+        else
+            ndy = 96*dy;
+        
+        return new ImageMask(new Rectangle(x+ndx,y+ndy,x+ndx+96,y+ndy+96));
     }
     
     @Override
@@ -33,6 +47,7 @@ public class AttackAxeCleave extends Attack {
         anim.stop();
     }
     
+    @Override
     public void attack(int direction, boolean sound) {
         direction = (direction+6)%8;
         currentAttackId = getAttackId();
@@ -40,13 +55,22 @@ public class AttackAxeCleave extends Attack {
         attackTimer = 0;
         attackDelay = anim.getDuration(0)*2 + attackRest;
         anim.restart();
-        anim.setCurrentFrame((direction+7)%8);
+        anim.setCurrentFrame((direction+8)%8);
         targetDirection = (direction+9)%8;
-        anim.stopAt((direction+10)%8);
+        anim.stopAt((direction+11)%8);
         if (sound)
             SoundLibrary.values()[(int)(3*Math.random())].play();
     }
     
+    @Override
+    public void resolveAttackHit(Hittable other, int x, int y) {
+        if (!attacking)
+            return;
+        if(other.getCollisionMask().intersects(getMask(x,y)))
+            other.resolveHit(x,y,currentAttackId,3,1.5);
+    }
+    
+    @Override
     public void render(int x, int y) {
         if (attacking)
             anim.draw(x-96,y-96,256,256);

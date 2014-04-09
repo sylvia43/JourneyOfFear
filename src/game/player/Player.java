@@ -20,6 +20,7 @@ import game.util.resource.AnimationLibrary;
 import game.util.resource.ImageLibrary;
 import game.util.resource.SoundLibrary;
 import java.util.ArrayList;
+import java.util.List;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -32,7 +33,9 @@ public class Player implements Hittable {
 
     private EntitySprite sprite;
     
+    private List<Attack> attacks;
     private Attack attack;
+    private int attackIndex;
     
     private int spritePointer;
     
@@ -51,8 +54,8 @@ public class Player implements Hittable {
     private static Image halfHeart = null;
     private static Image fullHeart = null;
     
-    private ArrayList<Enemy> enemies;
-    private ArrayList<Obstacle> obstacles;
+    private List<Enemy> enemies;
+    private List<Obstacle> obstacles;
     
     private int attackDirection;
     
@@ -93,7 +96,12 @@ public class Player implements Hittable {
     public void setY(int y) { this.y = y; }
     
     public Player() {
-        attack = new AttackAxeCleave();
+        attacks = new ArrayList<Attack>();
+        attacks.add(new AttackAxeCleave());
+        attacks.add(new AttackSwordSlash());
+        attacks.add(new AttackDaggerSlash());
+        attackIndex = 0;
+        attack = attacks.get(0);
     }
     
     public void init(GameContainer container) throws SlickException {
@@ -113,10 +121,8 @@ public class Player implements Hittable {
         Input input = container.getInput();
         
         if (input.isKeyPressed(Options.SWITCH_WEAPON.key())) {
-            if (attack instanceof AttackSwordSlash)
-                attack = new AttackDaggerSlash();
-            else if (attack instanceof AttackDaggerSlash)
-                attack = new AttackSwordSlash();
+            attackIndex = (attackIndex+attacks.size()+1)%attacks.size();
+            attack = attacks.get(attackIndex);
             attack.init();
         }
         if ((input.isKeyDown(Options.ATTACK_UP.key())
@@ -158,11 +164,11 @@ public class Player implements Hittable {
         }
     }
     
-    public void setEnemies(ArrayList<Enemy> enemies) {
+    public void setEnemies(List<Enemy> enemies) {
         this.enemies = enemies;
     }
 
-    public void setObstacles(ArrayList<Obstacle> obstacles) {
+    public void setObstacles(List<Obstacle> obstacles) {
         this.obstacles = obstacles;
     }
     
@@ -325,10 +331,18 @@ public class Player implements Hittable {
     }
     
     public void resolveHit(int ox, int oy) {
-        resolveHit(ox,oy,1);
+        resolveHit(ox,oy,-1,1);
     }
     
     public void resolveHit(int ox, int oy, int damage) {
+        resolveHit(ox,oy,-1,damage);
+    }
+    
+    public void resolveHit(int ox, int oy, int attackId, int damage) {
+        resolveHit(ox,oy,attackId,damage,1);
+    }
+    
+    public void resolveHit(int ox, int oy, int attackId, int damage, double mult) {
         isHit = true;
         if (!invulnerable) {
             invulnerable = true;

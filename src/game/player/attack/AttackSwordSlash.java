@@ -1,5 +1,6 @@
 package game.player.attack;
 
+import game.sprite.Hittable;
 import game.sprite.ImageMask;
 import game.sprite.Rectangle;
 import game.util.resource.AnimationLibrary;
@@ -33,6 +34,15 @@ public class AttackSwordSlash extends Attack {
         anim.stop();
     }
     
+    @Override
+    public void resolveAttackHit(Hittable other, int x, int y) {
+        if (!attacking)
+            return;
+        if(other.getCollisionMask().intersects(getMask(x,y)))
+            other.resolveHit(x,y,currentAttackId,2,1);
+    }
+    
+    @Override
     public void attack(int direction, boolean sound) {
         direction = (direction+6)%8;
         currentAttackId = getAttackId();

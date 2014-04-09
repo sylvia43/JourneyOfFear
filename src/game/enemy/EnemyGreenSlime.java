@@ -49,7 +49,7 @@ public class EnemyGreenSlime extends EnemySlime {
         y = 500;
         speed = 0.125;
         animationSpeed = 332;
-        health = 10;
+        health = 30;
         minimapColor = new Color(181, 230, 29);
     }
     
@@ -134,25 +134,20 @@ public class EnemyGreenSlime extends EnemySlime {
     }
     
     @Override
-    protected void resolveCollision() {
-        isHit = getCollisionMask().intersects(player.getCollisionMask());
-    }
-    
-    @Override
-    public void resolveHit(int ox, int oy, int attackId, int damage) {
+    public void resolveHit(int ox, int oy, int attackId, int damage, double mult) {
         if (attackId != lastAttackId) {
             lastAttackId = attackId;
             isHit = true;
-            initializeKnockback(x-ox,y-oy);
+            initializeKnockback(x-ox,y-oy,mult);
             health-=damage;
             SoundLibrary.SWORD_HIT.play();
         }
     }
     
-    protected void initializeKnockback(int dx, int dy) {
+    protected void initializeKnockback(int dx, int dy, double mult) {
         if (stunTimer<=0) {
-            knockbackDX=(int)(KNOCKBACK_DISTANCE*Math.cos(Math.atan2(dy,dx)));
-            knockbackDY=(int)(KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx)));
+            knockbackDX=(int)(mult*KNOCKBACK_DISTANCE*Math.cos(Math.atan2(dy,dx)));
+            knockbackDY=(int)(mult*KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx)));
             stunTimer = STUN_DURATION;
         }
     }

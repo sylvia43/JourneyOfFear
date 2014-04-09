@@ -17,6 +17,8 @@ public abstract class Attack {
     public abstract void init();
     public abstract void attack(int direction, boolean sound);
     
+    public int knockback;
+    
     protected int swingEndRest;
     protected int attackRest;
     
@@ -45,7 +47,7 @@ public abstract class Attack {
         if (!attacking)
             return;
         if(other.getCollisionMask().intersects(getMask(x,y)))
-            other.resolveHit(x,y,currentAttackId);
+            other.resolveHit(x,y,currentAttackId,1,1);
     }
     
     public void render(int x, int y) {

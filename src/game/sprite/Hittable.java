@@ -6,5 +6,5 @@ public interface Hittable {
     public int getY();
     
     public ImageMask getCollisionMask();
-    public void resolveHit(int x, int y, int attackId);
+    public void resolveHit(int x, int y, int attackId, int damage, double mult);
 }
