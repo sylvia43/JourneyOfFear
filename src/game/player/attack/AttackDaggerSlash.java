@@ -8,10 +8,10 @@ import game.util.resource.SoundLibrary;
 
 public class AttackDaggerSlash extends Attack {
     
-    protected static final int defaultDamage = 4;
+    protected static final int defaultDamage = 2;
     protected static final double defaultKnockback = 0.5;
     protected static final int defaultSwingEndRest = 200;
-    protected static final int defaultAttackRest = 300;
+    protected static final int defaultAttackRest = 100;
     
     protected AttackDaggerSlash() { }
     
