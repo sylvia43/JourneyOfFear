@@ -32,7 +32,8 @@ Key:
     [x] MUCH better error handling.
     [x] Add debug mode things for obstacles.
     [x] Fix obstacles in general (again).
-    [/] Different weapons.
+    [x] Different weapons.
+    [x] Fix knockback bug.
     [/] Damage and death.
     [/] Menu state.
     [/] Tiles you can't walk into (Boulders, trees, holes in the ground, etc).
@@ -51,8 +52,7 @@ Key:
     [ ] Enemy death sound implementation.
     [ ] Inventory.
     [ ] Potions.
-    [ ] Fix knockback bug.
-    
+
   Art:
     [x] Player in 4 directions, 4 frames each.
     [x] Grass that's tileable.
@@ -67,10 +67,9 @@ Key:
     [/] Slime death animation for all types of slimes.
     [/] Different types of slimes.
     [/] Potion bottle full/empty.
-    [/] Magic blast animations.
-    [/] Game title page w/ selecting arrow and font.
-    [ ] Better dagger sprite.
-    [ ] Fix transition tiles (We need to meet and discuss this).
+    [ ] Magic blast animations.
+    [ ] Game title page w/ selecting arrow and font.
+    [ ] Fix transition tiles.
     [ ] Player death animation
     [ ] Experience bar
     [ ] Level up animation
@@ -78,9 +77,8 @@ Key:
     [ ] Heal animation
     [ ] Different weapons.
     [ ] Add tile for holes in the ground.
-    [ ] Intro animation (optional).
 
-  Music:
+  Audio:
     [x] Cave sound effects.
     [x] Blob sound effects.
     [x] Background music.
@@ -89,14 +87,10 @@ Key:
     [x] Lots of music.
     [x] Unelectric sound effects.
     [x] Boss themes.
-    [/] Zip all stuff and send it to Shreyas.
-    [/] Magic sounds.
-    [/] Try for some mellow music w/ NESVST
-    [/] Bow pull sounds.
-    [/] Bow shoot sounds.
-    [/] Player death sound.
-    [/] Better loop-ability in music.
-    [ ] Send Chad's music to Shreyas
+    [ ] More music.
+    [ ] Bow pull sounds.
+    [ ] Bow shoot sounds.
+    [ ] Player death sound.
 
   Multiplayer:
     [x] Sending of data.
@@ -111,9 +105,9 @@ Key:
     [ ] Sending of all data (world and score).
     [ ] Bosses.
     [ ] Host it!
-  
+
   Other:
     [x] Obtain a domain name.
-    [/] Obtain domain hosting.
+    [ ] Obtain domain hosting.
     [ ] Make a Snake Squared website.
     [ ] Make a Journey of Fear webpage.
