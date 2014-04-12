@@ -51,40 +51,37 @@ public class NetworkHandler {
         get = new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    byte[] recvData = new byte[DataPacket.MAX_SIZE];
-                    DatagramPacket recvPacket = new DatagramPacket(recvData,recvData.length);
-                    
-                    while (running) {
+                byte[] recvData = new byte[DataPacket.MAX_SIZE];
+                DatagramPacket recvPacket = new DatagramPacket(recvData,recvData.length);
+
+                while (running) {
+                    try {
                         socket.receive(recvPacket);
-                        responseTime = System.currentTimeMillis();
-                        DataPacket recvDataPacket = new DataPacket(recvData);
-                        
-                        if (recvDataPacket.getClient() == myClientId)
-                            continue;
-                        
-                        boolean updated = false;
-                        
-                        for (EnemyPlayer e : enemies) {
-                            if (recvDataPacket.getClient() == e.getId()) {
-                                e.setX(recvDataPacket.get(DataPacket.X));
-                                e.setY(recvDataPacket.get(DataPacket.Y));
-                                updated = true;
-                                break;
-                            }
-                        }
-                        
-                        if (updated)
-                            continue;
-                        
-                        enemies.add(new EnemyPlayer(recvDataPacket.getClient(),
-                                recvDataPacket.get(DataPacket.X),recvDataPacket.get(DataPacket.Y)));
+                    } catch (IOException e) {
+                        System.out.println("Error receiving packet: " + e);
                     }
-                } catch (IOException e) {
-                    if (e.toString().equals("java.net.SocketException: socket closed"))
-                        System.out.println("Reciever thread disconnected.");
-                    else
-                        System.out.println("Error: " + e);
+                    responseTime = System.currentTimeMillis();
+                    DataPacket recvDataPacket = new DataPacket(recvData);
+
+                    if (recvDataPacket.getClient() == myClientId)
+                        continue;
+
+                    boolean updated = false;
+
+                    for (EnemyPlayer e : enemies) {
+                        if (recvDataPacket.getClient() == e.getId()) {
+                            e.setX(recvDataPacket.get(DataPacket.X));
+                            e.setY(recvDataPacket.get(DataPacket.Y));
+                            updated = true;
+                            break;
+                        }
+                    }
+
+                    if (updated)
+                        continue;
+
+                    enemies.add(new EnemyPlayer(recvDataPacket.getClient(),
+                            recvDataPacket.get(DataPacket.X),recvDataPacket.get(DataPacket.Y)));
                 }
             }
         });
@@ -93,23 +90,23 @@ public class NetworkHandler {
         send = new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    byte[] sendData = new byte[DataPacket.MAX_SIZE];
-                    while (running) {
-                        if (responseTime != -1 && System.currentTimeMillis()-responseTime > 1000) {
-                            System.out.println("Disconnecting.");
-                            running = false;
-                        }
-                        sendData = player.getBytes(myClientId);
-                        DatagramPacket sendPacket = new DatagramPacket(sendData,sendData.length,ip,port);
+                byte[] sendData = new byte[DataPacket.MAX_SIZE];
+                while (running) {
+                    if (responseTime != -1 && System.currentTimeMillis()-responseTime > 1000) {
+                        System.out.println("Disconnecting.");
+                        running = false;
+                    }
+                    sendData = player.getBytes(myClientId);
+                    DatagramPacket sendPacket = new DatagramPacket(sendData,sendData.length,ip,port);
+                    try {
                         socket.send(sendPacket);
+                    } catch (IOException e) {
+                        System.out.println("Error sending packet: " + e);
                     }
-                    if (socket != null && !socket.isClosed()) {
-                        System.out.println("Closing socket.");
-                        socket.close();
-                    }
-                } catch (IOException e) {
-                    System.out.println("Error: " + e);
+                }
+                if (socket != null && !socket.isClosed()) {
+                    System.out.println("Closing socket.");
+                    socket.close();
                 }
             }
         });

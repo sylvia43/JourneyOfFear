@@ -36,16 +36,15 @@ Key:
     [x] Fix knockback bug.
     [/] Damage and death.
     [/] Menu state.
-    [/] Tiles you can't walk into (Boulders, trees, holes in the ground, etc).
-    [ ] Clean up Tile. It currently sucks.
-    [ ] Blocking attacks (defence).
+    [/] Tiles that block movement.
+    [/] Different types of attacks.
+    [ ] Clean up Tile code. It currently sucks.
+    [ ] Blocking/Defence.
     [ ] Make the map render things in order of y position.
     [ ] Combo attacks.
     [ ] Make the map randomly generate.
-    [ ] Make Areas more object oriented.
     [ ] Smart enemy.
-    [ ] Different types of attacks.
-    [ ] Different blobs and bats (More enemies).
+    [ ] More enemies.
     [ ] Boss fight.
     [ ] Integrate transition tiles.
     [ ] Enemy movement sound implementation.
@@ -71,10 +70,7 @@ Key:
     [ ] Game title page w/ selecting arrow and font.
     [ ] Fix transition tiles.
     [ ] Player death animation
-    [ ] Experience bar
-    [ ] Level up animation
     [ ] Bosses
-    [ ] Heal animation
     [ ] Different weapons.
     [ ] Add tile for holes in the ground.
 
@@ -98,7 +94,7 @@ Key:
     [x] Disconnect handling.
     [x] Make handshake TCP.
     [/] Better error handling.
-    [ ] OP disconnect handling (no new thread).
+    [ ] Best disconnect handling (Timers).
     [ ] Complete sending of player data.
     [ ] Full interaction over server.
     [ ] Scorekeeping.
@@ -109,5 +105,4 @@ Key:
   Other:
     [x] Obtain a domain name.
     [ ] Obtain domain hosting.
-    [ ] Make a Snake Squared website.
     [ ] Make a Journey of Fear webpage.
