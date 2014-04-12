@@ -1,32 +1,32 @@
-package game.environment;
+package game.environment.spawner;
 
 import game.enemy.Enemy;
-import game.enemy.EnemyRedSlime;
+import game.enemy.EnemyGreenSlime;
 import game.enemy.EnemySlime;
 import game.player.Player;
 import game.sprite.ImageMask;
 import game.util.resource.AnimationLibrary;
 import java.util.ArrayList;
 
-public class PinkSlimeSpawner extends Spawner {
+public class GreenSlimeSpawner extends Spawner {
     
-    public PinkSlimeSpawner(Player player, ArrayList<Enemy> enemies) {
+    public GreenSlimeSpawner(Player player, ArrayList<Enemy> enemies) {
         super(player,enemies,3000);
     }
     
-    public PinkSlimeSpawner(Player player, ArrayList<Enemy> enemies, int x, int y) {
+    public GreenSlimeSpawner(Player player, ArrayList<Enemy> enemies, int x, int y) {
         super(player,enemies,x,y,3000);
     }
     
     @Override
     protected void initializeSprite() {
-        sprite = AnimationLibrary.PINK_SLIME_PIT.getAnim();
+        sprite = AnimationLibrary.GREEN_SLIME_PIT.getAnim();
         mask = new ImageMask(sprite.getImage(0),x,y);
         this.sprite.setDuration(0,1000);
     }
     
     protected Enemy getSpawnedEnemy() {
-        return new EnemyRedSlime(player);
+        return new EnemyGreenSlime(player);
     }
     
     protected void resolveCollision() {

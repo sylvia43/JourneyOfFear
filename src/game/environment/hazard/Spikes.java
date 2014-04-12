@@ -1,4 +1,4 @@
-package game.environment;
+package game.environment.hazard;
 
 import game.enemy.Enemy;
 import game.player.Player;

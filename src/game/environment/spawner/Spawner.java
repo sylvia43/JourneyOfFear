@@ -1,6 +1,7 @@
-package game.environment;
+package game.environment.spawner;
 
 import game.enemy.Enemy;
+import game.environment.hazard.Hazard;
 import game.map.Area;
 import game.player.Player;
 import java.util.ArrayList;

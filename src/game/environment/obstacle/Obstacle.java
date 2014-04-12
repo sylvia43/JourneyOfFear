@@ -1,4 +1,4 @@
-package game.environment;
+package game.environment.obstacle;
 
 import game.map.Area;
 import game.sprite.ImageMask;

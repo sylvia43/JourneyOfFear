@@ -1,7 +1,7 @@
 package game.util;
 
 import game.enemy.Enemy;
-import game.environment.Obstacle;
+import game.environment.obstacle.Obstacle;
 import game.map.Area;
 import game.player.Player;
 import org.newdawn.slick.Color;

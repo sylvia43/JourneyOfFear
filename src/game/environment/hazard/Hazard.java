@@ -1,5 +1,6 @@
-package game.environment;
+package game.environment.hazard;
 
+import game.environment.obstacle.Obstacle;
 import game.enemy.Enemy;
 import game.map.Area;
 import game.player.Player;

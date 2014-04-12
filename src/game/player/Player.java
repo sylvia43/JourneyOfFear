@@ -1,8 +1,8 @@
 package game.player;
 
 import game.enemy.Enemy;
-import game.environment.Obstacle;
-import game.environment.Tree;
+import game.environment.obstacle.Obstacle;
+import game.environment.obstacle.Tree;
 import game.network.server.DataPacket;
 import game.network.server.EnemyPlayerData;
 import game.player.attack.Attack;
