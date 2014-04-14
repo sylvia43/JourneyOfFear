@@ -98,6 +98,22 @@ public class Server {
         });
         handshakeThread.start();
         
+        Timer timer = new Timer();
+        
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                currentIteration++;
+                for (Map.Entry<Integer,Long> entry : ping.entrySet()) {
+                    long oldIteration = entry.getValue();
+                    if (currentIteration-oldIteration > 5) {
+                        killIds.add(entry.getKey());
+                        ping.remove(entry.getKey());
+                    }
+                }
+            }
+        },200,200);
+        
         Thread receiveThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -107,22 +123,6 @@ public class Server {
                 int clientId;
                 boolean updated = false;
                 currentIteration = 0;
-                
-                Timer timer = new Timer();
-                
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        currentIteration++;
-                        for (Map.Entry<Integer,Long> entry : ping.entrySet()) {
-                            long oldIteration = entry.getValue();
-                            if (currentIteration-oldIteration > 5) {
-                                killIds.add(entry.getKey());
-                                ping.remove(entry.getKey());
-                            }
-                        }
-                    }
-                },200,200);
                 
                 while (running) {
                     try {
