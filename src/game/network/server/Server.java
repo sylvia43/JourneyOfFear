@@ -10,6 +10,8 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -106,26 +108,21 @@ public class Server {
                 boolean updated = false;
                 currentIteration = 0;
                 
-                new Thread(new Runnable() {
+                Timer timer = new Timer();
+                
+                timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        while(running) {
-                            try {
-                                Thread.sleep(200);
-                            } catch (InterruptedException e) {
-                                System.out.println(e);
-                            }
-                            currentIteration++;
-                            for (Map.Entry<Integer,Long> entry : ping.entrySet()) {
-                                long oldIteration = entry.getValue();
-                                if (currentIteration-oldIteration > 5) {
-                                    killIds.add(entry.getKey());
-                                    ping.remove(entry.getKey());
-                                }
+                        currentIteration++;
+                        for (Map.Entry<Integer,Long> entry : ping.entrySet()) {
+                            long oldIteration = entry.getValue();
+                            if (currentIteration-oldIteration > 5) {
+                                killIds.add(entry.getKey());
+                                ping.remove(entry.getKey());
                             }
                         }
                     }
-                }).start();
+                },200,200);
                 
                 while (running) {
                     try {
