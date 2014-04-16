@@ -141,7 +141,7 @@ public class EnemyGreenSlime extends AttackingEnemy implements EnemySlime {
         if(health < 10 && player.getAttack().isAttacking() &&
                 !attack.isAttacking() && runawayTimer == 0 &&
                 Math.sqrt(Math.pow(x-player.getX(),2)+Math.pow(y-player.getY(), 2)) <= 160) {
-            initializeKnockback(x-player.getX(), y-player.getY(), 1);
+            initializeKnockback(x-player.getX(), y-player.getY(), 0.5);
             runawayTimer = 1000;
         }
         else if(runawayTimer > 0)
