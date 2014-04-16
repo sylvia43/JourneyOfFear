@@ -38,6 +38,7 @@ Key:
     [/] Menu state.
     [/] Tiles that block movement.
     [/] Different types of attacks.
+    [ ] Rewrite Slick2D libraries.
     [ ] Clean up Tile code. It currently sucks.
     [ ] Blocking/Defense.
     [ ] Make the map render things in order of y position.
@@ -93,8 +94,10 @@ Key:
     [x] Elimination of duplicates.
     [x] Disconnect handling.
     [x] Make handshake TCP.
+    [x] Best disconnect handling (Timers).
     [/] Better error handling.
-    [ ] Best disconnect handling (Timers).
+    [ ] Merge in server from Starfighter.
+    [ ] Make server a seperate library.
     [ ] Complete sending of player data.
     [ ] Full interaction over server.
     [ ] Scorekeeping.

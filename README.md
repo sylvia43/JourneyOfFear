@@ -26,4 +26,4 @@ Current contributers:
 | Joshua        | Art   |
 | David         | Sound and Music   |
 
-Thanks to Daniel (MrSnrhms) and Brennan (Brennan-S) for help with programming.
+Thanks to Daniel (MrSnrhms) and Brennan (Brennan-S) for minor help with programming.
