@@ -10,7 +10,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
-public class Enemy implements Hittable {
+public abstract class Enemy implements Hittable {
     
     protected EntitySprite sprite;
     protected String spritepath;
@@ -61,18 +61,15 @@ public class Enemy implements Hittable {
     public void init(GameContainer container) {
         initializeVariables();
         initializeSprite();
-        initializeAttack();
     }
     
     public void update(GameContainer container, int delta) {
         resolveInvulnerability(delta);
         move(delta);
-        resolveAttack(delta);
     }
     
     public void render(GameContainer container, Graphics g) {
         sprite.getAnim(spritePointer).draw(x,y,64,64);
-        renderAttack();
         if (StateMultiplayer.DEBUG_MODE)
             renderDebugInfo(g);
     }
@@ -110,13 +107,10 @@ public class Enemy implements Hittable {
     }
     
     //Empty methods. These methods should be overriden
-    protected void initializeVariables() { }
-    protected void initializeSprite() { initializeMask(); }
-    protected void initializeAttack() { }
-    protected void move(int delta) { } // Default move behavior
-    protected void resolveAttack(int delta) { }
-    protected void renderAttack() { }
-    public void resolveHit(int ox, int oy, int attackId, int damage, double mult) { }
+    protected abstract void initializeVariables();
+    protected abstract void initializeSprite();
+    protected abstract void move(int delta); // Default move behavior
+    public abstract void resolveHit(int ox, int oy, int attackId, int damage, double mult);
     
     //Other methods. These can be overriden if necessary.
     protected void initializeMask() {

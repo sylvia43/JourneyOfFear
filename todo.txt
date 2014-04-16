@@ -39,7 +39,7 @@ Key:
     [/] Tiles that block movement.
     [/] Different types of attacks.
     [ ] Clean up Tile code. It currently sucks.
-    [ ] Blocking/Defence.
+    [ ] Blocking/Defense.
     [ ] Make the map render things in order of y position.
     [ ] Combo attacks.
     [ ] Make the map randomly generate.

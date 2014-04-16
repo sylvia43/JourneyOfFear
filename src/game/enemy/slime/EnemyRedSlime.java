@@ -1,5 +1,6 @@
-package game.enemy;
+package game.enemy.slime;
 
+import game.enemy.Enemy;
 import game.player.Player;
 import game.sprite.EntitySprite;
 import game.state.StateMultiplayer;
@@ -8,7 +9,7 @@ import game.util.resource.SoundLibrary;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 
-public class EnemyRedSlime extends EnemySlime {
+public class EnemyRedSlime extends Enemy implements EnemySlime {
     
     protected boolean isHit;
     protected boolean damageBlink;
@@ -92,4 +93,7 @@ public class EnemyRedSlime extends EnemySlime {
         knockbackDY=(int)(mult*KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx)));
         stunTimer = STUN_DURATION;
     }
+
+    @Override
+    protected void initializeVariables() {    }
 }

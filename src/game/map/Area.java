@@ -1,8 +1,8 @@
 package game.map;
 
 import game.enemy.Enemy;
-import game.enemy.EnemyGreenSlime;
-import game.enemy.EnemyRedSlime;
+import game.enemy.slime.EnemyGreenSlime;
+import game.enemy.slime.EnemyRedSlime;
 import game.environment.spawner.GreenSlimeSpawner;
 import game.environment.obstacle.Obstacle;
 import game.environment.spawner.PinkSlimeSpawner;

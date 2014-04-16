@@ -1,5 +1,6 @@
-package game.enemy;
+package game.enemy.slime;
 
+import game.enemy.AttackingEnemy;
 import game.player.Player;
 import game.player.attack.Attack;
 import game.player.attack.AttackSwordSlash;
@@ -12,7 +13,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-public class EnemyGreenSlime extends EnemySlime {
+public class EnemyGreenSlime extends AttackingEnemy implements EnemySlime {
 
     protected Attack attack;
     
@@ -133,6 +134,10 @@ public class EnemyGreenSlime extends EnemySlime {
         spritePointer = directionToPlayer();
     }
     
+    protected void avoidDanger() {
+        
+    }
+    
     @Override
     public void resolveHit(int ox, int oy, int attackId, int damage, double mult) {
         if (attackId != lastAttackId) {
@@ -165,4 +170,7 @@ public class EnemyGreenSlime extends EnemySlime {
             attack.renderMask(x,y,g);
         }
     }
+
+    @Override
+    protected void initializeVariables() {    }
 }

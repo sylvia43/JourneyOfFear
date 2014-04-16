@@ -1,8 +1,8 @@
 package game.environment.spawner;
 
 import game.enemy.Enemy;
-import game.enemy.EnemyGreenSlime;
-import game.enemy.EnemySlime;
+import game.enemy.slime.EnemyGreenSlime;
+import game.enemy.slime.EnemySlime;
 import game.player.Player;
 import game.sprite.ImageMask;
 import game.util.resource.AnimationLibrary;
@@ -25,10 +25,12 @@ public class GreenSlimeSpawner extends Spawner {
         this.sprite.setDuration(0,1000);
     }
     
+    @Override
     protected Enemy getSpawnedEnemy() {
         return new EnemyGreenSlime(player);
     }
     
+    @Override
     protected void resolveCollision() {
         if (mask.intersects(player.getCollisionMask()))
             player.resolveHit(x+64,y+64,2);

@@ -38,22 +38,6 @@ public class DataPacket {
         return ret;
     }
     
-    public static int get(byte[] bytes, int pos) {
-        int ret = 0;
-        for (int i=0;i<4;i++) {
-            ret <<= 8;
-            ret |= (int)bytes[i+pos] & 0xFF;
-        }
-        return ret;
-    }
-    
-    public static void add(byte[] arr, int i, int pos) {
-        arr[pos] = (byte) (i >> 24);
-        arr[pos+1] = (byte) (i >> 16);
-        arr[pos+2] = (byte) (i >> 8);
-        arr[pos+3] = (byte) (i);
-    }
-    
     public static byte[] valueOf(int i) {
         byte[] arr = new byte[4];
         arr[0] = (byte) (i >> 24);
