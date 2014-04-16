@@ -28,6 +28,7 @@ public class EnemyGreenSlime extends AttackingEnemy implements EnemySlime {
     protected boolean damageBlink;
     protected boolean invulnerable = false;
     protected int invulnerabilityTimer = 0;
+    protected int runawayTimer = 0;
     protected int knockbackDX;
     protected int knockbackDY;
     protected final int DAMAGE_BLINK_TIME = 50;
@@ -96,6 +97,8 @@ public class EnemyGreenSlime extends AttackingEnemy implements EnemySlime {
             return;
         }
         
+        avoidDanger(delta);
+        
         if (dirChangeCounter<DIR_SWITCH_SPEED)
             dirChangeCounter += (int) (2*delta*Math.random());
         else
@@ -134,8 +137,15 @@ public class EnemyGreenSlime extends AttackingEnemy implements EnemySlime {
         spritePointer = directionToPlayer();
     }
     
-    protected void avoidDanger() {
-        
+    protected void avoidDanger(int delta) {
+        if(health < 10 && player.getAttack().isAttacking() &&
+                !attack.isAttacking() && runawayTimer == 0 &&
+                Math.sqrt(Math.pow(x-player.getX(),2)+Math.pow(y-player.getY(), 2)) <= 160) {
+            initializeKnockback(x-player.getX(), y-player.getY(), 1);
+            runawayTimer = 1000;
+        }
+        else if(runawayTimer > 0)
+            runawayTimer = Math.max(runawayTimer - delta, 0);
     }
     
     @Override

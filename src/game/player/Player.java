@@ -95,6 +95,14 @@ public class Player implements Hittable {
         return packet.getBytes();
     }
     
+    public Attack getAttack() {
+        return attack;
+    }
+    
+    public int getAttackIndex() {
+        return attackIndex;
+    }
+    
     public void setX(int x) { this.x = x; }
     public void setY(int y) { this.y = y; }
     

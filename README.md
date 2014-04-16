@@ -19,11 +19,11 @@ If you have any questions, contact me (anubiann00b) at skraman1999@gmail.com.
 
 Current contributers:
 
-|    Contributers   |      Job      |
+|    Contributors   |      Job      |
 | ------------- | ------------- |
 | Shreyas       | Programming   |
-| Daniel        | Programming   |
+| Tarik         | Programming   |
 | Joshua        | Art   |
 | David         | Sound and Music   |
 
-Thanks to Daniel (MrSnrhms), Tarik (QuantumPhi), and Brennan (Brennan-S) for help with programming.
+Thanks to Daniel (MrSnrhms) and Brennan (Brennan-S) for help with programming.

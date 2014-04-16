@@ -41,6 +41,10 @@ public abstract class Attack {
         return !attacking && attackDelay<1;
     }
     
+    public boolean isAttacking() {
+        return attacking;
+    }
+    
     public void update(int delta, int x, int y) {
         if (attackTimer<500)
             attackTimer+=delta;
