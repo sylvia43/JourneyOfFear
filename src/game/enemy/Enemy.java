@@ -22,7 +22,16 @@ public abstract class Enemy implements Hittable {
     protected double speed;
     protected int moveTimer;
     
+    protected int knockbackDX;
+    protected int knockbackDY;
     protected int stunTimer;
+    //These can be overridden in other classes//
+    protected static final int KNOCKBACK_MULTIPLIER = 30;
+    protected static final int KNOCKBACK_DISTANCE = 200;
+    protected static final int STUN_DURATION = 400;
+    protected static final int DAMAGE_BLINK_TIME = 50;
+    protected static final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME;
+    ////////////////////////////////////////////
     
     protected int health;
     
@@ -129,5 +138,13 @@ public abstract class Enemy implements Hittable {
             masks[i] = new ImageMask(sprite.getAnim(index).getImage(i),x,y);
         }
         return new AnimationMask(masks);
+    }
+    
+    protected void initializeKnockback(int dx, int dy, double mult) {
+        if (stunTimer<=0) {
+            knockbackDX=(int)(mult*KNOCKBACK_DISTANCE*Math.cos(Math.atan2(dy,dx)));
+            knockbackDY=(int)(mult*KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx)));
+            stunTimer = STUN_DURATION;
+        }
     }
 }

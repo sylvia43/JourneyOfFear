@@ -1,11 +1,17 @@
 package game.enemy;
 
 import game.player.Player;
+import game.player.attack.Attack;
 import game.state.StateMultiplayer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 public abstract class AttackingEnemy extends Enemy {
+    
+    protected Attack attack;
+    
+    protected static final int ATTACK_SPEED = 10;
+    protected static final int SWORD_DELAY = 800;
     
     public AttackingEnemy(Player player) {
         super(player);

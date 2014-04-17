@@ -1,25 +1,22 @@
 package game.enemy.slime;
 
-import game.enemy.AttackingEnemy;
+import game.enemy.SmartEnemy;
+import game.environment.obstacle.Obstacle;
 import game.player.Player;
-import game.player.attack.Attack;
 import game.player.attack.AttackSwordSlash;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
 import game.state.StateMultiplayer;
 import game.util.resource.AnimationLibrary;
 import game.util.resource.SoundLibrary;
+import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-public class EnemyGreenSlime extends AttackingEnemy implements EnemySlime {
-
-    protected Attack attack;
+public class EnemyGreenSlime extends SmartEnemy implements EnemySlime {
     
-    protected final int ATTACK_SPEED = 10;
-    protected final int SWORD_DELAY = 800;
-    protected final int DIR_SWITCH_SPEED = 500;
+    protected static final int DIR_SWITCH_SPEED = 500;
     protected int dirChangeCounter = 0;
     
     protected int direction;
@@ -28,15 +25,6 @@ public class EnemyGreenSlime extends AttackingEnemy implements EnemySlime {
     protected boolean damageBlink;
     protected boolean invulnerable = false;
     protected int invulnerabilityTimer = 0;
-    protected int runawayTimer = 0;
-    protected int knockbackDX;
-    protected int knockbackDY;
-    protected final int DAMAGE_BLINK_TIME = 50;
-    protected final int KNOCKBACK_DISTANCE = 200;
-    //How slippery knockback is. Less means more slide.
-    protected final int KNOCKBACK_MULTIPLIER = 30;
-    protected final int STUN_DURATION = 400;
-    protected final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME;
     
     @Override
     public ImageMask getAttackMask() {
@@ -97,7 +85,7 @@ public class EnemyGreenSlime extends AttackingEnemy implements EnemySlime {
             return;
         }
         
-        avoidDanger(delta);
+        avoidAttacks(delta);
         
         if (dirChangeCounter<DIR_SWITCH_SPEED)
             dirChangeCounter += (int) (2*delta*Math.random());
@@ -135,17 +123,6 @@ public class EnemyGreenSlime extends AttackingEnemy implements EnemySlime {
             return;
         }
         spritePointer = directionToPlayer();
-    }
-    
-    protected void avoidDanger(int delta) {
-        if(health < 10 && player.getAttack().isAttacking() &&
-                !attack.isAttacking() && runawayTimer == 0 &&
-                Math.sqrt(Math.pow(x-player.getX(),2)+Math.pow(y-player.getY(), 2)) <= 160) {
-            initializeKnockback(x-player.getX(), y-player.getY(), 0.5);
-            runawayTimer = 1000;
-        }
-        else if(runawayTimer > 0)
-            runawayTimer = Math.max(runawayTimer - delta, 0);
     }
     
     @Override

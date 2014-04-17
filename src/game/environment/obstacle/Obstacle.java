@@ -26,6 +26,8 @@ public class Obstacle extends GameObject {
     public int getX() { return x; }
     public int getY() { return y; }
     public Animation getSprite() { return sprite; }
+    public int getWidth() { return width; }
+    public int getHeight() { return height; }
     public int getMiniWidth() { return miniWidth; }
     public int getMiniHeight() { return miniHeight; }
     public Color getColor() { return minimapColor; }
