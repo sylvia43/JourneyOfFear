@@ -68,9 +68,9 @@ public class StateSingleplayer extends BasicGameState {
         soundtrack.update();
         
         updateArea();
+        updatePlayer(container,delta);
         updateEnemies(container,delta);
         updateObstacles(container, delta,currentArea);
-        updatePlayer(container,delta);
         updateViewPort();
         renderer.updateCamera(camX,camY);
     }

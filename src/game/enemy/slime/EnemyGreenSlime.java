@@ -1,7 +1,6 @@
 package game.enemy.slime;
 
 import game.enemy.SmartEnemy;
-import game.environment.obstacle.Obstacle;
 import game.player.Player;
 import game.player.attack.AttackSwordSlash;
 import game.sprite.EntitySprite;
@@ -9,7 +8,6 @@ import game.sprite.ImageMask;
 import game.state.StateMultiplayer;
 import game.util.resource.AnimationLibrary;
 import game.util.resource.SoundLibrary;
-import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -21,7 +19,6 @@ public class EnemyGreenSlime extends SmartEnemy implements EnemySlime {
     
     protected int direction;
     
-    protected boolean isHit;
     protected boolean damageBlink;
     protected boolean invulnerable = false;
     protected int invulnerabilityTimer = 0;
@@ -85,8 +82,6 @@ public class EnemyGreenSlime extends SmartEnemy implements EnemySlime {
             return;
         }
         
-        avoidAttacks(delta);
-        
         if (dirChangeCounter<DIR_SWITCH_SPEED)
             dirChangeCounter += (int) (2*delta*Math.random());
         else
@@ -129,18 +124,9 @@ public class EnemyGreenSlime extends SmartEnemy implements EnemySlime {
     public void resolveHit(int ox, int oy, int attackId, int damage, double mult) {
         if (attackId != lastAttackId) {
             lastAttackId = attackId;
-            isHit = true;
-            initializeKnockback(x-ox,y-oy,mult);
             health-=damage;
             SoundLibrary.SWORD_HIT.play();
-        }
-    }
-    
-    protected void initializeKnockback(int dx, int dy, double mult) {
-        if (stunTimer<=0) {
-            knockbackDX=(int)(mult*KNOCKBACK_DISTANCE*Math.cos(Math.atan2(dy,dx)));
-            knockbackDY=(int)(mult*KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx)));
-            stunTimer = STUN_DURATION;
+            isHit = true;
         }
     }
     

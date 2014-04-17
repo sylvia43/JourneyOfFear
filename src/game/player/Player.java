@@ -353,6 +353,7 @@ public class Player implements Hittable {
         resolveHit(ox,oy,attackId,damage,1);
     }
     
+    @Override
     public void resolveHit(int ox, int oy, int attackId, int damage, double mult) {
         isHit = true;
         if (!invulnerable) {

@@ -39,6 +39,7 @@ public abstract class Enemy implements Hittable {
 
     protected Player player;
     
+    protected boolean isHit;
     protected boolean readyToDie = false;
     
     protected Color minimapColor;
@@ -75,6 +76,7 @@ public abstract class Enemy implements Hittable {
     public void update(GameContainer container, int delta) {
         resolveInvulnerability(delta);
         move(delta);
+        isHit = false;
     }
     
     public void render(GameContainer container, Graphics g) {

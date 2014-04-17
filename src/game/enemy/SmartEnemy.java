@@ -4,8 +4,6 @@ import game.player.Player;
 import org.newdawn.slick.GameContainer;
 
 public abstract class SmartEnemy extends AttackingEnemy {
-    
-    protected int runawayTimer = 0;
 
     public SmartEnemy(Player player) {
         super(player);
@@ -17,17 +15,13 @@ public abstract class SmartEnemy extends AttackingEnemy {
         avoidAttacks(delta);
         move(delta);
         resolveAttack(delta);
+        isHit = false;
     }
     
     protected void avoidAttacks(int delta) {
-        if(health < 10 && player.getAttack().isAttacking() &&
-                !attack.isAttacking() && runawayTimer == 0 &&
-                Math.sqrt(Math.pow(x-player.getX(),2)+Math.pow(y-player.getY(), 2)) <= 160) {
+        if(player.getAttack().isAttacking() && !isHit &&
+                Math.sqrt(Math.pow(x-player.getX(),2)+Math.pow(y-player.getY(), 2)) <= 192)
             initializeKnockback(x-player.getX(), y-player.getY(), 0.5);
-            runawayTimer = 1000;
-        }
-        else if(runawayTimer > 0)
-            runawayTimer = Math.max(runawayTimer - delta, 0);
     }
     
     protected void avoidObjects(int delta) {

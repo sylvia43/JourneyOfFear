@@ -30,6 +30,7 @@ public abstract class AttackingEnemy extends Enemy {
         resolveInvulnerability(delta);
         move(delta);
         resolveAttack(delta);
+        isHit = false;
     }
     
     @Override
