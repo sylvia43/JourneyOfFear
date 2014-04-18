@@ -20,18 +20,17 @@ public abstract class Enemy implements Hittable {
     protected int x;
     protected int y;
     protected double speed;
-    protected int moveTimer;
     
     protected int knockbackDX;
     protected int knockbackDY;
     protected int stunTimer;
-    //These can be overridden in other classes//
+    
+    // These can be overridden in other classes.
     protected static final int KNOCKBACK_MULTIPLIER = 30;
     protected static final int KNOCKBACK_DISTANCE = 200;
     protected static final int STUN_DURATION = 400;
     protected static final int DAMAGE_BLINK_TIME = 50;
     protected static final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME;
-    ////////////////////////////////////////////
     
     protected int health;
     
@@ -39,25 +38,22 @@ public abstract class Enemy implements Hittable {
 
     protected Player player;
     
-    protected boolean isHit;
     protected boolean readyToDie = false;
     
     protected Color minimapColor;
         
     //Getters. These methods probably can be left alone.
-    public int getX() { return x; }
-    public int getY() { return y; }
+    @Override public int getX() { return x; }
+    @Override public int getY() { return y; }
     public Color getColor() { return minimapColor; }
     public boolean readyToDie() { return readyToDie; }
     public EntitySprite getSprite() { return sprite; }
     
+    @Override
     public ImageMask getCollisionMask() {
         return sprite.getAnimationMask(spritePointer)
                 .getImageMask(sprite.getAnim(spritePointer).getFrame()).update(x,y);
     }
-    
-    // By default enemies don't have attacks.
-    public ImageMask getAttackMask() { return null; }
     
     public Enemy(Player player) {
         this.player = player;
@@ -69,14 +65,12 @@ public abstract class Enemy implements Hittable {
     
     //Game loop methods
     public void init(GameContainer container) {
-        initializeVariables();
         initializeSprite();
     }
     
     public void update(GameContainer container, int delta) {
         resolveInvulnerability(delta);
         move(delta);
-        isHit = false;
     }
     
     public void render(GameContainer container, Graphics g) {
@@ -117,11 +111,10 @@ public abstract class Enemy implements Hittable {
                 playerDistX > 0 ? 0 : 2 : playerDistY > 0 ? 3 : 1;
     }
     
-    //Empty methods. These methods should be overriden
-    protected abstract void initializeVariables();
+    // Empty methods. These methods should be overriden
     protected abstract void initializeSprite();
     protected abstract void move(int delta); // Default move behavior
-    public abstract void resolveHit(int ox, int oy, int attackId, int damage, double mult);
+    @Override public abstract void resolveHit(int ox, int oy, int attackId, int damage, double mult);
     
     //Other methods. These can be overriden if necessary.
     protected void initializeMask() {
@@ -143,10 +136,11 @@ public abstract class Enemy implements Hittable {
     }
     
     protected void initializeKnockback(int dx, int dy, double mult) {
-        if (stunTimer<=0) {
-            knockbackDX=(int)(mult*KNOCKBACK_DISTANCE*Math.cos(Math.atan2(dy,dx)));
-            knockbackDY=(int)(mult*KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx)));
-            stunTimer = STUN_DURATION;
-        }
+        if (stunTimer>0)
+            return;
+        
+        knockbackDX=(int)(mult*KNOCKBACK_DISTANCE*Math.cos(Math.atan2(dy,dx)));
+        knockbackDY=(int)(mult*KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx)));
+        stunTimer = STUN_DURATION;
     }
 }

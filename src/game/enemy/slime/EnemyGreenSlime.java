@@ -19,15 +19,10 @@ public class EnemyGreenSlime extends SmartEnemy implements EnemySlime {
     
     protected int direction;
     
-    protected boolean damageBlink;
-    protected boolean invulnerable = false;
-    protected int invulnerabilityTimer = 0;
-    
-    @Override
     public ImageMask getAttackMask() {
         return attack.getMask(x,y);
     }
-
+    
     public EnemyGreenSlime(Player player) {
         super(player);
         attack = AttackSwordSlash.create().setAttackRest(1000);
@@ -124,9 +119,9 @@ public class EnemyGreenSlime extends SmartEnemy implements EnemySlime {
     public void resolveHit(int ox, int oy, int attackId, int damage, double mult) {
         if (attackId != lastAttackId) {
             lastAttackId = attackId;
+            initializeKnockback(x-ox,y-oy,mult);
             health-=damage;
             SoundLibrary.SWORD_HIT.play();
-            isHit = true;
         }
     }
     
@@ -143,7 +138,4 @@ public class EnemyGreenSlime extends SmartEnemy implements EnemySlime {
             attack.renderMask(x,y,g);
         }
     }
-
-    @Override
-    protected void initializeVariables() {    }
 }

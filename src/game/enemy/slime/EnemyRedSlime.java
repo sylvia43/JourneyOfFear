@@ -10,17 +10,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 
 public class EnemyRedSlime extends Enemy implements EnemySlime {
-    
-    protected boolean isHit;
-    protected boolean damageBlink;
-    protected int knockbackDX;
-    protected int knockbackDY;
-    protected final int KNOCKBACK_DISTANCE = 200;
-    
-    //How slippery knockback is. Less means more slide.
-    protected final int KNOCKBACK_MULTIPLIER = 30;
-    protected final int STUN_DURATION = 400;
-
+        
     public EnemyRedSlime(Player player) {
         super(player);
         this.x = (int)(Math.random()*StateMultiplayer.WORLD_SIZE_X);
@@ -79,21 +69,9 @@ public class EnemyRedSlime extends Enemy implements EnemySlime {
     public void resolveHit(int ox, int oy, int attackId, int damage, double mult) {
         if (attackId != lastAttackId) {
             lastAttackId = attackId;
-            isHit = true;
-            initializeKnockback(x-ox,y-oy, mult);
+            initializeKnockback(x-ox,y-oy,mult);
             health-=damage;
             SoundLibrary.SWORD_HIT.play();
         }
     }
-    
-    protected void initializeKnockback(int dx, int dy, double mult) {
-        if (stunTimer>0)
-            return;
-        knockbackDX=(int)(mult*KNOCKBACK_DISTANCE*Math.cos(Math.atan2(dy,dx)));
-        knockbackDY=(int)(mult*KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx)));
-        stunTimer = STUN_DURATION;
-    }
-
-    @Override
-    protected void initializeVariables() {    }
 }

@@ -43,8 +43,8 @@ public class AttackAxeCleave extends Attack {
         int dx = frame>=7&&frame<=9 ? 1 : (frame>=11&&frame<=13)?-1:0;
         int dy = frame>=13&&frame<=15 ? 1 : (frame>=9&&frame<=11)?-1:0;
         
-        int ndx = 0;
-        int ndy = 0;
+        int ndx;
+        int ndy;
         
         if (dx == 1)
             ndx = 64;
