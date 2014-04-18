@@ -133,7 +133,7 @@ public class EnemyGreenSlime extends SmartEnemy implements EnemySlime {
     @Override
     protected void renderDebugInfo(Graphics g) {
         super.renderDebugInfo(g);
-        attack.renderDebugInfo(x+64,y+64+56,g);
+        attack.renderDebugInfo(x+64,y+64+70,g);
         if (StateMultiplayer.DEBUG_COLLISION) {
             attack.renderMask(x,y,g);
         }

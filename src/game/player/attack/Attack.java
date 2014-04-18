@@ -46,8 +46,7 @@ public abstract class Attack {
     }
     
     public void update(int delta, int x, int y) {
-        if (attackTimer<500)
-            attackTimer+=delta;
+        attackTimer+=delta;
         attackDelay-=delta;
         if (attackTimer > swingEndRest)
             attacking = false;

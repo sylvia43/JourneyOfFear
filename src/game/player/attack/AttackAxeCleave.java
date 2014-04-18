@@ -43,20 +43,25 @@ public class AttackAxeCleave extends Attack {
         int dx = frame>=7&&frame<=9 ? 1 : (frame>=11&&frame<=13)?-1:0;
         int dy = frame>=13&&frame<=15 ? 1 : (frame>=9&&frame<=11)?-1:0;
         
-        int ndx;
-        int ndy;
+        int ndx = 64;
+        int ndy = 64;
         
-        if (dx == 1)
-            ndx = 64;
-        else
+        int wx = 96;
+        int wy = 96;
+        
+        if (dx==0)
+            wx = 64;
+        
+        if (dy==0)
+            wy = 64;
+        
+        if (dx != 1)
             ndx = 96*dx;
         
-        if (dy == 1)
-            ndy = 64;
-        else
+        if (dy != 1)
             ndy = 96*dy;
         
-        return new ImageMask(new Rectangle(x+ndx,y+ndy,x+ndx+96,y+ndy+96));
+        return new ImageMask(new Rectangle(x+ndx,y+ndy,x+ndx+wx,y+ndy+wy));
     }
     
     @Override

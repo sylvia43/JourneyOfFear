@@ -26,7 +26,7 @@ public abstract class SmartEnemy extends AttackingEnemy {
         if (dodgeTimer>0)
             dodgeTimer -= delta;
         
-        if (dodgeTimer>0) {
+        if (dodgeTimer>0 && stunTimer<=0) {
             x+=(dodgeDX*dodgeTimer)/(DODGE_DISTANCE*DODGE_MULTIPLIER);
             y+=(dodgeDY*dodgeTimer)/(DODGE_DISTANCE*DODGE_MULTIPLIER);
         }
