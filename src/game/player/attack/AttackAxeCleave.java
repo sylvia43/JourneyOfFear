@@ -39,8 +39,8 @@ public class AttackAxeCleave extends Attack {
             return null;
         
         int frame = anim.getFrame()+8;
-        
-        int dx = frame>=7&&frame<=9 ? 1 : (frame>=11&&frame<=13)?-1:0;
+                
+        int dx = frame>=7&&frame<=9 || frame==15 ? 1 : (frame>=11&&frame<=13)?-1:0;
         int dy = frame>=13&&frame<=15 ? 1 : (frame>=9&&frame<=11)?-1:0;
         
         int ndx = 64;
