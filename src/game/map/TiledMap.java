@@ -25,8 +25,8 @@ public class TiledMap {
         else
             fillStandardCobble();
         
-        for (int i=0;i<20;i++)
-            createGrassPatch();
+        //for (int i=0;i<20;i++)
+        //    createGrassPatch();
     }
     
     private void createGrassPatch() {
