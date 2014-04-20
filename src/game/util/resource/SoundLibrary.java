@@ -1,5 +1,6 @@
 package game.util.resource;
 
+import game.error.ResourceException;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
@@ -18,8 +19,7 @@ public enum SoundLibrary {
             try {
                 this.sound = ResourceLoader.initializeSound(filepath);
             } catch (SlickException e) {
-                System.out.println("Error loading resources! " + e);
-                throw new RuntimeException("Error loading resources! " + e);
+                throw new ResourceException("Error loading resources! " + e);
             }
         }
         return sound;

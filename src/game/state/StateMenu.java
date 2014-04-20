@@ -1,6 +1,8 @@
 package game.state;
 
 import game.Game;
+import game.error.ResourceException;
+import game.util.resource.ImageLibrary;
 import java.awt.Font;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -39,9 +41,8 @@ public class StateMenu extends BasicGameState implements ComponentListener {
         this.id = id;
     }
 
-    public void init(GameContainer container,StateBasedGame game) throws SlickException {
-        
-    }
+    @Override
+    public void init(GameContainer container,StateBasedGame game) throws SlickException { }
     
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
@@ -55,19 +56,15 @@ public class StateMenu extends BasicGameState implements ComponentListener {
         try {
             font.loadGlyphs();
         } catch (SlickException e) {
-            throw new RuntimeException("Error loading font: " + e);
+            throw new ResourceException("Error loading font: " + e);
         }
         
-        try {
-            buttonSingle = new Image("resources/art/menu/Singleplayer.png");
-            buttonMulti = new Image("resources/art/menu/Multiplayer.png");
-            buttonServer = new Image("resources/art/menu/ServerHost.png");
-            buttonOption = new Image("resources/art/menu/Options.png");
-            background = new Image("resources/art/menu/menuBG.png");
-        } catch (SlickException e) {
-            throw new RuntimeException("Failed to load menu resources: " + e);
-        }
-
+        buttonSingle = ImageLibrary.BUTTON_SINGLE.getImage();
+        buttonMulti = ImageLibrary.BUTTON_MULTI.getImage();
+        buttonServer = ImageLibrary.BUTTON_SERVER.getImage();
+        buttonOption = ImageLibrary.BUTTON_OPTION.getImage();
+        background = ImageLibrary.BACKGROUND.getImage();
+        
         areas[0] = new MouseOverArea(container,buttonSingle,356,118,200,90,this);
         areas[1] = new MouseOverArea(container,buttonMulti,356,206,200,90,this);
         areas[2] = new MouseOverArea(container,buttonServer,356,294,200,90,this);

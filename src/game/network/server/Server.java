@@ -99,7 +99,7 @@ public class Server {
         handshakeThread.start();
         
         Timer timer = new Timer();
-        
+
         timer.schedule(new TimerTask() {
             @Override
             public void run() {

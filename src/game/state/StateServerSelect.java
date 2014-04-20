@@ -1,6 +1,8 @@
 package game.state;
 
 import game.Game;
+import game.error.ResourceException;
+import game.util.resource.ImageLibrary;
 import java.awt.Font;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -54,7 +56,7 @@ public class StateServerSelect extends BasicGameState implements ComponentListen
         try {
             font.loadGlyphs();
         } catch (SlickException e) {
-            throw new RuntimeException("Error loading font: " + e);
+            throw new ResourceException("Error loading font: " + e);
         }
         
         fieldIp = new TextField(container,font,60,20,500,35,new ComponentListener() {
@@ -74,13 +76,9 @@ public class StateServerSelect extends BasicGameState implements ComponentListen
         });
         fieldPort.setText("9999");
         
-        try {
-            buttonStart = new Image("resources/art/menu/Multiplayer.png");
-            background = new Image("resources/art/menu/menuBG.png");
-        } catch (SlickException e) {
-            throw new RuntimeException("Failed to load menu resources: " + e);
-        }
-
+        buttonStart = ImageLibrary.BUTTON_MULTI.getImage();
+        background = ImageLibrary.BACKGROUND.getImage();
+        
         startButton = new MouseOverArea(container,buttonStart,356,294,200,90,this);
         startButton.setNormalColor(new Color(1,1,1,1f));
         startButton.setMouseOverColor(new Color(1,1,1,0.3f));
