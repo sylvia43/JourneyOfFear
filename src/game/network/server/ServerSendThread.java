@@ -1,5 +1,6 @@
 package game.network.server;
 
+import game.error.NetworkException;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -41,7 +42,8 @@ public class ServerSendThread implements Runnable {
                 try {
                     socket.send(packet);
                 } catch (IOException ex) {
-                    System.out.println("Failed to send data: " + ex);
+                    server.terminate();
+                    throw new NetworkException("Failed to send data: " + ex);
                 }
             }
         }
