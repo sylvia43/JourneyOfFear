@@ -5,7 +5,7 @@
 /manifest.mf
 /slick/
 /native/
-/jarsplice/
+/release/jarsplice/
 /*.pdf
 /website/
 /log.txt
