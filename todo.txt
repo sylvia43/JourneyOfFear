@@ -107,5 +107,7 @@ Key:
 
   Other:
     [x] Obtain a domain name.
-    [ ] Obtain domain hosting.
+    [/] Obtain domain hosting.
     [ ] Make a Journey of Fear webpage.
+    [ ] Get some decent releases, maybe multiplayer.
+    [ ] Publicize!
