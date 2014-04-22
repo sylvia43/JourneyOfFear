@@ -14,6 +14,9 @@ public enum MusicLibrary {
     MONKEY_BLADDERS("monkey_bladders.ogg"),
     RABID_RABBIT("rabid_rabbit.ogg"),
     ROBOT_UVULA("robot_uvula.ogg"),
+    IM_NOT_POSITIVE("im_not_positive.ogg"),
+    ICED_MUSIC("iced_music.ogg"),
+    BASED_GOD_HARMOR("based_god_humor.ogg"),
     SPACE_BALLS("space_balls.ogg"); 
     
     private Music music;
