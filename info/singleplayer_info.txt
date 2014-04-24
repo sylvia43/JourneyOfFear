@@ -3,7 +3,7 @@ Journey of Fear Info
 
 Table of Contents:
  
-  0) Contributers
+  0) Contributors
 
   1) Storyline
 
@@ -22,13 +22,14 @@ Table of Contents:
  
 ========================================================================================================================
 
-0) Contributers
+0) Contributors
 
   Shreyas (anubiann00b)      -   Programming    -   https://github.com/anubiann00b
+  Tarik (QuantumPhi)         -   Programming    -   https://github.com/QuantumPhi
   David (ForgottenSprite)    -   Music + Sound  -   https://soundcloud.com/forgotten-sprite
   Joshua (cesiumrabbit)      -   Art            -   No website.
   
-  Thanks to Daniel (MrSnrhms), Tarik (QuantumPhi), and Brennan (Brennan-S) for help with programming, and
+  Thanks to Daniel (MrSnrhms) and Brennan (Brennan-S) for help with programming, and
   Justin (justinchen673) for moral support.
   
 1) Storyline
