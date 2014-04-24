@@ -32,7 +32,7 @@ public class Game extends StateBasedGame {
             System.out.println("Error initializing game: " + e);
         }
     }
-
+    
     @Override
     public void initStatesList(GameContainer container) throws SlickException {
         this.addState(new StateMenu(STATE_MENU));

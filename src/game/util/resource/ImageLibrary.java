@@ -1,9 +1,17 @@
 package game.util.resource;
 
+import game.error.ResourceException;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public enum ImageLibrary {
+    
+    // Menu buttons.
+    BUTTON_SINGLE("menu/Singleplayer.png"),
+    BUTTON_MULTI("menu/Multiplayer.png"),
+    BUTTON_SERVER("menu/ServerHost.png"),
+    BUTTON_OPTION("menu/Options.png"),
+    BACKGROUND("menu/menuBG.png"),
     
     // Player sprites.
     PLAYER_RIGHT("player/right.png"),
@@ -67,8 +75,7 @@ public enum ImageLibrary {
             try {
                 image = ResourceLoader.initializeImage(filepath);
             } catch (SlickException e) {
-                System.out.println("Error loading resources! " + e);
-                throw new RuntimeException("Error loading resources! " + e);
+                throw new ResourceException("Error loading resources! " + e);
             }
         }
         return image.copy();

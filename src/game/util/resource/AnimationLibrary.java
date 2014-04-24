@@ -1,5 +1,6 @@
 package game.util.resource;
 
+import game.error.ResourceException;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 
@@ -54,8 +55,7 @@ public enum AnimationLibrary {
             try {
                 anim = ResourceLoader.initializeAnimation(image.getImage(),speed,width,height);
             } catch (SlickException e) {
-                System.out.println("Error loading resources! " + e);
-                throw new RuntimeException("Error loading resources! " + e);
+                throw new ResourceException("Error loading resources! " + e);
             }
         }
         return anim.copy();  

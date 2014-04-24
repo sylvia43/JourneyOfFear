@@ -38,15 +38,6 @@ public class DataPacket {
         return ret;
     }
     
-    public static byte[] valueOf(int i) {
-        byte[] arr = new byte[4];
-        arr[0] = (byte) (i >> 24);
-        arr[1] = (byte) (i >> 16);
-        arr[2] = (byte) (i >> 8);
-        arr[3] = (byte) (i);
-        return arr;
-    }
-    
     public byte[] getBytes() {
         return data;
     }
@@ -56,8 +47,6 @@ public class DataPacket {
     }
     
     public void update(EnemyPlayerData e) {
-        if (e.getId() != this.get(ID))
-            throw new RuntimeException("Buggy code @ DataPacket.update(EnemyPlayerData e)");
         e.setX(this.get(X));
         e.setY(this.get(Y));
     }
