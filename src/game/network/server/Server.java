@@ -143,7 +143,7 @@ public class Server {
                         socket.receive(recvPacket);
                     } catch (IOException e) {
                         terminate();
-                        throw new NetworkException("Unable to recieve data: " + e);
+                        throw new NetworkException("Unable to receive data: " + e);
                     }
                     
                     packet = new DataPacket(recvPacket.getData());
