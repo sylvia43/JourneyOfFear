@@ -1,12 +1,12 @@
 ##### Setup Instructions
 ===============
 
-1. Open your IDE of choice. (I'm using Netbeans; I would suggest that).
-2. Create a new project (Ctrl-Shift-N in Netbeans) and name it JourneyOfFear.
-3. Open Git Bash (or you can do it from the Netbeans plugin).
+1. Open your IDE of choice. (I'm using NetBeans; I would suggest that).
+2. Create a new project (Ctrl-Shift-N in NetBeans) and name it JourneyOfFear.
+3. Open Git Bash (or you can do it from the NetBeans plugin).
 4. Navigate to the new project folder and type 'git init' or go to Team -> Git -> Initialize Repository.
 5. Type 'git remote add origin https://github.com/anubiann00b/JourneyOfFear' (only if you are using command line).
-6. Type 'git pull origin master' and wait. If you are using the Netbeans plugin, right click on the project and go to Git -> Remote -> Pull. Choose 'Specify Git Repository Location' and supply 'origin' as the remote name, 'https://github.com/anubiann00b/JourneyOfFear.git' as the URL, and enter your username and password in the boxes provided.
+6. Type 'git pull origin master' and wait. If you are using the NetBeans plugin, right click on the project and go to Git -> Remote -> Pull. Choose 'Specify Git Repository Location' and supply 'origin' as the remote name, 'https://github.com/anubiann00b/JourneyOfFear.git' as the URL, and enter your username and password in the boxes provided.
 7. Right click on the new project and go to Properties then the Libraries tab.
 8. Click 'Add JAR/Folder' and add all of the jars in the lib folder.
 9. Go to the run tab in the properties menu.
