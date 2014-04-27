@@ -10,7 +10,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 
 public class EnemyRedSlime extends Enemy implements EnemySlime {
-        
+    
     public EnemyRedSlime(Player player) {
         super(player);
         this.x = (int)(Math.random()*StateMultiplayer.WORLD_SIZE_X);
@@ -45,9 +45,9 @@ public class EnemyRedSlime extends Enemy implements EnemySlime {
         }
         
         sprite.getAnim(spritePointer).start();
-        if (Math.random()*20<1) {
+        
+        if (Math.random()*200<1)
             spritePointer = (int)(Math.random()*4);
-        }
         
         int dx = 0;
         int dy = 0;

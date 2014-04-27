@@ -41,7 +41,7 @@ public abstract class Enemy implements Hittable {
     protected boolean readyToDie = false;
     
     protected Color minimapColor;
-        
+    
     //Getters. These methods probably can be left alone.
     @Override public int getX() { return x; }
     @Override public int getY() { return y; }
@@ -58,6 +58,7 @@ public abstract class Enemy implements Hittable {
     public Enemy(Player player) {
         this.player = player;
         minimapColor = Color.red; //Red is default enemy color
+        spritePointer = (int)(Math.random()*4);
     }
     
     public void setX(int x) { this.x = x; }
@@ -129,8 +130,9 @@ public abstract class Enemy implements Hittable {
     }
     
     protected AnimationMask createMask(int index) {
-        ImageMask[] masks = new ImageMask[4];
-        for (int i=0;i<4;i++) {
+        int frames = sprite.getAnim(index).getFrameCount();
+        ImageMask[] masks = new ImageMask[frames];
+        for (int i=0;i<frames;i++) {
             masks[i] = new ImageMask(sprite.getAnim(index).getImage(i),x,y);
         }
         return new AnimationMask(masks);

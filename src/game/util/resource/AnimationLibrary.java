@@ -18,10 +18,10 @@ public enum AnimationLibrary {
     ATTACK_AXE_CLEAVE(ImageLibrary.ATTACK_AXE_CLEAVE,55,64,64),
     
     // Enemy sprites.
-    BLOB_RIGHT(ImageLibrary.BLOB_RIGHT,332,16,16),
-    BLOB_UP(ImageLibrary.BLOB_UP,332,16,16),
-    BLOB_DOWN(ImageLibrary.BLOB_DOWN,332,16,16),
-    BLOB_LEFT(ImageLibrary.BLOB_LEFT,332,16,16),
+    BLOB_RIGHT(ImageLibrary.BLOB_RIGHT,166,16,16),
+    BLOB_UP(ImageLibrary.BLOB_UP,166,16,16),
+    BLOB_DOWN(ImageLibrary.BLOB_DOWN,166,16,16),
+    BLOB_LEFT(ImageLibrary.BLOB_LEFT,166,16,16),
     
     SIRBLOB_RIGHT(ImageLibrary.SIRBLOB_RIGHT,332,16,16), 
     SIRBLOB_UP(ImageLibrary.SIRBLOB_UP,332,16,16),

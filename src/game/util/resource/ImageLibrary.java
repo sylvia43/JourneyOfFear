@@ -14,10 +14,10 @@ public enum ImageLibrary {
     BACKGROUND("menu/menuBG.png"),
     
     // Player sprites.
-    PLAYER_RIGHT("player/right.png"),
-    PLAYER_UP("player/up.png"),
-    PLAYER_LEFT("player/left.png"),
-    PLAYER_DOWN("player/down.png"),
+    PLAYER_RIGHT("humanoid/right.png"),
+    PLAYER_UP("humanoid/up.png"),
+    PLAYER_LEFT("humanoid/left.png"),
+    PLAYER_DOWN("humanoid/down.png"),
     
     // Attack sprites.
     ATTACK_SWORD_SLASH("attacks/sword_slash.png"),
@@ -31,8 +31,8 @@ public enum ImageLibrary {
     
     // Enemy sprites.
     BLOB_RIGHT("blobred/right.png"),
-    BLOB_UP("blobred/up.png"),
-    BLOB_DOWN("blobred/down.png"),
+    BLOB_UP("blobred/vertical.png"),
+    BLOB_DOWN("blobred/vertical.png"),
     BLOB_LEFT("blobred/left.png"),
     
     SIRBLOB_RIGHT("blobgreen/right.png"), 

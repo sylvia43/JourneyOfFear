@@ -42,7 +42,7 @@ public class Player implements Hittable {
     
     private int x = 640;
     private int y = 512;
-    private final double speed = 0.5;
+    private final double speed = 0.125;
     
     private Rectangle collisionMask = new Rectangle(x,y,x+64,y+64);
     
@@ -77,8 +77,8 @@ public class Player implements Hittable {
     private final int KNOCKBACK_MULTIPLIER = 30;
     private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*3;
     
-    public int getX() { return x; }
-    public int getY() { return y; }
+    @Override public int getX() { return x; }
+    @Override public int getY() { return y; }
     
     @Override
     public ImageMask getCollisionMask() {
@@ -210,8 +210,9 @@ public class Player implements Hittable {
     }
     
     private AnimationMask initializeMask(int index) {
-        ImageMask[] masks = new ImageMask[4];
-        for (int i=0;i<4;i++) {
+        int frames = sprite.getAnim(index).getFrameCount();
+        ImageMask[] masks = new ImageMask[frames];
+        for (int i=0;i<frames;i++) {
             masks[i] = new ImageMask(sprite.getAnim(index).getImage(i),x,y);
         }
         return new AnimationMask(masks);
