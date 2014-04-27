@@ -14,10 +14,10 @@ public enum ImageLibrary {
     BACKGROUND("menu/menuBG.png"),
     
     // Player sprites.
-    PLAYER_RIGHT("humanoid/right.png"),
-    PLAYER_UP("humanoid/up.png"),
-    PLAYER_LEFT("humanoid/left.png"),
-    PLAYER_DOWN("humanoid/down.png"),
+    PLAYER_RIGHT("player/right.png"),
+    PLAYER_UP("player/up.png"),
+    PLAYER_LEFT("player/left.png"),
+    PLAYER_DOWN("player/down.png"),
     
     // Attack sprites.
     ATTACK_SWORD_SLASH("attacks/sword_slash.png"),
@@ -30,15 +30,20 @@ public enum ImageLibrary {
     FULL_HEART("player/health/health_full.png"),
     
     // Enemy sprites.
-    BLOB_RIGHT("blobred/right.png"),
-    BLOB_UP("blobred/vertical.png"),
-    BLOB_DOWN("blobred/vertical.png"),
-    BLOB_LEFT("blobred/left.png"),
+    BLOB_RED_RIGHT("blobred/right.png"),
+    BLOB_RED_UP("blobred/vertical.png"),
+    BLOB_RED_DOWN("blobred/vertical.png"),
+    BLOB_RED_LEFT("blobred/left.png"),
     
-    SIRBLOB_RIGHT("blobgreen/right.png"), 
-    SIRBLOB_UP("blobgreen/up.png"),
-    SIRBLOB_DOWN("blobgreen/down.png"),
-    SIRBLOB_LEFT("blobgreen/left.png"),
+    BLOB_GREEN_RIGHT("blobgreen/right.png"), 
+    BLOB_GREEN_UP("blobgreen/up.png"),
+    BLOB_GREEN_DOWN("blobgreen/down.png"),
+    BLOB_GREEN_LEFT("blobgreen/left.png"),
+    
+    MUTANT_RIGHT("mutant/right.png"),
+    MUTANT_UP("mutant/up.png"),
+    MUTANT_DOWN("mutant/down.png"),
+    MUTANT_LEFT("mutant/left.png"),
     
     // Environment sprites
     SPIKES("environment/spikes.png"),

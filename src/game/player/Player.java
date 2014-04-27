@@ -42,7 +42,7 @@ public class Player implements Hittable {
     
     private int x = 640;
     private int y = 512;
-    private final double speed = 0.125;
+    private final double speed = 0.5;
     
     private Rectangle collisionMask = new Rectangle(x,y,x+64,y+64);
     

@@ -1,4 +1,4 @@
-package game.enemy.slime;
+package game.enemy.blob;
 
 import game.enemy.Enemy;
 import game.player.Player;
@@ -9,9 +9,9 @@ import game.util.resource.SoundLibrary;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 
-public class EnemyRedSlime extends Enemy implements EnemySlime {
+public class EnemyRedBlob extends Enemy implements EnemyBlob {
     
-    public EnemyRedSlime(Player player) {
+    public EnemyRedBlob(Player player) {
         super(player);
         this.x = (int)(Math.random()*StateMultiplayer.WORLD_SIZE_X);
         this.y = (int)(Math.random()*StateMultiplayer.WORLD_SIZE_Y);
@@ -25,10 +25,10 @@ public class EnemyRedSlime extends Enemy implements EnemySlime {
     protected void initializeSprite() {
         sprite = new EntitySprite(4);
         Animation[] animList = {
-            AnimationLibrary.BLOB_RIGHT.getAnim(),
-            AnimationLibrary.BLOB_UP.getAnim(),
-            AnimationLibrary.BLOB_LEFT.getAnim(),
-            AnimationLibrary.BLOB_DOWN.getAnim(),
+            AnimationLibrary.BLOB_RED_RIGHT.getAnim(),
+            AnimationLibrary.BLOB_RED_UP.getAnim(),
+            AnimationLibrary.BLOB_RED_LEFT.getAnim(),
+            AnimationLibrary.BLOB_RED_DOWN.getAnim(),
         };
         sprite.setAnimations(animList);
         initializeMask();

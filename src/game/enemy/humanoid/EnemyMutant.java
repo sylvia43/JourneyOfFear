@@ -1,10 +1,9 @@
-package game.enemy.slime;
+package game.enemy.humanoid;
 
 import game.enemy.SmartEnemy;
 import game.player.Player;
-import game.player.attack.AttackSwordSlash;
+import game.player.attack.AttackAxeCleave;
 import game.sprite.EntitySprite;
-import game.sprite.ImageMask;
 import game.state.StateMultiplayer;
 import game.util.resource.AnimationLibrary;
 import game.util.resource.SoundLibrary;
@@ -12,40 +11,22 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-public class EnemyGreenSlime extends SmartEnemy implements EnemySlime {
+public class EnemyMutant extends SmartEnemy {
     
     protected static final int DIR_SWITCH_SPEED = 500;
     protected int dirChangeCounter = 0;
     
     protected int direction;
     
-    public ImageMask getAttackMask() {
-        return attack.getMask(x,y);
-    }
-    
-    public EnemyGreenSlime(Player player) {
+    public EnemyMutant(Player player) {
         super(player);
-        attack = AttackSwordSlash.create().setAttackRest(1000);
-        spritepath = "blobredsir";
+        attack = AttackAxeCleave.create().setAttackRest(500);
         x = 500;
         y = 500;
-        speed = 0.125;
+        speed = 0.0625;
         animationSpeed = 332;
-        health = 30;
-        minimapColor = new Color(181, 230, 29);
-    }
-    
-    @Override
-    protected void initializeSprite() {
-        sprite = new EntitySprite(4);
-        Animation[] animList = {
-            AnimationLibrary.SIRBLOB_RIGHT.getAnim(),
-            AnimationLibrary.SIRBLOB_UP.getAnim(),
-            AnimationLibrary.SIRBLOB_LEFT.getAnim(),
-            AnimationLibrary.SIRBLOB_DOWN.getAnim(),
-        };
-        sprite.setAnimations(animList);
-        initializeMask();
+        health = 50;
+        minimapColor = new Color(95,124,112);
     }
     
     @Override
@@ -113,6 +94,19 @@ public class EnemyGreenSlime extends SmartEnemy implements EnemySlime {
             return;
         }
         spritePointer = directionToPlayer();
+    }
+    
+    @Override
+    protected void initializeSprite() {
+        sprite = new EntitySprite(4);
+        Animation[] animList = {
+            AnimationLibrary.MUTANT_RIGHT.getAnim(),
+            AnimationLibrary.MUTANT_UP.getAnim(),
+            AnimationLibrary.MUTANT_LEFT.getAnim(),
+            AnimationLibrary.MUTANT_DOWN.getAnim(),
+        };
+        sprite.setAnimations(animList);
+        initializeMask();
     }
     
     @Override
