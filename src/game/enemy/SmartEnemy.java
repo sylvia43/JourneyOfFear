@@ -18,11 +18,18 @@ public abstract class SmartEnemy extends AttackingEnemy {
         super(player);
     }
     
+    public abstract void beSmart(int delta);
+    
     @Override
     public void update(GameContainer container, int delta) {
         super.update(container,delta);
-        avoidAttacks(delta);
-                
+        beSmart(delta);
+    }
+    
+    protected void avoidAttacks(int delta) {
+        if(player.getAttack().isAttacking() &&
+                Math.sqrt((x-player.getX())*(x-player.getX())+(y-player.getY())*(y-player.getY())) <= 192)
+            initializeDodge(x-player.getX(),y-player.getY(),1);
         if (dodgeTimer>0)
             dodgeTimer -= delta;
         
@@ -30,12 +37,6 @@ public abstract class SmartEnemy extends AttackingEnemy {
             x+=(dodgeDX*dodgeTimer)/(DODGE_DISTANCE*DODGE_MULTIPLIER);
             y+=(dodgeDY*dodgeTimer)/(DODGE_DISTANCE*DODGE_MULTIPLIER);
         }
-    }
-    
-    protected void avoidAttacks(int delta) {
-        if(player.getAttack().isAttacking() &&
-                Math.sqrt((x-player.getX())*(x-player.getX())+(y-player.getY())*(y-player.getY())) <= 192)
-            initializeDodge(x-player.getX(),y-player.getY(),1);
     }
     
     protected void initializeDodge(int dx, int dy, double mult) {

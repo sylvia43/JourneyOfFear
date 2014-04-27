@@ -47,6 +47,11 @@ public class EnemyMutant extends SmartEnemy {
     }
     
     @Override
+    public void beSmart(int delta) {
+        
+    }
+    
+    @Override
     public void move(int delta) {
         if (stunTimer>0) {
             sprite.getAnim(spritePointer).setCurrentFrame(0);

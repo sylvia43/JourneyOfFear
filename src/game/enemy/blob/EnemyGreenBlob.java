@@ -64,6 +64,11 @@ public class EnemyGreenBlob extends SmartEnemy implements EnemyBlob {
     }
     
     @Override
+    public void beSmart(int delta) {
+        avoidAttacks(delta);
+    }
+    
+    @Override
     public void move(int delta) {
         if (stunTimer>0) {
             sprite.getAnim(spritePointer).setCurrentFrame(0);
