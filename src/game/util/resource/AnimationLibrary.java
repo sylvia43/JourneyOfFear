@@ -14,6 +14,7 @@ public enum AnimationLibrary {
     
     // Attack sprites.
     ATTACK_SWORD_SLASH(ImageLibrary.ATTACK_SWORD_SLASH,20,48,48),
+    ATTACK_SWORD_STAB(ImageLibrary.ATTACK_SWORD_STAB,20,48,48),
     ATTACK_DAGGER_SLASH(ImageLibrary.ATTACK_DAGGER_SLASH,30,48,48),
     ATTACK_AXE_CLEAVE(ImageLibrary.ATTACK_AXE_CLEAVE,55,64,64),
     

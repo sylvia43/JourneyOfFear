@@ -21,6 +21,7 @@ public enum ImageLibrary {
     
     // Attack sprites.
     ATTACK_SWORD_SLASH("attacks/sword_slash.png"),
+    ATTACK_SWORD_STAB("attacks/sword_stab.png"),
     ATTACK_DAGGER_SLASH("attacks/dagger_slash.png"),
     ATTACK_AXE_CLEAVE("attacks/axe_cleave.png"),
     
