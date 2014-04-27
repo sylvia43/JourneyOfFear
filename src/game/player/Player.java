@@ -250,65 +250,53 @@ public class Player implements Hittable {
         int dx = 0;
         int dy = 0;
         
-        if (DnPr) {
+        if (DnPr)
             spritePointer = 3;
-        } else {
+        else
             sprite.getAnim(3).stop();
-        }
         if (DnHl) {
             sprite.getAnim(3).start();
             dy += 1;
-            if (!UpHl && !LfHl && !RiHl) {
+            if (!UpHl && !LfHl && !RiHl)
                 spritePointer = 3;
-            }
-        } else {
+        } else
             sprite.getAnim(3).setCurrentFrame(1);
-        }
         
-        if (RiPr) {
+        if (RiPr)
             spritePointer = 0;
-        } else {
+        else
             sprite.getAnim(0).stop();
-        }
         if (RiHl) {
             sprite.getAnim(0).start();
             dx += 1;
-            if (!UpHl && !LfHl && !DnHl) {
+            if (!UpHl && !LfHl && !DnHl)
                 spritePointer = 0;
-            }
-        } else {
+        } else
             sprite.getAnim(0).setCurrentFrame(1);
-        }
         
-        if (UpPr) {
+        if (UpPr)
             spritePointer = 1;
-        } else {
+        else
             sprite.getAnim(1).stop();
-        }
         if (UpHl) {
             sprite.getAnim(1).start();
             dy -= 1;
-            if (!DnHl && !LfHl && !RiHl) {
+            if (!DnHl && !LfHl && !RiHl)
                 spritePointer = 1;
-            }
-        } else {
+        } else
             sprite.getAnim(1).setCurrentFrame(1);
-        }
         
-        if (LfPr) {
+        if (LfPr)
             spritePointer = 2;
-        } else {
+        else
             sprite.getAnim(2).stop();
-        }
         if (LfHl) {
             sprite.getAnim(2).start();
             dx -= 1;
-            if (!UpHl && !DnHl && !RiHl) {
+            if (!UpHl && !DnHl && !RiHl)
                 spritePointer = 2;
-            }
-        } else {
+        } else
             sprite.getAnim(2).setCurrentFrame(1);
-        }
         
         int steps = (int) (delta*speed);
         int actualSteps = 0;
@@ -321,6 +309,7 @@ public class Player implements Hittable {
             if (newSteps>actualSteps)
                 actualSteps = newSteps;
         }
+        
         x += actualSteps*dx;
         y += actualSteps*dy;
     }
