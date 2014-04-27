@@ -25,9 +25,11 @@ public enum ImageLibrary {
     ATTACK_AXE_CLEAVE("attacks/axe_cleave.png"),
     
     // Hearts.
-    EMPTY_HEART("player/health/health_empty.png"),
-    HALF_HEART("player/health/health_half.png"),
-    FULL_HEART("player/health/health_full.png"),
+    HEART_0("player/health/health_0.png"),
+    HEART_1("player/health/health_1.png"),
+    HEART_2("player/health/health_2.png"),
+    HEART_3("player/health/health_3.png"),
+    HEART_4("player/health/health_4.png"),
     
     // Enemy sprites.
     BLOB_RED_RIGHT("blobred/right.png"),

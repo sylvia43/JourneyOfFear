@@ -32,6 +32,8 @@ public abstract class Enemy implements Hittable {
     protected static final int DAMAGE_BLINK_TIME = 50;
     protected static final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME;
     
+    protected int hitDamage;
+    
     protected int health;
     
     protected int lastAttackId = -1;
@@ -48,6 +50,7 @@ public abstract class Enemy implements Hittable {
     public Color getColor() { return minimapColor; }
     public boolean readyToDie() { return readyToDie; }
     public EntitySprite getSprite() { return sprite; }
+    public int getHitDamage() { return hitDamage; }
     
     @Override
     public ImageMask getCollisionMask() {
@@ -61,6 +64,7 @@ public abstract class Enemy implements Hittable {
     }
     
     public Enemy(Player player, int x, int y) {
+        this.hitDamage = 1;
         this.player = player;
         this.x = x;
         this.y = y;
@@ -71,7 +75,7 @@ public abstract class Enemy implements Hittable {
     public void setX(int x) { this.x = x; }
     public void setY(int y) { this.y = y; }
     
-    //Game loop methods
+    // Game loop methods
     public void init(GameContainer container) {
         initializeSprite();
     }

@@ -20,6 +20,7 @@ public class EnemyMutant extends SmartEnemy {
     
     public EnemyMutant(Player player) {
         super(player);
+        hitDamage = 4;
         attack = AttackAxeCleave.create().setAttackRest(500);
         speed = 0.0625;
         health = 50;

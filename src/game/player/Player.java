@@ -50,12 +50,10 @@ public class Player implements Hittable {
     private int camY;
     private int delta;
     
-    private int MAX_HEALTH = 10;
+    private int MAX_HEALTH = 40;
     private int currentHealth = MAX_HEALTH;
     
-    private static Image emptyHeart = null;
-    private static Image halfHeart = null;
-    private static Image fullHeart = null;
+    private static Image[] hearts;
     
     private List<Enemy> enemies;
     private List<Obstacle> obstacles;
@@ -117,9 +115,12 @@ public class Player implements Hittable {
     
     public void init(GameContainer container) throws SlickException {
         initializeSprite();
-        emptyHeart = ImageLibrary.EMPTY_HEART.getImage();
-        halfHeart = ImageLibrary.HALF_HEART.getImage();
-        fullHeart = ImageLibrary.FULL_HEART.getImage();
+        hearts = new Image[5];
+        hearts[0] = ImageLibrary.HEART_0.getImage();
+        hearts[1] = ImageLibrary.HEART_1.getImage();
+        hearts[2] = ImageLibrary.HEART_2.getImage();
+        hearts[3] = ImageLibrary.HEART_3.getImage();
+        hearts[4] = ImageLibrary.HEART_4.getImage();
         spritePointer = 3;
         attack.init();
     }
@@ -161,17 +162,17 @@ public class Player implements Hittable {
     }
     
     public void renderHealth() {
-        int fullNum = this.currentHealth/2;
-        int halfNum = this.currentHealth%2;
-        int emptyNum = 5-(fullNum+halfNum);
-        for (int i = 0; i<MAX_HEALTH; i++) {
+        int fullNum = currentHealth/4;
+        int partNum = currentHealth%4;
+        int emptyNum = 10-(fullNum+partNum);
+        for (int i=0;i<MAX_HEALTH/4;i++) {
             if (i<fullNum) {
-                fullHeart.draw(camX+(600-i*30),camY+10,4);
-            } else if (halfNum>0) {
-                halfHeart.draw(camX+(600-i*30),camY+10,4);
-                halfNum--;
-            } else if (i-(fullNum+this.currentHealth%2)<emptyNum) {
-                emptyHeart.draw(camX+(600-i*30),camY+10,4);
+                hearts[4].draw(camX+(600-i*30),camY+10,4);
+            } else if (partNum>0) {
+                hearts[partNum].draw(camX+(600-i*30),camY+10,4);
+                partNum=0;
+            } else if (i-(fullNum+currentHealth%4)<emptyNum) {
+                hearts[0].draw(camX+(600-i*30),camY+10,4);
             }
         }
     }
@@ -338,7 +339,7 @@ public class Player implements Hittable {
     private void resolveCollision() {
         for (Enemy e : enemies) {
             if(getCollisionMask().intersects(e.getCollisionMask()))
-                resolveHit(e.getX(),e.getY());
+                resolveHit(e.getX(),e.getY(),e.getHitDamage());
         }
     }
     
