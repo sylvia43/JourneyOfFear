@@ -21,10 +21,7 @@ public class EnemyMutant extends SmartEnemy {
     public EnemyMutant(Player player) {
         super(player);
         attack = AttackAxeCleave.create().setAttackRest(500);
-        x = 500;
-        y = 500;
         speed = 0.0625;
-        animationSpeed = 332;
         health = 50;
         minimapColor = new Color(95,124,112);
     }

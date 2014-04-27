@@ -56,8 +56,15 @@ public abstract class Enemy implements Hittable {
     }
     
     public Enemy(Player player) {
+        this(player,(int)(Math.random()*StateMultiplayer.WORLD_SIZE_X),
+                (int)(Math.random()*StateMultiplayer.WORLD_SIZE_Y));
+    }
+    
+    public Enemy(Player player, int x, int y) {
         this.player = player;
-        minimapColor = Color.red; //Red is default enemy color
+        this.x = x;
+        this.y = y;
+        minimapColor = Color.red;
         spritePointer = (int)(Math.random()*4);
     }
     

@@ -26,10 +26,7 @@ public class EnemyGreenBlob extends SmartEnemy implements EnemyBlob {
     public EnemyGreenBlob(Player player) {
         super(player);
         attack = AttackSwordSlash.create().setAttackRest(1000);
-        x = 500;
-        y = 500;
         speed = 0.125;
-        animationSpeed = 332;
         health = 30;
         minimapColor = new Color(181,230,29);
     }

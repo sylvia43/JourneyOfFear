@@ -48,7 +48,7 @@ public class Spikes extends Hazard {
             attackId++;
         }
         if (mask.intersects(player.getCollisionMask()))
-            player.resolveHit(x+64,y+64,2);
+            player.resolveHit(x+64,y+64,5);
         for (Enemy e : enemies) {
             if (mask.intersects(e.getCollisionMask())) {
                 e.resolveHit(x,y,attackId,2);

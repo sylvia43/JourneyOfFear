@@ -3,7 +3,6 @@ package game.enemy.blob;
 import game.enemy.Enemy;
 import game.player.Player;
 import game.sprite.EntitySprite;
-import game.state.StateMultiplayer;
 import game.util.resource.AnimationLibrary;
 import game.util.resource.SoundLibrary;
 import org.newdawn.slick.Animation;
@@ -13,12 +12,9 @@ public class EnemyRedBlob extends Enemy implements EnemyBlob {
     
     public EnemyRedBlob(Player player) {
         super(player);
-        this.x = (int)(Math.random()*StateMultiplayer.WORLD_SIZE_X);
-        this.y = (int)(Math.random()*StateMultiplayer.WORLD_SIZE_Y);
-        this.speed = 0.0625;
-        this.animationSpeed = 332;
-        this.health = 15;
-        this.minimapColor = new Color(255,128,128);
+        speed = 0.0625;
+        health = 15;
+        minimapColor = new Color(255,128,128);
     }
     
     @Override
