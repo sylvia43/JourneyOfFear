@@ -16,6 +16,7 @@ import game.sprite.ImageMask;
 import game.sprite.Rectangle;
 import game.state.StateMultiplayer;
 import game.state.StateSingleplayer;
+import game.util.GameObject;
 import game.util.Options;
 import game.util.resource.AnimationLibrary;
 import game.util.resource.ImageLibrary;
@@ -30,7 +31,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-public class Player implements Hittable {
+public class Player extends GameObject implements Hittable {
 
     private EntitySprite sprite;
         

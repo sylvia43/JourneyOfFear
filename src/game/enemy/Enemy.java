@@ -6,12 +6,13 @@ import game.sprite.EntitySprite;
 import game.sprite.Hittable;
 import game.sprite.ImageMask;
 import game.state.StateMultiplayer;
+import game.util.GameObject;
 import game.util.resource.SoundLibrary;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
-public abstract class Enemy implements Hittable {
+public abstract class Enemy extends GameObject implements Hittable {
     
     protected EntitySprite sprite;
     protected String spritepath;
