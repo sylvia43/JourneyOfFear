@@ -4,7 +4,6 @@ import game.enemy.Enemy;
 import game.player.Player;
 import game.sprite.EntitySprite;
 import game.util.resource.AnimationLibrary;
-import game.util.resource.SoundLibrary;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 
@@ -59,15 +58,5 @@ public class EnemyRedBlob extends Enemy implements EnemyBlob {
         
         x += dx;
         y += dy;
-    }
-    
-    @Override
-    public void resolveHit(int ox, int oy, int attackId, int damage, double mult) {
-        if (attackId != lastAttackId) {
-            lastAttackId = attackId;
-            initializeKnockback(x-ox,y-oy,mult);
-            health-=damage;
-            SoundLibrary.SWORD_HIT.play();
-        }
     }
 }

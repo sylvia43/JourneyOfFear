@@ -6,6 +6,7 @@ import game.sprite.EntitySprite;
 import game.sprite.Hittable;
 import game.sprite.ImageMask;
 import game.state.StateMultiplayer;
+import game.util.resource.SoundLibrary;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -29,8 +30,12 @@ public abstract class Enemy implements Hittable {
     protected static final int KNOCKBACK_MULTIPLIER = 30;
     protected static final int KNOCKBACK_DISTANCE = 200;
     protected static final int STUN_DURATION = 400;
-    protected static final int DAMAGE_BLINK_TIME = 50;
-    protected static final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME;
+    protected static final int DAMAGE_BLINK_TIME = 200;
+    private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*3;
+    
+    private boolean damageBlink;
+    private boolean invulnerable = false;
+    private int invulnerabilityTimer = 0;
     
     protected int hitDamage;
     
@@ -86,7 +91,7 @@ public abstract class Enemy implements Hittable {
     }
     
     public void render(GameContainer container, Graphics g) {
-        sprite.getAnim(spritePointer).draw(x,y,64,64);
+        sprite.getAnim(spritePointer).draw(x,y,64,64,damageBlink?Color.red:Color.white);
         if (StateMultiplayer.DEBUG_MODE)
             renderDebugInfo(g);
     }
@@ -109,12 +114,22 @@ public abstract class Enemy implements Hittable {
             getCollisionMask().render(g);
         }
     }
+    
+    private void resolveInvulnerability(int delta) {
+        invulnerabilityTimer -= delta;
+        if (invulnerabilityTimer<1 && (invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0) {
+            invulnerable = false;
+            invulnerabilityTimer = 0;
+        }
         
-    protected void resolveInvulnerability(int delta) {
         if (stunTimer>0)
             stunTimer -= delta;
         else if (health<1)
             readyToDie = true;
+        
+        damageBlink = false;
+        if (invulnerable)
+            damageBlink = (invulnerabilityTimer/DAMAGE_BLINK_TIME)%2 == 0;
     }
     
     protected int directionToPlayer() {
@@ -124,10 +139,21 @@ public abstract class Enemy implements Hittable {
                 playerDistX > 0 ? 0 : 2 : playerDistY > 0 ? 3 : 1;
     }
     
+    @Override
+    public void resolveHit(int ox, int oy, int attackId, int damage, double mult) {
+        if (attackId != lastAttackId) {
+            invulnerable = true;
+            invulnerabilityTimer = INVULNERABILITY_DURATION;
+            lastAttackId = attackId;
+            initializeKnockback(x-ox,y-oy,mult);
+            health-=damage;
+            SoundLibrary.SWORD_HIT.play();
+        }
+    }
+    
     // Empty methods. These methods should be overriden
     protected abstract void initializeSprite();
     protected abstract void move(int delta); // Default move behavior
-    @Override public abstract void resolveHit(int ox, int oy, int attackId, int damage, double mult);
     
     //Other methods. These can be overriden if necessary.
     protected void initializeMask() {

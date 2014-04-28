@@ -60,7 +60,6 @@ public class Player implements Hittable {
     
     private int attackDirection;
     
-    private boolean isHit;
     private boolean damageBlink;
     private boolean invulnerable = false;
     private int invulnerabilityTimer = 0;
@@ -158,7 +157,6 @@ public class Player implements Hittable {
         attack.render(x,y);
         if (StateSingleplayer.DEBUG_MODE)
             renderDebugInfo(g);
-        isHit = false;
     }
     
     public void renderHealth() {
@@ -346,7 +344,6 @@ public class Player implements Hittable {
     
     @Override
     public void resolveHit(int ox, int oy, int attackId, int damage, double mult) {
-        isHit = true;
         if (!invulnerable) {
             invulnerable = true;
             invulnerabilityTimer = INVULNERABILITY_DURATION;
@@ -354,11 +351,6 @@ public class Player implements Hittable {
             currentHealth -= damage;
             SoundLibrary.SWORD_HIT.play();
         }
-    }
-    
-    public void makeInvulnerable(int duration) {
-        invulnerable = true;
-        invulnerabilityTimer = duration;
     }
     
     private void initializeKnockback(int dx, int dy) {
@@ -391,8 +383,7 @@ public class Player implements Hittable {
         g.drawString("delta: " + String.valueOf(delta),10+camX,24+camY);
         g.drawString("x: " + String.valueOf(x),10+camX,38+camY);
         g.drawString("y: " + String.valueOf(y),10+camX,52+camY);
-        g.drawString(isHit?"Hit":"Not Hit",10+camX,66+camY);
-        attack.renderDebugInfo(camX+10,camY+80,g);
+        attack.renderDebugInfo(camX+10,camY+66,g);
         if (StateMultiplayer.DEBUG_COLLISION) {
             getCollisionMask().render(g);
             collisionMask.render(g);

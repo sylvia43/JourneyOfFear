@@ -7,7 +7,6 @@ import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
 import game.state.StateMultiplayer;
 import game.util.resource.AnimationLibrary;
-import game.util.resource.SoundLibrary;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -114,16 +113,6 @@ public class EnemyGreenBlob extends SmartEnemy implements EnemyBlob {
             return;
         }
         spritePointer = directionToPlayer();
-    }
-    
-    @Override
-    public void resolveHit(int ox, int oy, int attackId, int damage, double mult) {
-        if (attackId != lastAttackId) {
-            lastAttackId = attackId;
-            initializeKnockback(x-ox,y-oy,mult);
-            health-=damage;
-            SoundLibrary.SWORD_HIT.play();
-        }
     }
     
     @Override
