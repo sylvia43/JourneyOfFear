@@ -4,7 +4,6 @@ import game.sprite.ImageMask;
 import game.sprite.Rectangle;
 import game.util.resource.AnimationLibrary;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 public class Tree extends SolidObstacle {
@@ -16,6 +15,7 @@ public class Tree extends SolidObstacle {
         miniWidth = 3;
         miniHeight = 6;
         collisionMask = new Rectangle(x+108,y+108,x+256-108,y+148);
+        System.out.println(y);
     }
 
     public Tree(int x, int y) {
@@ -26,7 +26,7 @@ public class Tree extends SolidObstacle {
     }
     
     @Override
-    public void render(GameContainer container, Graphics g) {
+    public void render(Graphics g) {
         sprite.draw(x,y,256,192);
         g.setColor(Color.cyan);
         mask.render(g);

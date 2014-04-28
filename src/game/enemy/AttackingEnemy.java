@@ -26,8 +26,8 @@ public abstract class AttackingEnemy extends Enemy {
     }
     
     @Override
-    public void render(GameContainer container, Graphics g) {
-        super.render(container,g);
+    public void render(Graphics g) {
+        super.render(g);
         renderAttack();
     }
     

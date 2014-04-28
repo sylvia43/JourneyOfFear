@@ -17,7 +17,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class StateSingleplayer extends BasicGameState {
     
-    public static final boolean DEBUG_MODE = false;
+    public static final boolean DEBUG_MODE = true;
     public static final boolean DEBUG_COLLISION = false;
     public static final int VIEW_SIZE_X = 640;
     public static final int VIEW_SIZE_Y = 512;
@@ -68,9 +68,17 @@ public class StateSingleplayer extends BasicGameState {
         soundtrack.update();
         
         updateArea();
-        updatePlayer(container,delta);
-        updateEnemies(container,delta);
-        updateObstacles(container, delta,currentArea);
+        
+        for (Enemy e : currentArea.getEnemies())
+            e.update(container, delta); 
+        
+        for (Obstacle o : currentArea.getObstacles())
+            o.update(container,delta, currentArea);
+        
+        player.setEnemies(currentArea.getEnemies());
+        player.setObstacles(currentArea.getObstacles());
+        player.update(container,delta);
+        
         updateViewPort();
         renderer.updateCamera(camX,camY);
     }
@@ -82,9 +90,7 @@ public class StateSingleplayer extends BasicGameState {
         
         translateView(g);
         renderer.renderMap(g);
-        renderer.renderObstacles(g);
-        renderer.renderEnemies(g);
-        renderer.renderPlayer(g);
+        renderer.renderObjects(g);
         renderer.renderMinimap(g);
     }
     
@@ -151,24 +157,6 @@ public class StateSingleplayer extends BasicGameState {
             renderer.updateArea(currentArea);
             player.setY(-16);
         }
-    }
-    
-    private void updateEnemies(GameContainer container, int delta) {
-        for (Enemy e : currentArea.getEnemies()) {
-            e.update(container, delta); 
-        }
-    }
-    
-    private void updateObstacles(GameContainer container, int delta, Area currentArea) {
-        for (Obstacle o : currentArea.getObstacles()) {
-            o.update(container,delta, currentArea);
-        }
-    }
-        
-    private void updatePlayer(GameContainer container, int delta) {
-        player.setEnemies(currentArea.getEnemies());
-        player.setObstacles(currentArea.getObstacles());
-        player.update(container,delta);
     }
     
     private void updateViewPort() {

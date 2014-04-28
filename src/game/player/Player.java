@@ -151,7 +151,8 @@ public class Player extends GameObject implements Hittable {
             attack.resolveAttackHit(e,x,y);
     }
     
-    public void render(GameContainer container, Graphics g) {
+    @Override
+    public void render(Graphics g) {
         Animation currentSprite = sprite.getAnim(spritePointer);
         currentSprite.draw(x,y,64,64,damageBlink?Color.red:Color.white);
         renderHealth();

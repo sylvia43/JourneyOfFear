@@ -62,7 +62,8 @@ public class Obstacle extends GameObject {
     
     public void update(GameContainer container, int delta, Area currentArea) { }
         
-    public void render(GameContainer container, Graphics g) {
+    @Override
+    public void render(Graphics g) {
         sprite.draw(x,y,64,64);
         mask.render(g);
     }

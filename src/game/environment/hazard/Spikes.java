@@ -5,7 +5,6 @@ import game.player.Player;
 import game.sprite.ImageMask;
 import game.util.resource.AnimationLibrary;
 import java.util.ArrayList;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 public class Spikes extends Hazard {
@@ -25,7 +24,7 @@ public class Spikes extends Hazard {
     }
     
     @Override
-    public void render(GameContainer container, Graphics g) {
+    public void render(Graphics g) {
         sprite.draw(x,y,128,156);
         mask.render(g);
     }

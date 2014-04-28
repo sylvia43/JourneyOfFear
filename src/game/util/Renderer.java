@@ -4,10 +4,12 @@ import game.enemy.Enemy;
 import game.environment.obstacle.Obstacle;
 import game.map.Area;
 import game.player.Player;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
 
 public class Renderer {
     
@@ -59,7 +61,7 @@ public class Renderer {
                     e.getY()+e.getSprite().getAnim(0).getHeight()*2>camY-64 && 
                     e.getX()-e.getSprite().getAnim(0).getWidth()*2<camX+viewX && 
                     e.getY()-e.getSprite().getAnim(0).getWidth()*2<camY+viewY)
-                e.render(container, g);
+                e.render(g);
         }
     }
     
@@ -69,12 +71,24 @@ public class Renderer {
                     o.getY()+o.getSprite().getImage(0).getHeight()*2>camY-64 && 
                     o.getX()-o.getSprite().getImage(0).getWidth()*2<camX+viewX && 
                     o.getY()-o.getSprite().getImage(0).getHeight()*2<camY+viewY)
-                o.render(container,g);
+                o.render(g);
         }
     }
     
-    public void renderPlayer(Graphics g) throws SlickException {
-        player.render(container,g);
+    public void renderPlayer(Graphics g) {
+        player.render(g);
+    }
+    
+    public void renderObjects(Graphics g) {
+        List<GameObject> objects = new ArrayList<GameObject>();
+        objects.add(player);
+        objects.addAll(currentArea.getObstacles());
+        objects.addAll(currentArea.getEnemies());
+        Collections.sort(objects,new GameObjectComparator());
+        
+        for (GameObject o : objects) {
+            o.render(g);
+        }
     }
     
     public void renderMinimap(Graphics g) {

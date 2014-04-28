@@ -91,7 +91,8 @@ public abstract class Enemy extends GameObject implements Hittable {
         move(delta);
     }
     
-    public void render(GameContainer container, Graphics g) {
+    @Override
+    public void render(Graphics g) {
         sprite.getAnim(spritePointer).draw(x,y,64,64,damageBlink?Color.red:Color.white);
         if (StateMultiplayer.DEBUG_MODE)
             renderDebugInfo(g);
