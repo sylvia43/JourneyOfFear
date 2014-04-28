@@ -39,14 +39,14 @@ public class Area {
     
     // Move adding of creatues out of here; need a factory.
     public Area(int width, int height, GameContainer container, Player player) {
-        this.adjacent = new Area[4];
-        this.enemies = new ArrayList<Enemy>();
-        this.obstacles = new ArrayList<Obstacle>();
-        
         this.player = player;
         this.container = container;
         this.width = width;
         this.height = height;
+        
+        adjacent = new Area[4];
+        enemies = new ArrayList<Enemy>();
+        obstacles = new ArrayList<Obstacle>();
         
         map = new TiledMap(width/64, height/64);
         map.init();
