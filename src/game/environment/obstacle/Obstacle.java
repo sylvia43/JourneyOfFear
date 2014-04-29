@@ -6,7 +6,6 @@ import game.state.StateMultiplayer;
 import game.util.GameObject;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 public class Obstacle extends GameObject {
@@ -60,7 +59,7 @@ public class Obstacle extends GameObject {
     
     protected void initializeSprite() { }
     
-    public void update(GameContainer container, int delta, Area currentArea) { }
+    public void update(int delta, Area currentArea) { }
         
     @Override
     public void render(Graphics g) {

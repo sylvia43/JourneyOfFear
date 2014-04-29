@@ -2,7 +2,6 @@ package game.enemy;
 
 import game.player.Player;
 import game.player.attack.Attack;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 public abstract class AttackingEnemy extends Enemy {
@@ -14,14 +13,14 @@ public abstract class AttackingEnemy extends Enemy {
     }
     
     @Override
-    public void init(GameContainer container) {
-        super.init(container);
+    public void init() {
+        super.init();
         initializeAttack();
     }
     
     @Override
-    public void update(GameContainer container, int delta) {
-        super.update(container,delta);
+    public void update(int delta) {
+        super.update(delta);
         resolveAttack(delta);
     }
     

@@ -1,7 +1,6 @@
 package game.enemy;
 
 import game.player.Player;
-import org.newdawn.slick.GameContainer;
 
 public abstract class SmartEnemy extends AttackingEnemy {
     
@@ -21,8 +20,8 @@ public abstract class SmartEnemy extends AttackingEnemy {
     public abstract void beSmart(int delta);
     
     @Override
-    public void update(GameContainer container, int delta) {
-        super.update(container,delta);
+    public void update(int delta) {
+        super.update(delta);
         beSmart(delta);
     }
     

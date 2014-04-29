@@ -3,6 +3,7 @@ package game.state;
 import game.enemy.Enemy;
 import game.environment.obstacle.Obstacle;
 import game.map.Area;
+import game.npc.NPC;
 import game.player.Player;
 import game.util.MathHelper;
 import game.util.Renderer;
@@ -70,10 +71,14 @@ public class StateSingleplayer extends BasicGameState {
         updateArea();
         
         for (Enemy e : currentArea.getEnemies())
-            e.update(container, delta); 
+            e.update(delta); 
         
         for (Obstacle o : currentArea.getObstacles())
-            o.update(container,delta, currentArea);
+            o.update(delta,currentArea);
+        
+        for (NPC n : currentArea.getNPCS()) {
+            n.update(delta);
+        }
         
         player.setEnemies(currentArea.getEnemies());
         player.setObstacles(currentArea.getObstacles());
@@ -92,6 +97,10 @@ public class StateSingleplayer extends BasicGameState {
         renderer.renderMap(g);
         renderer.renderObjects(g);
         renderer.renderMinimap(g);
+        
+        for (NPC n : currentArea.getNPCS()) {
+            n.render(g);
+        }
     }
     
     private void setupArea(GameContainer container, Player player) {

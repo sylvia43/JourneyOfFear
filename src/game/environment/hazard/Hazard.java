@@ -1,13 +1,12 @@
 package game.environment.hazard;
 
-import game.environment.obstacle.Obstacle;
 import game.enemy.Enemy;
+import game.environment.obstacle.Obstacle;
 import game.map.Area;
 import game.player.Player;
 import java.util.ArrayList;
 import java.util.List;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 
 public class Hazard extends Obstacle {
     
@@ -29,7 +28,7 @@ public class Hazard extends Obstacle {
     }
     
     @Override
-    public void update(GameContainer container, int delta, Area currentArea) {
+    public void update(int delta, Area currentArea) {
         resolveCollision();
     }
     
