@@ -1,8 +1,8 @@
 package game.environment.spawner;
 
 import game.enemy.Enemy;
-import game.enemy.blob.EnemyRedBlob;
 import game.enemy.blob.EnemyBlob;
+import game.enemy.blob.EnemyRedBlob;
 import game.player.Player;
 import game.sprite.ImageMask;
 import game.util.resource.AnimationLibrary;
@@ -27,7 +27,10 @@ public class PinkSlimeSpawner extends Spawner {
     
     @Override
     protected Enemy getSpawnedEnemy() {
-        return new EnemyRedBlob(player);
+        Enemy e = new EnemyRedBlob(player);
+        e.setX(x);
+        e.setY(y);
+        return e;
     }
     
     @Override

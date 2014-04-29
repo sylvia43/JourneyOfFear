@@ -9,7 +9,6 @@ import game.state.StateMultiplayer;
 import game.util.GameObject;
 import game.util.resource.SoundLibrary;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 public abstract class Enemy extends GameObject implements Hittable {
@@ -84,13 +83,13 @@ public abstract class Enemy extends GameObject implements Hittable {
     public void setY(int y) { this.y = y; }
     
     // Game loop methods
-    public void init(GameContainer container) {
+    public void init() {
         initializeSprite();
         halfHeight = sprite.getAnim(spritePointer).getHeight() * 2;
         halfWidth = sprite.getAnim(spritePointer).getWidth() * 2;
     }
     
-    public void update(GameContainer container, int delta) {
+    public void update(int delta) {
         resolveInvulnerability(delta);
         move(delta);
     }

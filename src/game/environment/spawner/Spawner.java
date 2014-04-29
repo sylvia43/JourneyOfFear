@@ -6,7 +6,6 @@ import game.map.Area;
 import game.player.Player;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 
 public class Spawner extends Hazard {
     
@@ -26,15 +25,15 @@ public class Spawner extends Hazard {
     }
     
     @Override
-    public void update(GameContainer container, int delta, Area currentArea) {
-        super.update(container,delta,currentArea);
+    public void update(int delta, Area currentArea) {
+        super.update(delta,currentArea);
         timer++;
         if (timer>1000.0/delta) {
             attackId++;
             timer = 0;
         }
         if ((int)(Math.random()*chance) == 0)
-            currentArea.addEnemy(getSpawnedEnemy(),x,y).init(container);
+            currentArea.addEnemy(getSpawnedEnemy()).init();
     }
     
     protected Enemy getSpawnedEnemy() { return null; }

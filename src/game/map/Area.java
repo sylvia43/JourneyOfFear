@@ -9,8 +9,10 @@ import game.environment.obstacle.Obstacle;
 import game.environment.obstacle.Tree;
 import game.environment.spawner.GreenSlimeSpawner;
 import game.environment.spawner.PinkSlimeSpawner;
+import game.npc.NPC;
 import game.player.Player;
 import java.util.ArrayList;
+import java.util.List;
 import org.newdawn.slick.GameContainer;
 
 /**
@@ -22,6 +24,7 @@ public class Area {
     private TiledMap map;
     private ArrayList<Enemy> enemies;
     private ArrayList<Obstacle> obstacles;
+    private ArrayList<NPC> npcs;
     
     private Area[] adjacent;
     
@@ -32,8 +35,9 @@ public class Area {
     private final Player player;
     
     public Tile getTile(int x, int y) { return map.getTile(x,y); }
-    public ArrayList<Enemy> getEnemies() { return enemies; }
-    public ArrayList<Obstacle> getObstacles() { return obstacles; }
+    public List<Enemy> getEnemies() { return enemies; }
+    public List<Obstacle> getObstacles() { return obstacles; }
+    public List<NPC> getNPCS() { return npcs; }
     public int getWidth() { return width; }
     public int getHeight() { return height; }
     
@@ -47,14 +51,17 @@ public class Area {
         adjacent = new Area[4];
         enemies = new ArrayList<Enemy>();
         obstacles = new ArrayList<Obstacle>();
+        npcs = new ArrayList<NPC>();
         
         map = new TiledMap(width/64, height/64);
         map.init();
         
-        addEnemy(new EnemyRedBlob(player)).init(container);
-        addEnemy(new EnemyGreenBlob(player)).init(container);
+        addEnemy(new EnemyRedBlob(player)).init();
+        addEnemy(new EnemyGreenBlob(player)).init();
         
-        addEnemy(new EnemyMutant(player)).init(container);
+        addEnemy(new EnemyMutant(player)).init();
+        
+        addNPC(new NPC()).init();
         
         addObstacle(new Spikes(player,enemies));           
         addObstacle(new GreenSlimeSpawner(player,enemies));
@@ -62,16 +69,14 @@ public class Area {
         addObstacle(new Tree());           
     }
     
-    // Returns enemy added for chaining.
+    public NPC addNPC(NPC n) {
+        npcs.add(n);
+        return n;
+    }
+    
     public Enemy addEnemy(Enemy e) {
         enemies.add(e);
         return e;
-    }
-    
-    public Enemy addEnemy(Enemy e, int x, int y) {
-        e.setX(x);
-        e.setY(y);
-        return addEnemy(e);
     }
     
     public Obstacle addObstacle(Obstacle o) {
