@@ -37,7 +37,7 @@ public class EnemyMutant extends SmartEnemy {
             direction = directionToPlayer()*2;
             attack.attack(direction,false);
         }
-        attack.update(delta,x,y);
+        attack.update(delta,x-halfWidth,y-halfHeight);
         resolveAttackCollision();
     }
     
@@ -113,15 +113,15 @@ public class EnemyMutant extends SmartEnemy {
     
     @Override
     protected void renderAttack() {
-        attack.render(x,y);
+        attack.render(x-halfWidth,y-halfHeight);
     }
     
     @Override
     protected void renderDebugInfo(Graphics g) {
         super.renderDebugInfo(g);
-        attack.renderDebugInfo(x+64,y+64+70,g);
+        attack.renderDebugInfo(x-halfWidth,y+74,g);
         if (StateMultiplayer.DEBUG_COLLISION) {
-            attack.renderMask(x,y,g);
+            attack.renderMask(x-halfWidth,y-halfHeight,g);
         }
     }
 }

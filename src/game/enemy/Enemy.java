@@ -22,6 +22,8 @@ public abstract class Enemy extends GameObject implements Hittable {
     protected int x;
     protected int y;
     protected double speed;
+    protected int halfHeight;
+    protected int halfWidth;
     
     protected int knockbackDX;
     protected int knockbackDY;
@@ -61,7 +63,7 @@ public abstract class Enemy extends GameObject implements Hittable {
     @Override
     public ImageMask getCollisionMask() {
         return sprite.getAnimationMask(spritePointer)
-                .getImageMask(sprite.getAnim(spritePointer).getFrame()).update(x,y);
+                .getImageMask(sprite.getAnim(spritePointer).getFrame()).update(x-32,y-32);
     }
     
     public Enemy(Player player) {
@@ -84,6 +86,8 @@ public abstract class Enemy extends GameObject implements Hittable {
     // Game loop methods
     public void init(GameContainer container) {
         initializeSprite();
+        halfHeight = sprite.getAnim(spritePointer).getHeight() * 2;
+        halfWidth = sprite.getAnim(spritePointer).getWidth() * 2;
     }
     
     public void update(GameContainer container, int delta) {
@@ -93,7 +97,7 @@ public abstract class Enemy extends GameObject implements Hittable {
     
     @Override
     public void render(Graphics g) {
-        sprite.getAnim(spritePointer).draw(x,y,64,64,damageBlink?Color.red:Color.white);
+        sprite.getAnim(spritePointer).draw(x-32,y-32,64,64,damageBlink?Color.red:Color.white);
         if (StateMultiplayer.DEBUG_MODE)
             renderDebugInfo(g);
     }
@@ -109,9 +113,9 @@ public abstract class Enemy extends GameObject implements Hittable {
     
     protected void renderDebugInfo(Graphics g) {
         g.setColor(Color.white);
-        g.drawString("x: " + String.valueOf(x),x+64,y+64+28);
-        g.drawString("y: " + String.valueOf(y),x+64,y+64+42);
-        g.drawString("hp: " + String.valueOf(health),x+64,y+64+56);
+        g.drawString("x: " + String.valueOf(x),x-32,y+32);
+        g.drawString("y: " + String.valueOf(y),x-32,y+46);
+        g.drawString("hp: " + String.valueOf(health),x-32,y+60);
         if (StateMultiplayer.DEBUG_COLLISION) {
             getCollisionMask().render(g);
         }
@@ -172,7 +176,7 @@ public abstract class Enemy extends GameObject implements Hittable {
         int frames = sprite.getAnim(index).getFrameCount();
         ImageMask[] masks = new ImageMask[frames];
         for (int i=0;i<frames;i++) {
-            masks[i] = new ImageMask(sprite.getAnim(index).getImage(i),x,y);
+            masks[i] = new ImageMask(sprite.getAnim(index).getImage(i),x-32,y-32);
         }
         return new AnimationMask(masks);
     }

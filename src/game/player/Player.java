@@ -44,8 +44,10 @@ public class Player extends GameObject implements Hittable {
     private int x = 640;
     private int y = 512;
     private final double speed = 0.5;
+    private int halfHeight;
+    private int halfWidth;
     
-    private Rectangle collisionMask = new Rectangle(x,y,x+64,y+64);
+    private Rectangle collisionMask = new Rectangle(x-halfWidth,y-halfHeight,x+halfWidth,y+halfHeight);
     
     private int camX;
     private int camY;
@@ -81,11 +83,11 @@ public class Player extends GameObject implements Hittable {
     @Override
     public ImageMask getCollisionMask() {
         return sprite.getAnimationMask(spritePointer)
-                .getImageMask(sprite.getAnim(spritePointer).getFrame()).update(x,y);
+                .getImageMask(sprite.getAnim(spritePointer).getFrame()).update(x-halfWidth,y-halfHeight);
     }
 
     public ImageMask getAttackMask() {
-        return attack.getMask(x,y);
+        return attack.getMask(x-halfWidth,y-halfHeight);
     }
     
     public byte[] getBytes(int id) {
@@ -122,6 +124,8 @@ public class Player extends GameObject implements Hittable {
         hearts[3] = ImageLibrary.HEART_3.getImage();
         hearts[4] = ImageLibrary.HEART_4.getImage();
         spritePointer = 3;
+        halfHeight = sprite.getAnim(spritePointer).getHeight() * 2;
+        halfWidth = sprite.getAnim(spritePointer).getWidth() * 2;
         attack.init();
     }
     
@@ -130,7 +134,7 @@ public class Player extends GameObject implements Hittable {
         resolveInvulnerability(delta); //and knockback
         movePlayer(container.getInput(),delta);
         resolveCollision();
-        collisionMask.set(x,y,x+64,y+64);
+        collisionMask.set(x-halfHeight,y-halfHeight,x+halfHeight,y+halfHeight);
         Input input = container.getInput();
         
         if (input.isKeyPressed(Options.SWITCH_WEAPON.key())) {
@@ -146,17 +150,17 @@ public class Player extends GameObject implements Hittable {
             getAttackDirection(input);
             attack.attack(attackDirection,true);
         }
-        attack.update(delta,x,y);
+        attack.update(delta,x-halfHeight,y-halfHeight);
         for (Enemy e : enemies)
-            attack.resolveAttackHit(e,x,y);
+            attack.resolveAttackHit(e,x-halfWidth,y-halfHeight);
     }
     
     @Override
     public void render(Graphics g) {
         Animation currentSprite = sprite.getAnim(spritePointer);
-        currentSprite.draw(x,y,64,64,damageBlink?Color.red:Color.white);
+        currentSprite.draw(x-halfWidth,y-halfHeight,64,64,damageBlink?Color.red:Color.white);
         renderHealth();
-        attack.render(x,y);
+        attack.render(x-halfWidth,y-halfHeight);
         if (StateSingleplayer.DEBUG_MODE)
             renderDebugInfo(g);
     }
@@ -214,7 +218,7 @@ public class Player extends GameObject implements Hittable {
         int frames = sprite.getAnim(index).getFrameCount();
         ImageMask[] masks = new ImageMask[frames];
         for (int i=0;i<frames;i++) {
-            masks[i] = new ImageMask(sprite.getAnim(index).getImage(i),x,y);
+            masks[i] = new ImageMask(sprite.getAnim(index).getImage(i),x-halfWidth,y-halfHeight);
         }
         return new AnimationMask(masks);
     }
@@ -349,7 +353,7 @@ public class Player extends GameObject implements Hittable {
         if (!invulnerable) {
             invulnerable = true;
             invulnerabilityTimer = INVULNERABILITY_DURATION;
-            initializeKnockback(x+32-ox,y+32-oy,mult);
+            initializeKnockback(x-ox,y-oy,mult);
             currentHealth -= damage;
             SoundLibrary.SWORD_HIT.play();
         }
@@ -389,7 +393,7 @@ public class Player extends GameObject implements Hittable {
         if (StateMultiplayer.DEBUG_COLLISION) {
             getCollisionMask().render(g);
             collisionMask.render(g);
-            attack.renderMask(x,y,g);
+            attack.renderMask(x-halfWidth,y-halfHeight,g);
         }
     }
 

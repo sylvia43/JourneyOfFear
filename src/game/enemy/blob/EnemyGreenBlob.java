@@ -19,7 +19,7 @@ public class EnemyGreenBlob extends SmartEnemy implements EnemyBlob {
     protected int direction;
     
     public ImageMask getAttackMask() {
-        return attack.getMask(x,y);
+        return attack.getMask(x-halfWidth,y-halfHeight);
     }
     
     public EnemyGreenBlob(Player player) {
@@ -54,7 +54,7 @@ public class EnemyGreenBlob extends SmartEnemy implements EnemyBlob {
             direction = directionToPlayer()*2;
             attack.attack(direction,false);
         }
-        attack.update(delta,x,y);
+        attack.update(delta,x-halfWidth,y-halfHeight);
         resolveAttackCollision();
     }
     
@@ -117,15 +117,15 @@ public class EnemyGreenBlob extends SmartEnemy implements EnemyBlob {
     
     @Override
     protected void renderAttack() {
-        attack.render(x,y);
+        attack.render(x-halfWidth,y-halfHeight);
     }
     
     @Override
     protected void renderDebugInfo(Graphics g) {
         super.renderDebugInfo(g);
-        attack.renderDebugInfo(x+64,y+64+70,g);
+        attack.renderDebugInfo(x-halfWidth,y+74,g);
         if (StateMultiplayer.DEBUG_COLLISION) {
-            attack.renderMask(x,y,g);
+            attack.renderMask(x-halfWidth,y-halfHeight,g);
         }
     }
 }
