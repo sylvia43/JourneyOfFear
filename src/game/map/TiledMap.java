@@ -1,10 +1,11 @@
 package game.map;
 
-import java.util.Random;
+import game.util.SimplexNoise;
 
 public class TiledMap {
     
     private Tile[][] map;
+    private double[][] priority;
     private int width;
     private int height;
     
@@ -49,11 +50,7 @@ public class TiledMap {
     }
     
     private void generateRoad() {
-        Random r = new Random();
+        priority = new double[map.length][map[0].length];
         
-        int dir = r.nextInt(4);
-        
-        int sx = dir==0||dir==2 ? 0 : width;
-        int oy = dir==1||dir==3 ? 0 : width;
     }
 }
