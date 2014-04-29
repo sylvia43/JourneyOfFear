@@ -2,7 +2,7 @@ package game.environment.obstacle;
 
 import game.sprite.Rectangle;
 
-public class SolidObstacle extends Obstacle {
+public abstract class SolidObstacle extends Obstacle {
         
     public SolidObstacle() {
         super();
@@ -12,5 +12,5 @@ public class SolidObstacle extends Obstacle {
         super(x,y);
     }
     
-    public int canMoveSteps(Rectangle otherMask, int steps, int dx, int dy) { return 0; }
+    public abstract int canMoveSteps(Rectangle otherMask, int steps, int dx, int dy);
 }

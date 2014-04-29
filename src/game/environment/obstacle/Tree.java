@@ -1,5 +1,6 @@
 package game.environment.obstacle;
 
+import game.map.Area;
 import game.sprite.ImageMask;
 import game.sprite.Rectangle;
 import game.state.StateSingleplayer;
@@ -24,6 +25,9 @@ public class Tree extends SolidObstacle {
         miniHeight = 6;
         collisionMask = new Rectangle(x+108,y+108,x+256-108,y+148);
     }
+    
+    @Override
+    public void update(int delta, Area currentArea) { }
     
     @Override
     public void render(Graphics g) {

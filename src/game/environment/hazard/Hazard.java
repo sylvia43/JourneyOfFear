@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.newdawn.slick.Color;
 
-public class Hazard extends Obstacle {
+public abstract class Hazard extends Obstacle {
     
     protected List<Enemy> enemies;
     protected Player player;

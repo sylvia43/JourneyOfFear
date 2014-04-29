@@ -8,7 +8,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-public class Obstacle extends GameObject {
+public abstract class Obstacle extends GameObject {
     
     protected Animation sprite;
     protected ImageMask mask;
@@ -19,6 +19,9 @@ public class Obstacle extends GameObject {
     protected int height;
     protected int miniWidth;
     protected int miniHeight;
+    
+    protected int spriteWidth;
+    protected int spriteHeight;
     
     protected Color minimapColor;
     
@@ -32,24 +35,18 @@ public class Obstacle extends GameObject {
     public Color getColor() { return minimapColor; }
     
     public ImageMask getCollisionMask() { return mask; }
-    
-    public void canMove(int x, int y) { }
-    
+        
     public Obstacle() {
-        this(-1,-1);
+        this((int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y)),
+                (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y)));
     }
     
-    public Obstacle(int nx, int ny) {
+    public Obstacle(int x, int y) {
+        this.x = x;
+        this.y = y;
         initializeSprite();
         minimapColor = Color.blue;
-        if (nx==-1 && ny==-1) {
-            this.x = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_X-sprite.getWidth()));
-            this.y = (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y-sprite.getHeight()));
-        } else {
-            this.x = nx;
-            this.y = ny;
-        }
-        mask.update(x,y);
+        mask.update(x-spriteWidth/2,y-spriteHeight/2);
         miniWidth = 3;
         miniHeight = 3;
     }
@@ -57,13 +54,13 @@ public class Obstacle extends GameObject {
     public void setX(int x) { this.x = x; }
     public void setY(int y) { this.y = y; }
     
-    protected void initializeSprite() { }
+    protected abstract void initializeSprite();
     
-    public void update(int delta, Area currentArea) { }
+    public abstract void update(int delta, Area currentArea);
         
     @Override
     public void render(Graphics g) {
-        sprite.draw(x,y,64,64);
+        sprite.draw(x-spriteWidth,y-spriteHeight,64,64);
         mask.render(g);
     }
 }

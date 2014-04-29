@@ -7,7 +7,7 @@ import game.player.Player;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 
-public class Spawner extends Hazard {
+public abstract class Spawner extends Hazard {
     
     protected int chance;
     
@@ -36,5 +36,5 @@ public class Spawner extends Hazard {
             currentArea.addEnemy(getSpawnedEnemy()).init();
     }
     
-    protected Enemy getSpawnedEnemy() { return null; }
+    protected abstract Enemy getSpawnedEnemy();
 }

@@ -395,6 +395,7 @@ public class Player extends GameObject implements Hittable {
             collisionMask.render(g);
             attack.renderMask(x-halfWidth,y-halfHeight,g);
         }
+        g.drawRect(x-8,y-8,16,16);
     }
 
     
