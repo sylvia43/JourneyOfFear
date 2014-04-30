@@ -2,7 +2,7 @@ package game.environment.obstacle;
 
 import game.map.Area;
 import game.sprite.ImageMask;
-import game.state.StateMultiplayer;
+import game.state.StateSingleplayer;
 import game.util.GameObject;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -27,6 +27,8 @@ public abstract class Obstacle extends GameObject {
     
     @Override public int getX() { return x; }
     @Override public int getY() { return y; }
+    @Override public int getDepth() { return y; }
+    
     public Animation getSprite() { return sprite; }
     public int getWidth() { return width; }
     public int getHeight() { return height; }
@@ -37,8 +39,8 @@ public abstract class Obstacle extends GameObject {
     public ImageMask getCollisionMask() { return mask; }
         
     public Obstacle() {
-        this((int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y)),
-                (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y)));
+        this((int)(Math.random()*(StateSingleplayer.WORLD_SIZE_Y)),
+                (int)(Math.random()*(StateSingleplayer.WORLD_SIZE_Y)));
     }
     
     public Obstacle(int x, int y) {

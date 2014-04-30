@@ -3,6 +3,7 @@ package game.environment.obstacle;
 import game.map.Area;
 import game.sprite.ImageMask;
 import game.sprite.Rectangle;
+import game.state.StateMultiplayer;
 import game.state.StateSingleplayer;
 import game.util.resource.AnimationLibrary;
 import org.newdawn.slick.Color;
@@ -13,17 +14,16 @@ public class Tree extends SolidObstacle {
     private Rectangle collisionMask;
     
     public Tree() {
-        super();
-        miniWidth = 3;
-        miniHeight = 6;
-        collisionMask = new Rectangle(x+108,y+108,x+256-108,y+148);
+        this((int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y)),
+                (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y)));
     }
 
     public Tree(int x, int y) {
         super(x,y);
         miniWidth = 3;
         miniHeight = 6;
-        collisionMask = new Rectangle(x+108,y+108,x+256-108,y+148);
+        collisionMask = new Rectangle(x-16,y-16,x+16,y+16);
+        mask.update(x-spriteWidth/2,y-spriteHeight/2);
     }
     
     @Override
@@ -31,7 +31,7 @@ public class Tree extends SolidObstacle {
     
     @Override
     public void render(Graphics g) {
-        sprite.draw(x,y,256,192);
+        sprite.draw(x-spriteWidth/2,y-spriteHeight/2,256,192);
         
         if (StateSingleplayer.DEBUG_COLLISION) {
             g.setColor(Color.cyan);
@@ -46,6 +46,8 @@ public class Tree extends SolidObstacle {
         sprite = AnimationLibrary.TREE_LARGE.getAnim();
         mask = new ImageMask(sprite.getImage(0),x,y);
         sprite.setDuration(0,1000);
+        spriteWidth = sprite.getImage(0).getWidth()*4;
+        spriteHeight = sprite.getImage(0).getHeight()*4;
     }
     
     @Override

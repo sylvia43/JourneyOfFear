@@ -1,11 +1,13 @@
 package game.environment.obstacle;
 
 import game.sprite.Rectangle;
+import game.state.StateSingleplayer;
 
 public abstract class SolidObstacle extends Obstacle {
         
     public SolidObstacle() {
-        super();
+        this((int)(Math.random()*(StateSingleplayer.WORLD_SIZE_Y)),
+                (int)(Math.random()*(StateSingleplayer.WORLD_SIZE_Y)));
     }
 
     public SolidObstacle(int x, int y) {

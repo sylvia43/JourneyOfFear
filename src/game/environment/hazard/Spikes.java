@@ -14,10 +14,11 @@ public class Spikes extends Hazard {
     
     private int yOffset = 12;
     
+    @Override public int getDepth() { return 0; }
+    
     public Spikes(Player player, ArrayList<Enemy> enemies) {
-        super(player,enemies);
-        miniWidth = 6;
-        miniHeight = 6;
+        this(player,enemies,(int)(Math.random()*(StateSingleplayer.WORLD_SIZE_Y)),
+                (int)(Math.random()*(StateSingleplayer.WORLD_SIZE_Y)));
     }
     
     public Spikes(Player player, ArrayList<Enemy> enemies, int x, int y) {
@@ -29,7 +30,6 @@ public class Spikes extends Hazard {
     
     @Override
     public void render(Graphics g) {
-        mask.update(x-spriteWidth/2,y-spriteHeight/2-yOffset);
         sprite.draw(x-spriteWidth/2,y-spriteHeight/2-yOffset,128,156);
         mask.render(g);
         if (StateSingleplayer.DEBUG_COLLISION) {

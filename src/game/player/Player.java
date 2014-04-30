@@ -79,6 +79,7 @@ public class Player extends GameObject implements Hittable {
     
     @Override public int getX() { return x; }
     @Override public int getY() { return y; }
+    @Override public int getDepth() { return y; }
     
     @Override
     public ImageMask getCollisionMask() {

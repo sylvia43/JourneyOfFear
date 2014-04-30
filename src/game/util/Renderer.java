@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 public class Renderer {
@@ -21,17 +20,14 @@ public class Renderer {
     private final int worldX;
     private final int worldY;
     
-    private GameContainer container;
     private Area currentArea;
     private Player player;
     private int camX;
     private int camY;
     
-    public Renderer(Area currentArea, Player player, GameContainer container,
-            int viewX, int viewY, int worldX, int worldY) {
+    public Renderer(Area currentArea, Player player, int viewX, int viewY, int worldX, int worldY) {
         this.currentArea = currentArea;
         this.player = player;
-        this.container = container;
         this.viewX = viewX;
         this.viewY = viewY;
         this.worldX = worldX;

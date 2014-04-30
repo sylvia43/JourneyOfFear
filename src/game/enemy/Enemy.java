@@ -54,6 +54,8 @@ public abstract class Enemy extends GameObject implements Hittable {
     //Getters. These methods probably can be left alone.
     @Override public int getX() { return x; }
     @Override public int getY() { return y; }
+    @Override public int getDepth() { return y; }
+    
     public Color getColor() { return minimapColor; }
     public boolean readyToDie() { return readyToDie; }
     public EntitySprite getSprite() { return sprite; }

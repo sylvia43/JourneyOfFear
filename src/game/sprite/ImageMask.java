@@ -74,7 +74,7 @@ public class ImageMask {
         StringBuilder s = new StringBuilder();
         for (int i=0;i<array.length;i++) {
             for (int j=0;j<array[i].length;j++) {
-                s.append(array[j][i]?"X":" ");
+                s.append(array[i][j]?"X":" ");
             }
             s.append("\n");
         }
