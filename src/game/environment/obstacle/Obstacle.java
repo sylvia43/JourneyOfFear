@@ -62,7 +62,7 @@ public abstract class Obstacle extends GameObject {
         
     @Override
     public void render(Graphics g) {
-        sprite.draw(x-spriteWidth,y-spriteHeight,64,64);
+        sprite.draw(x-spriteWidth/2,y-spriteHeight/2,64,64);
         mask.render(g);
     }
 }

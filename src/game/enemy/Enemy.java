@@ -21,8 +21,8 @@ public abstract class Enemy extends GameObject implements Hittable {
     protected int x;
     protected int y;
     protected double speed;
-    protected int halfHeight;
-    protected int halfWidth;
+    protected int spriteHeight;
+    protected int spriteWidth;
     
     protected int knockbackDX;
     protected int knockbackDY;
@@ -87,8 +87,8 @@ public abstract class Enemy extends GameObject implements Hittable {
     // Game loop methods
     public void init() {
         initializeSprite();
-        halfHeight = sprite.getAnim(spritePointer).getHeight() * 2;
-        halfWidth = sprite.getAnim(spritePointer).getWidth() * 2;
+        spriteHeight = sprite.getAnim(spritePointer).getHeight() * 4;
+        spriteWidth = sprite.getAnim(spritePointer).getWidth() * 4;
     }
     
     public void update(int delta) {
@@ -98,7 +98,7 @@ public abstract class Enemy extends GameObject implements Hittable {
     
     @Override
     public void render(Graphics g) {
-        sprite.getAnim(spritePointer).draw(x-32,y-32,64,64,damageBlink?Color.red:Color.white);
+        sprite.getAnim(spritePointer).draw(x-spriteHeight/2,y-spriteWidth/2,64,64,damageBlink?Color.red:Color.white);
         if (StateMultiplayer.DEBUG_MODE)
             renderDebugInfo(g);
     }
