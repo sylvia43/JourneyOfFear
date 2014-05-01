@@ -44,10 +44,10 @@ public class Player extends GameObject implements Hittable {
     private int x = 640;
     private int y = 512;
     private final double speed = 0.5;
-    private int halfHeight;
-    private int halfWidth;
+    private int spriteHeight;
+    private int spriteWidth;
     
-    private Rectangle collisionMask = new Rectangle(x-halfWidth,y-halfHeight,x+halfWidth,y+halfHeight);
+    private Rectangle collisionMask = new Rectangle(x-spriteWidth/2,y-spriteHeight/2,x+spriteWidth/2,y+spriteHeight/2);
     
     private int camX;
     private int camY;
@@ -84,11 +84,11 @@ public class Player extends GameObject implements Hittable {
     @Override
     public ImageMask getCollisionMask() {
         return sprite.getAnimationMask(spritePointer)
-                .getImageMask(sprite.getAnim(spritePointer).getFrame()).update(x-halfWidth,y-halfHeight);
+                .getImageMask(sprite.getAnim(spritePointer).getFrame()).update(x-spriteWidth/2,y-spriteHeight/2);
     }
 
     public ImageMask getAttackMask() {
-        return attack.getMask(x-halfWidth,y-halfHeight);
+        return attack.getMask(x-spriteWidth/2,y-spriteHeight/2);
     }
     
     public byte[] getBytes(int id) {
@@ -125,8 +125,8 @@ public class Player extends GameObject implements Hittable {
         hearts[3] = ImageLibrary.HEART_3.getImage();
         hearts[4] = ImageLibrary.HEART_4.getImage();
         spritePointer = 3;
-        halfHeight = sprite.getAnim(spritePointer).getHeight() * 2;
-        halfWidth = sprite.getAnim(spritePointer).getWidth() * 2;
+        spriteHeight = sprite.getAnim(spritePointer).getHeight() * 4;
+        spriteWidth = sprite.getAnim(spritePointer).getWidth() * 4;
         attack.init();
     }
     
@@ -135,7 +135,7 @@ public class Player extends GameObject implements Hittable {
         resolveInvulnerability(delta); //and knockback
         movePlayer(container.getInput(),delta);
         resolveCollision();
-        collisionMask.set(x-halfHeight,y-halfHeight,x+halfHeight,y+halfHeight);
+        collisionMask.set(x-spriteWidth/2,y-spriteHeight/2,x+spriteWidth/2,y+spriteHeight/2);
         Input input = container.getInput();
         
         if (input.isKeyPressed(Options.SWITCH_WEAPON.key())) {
@@ -151,17 +151,17 @@ public class Player extends GameObject implements Hittable {
             getAttackDirection(input);
             attack.attack(attackDirection,true);
         }
-        attack.update(delta,x-halfHeight,y-halfHeight);
+        attack.update(delta,x-spriteWidth/2,y-spriteHeight/2);
         for (Enemy e : enemies)
-            attack.resolveAttackHit(e,x-halfWidth,y-halfHeight);
+            attack.resolveAttackHit(e,x-spriteWidth/2,y-spriteHeight/2);
     }
     
     @Override
     public void render(Graphics g) {
         Animation currentSprite = sprite.getAnim(spritePointer);
-        currentSprite.draw(x-halfWidth,y-halfHeight,64,64,damageBlink?Color.red:Color.white);
+        currentSprite.draw(x-spriteWidth/2,y-spriteHeight/2,64,64,damageBlink?Color.red:Color.white);
         renderHealth();
-        attack.render(x-halfWidth,y-halfHeight);
+        attack.render(x-spriteWidth/2,y-spriteHeight/2);
         if (StateSingleplayer.DEBUG_MODE)
             renderDebugInfo(g);
     }
@@ -219,7 +219,7 @@ public class Player extends GameObject implements Hittable {
         int frames = sprite.getAnim(index).getFrameCount();
         ImageMask[] masks = new ImageMask[frames];
         for (int i=0;i<frames;i++) {
-            masks[i] = new ImageMask(sprite.getAnim(index).getImage(i),x-halfWidth,y-halfHeight);
+            masks[i] = new ImageMask(sprite.getAnim(index).getImage(i),x-spriteWidth/2,y-spriteHeight/2);
         }
         return new AnimationMask(masks);
     }
@@ -394,7 +394,7 @@ public class Player extends GameObject implements Hittable {
         if (StateMultiplayer.DEBUG_COLLISION) {
             getCollisionMask().render(g);
             collisionMask.render(g);
-            attack.renderMask(x-halfWidth,y-halfHeight,g);
+            attack.renderMask(x-spriteWidth/2,y-spriteHeight/2,g);
         }
         g.drawRect(x-8,y-8,16,16);
     }
