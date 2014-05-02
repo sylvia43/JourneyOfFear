@@ -10,6 +10,7 @@ import game.environment.obstacle.Tree;
 import game.environment.spawner.GreenSlimeSpawner;
 import game.environment.spawner.PinkSlimeSpawner;
 import game.npc.NPC;
+import game.npc.Villager;
 import game.player.Player;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class Area {
         
         addEnemy(new EnemyMutant(player)).init();
         
-        addNPC(new NPC()).init();
+        addNPC(new Villager()).init();
         
         addObstacle(new Spikes(player,enemies));           
         addObstacle(new GreenSlimeSpawner(player,enemies));

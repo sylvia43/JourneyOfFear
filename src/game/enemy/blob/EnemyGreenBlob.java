@@ -22,6 +22,9 @@ public class EnemyGreenBlob extends SmartEnemy implements EnemyBlob {
         return attack.getMask(x-spriteWidth/2,y-spriteHeight/2);
     }
     
+    @Override
+    public String getName() { return "Green Blob"; }
+    
     public EnemyGreenBlob(Player player) {
         super(player);
         attack = AttackSwordSlash.create().setAttackRest(1000);

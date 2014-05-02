@@ -17,6 +17,9 @@ public class EnemyRedBlob extends Enemy implements EnemyBlob {
     }
     
     @Override
+    public String getName() { return "Red Blob"; }
+    
+    @Override
     protected void initializeSprite() {
         sprite = new EntitySprite(4);
         Animation[] animList = {

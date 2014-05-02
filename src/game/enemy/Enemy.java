@@ -60,6 +60,8 @@ public abstract class Enemy extends GameObject implements Hittable {
     public boolean readyToDie() { return readyToDie; }
     public EntitySprite getSprite() { return sprite; }
     public int getHitDamage() { return hitDamage; }
+    public abstract String getName(); //Name of enemy
+
     
     @Override
     public ImageMask getCollisionMask() {

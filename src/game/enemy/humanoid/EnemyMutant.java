@@ -27,6 +27,9 @@ public class EnemyMutant extends SmartEnemy {
     }
     
     @Override
+    public String getName() { return "Mutant"; }
+    
+    @Override
     protected void initializeAttack() {
         attack.init();
     }
