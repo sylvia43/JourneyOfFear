@@ -4,9 +4,14 @@ import java.util.Random;
 
 public class TiledMap {
     
+    private Area wrapper;
     private Tile[][] map;
     private int width;
     private int height;
+    private int rx; //Road Start (X)
+    private int ry; //Road Start (Y)
+    private int rxe; //Road End (X)
+    private int rye; //Catcher in the (Y)
     private Random rand;
     
     public Tile getTile(int x, int y) {
@@ -15,25 +20,40 @@ public class TiledMap {
         return map[x][y];
     }
     
-    public TiledMap(int width, int height) {
-        this.width = width;
-        this.height = height;
+    public int[][] getRoadCoords() {
+        return new int[][] {
+            { rx, ry },
+            { rxe, rye },
+        };
+    }
+    
+    public TiledMap(int _width, int _height, Area _wrapper) {
+        width = _width;
+        height = _height;
+        wrapper = _wrapper;
         
-        map = new Tile[width][height];
+        map = new Tile[_width][_height];
         rand = new Random();
     }
     
-    public TiledMap(int width, int height, int seed) {
-        this.width = width;
-        this.height = height;
-        
-        map = new Tile[width][height];
-        rand = new Random(seed);
+    public TiledMap(int _width, int _height, int _seed, Area _wrapper) {
+        this(_width, _height, _wrapper);
+        rand = new Random(_seed);
     }
     
     public void init() {
         fillStandardGrass();
-        generateRoad();
+        if(wrapper.getAllAdjacent().length == 0) {
+            boolean axis = (int)Math.random() * 2 == 1;
+            if(axis)
+                generateRoad((rx = (int)(Math.random() * width)), (ry = 0),
+                        (rxe = (int)(Math.random() * width)), (rye = height));
+            else
+                generateRoad((rx = 0), (ry = (int)(Math.random() * height)),
+                        (rxe = width), (rye = (int)(Math.random() * height)));
+        } else {
+            
+        }
     }
         
     private void fillStandardGrass() {
@@ -57,28 +77,29 @@ public class TiledMap {
                     map[i][j] = tile;
     }
     
-    private void generateRoad() {
+    private void generateRoad(int x, int y, int ex, int ey) {
         int[][] random = new int[map.length][map[0].length];
         
-        for (int i=0;i<random.length;i++) {
-            for (int j=0;j<random[0].length;j++) {
+        for (int i=0;i<random.length;i++)
+            for (int j=0;j<random[0].length;j++)
                 random[i][j] = rand.nextInt(8);
-            }
-        }
         
         int[][] weights = new int[map.length][map[0].length];
-        
+        int total;
+        int count;
         for (int i=0;i<random.length;i++) {
             for (int j=0;j<random[0].length;j++) {
-                int total = 0;
+                total = 0;
+                count = 0;
                 for (int k=-1;k<2;k++) {
                     for (int l=-1;l<2;l++) {
                         if (i+k<0 || j+l<0 || i+k>=width || j+l>=height)
                             continue;
                         total += random[i+k][j+l];
+                        count++;
                     }
                 }
-                weights[i][j] = total/9;
+                weights[i][j] = total/count;
             }
         }
         
@@ -97,19 +118,19 @@ public class TiledMap {
             }
             System.out.println();
         }
-        */
         
-        //if (length>200 && (x==0 || y==0 || x==width || y==height)) {
-        //    map[x][y] = Tile.STONE_BASIC;
-        //    return;
-        //}
+        if (length>200 && (x==0 || y==0 || x==width || y==height)) {
+            map[x][y] = Tile.STONE_BASIC;
+            return;
+        }
+        */
         
         int mx = x;
         int my = y;
         int min = 1000;
         
-        for (int i=-1;i<2;i++) {
-            for (int j=-1;j<2;j++) {
+        for (int i=-1;i<=1;i++) {
+            for (int j=-1;j<=1;j++) {
                 if ((i==0 && j==0) || x+i<0 || y+j<0 || x+i>=width || y+j>=height || traversed[x+i][y+j])
                     continue;
                 
@@ -117,9 +138,9 @@ public class TiledMap {
                 
                 int weighted = raw;
                 
-                if (i>1 && j>1)
-                    weighted -= 15;
-                else if (i>1 || j>1)
+                if (Math.abs(i)==1 && Math.abs(j)==1)
+                    weighted -= 10;
+                else if (Math.abs(i)==1 || Math.abs(j)==1)
                     weighted -= 5;
                 
                 for (int k=-1;k<2;k++) {
