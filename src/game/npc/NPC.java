@@ -1,8 +1,9 @@
 package game.npc;
 
-import game.enemy.Enemy;
+import game.npc.npcutils.Routine;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
+import game.sprite.ImageMask;
 import game.state.StateMultiplayer;
 import game.util.GameObject;
 import org.newdawn.slick.Animation;
@@ -19,6 +20,8 @@ public abstract class NPC extends GameObject {
     protected int spriteWidth;
     
     protected Color minimapColor;
+    
+    protected Routine routine;
     
     @Override public int getX() { return x; }
     @Override public int getY() { return y; }
@@ -38,21 +41,31 @@ public abstract class NPC extends GameObject {
         spritePointer = 0;
     }
     
-    public abstract void init();
+    public void init() {
+        initializeSprite();
+        spritePointer = 3;
+        spriteHeight = sprite.getAnim(spritePointer).getHeight() * 4;
+        spriteWidth = sprite.getAnim(spritePointer).getWidth() * 4;
+    }
     
     public abstract void update(int delta);
     
     @Override
     public void render(Graphics g) {
         Animation currentSprite = sprite.getAnim(spritePointer);
+        currentSprite.setCurrentFrame(1);
+        currentSprite.stop();
         currentSprite.draw(x-spriteWidth/2,y-spriteHeight/2,64,64);
-    }
-        
-    protected void speak(Graphics g, Enemy e, int count) {
-        g.drawString("Kill " + count + 
-                e.getName() + (count == 1 ? "s " : " "), x, y+spriteHeight/2);
     }
     
     protected abstract void initializeSprite();
-    protected abstract AnimationMask initializeMask(int index);
+    
+    protected AnimationMask initializeMask(int index) {
+        int frames = sprite.getAnim(index).getFrameCount();
+        ImageMask[] masks = new ImageMask[frames];
+        for (int i=0;i<frames;i++) {
+            masks[i] = new ImageMask(sprite.getAnim(index).getImage(i),x,y);
+        }
+        return new AnimationMask(masks);
+    }
 }

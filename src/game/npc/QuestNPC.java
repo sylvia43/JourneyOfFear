@@ -1,22 +1,19 @@
 package game.npc;
 
+import game.npc.npcutils.QuestSequence;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
-import game.sprite.ImageMask;
 import game.util.resource.AnimationLibrary;
+import java.util.List;
 import org.newdawn.slick.Animation;
 
-public class Villager extends NPC {
-
-    @Override
-    public void init() {
-        initializeSprite();
-        spriteHeight = sprite.getAnim(spritePointer).getHeight() * 4;
-        spriteWidth = sprite.getAnim(spritePointer).getWidth() * 4;
-    }
-
+public class QuestNPC extends NPC {
+    
+    private List<QuestSequence> quests;
+    
     @Override
     public void update(int delta) {
+        
     }
     
     @Override
@@ -38,15 +35,5 @@ public class Villager extends NPC {
             initializeMask(3)
         };
         sprite.setMasks(animMaskList);
-    }
-    
-    @Override
-    protected AnimationMask initializeMask(int index) {
-        int frames = sprite.getAnim(index).getFrameCount();
-        ImageMask[] masks = new ImageMask[frames];
-        for (int i=0;i<frames;i++) {
-            masks[i] = new ImageMask(sprite.getAnim(index).getImage(i),x,y);
-        }
-        return new AnimationMask(masks);
     }
 }
