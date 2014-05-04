@@ -5,7 +5,7 @@ import game.player.Player;
 import game.sprite.ImageMask;
 import game.state.StateSingleplayer;
 import game.util.resource.AnimationLibrary;
-import java.util.ArrayList;
+import java.util.List;
 import org.newdawn.slick.Graphics;
 
 public class Spikes extends Hazard {
@@ -16,12 +16,12 @@ public class Spikes extends Hazard {
     
     @Override public int getDepth() { return 0; }
     
-    public Spikes(Player player, ArrayList<Enemy> enemies) {
+    public Spikes(Player player, List<Enemy> enemies) {
         this(player,enemies,(int)(Math.random()*(StateSingleplayer.WORLD_SIZE_Y)),
                 (int)(Math.random()*(StateSingleplayer.WORLD_SIZE_Y)));
     }
     
-    public Spikes(Player player, ArrayList<Enemy> enemies, int x, int y) {
+    public Spikes(Player player, List<Enemy> enemies, int x, int y) {
         super(player,enemies,x,y);
         miniWidth = 6;
         miniHeight = 6;

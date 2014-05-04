@@ -26,6 +26,7 @@ public abstract class NPC extends GameObject {
     @Override public int getX() { return x; }
     @Override public int getY() { return y; }
     @Override public int getDepth() { return y; }
+    public Color getColor() { return minimapColor; }
     
     protected EntitySprite sprite;
     

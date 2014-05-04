@@ -1,19 +1,13 @@
 package game.util;
 
-import game.enemy.Enemy;
-import game.environment.obstacle.Obstacle;
 import game.map.Area;
 import game.player.Player;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 public class Renderer {
     
     private static final Color MINIMAP_BLACK = new Color(0f,0f,0f,0.5f);
-    private static final Color PLAYER_COLOR = Color.green;
     
     private final int viewX;
     private final int viewY;
@@ -51,38 +45,9 @@ public class Renderer {
         }
     }
     
-    public void renderEnemies(Graphics g) {
-        for (Enemy e : currentArea.getEnemies()) {
-            if (e.getX()+e.getSprite().getAnim(0).getWidth()*2>camX-64 && 
-                    e.getY()+e.getSprite().getAnim(0).getHeight()*2>camY-64 && 
-                    e.getX()-e.getSprite().getAnim(0).getWidth()*2<camX+viewX && 
-                    e.getY()-e.getSprite().getAnim(0).getWidth()*2<camY+viewY)
-                e.render(g);
-        }
-    }
-    
-    public void renderObstacles(Graphics g) {
-        for (Obstacle o : currentArea.getObstacles()) {
-            if (o.getX()+o.getSprite().getImage(0).getWidth()*2>camX-64 && 
-                    o.getY()+o.getSprite().getImage(0).getHeight()*2>camY-64 && 
-                    o.getX()-o.getSprite().getImage(0).getWidth()*2<camX+viewX && 
-                    o.getY()-o.getSprite().getImage(0).getHeight()*2<camY+viewY)
-                o.render(g);
-        }
-    }
-    
-    public void renderPlayer(Graphics g) {
-        player.render(g);
-    }
-    
     public void renderObjects(Graphics g) {
-        List<GameObject> objects = new ArrayList<GameObject>();
-        objects.add(player);
-        objects.addAll(currentArea.getObstacles());
-        objects.addAll(currentArea.getEnemies());
-        Collections.sort(objects,new GameObjectComparator());
-        
-        for (GameObject o : objects) {
+        currentArea.sortObjects();
+        for (GameObject o : currentArea.getObjects()) {
             o.render(g);
         }
     }
@@ -97,20 +62,11 @@ public class Renderer {
         
         g.fillRect(posX,posY,width,height);
         
-        for (Enemy e : currentArea.getEnemies()){
-             g.setColor(e.getColor());
-             g.fillRect((int)(posX + width*((double)e.getX())/worldX), 
-                    (int)(posY + height*((double)e.getY())/worldY),3,3);    
+        for (GameObject o : currentArea.getObjects()) {
+            g.setColor(o.getColor());
+            g.fillRect((int)(posX + width*((double)o.getX())/worldX), 
+                    (int)(posY + height*((double)o.getY())/worldY),
+                    o.getMiniWidth(),o.getMiniHeight());
         }
-        
-        for (Obstacle o : currentArea.getObstacles()){
-             g.setColor(o.getColor());
-             g.fillRect((int)(posX + width*((double)o.getX())/worldX), 
-                    (int)(posY + height*((double)o.getY())/worldY),o.getMiniWidth(),o.getMiniHeight());    
-        }
-        
-        g.setColor(PLAYER_COLOR);
-        g.fillRect((int)(posX + width*((double)player.getX())/worldX), 
-                (int)(posY + height*((double)player.getY())/worldY),3,3);
     }
 }

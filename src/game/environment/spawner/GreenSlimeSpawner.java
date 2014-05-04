@@ -6,15 +6,15 @@ import game.enemy.blob.EnemyGreenBlob;
 import game.player.Player;
 import game.sprite.ImageMask;
 import game.util.resource.AnimationLibrary;
-import java.util.ArrayList;
+import java.util.List;
 
 public class GreenSlimeSpawner extends Spawner {
     
-    public GreenSlimeSpawner(Player player, ArrayList<Enemy> enemies) {
+    public GreenSlimeSpawner(Player player, List<Enemy> enemies) {
         super(player,enemies,3000);
     }
     
-    public GreenSlimeSpawner(Player player, ArrayList<Enemy> enemies, int x, int y) {
+    public GreenSlimeSpawner(Player player, List<Enemy> enemies, int x, int y) {
         super(player,enemies,x,y,3000);
     }
     

@@ -56,7 +56,7 @@ public abstract class Enemy extends GameObject implements Hittable {
     @Override public int getY() { return y; }
     @Override public int getDepth() { return y; }
     
-    public Color getColor() { return minimapColor; }
+    @Override public Color getColor() { return minimapColor; }
     public boolean readyToDie() { return readyToDie; }
     public EntitySprite getSprite() { return sprite; }
     public int getHitDamage() { return hitDamage; }

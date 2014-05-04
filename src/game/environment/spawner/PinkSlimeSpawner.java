@@ -6,15 +6,15 @@ import game.enemy.blob.EnemyRedBlob;
 import game.player.Player;
 import game.sprite.ImageMask;
 import game.util.resource.AnimationLibrary;
-import java.util.ArrayList;
+import java.util.List;
 
 public class PinkSlimeSpawner extends Spawner {
     
-    public PinkSlimeSpawner(Player player, ArrayList<Enemy> enemies) {
+    public PinkSlimeSpawner(Player player, List<Enemy> enemies) {
         super(player,enemies,3000);
     }
     
-    public PinkSlimeSpawner(Player player, ArrayList<Enemy> enemies, int x, int y) {
+    public PinkSlimeSpawner(Player player, List<Enemy> enemies, int x, int y) {
         super(player,enemies,x,y,3000);
     }
     

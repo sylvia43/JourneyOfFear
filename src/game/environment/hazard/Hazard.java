@@ -5,7 +5,6 @@ import game.environment.obstacle.Obstacle;
 import game.map.Area;
 import game.player.Player;
 import game.state.StateSingleplayer;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Hazard extends Obstacle {
@@ -15,12 +14,12 @@ public abstract class Hazard extends Obstacle {
     
     protected int attackId = 0;
     
-    public Hazard(Player player, ArrayList<Enemy> enemies) {
+    public Hazard(Player player, List<Enemy> enemies) {
         this(player,enemies,(int)(Math.random()*(StateSingleplayer.WORLD_SIZE_Y)),
                 (int)(Math.random()*(StateSingleplayer.WORLD_SIZE_Y)));
     }
     
-    public Hazard(Player player, ArrayList<Enemy> enemies, int x, int y) {
+    public Hazard(Player player, List<Enemy> enemies, int x, int y) {
         super(x,y);
         this.player = player;
         this.enemies = enemies;

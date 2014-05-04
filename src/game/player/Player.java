@@ -81,6 +81,13 @@ public class Player extends GameObject implements Hittable {
     @Override public int getY() { return y; }
     @Override public int getDepth() { return y; }
     
+    private static final Color COLOR = Color.green;
+    
+    @Override
+    public Color getColor() {
+        return COLOR;
+    }
+    
     @Override
     public ImageMask getCollisionMask() {
         return sprite.getAnimationMask(spritePointer)
@@ -398,6 +405,4 @@ public class Player extends GameObject implements Hittable {
         }
         g.drawRect(x-8,y-8,16,16);
     }
-
-    
 }

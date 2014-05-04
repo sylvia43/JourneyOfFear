@@ -12,7 +12,9 @@ import game.environment.spawner.PinkSlimeSpawner;
 import game.npc.NPC;
 import game.npc.QuestNPC;
 import game.player.Player;
+import game.util.GameObject;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.newdawn.slick.GameContainer;
 
@@ -23,9 +25,10 @@ import org.newdawn.slick.GameContainer;
 public class Area {
     
     private TiledMap map;
-    private ArrayList<Enemy> enemies;
-    private ArrayList<Obstacle> obstacles;
-    private ArrayList<NPC> npcs;
+    private List<Enemy> enemies;
+    private List<Obstacle> obstacles;
+    private List<NPC> npcs;
+    private List<GameObject> objects;
     
     private Area[] adjacent;
     
@@ -39,6 +42,9 @@ public class Area {
     public List<Enemy> getEnemies() { return enemies; }
     public List<Obstacle> getObstacles() { return obstacles; }
     public List<NPC> getNPCS() { return npcs; }
+    public List<GameObject> getObjects() { return objects; }
+    public void sortObjects() { Collections.sort(objects); }
+    
     public int getWidth() { return width; }
     public int getHeight() { return height; }
     
@@ -53,9 +59,12 @@ public class Area {
         enemies = new ArrayList<Enemy>();
         obstacles = new ArrayList<Obstacle>();
         npcs = new ArrayList<NPC>();
+        objects = new ArrayList<GameObject>();
         
         map = new TiledMap(width/64, height/64);
         map.init();
+        
+        objects.add(player);
         
         addEnemy(new EnemyRedBlob(player)).init();
         addEnemy(new EnemyGreenBlob(player)).init();
@@ -72,16 +81,19 @@ public class Area {
     
     public NPC addNPC(NPC n) {
         npcs.add(n);
+        objects.add(n);
         return n;
     }
     
     public Enemy addEnemy(Enemy e) {
         enemies.add(e);
+        objects.add(e);
         return e;
     }
     
     public Obstacle addObstacle(Obstacle o) {
         obstacles.add(o);
+        objects.add(o);
         return o;
     }
     
