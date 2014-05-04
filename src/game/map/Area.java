@@ -39,6 +39,7 @@ public class Area {
     private final Player player;
     
     public Tile getTile(int x, int y) { return map.getTile(x,y); }
+    public TiledMap getMap() { return map; }
     public List<Enemy> getEnemies() { return enemies; }
     public List<Obstacle> getObstacles() { return obstacles; }
     public List<NPC> getNPCS() { return npcs; }
@@ -61,7 +62,7 @@ public class Area {
         npcs = new ArrayList<NPC>();
         objects = new ArrayList<GameObject>();
         
-        map = new TiledMap(width/64, height/64);
+        map = new TiledMap(width/64, height/64, this);
         map.init();
         
         objects.add(player);
@@ -110,4 +111,6 @@ public class Area {
         adjacent[index] = adjacentArea;
         return adjacentArea;
     }
+    
+    public Area[] getAllAdjacent() { return adjacent; }
 }
