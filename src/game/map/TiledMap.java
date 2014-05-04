@@ -43,17 +43,13 @@ public class TiledMap {
     
     public void init() {
         fillStandardGrass();
-        if(wrapper.getAllAdjacent().length == 0) {
-            boolean axis = (int)Math.random() * 2 == 1;
-            if(axis)
-                generateRoad((rx = (int)(Math.random() * width)), (ry = 0),
-                        (rxe = (int)(Math.random() * width)), (rye = height));
-            else
-                generateRoad((rx = 0), (ry = (int)(Math.random() * height)),
-                        (rxe = width), (rye = (int)(Math.random() * height)));
-        } else {
-            
-        }
+        boolean axis = (int)(Math.random() * 2) == 1;
+        if(axis)
+            generateRoad((rx = (int)(Math.random() * width)), (ry = 0),
+                    (rxe = (int)(Math.random() * width)), (rye = height));
+        else
+            generateRoad((rx = 0), (ry = (int)(Math.random() * height)),
+                    (rxe = width), (rye = (int)(Math.random() * height)));
     }
         
     private void fillStandardGrass() {
@@ -165,7 +161,7 @@ public class TiledMap {
             my += 1;
         }
         
-        if (mx>=width && my>=height)
+        if (mx>=width || my>=height)
             return;
         if (mx>=width)
             mx = width-1;
