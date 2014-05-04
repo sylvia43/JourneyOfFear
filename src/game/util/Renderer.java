@@ -64,8 +64,8 @@ public class Renderer {
         
         for (GameObject o : currentArea.getObjects()) {
             g.setColor(o.getColor());
-            g.fillRect((int)(posX + width*((double)o.getX())/worldX), 
-                    (int)(posY + height*((double)o.getY())/worldY),
+            g.fillRect(1+(int)(posX+width*((double)o.getX())/worldX), 
+                    1+(int)(posY+height*((double)o.getY())/worldY),
                     o.getMiniWidth(),o.getMiniHeight());
         }
     }
