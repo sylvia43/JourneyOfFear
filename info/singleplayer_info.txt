@@ -29,8 +29,7 @@ Table of Contents:
   David (ForgottenSprite)    -   Music + Sound  -   https://soundcloud.com/forgotten-sprite
   Joshua (cesiumrabbit)      -   Art            -   No website.
   
-  Thanks to Daniel (MrSnrhms) and Brennan (Brennan-S) for help with programming, and
-  Justin (justinchen673) for moral support.
+  Thanks to Daniel (MrSnrhms) and Brennan (Brennan-S) for help with programming.
   
 1) Storyline
 
