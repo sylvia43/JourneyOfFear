@@ -34,18 +34,26 @@ Key:
     [x] Fix obstacles in general (again).
     [x] Different weapons.
     [x] Fix knockback bug.
+    [x] Different types of attacks.
+    [x] Make the map render things in order of y position.
     [/] Damage and death.
     [/] Menu state.
     [/] Tiles that block movement.
-    [/] Different types of attacks.
-    [ ] Rewrite Slick2D libraries.
-    [ ] Clean up Tile code. It currently sucks.
+    [/] Clean up Tile code. It currently sucks.
+    [/] Make the map randomly generate.
+    [/] Smart enemy.
+    [/] More enemies.
+    [ ] IMPLEMENT NEW SPRITES.
+    [ ] Dungeons that are stitched together.
+    [ ] Roads that look cool.
+    [ ] NPC's that give quests.
+    [ ] Kill quests.
+    [ ] Items, for merchants and fetch quests.
+    [ ] Fetch quests.
+    [ ] NPC's that sell stuff.
+    [ ] Rewrite Slick2D backend.
     [ ] Blocking/Defense.
-    [ ] Make the map render things in order of y position.
     [ ] Combo attacks.
-    [ ] Make the map randomly generate.
-    [ ] Smart enemy.
-    [ ] More enemies.
     [ ] Boss fight.
     [ ] Integrate transition tiles.
     [ ] Enemy movement sound implementation.
@@ -62,17 +70,18 @@ Key:
     [x] Transition tiles.
     [x] Add tile for trees.
     [x] Add tile for rocks.
+    [x] Better blob.
+    [x] New enemy.
+    [x] Different types of slimes.
+    [x] Trees.
     [/] Cave floor and variations.
-    [/] Enemies.
-    [/] Slime death animation for all types of slimes.
-    [/] Different types of slimes.
     [/] Potion bottle full/empty.
+    [/] Different weapons.
+    [ ] Slime death animation for all types of slimes.
     [ ] Magic blast animations.
     [ ] Game title page w/ selecting arrow and font.
     [ ] Fix transition tiles.
-    [ ] Player death animation
-    [ ] Bosses
-    [ ] Different weapons.
+    [ ] Bosses.
     [ ] Add tile for holes in the ground.
 
   Audio:
@@ -85,6 +94,7 @@ Key:
     [x] Unelectric sound effects.
     [x] Boss themes.
     [ ] More music.
+    [ ] More attack sounds.
     [ ] Bow pull sounds.
     [ ] Bow shoot sounds.
     [ ] Player death sound.
@@ -96,7 +106,7 @@ Key:
     [x] Make handshake TCP.
     [x] Best disconnect handling (Timers).
     [/] Better error handling.
-    [ ] Merge in server from Starfighter.
+    [/] Merge in server changes from Starfighter.
     [ ] Make server a seperate library.
     [ ] Complete sending of player data.
     [ ] Full interaction over server.
@@ -108,6 +118,6 @@ Key:
   Other:
     [x] Obtain a domain name.
     [/] Obtain domain hosting.
-    [ ] Make a Journey of Fear webpage.
+    [/] Make a Journey of Fear webpage.
     [ ] Get some decent releases, maybe multiplayer.
     [ ] Publicize!
