@@ -1,5 +1,6 @@
 package game.enemy.humanoid;
 
+import game.enemy.EnemyType;
 import game.enemy.SmartEnemy;
 import game.player.Player;
 import game.player.attack.AttackAxeCleave;
@@ -19,6 +20,8 @@ public class EnemyMutant extends SmartEnemy {
     
     public EnemyMutant(Player player) {
         super(player);
+        types.add(EnemyType.MUTANT);
+        types.add(EnemyType.ATTACKING);
         hitDamage = 4;
         attack = AttackAxeCleave.create().setAttackRest(500);
         speed = 0.0625;

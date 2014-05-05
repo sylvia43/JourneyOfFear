@@ -1,6 +1,7 @@
 package game.enemy.blob;
 
 import game.enemy.Enemy;
+import game.enemy.EnemyType;
 import game.player.Player;
 import game.sprite.EntitySprite;
 import game.util.resource.AnimationLibrary;
@@ -11,6 +12,8 @@ public class EnemyRedBlob extends Enemy implements EnemyBlob {
     
     public EnemyRedBlob(Player player) {
         super(player);
+        types.add(EnemyType.BLOB);
+        types.add(EnemyType.RED_BLOB);
         speed = 0.0625;
         health = 15;
         minimapColor = new Color(255,128,128);

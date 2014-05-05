@@ -4,7 +4,7 @@ import game.npc.utils.Routine;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
-import game.state.StateMultiplayer;
+import game.state.StateSingleplayer;
 import game.util.GameObject;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -23,16 +23,19 @@ public abstract class NPC extends GameObject {
     
     protected Routine routine;
     
+    protected final String name;
+    
     @Override public int getX() { return x; }
     @Override public int getY() { return y; }
     @Override public int getDepth() { return y; }
-    public Color getColor() { return minimapColor; }
+    @Override public Color getColor() { return minimapColor; }
+    public String getName() { return name; }
     
     protected EntitySprite sprite;
-    
+        
     public NPC() {
-        this((int)(Math.random()*StateMultiplayer.WORLD_SIZE_X),
-                (int)(Math.random()*StateMultiplayer.WORLD_SIZE_Y));
+        this((int)(Math.random()*StateSingleplayer.WORLD_SIZE_X),
+                (int)(Math.random()*StateSingleplayer.WORLD_SIZE_Y));
     }
     
     public NPC(int x, int y) {
@@ -40,6 +43,7 @@ public abstract class NPC extends GameObject {
         this.y = y;
         minimapColor = Color.blue;
         spritePointer = 0;
+        name = "NPC";
     }
     
     public void init() {

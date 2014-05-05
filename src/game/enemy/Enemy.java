@@ -8,6 +8,8 @@ import game.sprite.ImageMask;
 import game.state.StateMultiplayer;
 import game.util.GameObject;
 import game.util.resource.SoundLibrary;
+import java.util.ArrayList;
+import java.util.List;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
@@ -51,6 +53,8 @@ public abstract class Enemy extends GameObject implements Hittable {
     
     protected Color minimapColor;
     
+    protected List<EnemyType> types;
+    
     //Getters. These methods probably can be left alone.
     @Override public int getX() { return x; }
     @Override public int getY() { return y; }
@@ -61,7 +65,8 @@ public abstract class Enemy extends GameObject implements Hittable {
     public EntitySprite getSprite() { return sprite; }
     public int getHitDamage() { return hitDamage; }
     public abstract String getName(); //Name of enemy
-
+    
+    public boolean isType(EnemyType type) { return types.contains(type); }
     
     @Override
     public ImageMask getCollisionMask() {
@@ -81,6 +86,7 @@ public abstract class Enemy extends GameObject implements Hittable {
         this.y = y;
         minimapColor = Color.red;
         spritePointer = (int)(Math.random()*4);
+        types = new ArrayList<EnemyType>();
     }
     
     public void setX(int x) { this.x = x; }

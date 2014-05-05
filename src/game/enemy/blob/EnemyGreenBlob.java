@@ -1,5 +1,6 @@
 package game.enemy.blob;
 
+import game.enemy.EnemyType;
 import game.enemy.SmartEnemy;
 import game.player.Player;
 import game.player.attack.AttackSwordSlash;
@@ -27,6 +28,9 @@ public class EnemyGreenBlob extends SmartEnemy implements EnemyBlob {
     
     public EnemyGreenBlob(Player player) {
         super(player);
+        types.add(EnemyType.BLOB);
+        types.add(EnemyType.GREEN_BLOB);
+        types.add(EnemyType.ATTACKING);
         attack = AttackSwordSlash.create().setAttackRest(1000);
         speed = 0.125;
         health = 30;
