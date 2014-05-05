@@ -66,7 +66,8 @@ public class StateSingleplayer extends BasicGameState {
             soundtrack.restart();
         soundtrack.update();
         
-        updateArea();
+        currentArea = currentArea.update();
+        renderer.updateArea(currentArea);
         
         for (Enemy e : currentArea.getEnemies())
             e.update(delta); 
@@ -110,11 +111,6 @@ public class StateSingleplayer extends BasicGameState {
     private void initPlayer(GameContainer container) throws SlickException {
         player = new Player();
         player.init(container);
-    }
-    
-    private void updateArea() {
-        currentArea = currentArea.update();
-        renderer.updateArea(currentArea);
     }
     
     private void updateViewPort() {
