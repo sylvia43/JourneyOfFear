@@ -19,7 +19,7 @@ public abstract class GameObject implements Comparable<GameObject> {
     public abstract int getDepth();
     
     public abstract void render(Graphics g);
-
+    
     @Override
     public int compareTo(GameObject o) {
         return this.getDepth()>o.getDepth() ? 1 : (this.getDepth()==o.getDepth()?0:-1);
