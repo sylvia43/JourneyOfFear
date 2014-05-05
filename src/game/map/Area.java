@@ -141,43 +141,43 @@ public class Area {
                 e = null;
                 continue;
             }
-            if (e.getX()<-16) {
+            if (e.getX()<0) {
                 removeEnemy(e);
                 getAdjacent(2).addEnemy(e);
-                e.setX(getWidth()-160);
+                e.setX(width);
             }
-            if (e.getY()<-16) {
+            if (e.getY()<0) {
                 removeEnemy(e);
                 getAdjacent(1).addEnemy(e);
-                e.setY(getHeight()-160);
+                e.setY(height);
             }
-            if (e.getX()>getWidth()-48) {
+            if (e.getX()>width) {
                 removeEnemy(e);
                 getAdjacent(0).addEnemy(e);
-                e.setX(96);
+                e.setX(0);
             }
-            if (e.getY()>getHeight()-48) {
+            if (e.getY()>height) {
                 removeEnemy(e);
                 getAdjacent(3).addEnemy(e);
-                e.setY(96);
+                e.setY(0);
             }
         }
         
-        if (player.getX()<-16) {
+        if (player.getX()<0) {
             currentArea = currentArea.getAdjacent(2);
-            player.setX(currentArea.getWidth()-48);
+            player.setX(width);
         }
-        if (player.getY()<-16) {
+        if (player.getY()<0) {
             currentArea = currentArea.getAdjacent(1);
-            player.setY(currentArea.getHeight()-48);
+            player.setY(height);
         }
-        if (player.getX()>currentArea.getWidth()-48) {
+        if (player.getX()>width) {
             currentArea = currentArea.getAdjacent(0);
-            player.setX(-16);
+            player.setX(0);
         }
-        if (player.getY()>currentArea.getHeight()-48) {
+        if (player.getY()>height) {
             currentArea = currentArea.getAdjacent(3);
-            player.setY(-16);
+            player.setY(0);
         }
         return currentArea;
     }
