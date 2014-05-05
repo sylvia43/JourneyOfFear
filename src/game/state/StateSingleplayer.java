@@ -8,7 +8,6 @@ import game.player.Player;
 import game.util.MathHelper;
 import game.util.Renderer;
 import game.util.Soundtrack;
-import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -114,57 +113,8 @@ public class StateSingleplayer extends BasicGameState {
     }
     
     private void updateArea() {
-        ArrayList<Enemy> newCurrentAreaEnemyList = new ArrayList<Enemy>(currentArea.getEnemies());
-        for (Enemy e : currentArea.getEnemies()) {
-            if (e.readyToDie()) {
-                newCurrentAreaEnemyList.remove(e);
-                e = null;
-                continue;
-            }
-            if (e.getX()<-16) {
-                newCurrentAreaEnemyList.remove(e);
-                currentArea.getAdjacent(2).getEnemies().add(e);
-                e.setX(currentArea.getWidth()-160);
-            }
-            if (e.getY()<-16) {
-                newCurrentAreaEnemyList.remove(e);
-                currentArea.getAdjacent(1).getEnemies().add(e);
-                e.setY(currentArea.getHeight()-160);
-            }
-            if (e.getX()>currentArea.getWidth()-48) {
-                newCurrentAreaEnemyList.remove(e);
-                currentArea.getAdjacent(0).getEnemies().add(e);
-                e.setX(96);
-            }
-            if (e.getY()>currentArea.getHeight()-48) {
-                newCurrentAreaEnemyList.remove(e);
-                currentArea.getAdjacent(3).getEnemies().add(e);
-                e.setY(96);
-            }
-        }
-        currentArea.getEnemies().clear();
-        currentArea.getEnemies().addAll(newCurrentAreaEnemyList);
-        
-        if (player.getX()<-16) {
-            currentArea = currentArea.getAdjacent(2);
-            renderer.updateArea(currentArea);
-            player.setX(currentArea.getWidth()-48);
-        }
-        if (player.getY()<-16) {
-            currentArea = currentArea.getAdjacent(1);
-            renderer.updateArea(currentArea);
-            player.setY(currentArea.getHeight()-48);
-        }
-        if (player.getX()>currentArea.getWidth()-48) {
-            currentArea = currentArea.getAdjacent(0);
-            renderer.updateArea(currentArea);
-            player.setX(-16);
-        }
-        if (player.getY()>currentArea.getHeight()-48) {
-            currentArea = currentArea.getAdjacent(3);
-            renderer.updateArea(currentArea);
-            player.setY(-16);
-        }
+        currentArea = currentArea.update();
+        renderer.updateArea(currentArea);
     }
     
     private void updateViewPort() {

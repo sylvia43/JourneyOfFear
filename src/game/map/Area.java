@@ -98,6 +98,24 @@ public class Area {
         return o;
     }
     
+    public NPC removeNPC(NPC n) {
+        npcs.remove(n);
+        objects.remove(n);
+        return n;
+    }
+    
+    public Enemy removeEnemy(Enemy e) {
+        enemies.remove(e);
+        objects.remove(e);
+        return e;
+    }
+    
+    public Obstacle reemoveObstacle(Obstacle o) {
+        obstacles.remove(o);
+        objects.remove(o);
+        return o;
+    }
+    
     public void setAdjacent(Area area, int index) {
         adjacent[index] = area;
     }
@@ -113,4 +131,54 @@ public class Area {
     }
     
     public Area[] getAllAdjacent() { return adjacent; }
+    
+    public Area update() {
+        Area currentArea = this;
+        ArrayList<Enemy> newCurrentAreaEnemyList = new ArrayList<Enemy>(enemies);
+        for (Enemy e : newCurrentAreaEnemyList) {
+            if (e.readyToDie()) {
+                removeEnemy(e);
+                e = null;
+                continue;
+            }
+            if (e.getX()<-16) {
+                removeEnemy(e);
+                getAdjacent(2).addEnemy(e);
+                e.setX(getWidth()-160);
+            }
+            if (e.getY()<-16) {
+                removeEnemy(e);
+                getAdjacent(1).addEnemy(e);
+                e.setY(getHeight()-160);
+            }
+            if (e.getX()>getWidth()-48) {
+                removeEnemy(e);
+                getAdjacent(0).addEnemy(e);
+                e.setX(96);
+            }
+            if (e.getY()>getHeight()-48) {
+                removeEnemy(e);
+                getAdjacent(3).addEnemy(e);
+                e.setY(96);
+            }
+        }
+        
+        if (player.getX()<-16) {
+            currentArea = currentArea.getAdjacent(2);
+            player.setX(currentArea.getWidth()-48);
+        }
+        if (player.getY()<-16) {
+            currentArea = currentArea.getAdjacent(1);
+            player.setY(currentArea.getHeight()-48);
+        }
+        if (player.getX()>currentArea.getWidth()-48) {
+            currentArea = currentArea.getAdjacent(0);
+            player.setX(-16);
+        }
+        if (player.getY()>currentArea.getHeight()-48) {
+            currentArea = currentArea.getAdjacent(3);
+            player.setY(-16);
+        }
+        return currentArea;
+    }
 }
