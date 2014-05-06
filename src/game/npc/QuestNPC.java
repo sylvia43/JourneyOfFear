@@ -1,14 +1,7 @@
 package game.npc;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-import game.npc.utils.QuestSequence;
-=======
-=======
-import game.npc.npcutils.QuestGenerator;
->>>>>>> 5610d9b... Need to figure out how to implement this with lowest debt...
 import game.npc.quest.QuestSequence;
->>>>>>> 6c71f03... Working on Quest. No use of the word 'Factory' allowed.
+import game.npc.npcutils.QuestGenerator;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.state.StateSingleplayer;
