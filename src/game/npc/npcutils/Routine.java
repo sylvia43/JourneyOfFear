@@ -1,4 +1,4 @@
-package game.npc.npcutils;
+package game.npc.utils;
 
 public class Routine {
     

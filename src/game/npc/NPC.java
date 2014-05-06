@@ -1,6 +1,6 @@
 package game.npc;
 
-import game.npc.npcutils.Routine;
+import game.npc.utils.Routine;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;

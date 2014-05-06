@@ -1,6 +1,6 @@
 package game.npc;
 
-import game.npc.npcutils.QuestSequence;
+import game.npc.utils.QuestSequence;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.util.resource.AnimationLibrary;
