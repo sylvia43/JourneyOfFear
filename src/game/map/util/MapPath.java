@@ -14,6 +14,6 @@ public class MapPath {
     }
     
     public int pathFind() {
-        
+        return 0;
     }
 }
