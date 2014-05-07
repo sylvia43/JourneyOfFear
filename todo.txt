@@ -93,11 +93,11 @@ Key:
     [x] Lots of music.
     [x] Unelectric sound effects.
     [x] Boss themes.
-    [ ] More music.
-    [ ] More attack sounds.
-    [ ] Bow pull sounds.
-    [ ] Bow shoot sounds.
-    [ ] Player death sound.
+    [x] More music.
+    [/] More attack sounds.
+    [/] Bow pull sounds.
+    [/] Bow shoot sounds.
+    [/] Player death sound.
 
   Multiplayer:
     [x] Sending of data.
