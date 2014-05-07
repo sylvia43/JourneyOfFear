@@ -86,7 +86,7 @@ Table of Contents:
 
 4) Copyright
    
-  See LICENSE. tl;dr you are allowed to run, modify, and privately use this but you cannot distribute or sell and you must attribute
-  copyright to me in your version of the program.
+  See LICENSE. tl;dr you are allowed to run, modify, and privately use this but you cannot distribute or sell and you
+  must attribute copyright to me in your version of the program.
    
 ========================================================================================================================
