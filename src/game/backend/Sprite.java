@@ -1,5 +1,5 @@
 package game.backend;
 
-public class Image {
+public class Sprite {
     
 }

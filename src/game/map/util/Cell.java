@@ -1,6 +1,21 @@
 package game.map.util;
 
+import java.util.Arrays;
+
 public class Cell {
+    
+    public static void main(String[] args) {
+        int[][] cells_noIter = genCells(5, 5, 0);
+        int[][] cells = genCells(5, 5, 1000);
+        
+        for(int[] cell : cells_noIter)
+            System.out.println(Arrays.toString(cell));
+        
+        System.out.println();
+        
+        for(int[] cell : cells)
+            System.out.println(Arrays.toString(cell));
+    }
     
     public static int[][] genCells(int width, int height, int iterations) {
         int[][] cellBlock = new int[width][height];
@@ -13,22 +28,22 @@ public class Cell {
     private static void iterateCells(int[][] array) {
         int valid;
         int count;
-        int[][] pointer;
+        int[][] ptr;
         int[][] temp = new int[array.length][array[0].length];
         for(int i = 0; i < array.length; i++) {
             for(int j = 0; j < array[0].length; j++) {
                 valid = 0;
                 count = 0;
-                pointer = getAdjacentIndices(i, j);
-                for(int[] index : pointer) {
+                ptr = getAdjacentIndices(i, j);
+                for(int[] index : ptr) {
                     if((index[0] < array.length && index[0] >= 0) && (index[1] < array[0].length && index[1] >= 0)) {
                         valid++;
-                        if(array[index[0]][index[1]] > array[i][j]) {
+                        if(array[index[0]][index[1]] != array[i][j]) {
                             count++;
                         }
                     }
                 }
-                temp[i][j] = count < valid / 2 ? 0 : 1;
+                temp[i][j] = count <= valid / 2 ? 0 : 1;
             }
         }
         
