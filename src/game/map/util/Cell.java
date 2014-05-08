@@ -1,51 +1,55 @@
 package game.map.util;
 
-import java.util.Arrays;
-
 public class Cell {
     
     public static void main(String[] args) {
-        int[][] cells = genCells(10, 10, 1000);
+        char[][] cells = genCells(100, 100, 1);
         
         System.out.println();
         printArray(cells);
     }
     
-    public static int[][] genCells(int width, int height, int iterations) {
-        int[][] cellBlock = new int[width][height];
+    public static char[][] genCells(int width, int height, int iterations) {
+        char[][] cellBlock = new char[width][height];
         randomize(cellBlock);
         printArray(cellBlock);
         for(int i = 0; i < iterations; i++)
-            iterateCells(cellBlock);
+            smooth(iterations, 4, cellBlock);
         return cellBlock;
     }
     
-    private static void iterateCells(int[][] array) {
+    private static void smooth(int times, int liveAmount, char[][] array) {
         int count;
+        int empty;
         int[][] ptr;
-        int[][] temp = new int[array.length][array[0].length];
-        for(int i = 0; i < array.length; i++) {
-            for(int j = 0; j < array[0].length; j++) {
-                count = 0;
-                ptr = getAdjacentIndices(i, j);
-                for(int[] index : ptr) {
-                    if((index[0] < array.length && index[0] >= 0) && (index[1] < array[0].length && index[1] >= 0)) {
-                        if(array[index[0]][index[1]] != array[i][j])
-                            count++;
+        char[][] temp = new char[array.length][array[0].length];
+        for(int iter = 0; iter < times; iter++) {
+            for(int i = 0; i < array.length; i++) {
+                for(int j = 0; j < array[0].length; j++) {
+                    count = array[i][j] == '#' ? 1 : 0;
+                    empty = count == 1 ? 0 : 1;
+                    ptr = getAdjacentIndices(i, j);
+                    for(int[] index : ptr) {
+                        if((index[0] < array.length && index[0] >= 0) && (index[1] < array[0].length && index[1] >= 0)) {
+                            if(array[index[0]][index[1]] == '#')
+                                count++;
+                            else
+                                empty++;
+                        }
                     }
+                    temp[i][j] = count <= liveAmount ? '.' : '#';
                 }
-                temp[i][j] = count <= 3 && count >= 2 ? 1 : 0;
             }
+            
+            for(int i = 0; i < array.length; i++)
+                System.arraycopy(temp[i], 0, array[i], 0, array[0].length);
         }
-        
-        for(int i = 0; i < array.length; i++)
-            System.arraycopy(temp[i], 0, array[i], 0, array[0].length);
     }
     
-    private static void randomize(int[][] array) {
-        for(int[] subArray : array)
+    private static void randomize(char[][] array) {
+        for(char[] subArray : array)
             for(int i = 0; i < subArray.length; i++)
-                subArray[i] = (int)(Math.random() * 2);
+                subArray[i] = (int)(Math.random() * 2) == 0 ? '.' : '#';
     }
     
     private static int[][] getAdjacentIndices(int index1, int index2) {
@@ -62,8 +66,11 @@ public class Cell {
         };
     }
     
-    private static void printArray(int[][] array) {
-        for(int[] cell : array)
-            System.out.println(Arrays.toString(cell));
+    private static void printArray(char[][] array) {
+        for(char[] cell : array) {
+            for(char character : cell)
+                System.out.print(character);
+            System.out.println();
+        }
     }
 }
