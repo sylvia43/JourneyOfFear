@@ -3,7 +3,7 @@ package game.map.util;
 public class Cell {
     
     public static void main(String[] args) {
-        char[][] cells = genCells(100, 100, 1);
+        char[][] cells = genCells(150, 150, 2);
         
         System.out.println();
         printArray(cells);
