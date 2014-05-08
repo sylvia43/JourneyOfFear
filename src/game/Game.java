@@ -4,6 +4,7 @@ import game.state.StateMenu;
 import game.state.StateMultiplayer;
 import game.state.StateServerSelect;
 import game.state.StateSingleplayer;
+import java.net.UnknownHostException;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -19,6 +20,11 @@ public class Game extends StateBasedGame {
     
     public static final int VIEW_SIZE_X = 640;
     public static final int VIEW_SIZE_Y = 512;
+
+    public static void exitGame(UnknownHostException e) {
+        // Handle error and gracefully exit.
+        System.exit(0);
+    }
     
     public Game() {
         super("Journey of Fear");
