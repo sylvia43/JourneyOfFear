@@ -73,7 +73,7 @@ public class Player extends GameObject implements Hittable {
     private final int KNOCKBACK_DISTANCE = 200;
     private final int STUN_DURATION = 400;
     
-    //How slippery knockback is. Less means more slide.
+    // How slippery knockback is. Less means more slide.
     private final int KNOCKBACK_MULTIPLIER = 30;
     private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*3;
     
