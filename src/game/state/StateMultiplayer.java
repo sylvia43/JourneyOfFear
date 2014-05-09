@@ -1,7 +1,10 @@
 package game.state;
 
+import game.Game;
 import game.enemy.EnemyPlayer;
 import game.network.client.NetworkHandler;
+import game.util.Logger;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import org.newdawn.slick.Color;
@@ -30,7 +33,12 @@ public class StateMultiplayer extends StateSingleplayer {
     public void enter(GameContainer container, StateBasedGame game) {
         super.enter(container,game);
         enemies = new ArrayList<EnemyPlayer>();
-        network = new NetworkHandler(ip,port,player,enemies);
+        try {
+            network = new NetworkHandler(ip,port,player,enemies);
+        } catch (UnknownHostException e) {
+            Logger.log(e);
+            Game.exitGame(e);
+        }
         network.start();
     }
     

@@ -28,14 +28,9 @@ public class NetworkHandler {
     private int myClientId;
     private long responseTime = -1;
     
-    public NetworkHandler(String newIp, int newPort, Player localPlayer, List<EnemyPlayer> newEnemies) {
+    public NetworkHandler(String newIp, int newPort, Player localPlayer, List<EnemyPlayer> newEnemies) throws UnknownHostException {
         this.enemies = newEnemies;
-        try {
-            this.ip = InetAddress.getByName(newIp);
-        } catch (UnknownHostException e) {
-            System.out.println("Unable to connect: " + e);
-            return;
-        }
+        this.ip = InetAddress.getByName(newIp);
         this.port = newPort;
         this.player = localPlayer;
     }

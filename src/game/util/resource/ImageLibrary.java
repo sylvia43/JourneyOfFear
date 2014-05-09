@@ -39,8 +39,8 @@ public enum ImageLibrary {
     BLOB_RED_LEFT("blobred/left.png"),
     
     BLOB_GREEN_RIGHT("blobgreen/right.png"), 
-    BLOB_GREEN_UP("blobgreen/up.png"),
-    BLOB_GREEN_DOWN("blobgreen/down.png"),
+    BLOB_GREEN_UP("blobgreen/vertical.png"),
+    BLOB_GREEN_DOWN("blobgreen/vertical.png"),
     BLOB_GREEN_LEFT("blobgreen/left.png"),
     
     MUTANT_RIGHT("mutant/right.png"),
