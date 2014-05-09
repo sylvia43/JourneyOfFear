@@ -3,7 +3,7 @@ package game.map.util;
 public class Cell {
     
     public static void main(String[] args) {
-        char[][] cells = genCells(150, 150, 2);
+        char[][] cells = genCells(100, 100, 2);
         
         System.out.println();
         printArray(cells);
@@ -11,7 +11,7 @@ public class Cell {
     
     public static char[][] genCells(int width, int height, int iterations) {
         char[][] cellBlock = new char[width][height];
-        randomize(cellBlock);
+        randomize(cellBlock, 0.49);
         printArray(cellBlock);
         for(int i = 0; i < iterations; i++)
             smooth(iterations, 4, cellBlock);
@@ -20,21 +20,17 @@ public class Cell {
     
     private static void smooth(int times, int liveAmount, char[][] array) {
         int count;
-        int empty;
         int[][] ptr;
         char[][] temp = new char[array.length][array[0].length];
         for(int iter = 0; iter < times; iter++) {
             for(int i = 0; i < array.length; i++) {
                 for(int j = 0; j < array[0].length; j++) {
                     count = array[i][j] == '#' ? 1 : 0;
-                    empty = count == 1 ? 0 : 1;
                     ptr = getAdjacentIndices(i, j);
                     for(int[] index : ptr) {
                         if((index[0] < array.length && index[0] >= 0) && (index[1] < array[0].length && index[1] >= 0)) {
                             if(array[index[0]][index[1]] == '#')
                                 count++;
-                            else
-                                empty++;
                         }
                     }
                     temp[i][j] = count <= liveAmount ? '.' : '#';
@@ -46,10 +42,10 @@ public class Cell {
         }
     }
     
-    private static void randomize(char[][] array) {
+    private static void randomize(char[][] array, double percentage) {
         for(char[] subArray : array)
             for(int i = 0; i < subArray.length; i++)
-                subArray[i] = (int)(Math.random() * 2) == 0 ? '.' : '#';
+                subArray[i] = Math.random() < percentage ? '#' : '.';
     }
     
     private static int[][] getAdjacentIndices(int index1, int index2) {
