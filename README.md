@@ -15,7 +15,7 @@ Resources:
 * [Possible Storyline](info/storyline.txt)
 * [Todo](todo.txt)
 
-If you have any questions, contact me (anubiann00b) at skraman1999@gmail.com.
+If you have any questions, contact me ([anubiann00b](https://github.com/anubiann00b) at skraman1999@gmail.com.
 
 Current contributers:
 
