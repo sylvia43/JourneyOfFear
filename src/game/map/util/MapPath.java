@@ -21,5 +21,6 @@ public class MapPath {
             for(int j = -1; j < 2; j++)
                 if(x+i < weights.length && (y+j < weights[0].length && y+j >= 0))
                     past = pathFind(x+i, y+j, past);
+        return null;
     }
 }
