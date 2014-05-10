@@ -167,6 +167,9 @@ public class Player extends GameObject implements Hittable {
         attack.update(delta,x-spriteWidth/2,y-spriteHeight/2);
         for (Enemy e : area.getEnemies())
             attack.resolveAttackHit(e,x-spriteWidth/2,y-spriteHeight/2);
+        
+        for (HUD h : hud)
+            h.respondToUserInput(input);
     }
     
     @Override
