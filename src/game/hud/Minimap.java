@@ -26,10 +26,10 @@ public class Minimap extends PassiveHUD {
         
         g.setColor(BACKGROUND_BLACK);
         
-        int posX = (int)(7.5 *viewX)/10 + camX;
-        int posY = (int)(.75 *viewY)/10 + camY;
-        int width = (int)(2.3 *viewX)/10;
-        int height = (int)(((double)worldY / worldX)*(2.3 *viewX)/10);
+        int posX = (int)(7.5*viewX)/10+camX;
+        int posY = (int)(.75*viewY)/10+camY;
+        int width = (int)(2.3*viewX)/10;
+        int height = (int)(((double)worldY/worldX)*(2.3*viewX)/10);
         
         g.fillRect(posX,posY,width,height);
         
