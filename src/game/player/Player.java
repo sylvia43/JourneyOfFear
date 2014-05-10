@@ -25,6 +25,7 @@ import game.util.resource.AnimationLibrary;
 import game.util.resource.ImageLibrary;
 import game.util.resource.SoundLibrary;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -195,7 +196,10 @@ public class Player extends GameObject implements Hittable {
     }
     
     public void renderHUD(Graphics g) {
-        hud.get(0).display(g,this,area,camX,camY);
+        Collections.sort(hud);
+        
+        for (HUD h : hud)
+            h.display(g,this,area,camX,camY);
     }
     
     public void setArea(Area newArea) {
