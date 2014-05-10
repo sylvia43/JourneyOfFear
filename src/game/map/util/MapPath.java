@@ -13,7 +13,13 @@ public class MapPath {
         weights = _weights;
     }
     
-    public int pathFind() {
-        return 0;
+    public boolean[][] pathFind(int x, int y, boolean[][] past) {
+        if(x == ex && y == ey)
+            return past;
+        past[x][y] = true;
+        for(int i = 0; i < 2; i++)
+            for(int j = -1; j < 2; j++)
+                if(x+i < weights.length && (y+j < weights[0].length && y+j >= 0))
+                    past = pathFind(x+i, y+j, past);
     }
 }
