@@ -199,7 +199,8 @@ public class Player extends GameObject implements Hittable {
         Collections.sort(hud);
         
         for (HUD h : hud)
-            h.display(g,this,area,camX,camY);
+            if (h.isVisible())
+                h.display(g,this,area,camX,camY);
     }
     
     public void setArea(Area newArea) {
