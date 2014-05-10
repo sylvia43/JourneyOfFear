@@ -79,8 +79,7 @@ public class StateSingleplayer extends BasicGameState {
             n.update(delta);
         }
         
-        player.setEnemies(currentArea.getEnemies());
-        player.setObstacles(currentArea.getObstacles());
+        player.setArea(currentArea);
         player.update(container,delta);
         
         updateViewPort();
@@ -95,17 +94,13 @@ public class StateSingleplayer extends BasicGameState {
         translateView(g);
         renderer.renderMap(g);
         renderer.renderObjects(g);
-        renderer.renderMinimap(g);
         
-        for (NPC n : currentArea.getNPCS()) {
-            n.render(g);
-        }
+        player.renderHUD(g);
     }
     
     private void setupArea(GameContainer container, Player player) {
         currentArea = new Area(WORLD_SIZE_X,WORLD_SIZE_Y,container,player);
-        player.setEnemies(currentArea.getEnemies());
-        player.setObstacles(currentArea.getObstacles());
+        player.setArea(currentArea);
     }
     
     private void initPlayer(GameContainer container) throws SlickException {

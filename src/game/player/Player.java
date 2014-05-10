@@ -3,6 +3,9 @@ package game.player;
 import game.enemy.Enemy;
 import game.environment.obstacle.Obstacle;
 import game.environment.obstacle.Tree;
+import game.hud.HUD;
+import game.hud.Minimap;
+import game.map.Area;
 import game.network.server.DataPacket;
 import game.network.server.EnemyPlayerData;
 import game.player.attack.Attack;
@@ -34,11 +37,11 @@ import org.newdawn.slick.SlickException;
 public class Player extends GameObject implements Hittable {
 
     private EntitySprite sprite;
-        
+    
     private List<Attack> attacks;
     private Attack attack;
     private int attackIndex;
-    
+        
     private int spritePointer;
     
     private int x = 640;
@@ -58,8 +61,8 @@ public class Player extends GameObject implements Hittable {
     
     private static Image[] hearts;
     
-    private List<Enemy> enemies;
-    private List<Obstacle> obstacles;
+    private Area area;
+    private List<HUD> hud;
     
     private int attackDirection;
     
@@ -121,6 +124,7 @@ public class Player extends GameObject implements Hittable {
         attacks.add(AttackDaggerSlash.create());
         attackIndex = 0;
         attack = attacks.get(0);
+        hud = new ArrayList<HUD>();
     }
     
     public void init(GameContainer container) throws SlickException {
@@ -135,6 +139,7 @@ public class Player extends GameObject implements Hittable {
         spriteHeight = sprite.getAnim(spritePointer).getHeight() * 4;
         spriteWidth = sprite.getAnim(spritePointer).getWidth() * 4;
         attack.init();
+        hud.add(new Minimap());
     }
     
     public void update(GameContainer container, int delta) {
@@ -159,7 +164,7 @@ public class Player extends GameObject implements Hittable {
             attack.attack(attackDirection,true);
         }
         attack.update(delta,x-spriteWidth/2,y-spriteHeight/2);
-        for (Enemy e : enemies)
+        for (Enemy e : area.getEnemies())
             attack.resolveAttackHit(e,x-spriteWidth/2,y-spriteHeight/2);
     }
     
@@ -189,12 +194,12 @@ public class Player extends GameObject implements Hittable {
         }
     }
     
-    public void setEnemies(List<Enemy> enemies) {
-        this.enemies = enemies;
+    public void renderHUD(Graphics g) {
+        hud.get(0).display(g,this,area,camX,camY);
     }
-
-    public void setObstacles(List<Obstacle> obstacles) {
-        this.obstacles = obstacles;
+    
+    public void setArea(Area newArea) {
+        area = newArea;
     }
     
     public void updateViewPort(int camX, int camY) {
@@ -313,7 +318,7 @@ public class Player extends GameObject implements Hittable {
         int steps = (int) (delta*speed);
         int actualSteps = 0;
         
-        for (Obstacle o : obstacles) {
+        for (Obstacle o : area.getObstacles()) {
             if (!(o instanceof Tree))
                 continue;
             Tree tree = (Tree) o;
@@ -338,7 +343,7 @@ public class Player extends GameObject implements Hittable {
     }
     
     private void resolveCollision() {
-        for (Enemy e : enemies) {
+        for (Enemy e : area.getEnemies()) {
             if(getCollisionMask().intersects(e.getCollisionMask()))
                 resolveHit(e.getX(),e.getY(),e.getHitDamage());
         }
