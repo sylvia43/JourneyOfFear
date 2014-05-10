@@ -37,7 +37,7 @@ public class Renderer {
     public void renderMap(Graphics g) {
         for(int x=camX/64;x<Math.min(worldX/64,(camX+viewX)/64+1);x++) {
             for(int y=camY/64;y<Math.min(worldY/64,(camY+viewY)/64+1);y++) {
-                 currentArea.getTile(x,y).image().draw(x*64,y*64,64,64);
+                 currentArea.getTile(x,y).getImage(0).draw(x*64,y*64,64,64);
             }
         }
     }

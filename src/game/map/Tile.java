@@ -3,55 +3,28 @@ package game.map;
 import game.util.resource.ImageLibrary;
 import org.newdawn.slick.Image;
 
-public enum Tile {
+public abstract class Tile {
     
-    TEST(ImageLibrary.TEST),
-    GRASS_BASIC(ImageLibrary.GRASS_BASIC),
-    GRASS_VARIANT(ImageLibrary.GRASS_VARIANT),
-    GRASS_FLOWER(ImageLibrary.GRASS_FLOWER),
-    GRASS_BOLD(ImageLibrary.GRASS_BOLD),
-    GRASS_SHIFT(ImageLibrary.GRASS_SHIFT),
-    STONE_BASIC(ImageLibrary.STONE_BASIC),
-    DIRT_BASIC(ImageLibrary.DIRT_BASIC),
-    COBBLE_BASIC(ImageLibrary.COBBLE_BASIC),
-    COBBLE_VARIANT1(ImageLibrary.COBBLE_VARIANT1),
-    COBBLE_VARIANT2(ImageLibrary.COBBLE_VARIANT2),
-    COBBLE_ACCENT_GRASS(ImageLibrary.COBBLE_ACCENT_GRASS),
+    public static final Tile TEST                = new BasicTile(ImageLibrary.TEST);
+    public static final Tile GRASS_BASIC         = new BasicTile(ImageLibrary.GRASS_BASIC);
+    public static final Tile GRASS_VARIANT       = new BasicTile(ImageLibrary.GRASS_VARIANT);
+    public static final Tile GRASS_FLOWER        = new BasicTile(ImageLibrary.GRASS_FLOWER);
+    public static final Tile GRASS_BOLD          = new BasicTile(ImageLibrary.GRASS_BOLD);
+    public static final Tile GRASS_SHIFT         = new BasicTile(ImageLibrary.GRASS_SHIFT);
+    public static final Tile STONE_BASIC         = new BasicTile(ImageLibrary.STONE_BASIC);
+    public static final Tile DIRT_BASIC          = new BasicTile(ImageLibrary.DIRT_BASIC);
+    public static final Tile COBBLE_BASIC        = new BasicTile(ImageLibrary.COBBLE_BASIC);
+    public static final Tile COBBLE_VARIANT1     = new BasicTile(ImageLibrary.COBBLE_VARIANT1);
+    public static final Tile COBBLE_VARIANT2     = new BasicTile(ImageLibrary.COBBLE_VARIANT2);
+    public static final Tile COBBLE_ACCENT_GRASS = new BasicTile(ImageLibrary.COBBLE_ACCENT_GRASS);
     
-    GRASS_COBBLE_TRANS_SMALL_RIGHT(ImageLibrary.GRASS_COBBLE_TRANS_SMALL,32,16,16,16),
-    GRASS_COBBLE_TRANS_SMALL_TOP_RIGHT(ImageLibrary.GRASS_COBBLE_TRANS_SMALL,32,0,16,16),
-    GRASS_COBBLE_TRANS_SMALL_TOP(ImageLibrary.GRASS_COBBLE_TRANS_SMALL,16,0,16,16),
-    GRASS_COBBLE_TRANS_SMALL_TOP_LEFT(ImageLibrary.GRASS_COBBLE_TRANS_SMALL,0,0,16,16),
-    GRASS_COBBLE_TRANS_SMALL_LEFT(ImageLibrary.GRASS_COBBLE_TRANS_SMALL,0,16,16,16),
-    GRASS_COBBLE_TRANS_SMALL_BOTTOM_LEFT(ImageLibrary.GRASS_COBBLE_TRANS_SMALL,0,32,16,16),
-    GRASS_COBBLE_TRANS_SMALL_BOTTOM(ImageLibrary.GRASS_COBBLE_TRANS_SMALL,16,32,16,16),
-    GRASS_COBBLE_TRANS_SMALL_BOTTOM_RIGHT(ImageLibrary.GRASS_COBBLE_TRANS_SMALL,32,32,16,16);
+    public static final Tile GRASS_COBBLE_TRANS  = new TransitionTile(ImageLibrary.GRASS_COBBLE_TRANS_SMALL,16);
     
-    private ImageLibrary image;
+    protected ImageLibrary image;
     
-    private boolean useSubImage = false;
+    public abstract Image getImage(int dir);
     
-    private int x;
-    private int y;
-    private int width;
-    private int height;
-    
-    public Image image() {
-        if (!useSubImage)
-            return image.getImage();
-        return image.getImage().getSubImage(x,y,width,height);
-    }
-    
-    Tile(ImageLibrary image) {
-        this.image = image;
-    }
-    
-    Tile(ImageLibrary image, int x, int y, int width, int height) {
-        useSubImage = true;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+    protected Tile(ImageLibrary image) {
         this.image = image;
     }
 }
