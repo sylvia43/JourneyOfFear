@@ -1,7 +1,9 @@
 package game.enemy.blob;
 
+import game.ability.Ability;
+import game.ability.AbilityDodge;
+import game.enemy.AttackingEnemy;
 import game.enemy.EnemyType;
-import game.enemy.SmartEnemy;
 import game.player.Player;
 import game.player.attack.AttackSwordSlash;
 import game.sprite.EntitySprite;
@@ -12,12 +14,14 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-public class EnemyGreenBlob extends SmartEnemy implements EnemyBlob {
+public class EnemyGreenBlob extends AttackingEnemy implements EnemyBlob {
     
     protected static final int DIR_SWITCH_SPEED = 500;
     protected int dirChangeCounter = 0;
     
     protected int direction;
+    
+    private Ability abilityDodge;
     
     public ImageMask getAttackMask() {
         return attack.getMask(x-spriteWidth/2,y-spriteHeight/2);
@@ -35,6 +39,8 @@ public class EnemyGreenBlob extends SmartEnemy implements EnemyBlob {
         speed = 0.125;
         health = 30;
         minimapColor = new Color(181,230,29);
+        abilityDodge = new AbilityDodge();
+        addAbility(abilityDodge);
     }
     
     @Override
@@ -70,8 +76,12 @@ public class EnemyGreenBlob extends SmartEnemy implements EnemyBlob {
     }
     
     @Override
-    public void beSmart(int delta) {
-        avoidAttacks(delta);
+    public void update(int delta) {
+        super.update(delta);
+        if(player.getAttack().isAttacking() &&
+                Math.sqrt((x-player.getX())*(x-player.getX())+(y-player.getY())*(y-player.getY())) <= 192)
+            abilityDodge.use(x-player.getX(),y-player.getY());
+        abilityDodge.update(delta,this,stunTimer>0);
     }
     
     @Override

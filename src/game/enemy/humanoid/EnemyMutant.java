@@ -1,7 +1,7 @@
 package game.enemy.humanoid;
 
+import game.enemy.AttackingEnemy;
 import game.enemy.EnemyType;
-import game.enemy.SmartEnemy;
 import game.player.Player;
 import game.player.attack.AttackAxeCleave;
 import game.sprite.EntitySprite;
@@ -11,7 +11,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-public class EnemyMutant extends SmartEnemy {
+public class EnemyMutant extends AttackingEnemy {
     
     protected static final int DIR_SWITCH_SPEED = 500;
     protected int dirChangeCounter = 0;
@@ -49,11 +49,6 @@ public class EnemyMutant extends SmartEnemy {
     
     protected void resolveAttackCollision() {
         attack.resolveAttackHit(player,x,y);
-    }
-    
-    @Override
-    public void beSmart(int delta) {
-        
     }
     
     @Override

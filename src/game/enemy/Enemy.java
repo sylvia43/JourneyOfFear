@@ -1,5 +1,6 @@
 package game.enemy;
 
+import game.ability.Ability;
 import game.player.Player;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
@@ -37,23 +38,19 @@ public abstract class Enemy extends GameObject implements Hittable {
     protected static final int DAMAGE_BLINK_TIME = 200;
     private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*3;
     
+    protected int health;
     private boolean damageBlink;
     private boolean invulnerable = false;
     private int invulnerabilityTimer = 0;
     
     protected int hitDamage;
-    
-    protected int health;
-    
     protected int lastAttackId = -1;
-
     protected Player player;
-    
     protected boolean readyToDie = false;
-    
     protected Color minimapColor;
     
     protected List<EnemyType> types;
+    protected List<Ability> abilities;
     
     //Getters. These methods probably can be left alone.
     @Override public int getX() { return x; }
@@ -87,10 +84,13 @@ public abstract class Enemy extends GameObject implements Hittable {
         minimapColor = Color.red;
         spritePointer = (int)(Math.random()*4);
         types = new ArrayList<EnemyType>();
+        abilities = new ArrayList<Ability>();
     }
     
-    public void setX(int x) { this.x = x; }
-    public void setY(int y) { this.y = y; }
+    @Override public void setX(int x) { this.x = x; }
+    @Override public void setY(int y) { this.y = y; }
+    
+    protected void addAbility(Ability a) { abilities.add(a); }
     
     // Game loop methods
     public void init() {
