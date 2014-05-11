@@ -156,6 +156,7 @@ public class Player extends GameObject implements Hittable {
             attack = attacks.get(attackIndex);
             attack.init();
         }
+        
         if ((input.isKeyDown(Options.ATTACK_UP.key())
                 || input.isKeyDown(Options.ATTACK_DOWN.key())
                 || input.isKeyDown(Options.ATTACK_LEFT.key())
@@ -164,7 +165,9 @@ public class Player extends GameObject implements Hittable {
             getAttackDirection(input);
             attack.attack(attackDirection,true);
         }
+        
         attack.update(delta,x-spriteWidth/2,y-spriteHeight/2);
+        
         for (Enemy e : area.getEnemies())
             attack.resolveAttackHit(e,x-spriteWidth/2,y-spriteHeight/2);
         
@@ -253,75 +256,43 @@ public class Player extends GameObject implements Hittable {
             return;
         }
         
-        boolean DnHl = input.isKeyDown(Options.MOVE_DOWN.key());
-        boolean DnPr = input.isKeyPressed(Options.MOVE_DOWN.key());
-        boolean UpHl = input.isKeyDown(Options.MOVE_UP.key());
-        boolean UpPr = input.isKeyPressed(Options.MOVE_UP.key());
-        boolean LfHl = input.isKeyDown(Options.MOVE_LEFT.key());
-        boolean LfPr = input.isKeyPressed(Options.MOVE_LEFT.key());
-        boolean RiHl = input.isKeyDown(Options.MOVE_RIGHT.key());
-        boolean RiPr = input.isKeyPressed(Options.MOVE_RIGHT.key());
+        boolean[] pr = new boolean[4];
+        boolean[] hl = new boolean[4];
         
-        if ((DnHl || DnPr) && (UpHl || UpPr)) {
-            UpHl = false;
-            DnHl = false;
-        }
+        pr[0] = input.isKeyPressed(Options.MOVE_RIGHT.key());
+        pr[1] = input.isKeyPressed(Options.MOVE_UP.key());
+        pr[2] = input.isKeyPressed(Options.MOVE_LEFT.key());
+        pr[3] = input.isKeyPressed(Options.MOVE_DOWN.key());
         
-        if ((LfHl || LfPr) && (RiHl || RiPr)) {
-            LfHl = false;
-            RiHl = false;
+        hl[0] = input.isKeyDown(Options.MOVE_RIGHT.key());
+        hl[1] = input.isKeyDown(Options.MOVE_UP.key());
+        hl[2] = input.isKeyDown(Options.MOVE_LEFT.key());
+        hl[3] = input.isKeyDown(Options.MOVE_DOWN.key());
+        
+        for (int i=0;i<2;i++) {
+            if ((hl[i] || pr[i]) && (hl[i+2] || pr[i+2])) {
+                hl[i] = false;
+                hl[i+2] = false;
+            }
         }
         
         int dx = 0;
         int dy = 0;
         
-        if (DnPr)
-            spritePointer = 3;
-        else
-            sprite.getAnim(3).stop();
-        if (DnHl) {
-            sprite.getAnim(3).start();
-            dy += 1;
-            if (!UpHl && !LfHl && !RiHl)
-                spritePointer = 3;
-        } else
-            sprite.getAnim(3).setCurrentFrame(1);
-        
-        if (RiPr)
-            spritePointer = 0;
-        else
-            sprite.getAnim(0).stop();
-        if (RiHl) {
-            sprite.getAnim(0).start();
-            dx += 1;
-            if (!UpHl && !LfHl && !DnHl)
-                spritePointer = 0;
-        } else
-            sprite.getAnim(0).setCurrentFrame(1);
-        
-        if (UpPr)
-            spritePointer = 1;
-        else
-            sprite.getAnim(1).stop();
-        if (UpHl) {
-            sprite.getAnim(1).start();
-            dy -= 1;
-            if (!DnHl && !LfHl && !RiHl)
-                spritePointer = 1;
-        } else
-            sprite.getAnim(1).setCurrentFrame(1);
-        
-        if (LfPr)
-            spritePointer = 2;
-        else
-            sprite.getAnim(2).stop();
-        if (LfHl) {
-            sprite.getAnim(2).start();
-            dx -= 1;
-            if (!UpHl && !DnHl && !RiHl)
-                spritePointer = 2;
-        } else
-            sprite.getAnim(2).setCurrentFrame(1);
+        for (int i=0;i<4;i++) {
+            if (pr[i])
+                spritePointer = i;
+            else
+                sprite.getAnim(i).stop();
+            if (hl[i]) {
+                sprite.getAnim(i).start();
+                dx += i%2==0 ? 1-i : 0;
+                dy += i%2==1 ? i-2 : 0;
+                if (!hl[(i+1)%4] && !hl[(i+2)%4] && !hl[(i+3)%4])
+                    spritePointer = i;
+            } else
+                sprite.getAnim(i).setCurrentFrame(1);
+        }
         
         int steps = (int) (delta*speed);
         int actualSteps = 0;
@@ -378,10 +349,6 @@ public class Player extends GameObject implements Hittable {
             currentHealth -= damage;
             SoundLibrary.SWORD_HIT.play();
         }
-    }
-    
-    private void initializeKnockback(int dx, int dy) {
-        initializeKnockback(dx,dy,1);
     }
     
     private void initializeKnockback(int dx, int dy, double mult) {
