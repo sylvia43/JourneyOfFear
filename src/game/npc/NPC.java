@@ -31,6 +31,9 @@ public abstract class NPC extends GameObject {
     @Override public Color getColor() { return minimapColor; }
     public String getName() { return name; }
     
+    @Override public void setX(int x) { this.x = x; }
+    @Override public void setY(int y) { this.y = y; }
+    
     protected EntitySprite sprite;
         
     public NPC() {

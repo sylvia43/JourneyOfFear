@@ -32,9 +32,9 @@ public abstract class Obstacle extends GameObject {
     public Animation getSprite() { return sprite; }
     public int getWidth() { return width; }
     public int getHeight() { return height; }
-    public int getMiniWidth() { return miniWidth; }
-    public int getMiniHeight() { return miniHeight; }
-    public Color getColor() { return minimapColor; }
+    @Override public int getMiniWidth() { return miniWidth; }
+    @Override public int getMiniHeight() { return miniHeight; }
+    @Override public Color getColor() { return minimapColor; }
     
     public ImageMask getCollisionMask() { return mask; }
         
@@ -53,8 +53,8 @@ public abstract class Obstacle extends GameObject {
         miniHeight = 3;
     }
     
-    public void setX(int x) { this.x = x; }
-    public void setY(int y) { this.y = y; }
+    @Override public void setX(int x) { this.x = x; }
+    @Override public void setY(int y) { this.y = y; }
     
     protected abstract void initializeSprite();
     

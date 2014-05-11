@@ -11,6 +11,9 @@ public abstract class GameObject implements Comparable<GameObject> {
     public abstract int getX();
     public abstract int getY();
     
+    public abstract void setX(int x);
+    public abstract void setY(int y);
+    
     public int getMiniWidth() { return miniWidth; }
     public int getMiniHeight() { return miniHeight; }
     
