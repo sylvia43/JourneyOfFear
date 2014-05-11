@@ -5,8 +5,8 @@ import org.newdawn.slick.Image;
 
 public class BasicTile extends Tile {
     
-    protected BasicTile(ImageLibrary image) {
-        super(image);
+    protected BasicTile(ImageLibrary image, TileType... types) {
+        super(image,types);
     }
     
     @Override
