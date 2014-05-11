@@ -14,7 +14,9 @@ public enum Options {
     ATTACK_LEFT(Input.KEY_LEFT),
     ATTACK_RIGHT(Input.KEY_RIGHT),
     
-    SWITCH_WEAPON(Input.KEY_SPACE);
+    SWITCH_WEAPON(Input.KEY_SPACE),
+    
+    OPEN_MINIMAP(Input.KEY_M);
     
     private int key;
     public int key() { return key; }

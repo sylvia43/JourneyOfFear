@@ -8,11 +8,18 @@ import org.newdawn.slick.Input;
  */
 public abstract class PassiveHUD extends HUD {
     
+    protected boolean visible;
+    
+    public PassiveHUD(boolean visible) {
+        super();
+        this.visible = visible;
+    }
+    
     @Override
     public void respondToUserInput(Input in) { }
     
     @Override
     public boolean isVisible() {
-        return true;
+        return visible;
     }
 }

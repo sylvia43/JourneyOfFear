@@ -140,7 +140,7 @@ public class Player extends GameObject implements Hittable {
         spriteHeight = sprite.getAnim(spritePointer).getHeight() * 4;
         spriteWidth = sprite.getAnim(spritePointer).getWidth() * 4;
         attack.init();
-        hud.add(new Minimap());
+        hud.add(new Minimap(true));
     }
     
     public void update(GameContainer container, int delta) {

@@ -4,19 +4,27 @@ import game.map.Area;
 import game.player.Player;
 import game.state.StateSingleplayer;
 import game.util.GameObject;
+import game.util.Options;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 
 public class Minimap extends PassiveHUD {
     
-    public Minimap() {
-        
+    public Minimap(boolean visible) {
+        super(visible);
     }
     
     @Override
     public int getDepth() {
-        return 0;
+        return -1; // Behind other windows.
     }
-
+    
+    @Override
+    public void respondToUserInput(Input in) {
+        if (in.isKeyPressed(Options.OPEN_MINIMAP.key()))
+            visible = !visible;
+    }
+    
     @Override
     public void display(Graphics g, Player player, Area currentArea, int camX, int camY) {
         int viewX = StateSingleplayer.VIEW_SIZE_X;
