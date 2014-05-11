@@ -4,7 +4,9 @@ import org.newdawn.slick.Input;
 
 /**
  * HUD that always displays and never interacts
- * with the player, such as Minimap.
+ * with the player, such as Minimap. Implementations
+ * are not bound to those rules; Minimap uses 'm' to
+ * toggle visibility (and eventually type).
  */
 public abstract class PassiveHUD extends HUD {
     
