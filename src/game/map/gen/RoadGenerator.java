@@ -19,6 +19,10 @@ public class RoadGenerator extends MapGenerator {
     
     public void recursiveRoad(int depth, int size, int x, int y, int sx, int sy, int ex, int ey) {
         
+        for (int i=0;i<3-depth;i++)
+            System.out.print(' ');
+        System.out.println(size + " " + x + " " + y);
+        
         Point[] path = generatePath(sx,sy,ex,ey);
         
         if (depth == 0) {
@@ -47,7 +51,42 @@ public class RoadGenerator extends MapGenerator {
     }
     
     private Point[] generatePath(int sx, int sy, int ex, int ey) {
-        Point[] arr = new Point[3];
+        Point[] arr = null;
+        
+        // Ends are next to each other (forming V).
+        if (sx*ex+sy*ey == 2) {
+            switch ((int)(Math.random()*3)) {
+                case 0:
+                    arr = new Point[3];
+                    arr[0] = new Point(0,0);
+                    arr[1] = new Point(1,1);
+                    arr[2] = new Point(2,2);
+                    break;
+                case 1:
+                    arr = new Point[4];
+                    arr[0] = new Point(0,0);
+                    arr[1] = new Point(0,1);
+                    arr[2] = new Point(1,2);
+                    arr[3] = new Point(2,2);
+                    break;
+                case 2:
+                    arr = new Point[4];
+                    arr[0] = new Point(0,0);
+                    arr[1] = new Point(1,0);
+                    arr[2] = new Point(2,1);
+                    arr[3] = new Point(2,2);
+                    break;
+            }
+            return arr;
+        } else if (sx*ex+sy*ey == 0) {
+            arr = new Point[3];
+            arr[0] = new Point(0,0);
+            arr[1] = new Point(1,1);
+            arr[2] = new Point(0,2);
+            return arr;
+        }
+        
+        arr = new Point[3];
         
         arr[0] = new Point(0,0);
         arr[1] = new Point(1,1);
