@@ -14,11 +14,11 @@ public enum Options {
     ATTACK_LEFT(Input.KEY_LEFT),
     ATTACK_RIGHT(Input.KEY_RIGHT),
     
-    SWITCH_WEAPON(Input.KEY_SPACE),
+    SWITCH_WEAPON(Input.KEY_O),
     
     OPEN_MINIMAP(Input.KEY_M),
     
-    DODGE(Input.KEY_O);
+    DODGE(Input.KEY_SPACE);
     
     private int key;
     public int key() { return key; }
