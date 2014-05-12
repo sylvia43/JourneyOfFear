@@ -1,5 +1,7 @@
 package game.player;
 
+import game.ability.Ability;
+import game.ability.AbilityDodge;
 import game.enemy.Enemy;
 import game.environment.obstacle.Obstacle;
 import game.environment.obstacle.Tree;
@@ -81,6 +83,8 @@ public class Player extends GameObject implements Hittable {
     private final int KNOCKBACK_MULTIPLIER = 30;
     private final int INVULNERABILITY_DURATION = DAMAGE_BLINK_TIME*3;
     
+    private Ability abilityDodge;
+    
     @Override public int getX() { return x; }
     @Override public int getY() { return y; }
     @Override public int getDepth() { return y; }
@@ -115,8 +119,8 @@ public class Player extends GameObject implements Hittable {
         return attackIndex;
     }
     
-    public void setX(int x) { this.x = x; }
-    public void setY(int y) { this.y = y; }
+    @Override public void setX(int x) { this.x = x; }
+    @Override public void setY(int y) { this.y = y; }
     
     public Player() {
         attacks = new ArrayList<Attack>();
@@ -126,6 +130,7 @@ public class Player extends GameObject implements Hittable {
         attackIndex = 0;
         attack = attacks.get(0);
         hud = new ArrayList<HUD>();
+        abilityDodge = new AbilityDodge(20);
     }
     
     public void init(GameContainer container) throws SlickException {
@@ -146,7 +151,13 @@ public class Player extends GameObject implements Hittable {
     public void update(GameContainer container, int delta) {
         this.delta = delta;
         resolveInvulnerability(delta); //and knockback
-        movePlayer(container.getInput(),delta);
+        
+        if (!abilityDodge.inUse())
+            movePlayer(container.getInput(),delta);
+        
+        if (abilityDodge.inUse())
+            invulnerable = true;
+        
         resolveCollision();
         collisionMask.set(x-spriteWidth/2,y-spriteHeight/2,x+spriteWidth/2,y+spriteHeight/2);
         Input input = container.getInput();
@@ -156,6 +167,8 @@ public class Player extends GameObject implements Hittable {
             attack = attacks.get(attackIndex);
             attack.init();
         }
+        
+        abilityDodge.update(delta,this,stunTimer>0);
         
         if ((input.isKeyDown(Options.ATTACK_UP.key())
                 || input.isKeyDown(Options.ATTACK_DOWN.key())
@@ -308,6 +321,16 @@ public class Player extends GameObject implements Hittable {
         
         x += actualSteps*dx;
         y += actualSteps*dy;
+        
+        if (input.isKeyPressed(Options.DODGE.key())) {
+            if ((actualSteps*dx!=0 || actualSteps*dy!=0)) {
+                abilityDodge.use(actualSteps*dx,actualSteps*dy);
+            } else {
+                int ndx = spritePointer==0?1:(spritePointer==2?-1:0);
+                int ndy = spritePointer==3?1:(spritePointer==1?-1:0);
+                abilityDodge.use(ndx,ndy);
+            }
+        }
     }
     
     private void getAttackDirection(Input input) {
@@ -374,7 +397,7 @@ public class Player extends GameObject implements Hittable {
     
     private void renderDebugInfo(Graphics g) {
         g.setColor(Color.white);
-        g.drawString("delta: " + String.valueOf(delta),10+camX,24+camY);
+        g.drawString("invulnerable: " + String.valueOf(invulnerable),10+camX,24+camY);
         g.drawString("x: " + String.valueOf(x),10+camX,38+camY);
         g.drawString("y: " + String.valueOf(y),10+camX,52+camY);
         attack.renderDebugInfo(camX+10,camY+66,g);

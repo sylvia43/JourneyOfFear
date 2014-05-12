@@ -16,7 +16,9 @@ public enum Options {
     
     SWITCH_WEAPON(Input.KEY_SPACE),
     
-    OPEN_MINIMAP(Input.KEY_M);
+    OPEN_MINIMAP(Input.KEY_M),
+    
+    DODGE(Input.KEY_O);
     
     private int key;
     public int key() { return key; }
