@@ -35,19 +35,18 @@ Key:
     [x] Different weapons.
     [x] Fix knockback bug.
     [x] Different types of attacks.
-    [x] Make the map render things in order of y position.
+    [x] Make the map render things by depth.
     [x] Player dodging.
+    [x] Clean up Tile code. It currently sucks.
     [/] Damage and death.
     [/] Menu state.
     [/] Tiles that block movement.
-    [/] Clean up Tile code. It currently sucks.
     [/] Make the map randomly generate.
     [/] Smart enemy.
     [/] More enemies.
     [/] Roads that look cool.
     [ ] All HUD's.
     [ ] Blob movement in jumps.
-    [ ] IMPLEMENT NEW SPRITES.
     [ ] Dungeons that are stitched together.
     [ ] NPC's that give quests.
     [ ] Kill quests.
