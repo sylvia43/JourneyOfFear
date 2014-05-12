@@ -63,7 +63,7 @@ public class RoadGenerator extends MapGenerator {
         
         // Ends are next to each other (forming V).
         if (sx*ex+sy*ey == 2) {
-            switch ((int)(Math.random()*3)) {
+            switch ((int)(Math.random()*2)+1) {
                 case 0:
                     arr = new Point[3];
                     arr[0] = new Point(0,0);
