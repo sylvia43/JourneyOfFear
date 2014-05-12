@@ -36,6 +36,7 @@ Key:
     [x] Fix knockback bug.
     [x] Different types of attacks.
     [x] Make the map render things in order of y position.
+    [x] Player dodging.
     [/] Damage and death.
     [/] Menu state.
     [/] Tiles that block movement.

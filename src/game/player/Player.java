@@ -130,7 +130,7 @@ public class Player extends GameObject implements Hittable {
         attackIndex = 0;
         attack = attacks.get(0);
         hud = new ArrayList<HUD>();
-        abilityDodge = new AbilityDodge(20);
+        abilityDodge = new AbilityDodge(16);
     }
     
     public void init(GameContainer container) throws SlickException {
