@@ -3,6 +3,7 @@ package game.state;
 import game.enemy.Enemy;
 import game.environment.obstacle.Obstacle;
 import game.map.Area;
+import game.map.gen.RoadGenerator;
 import game.npc.NPC;
 import game.player.Player;
 import game.util.MathHelper;
@@ -12,6 +13,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -96,6 +98,10 @@ public class StateSingleplayer extends BasicGameState {
         renderer.renderObjects(g);
         
         player.renderHUD(g);
+        
+        for (Shape s : RoadGenerator.rects) {
+            g.draw(s);
+        }
     }
     
     private void setupArea(GameContainer container, Player player) {
