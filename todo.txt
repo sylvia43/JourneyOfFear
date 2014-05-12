@@ -43,15 +43,17 @@ Key:
     [/] Make the map randomly generate.
     [/] Smart enemy.
     [/] More enemies.
+    [/] Roads that look cool.
+    [ ] All HUD's.
+    [ ] Blob movement in jumps.
     [ ] IMPLEMENT NEW SPRITES.
     [ ] Dungeons that are stitched together.
-    [ ] Roads that look cool.
     [ ] NPC's that give quests.
     [ ] Kill quests.
     [ ] Items, for merchants and fetch quests.
     [ ] Fetch quests.
     [ ] NPC's that sell stuff.
-    [ ] Rewrite Slick2D backend.
+    [ ] Rewrite Slick2D backend frontend (as in StateBasedGame).
     [ ] Blocking/Defense.
     [ ] Combo attacks.
     [ ] Boss fight.
@@ -80,7 +82,7 @@ Key:
     [ ] Slime death animation for all types of slimes.
     [ ] Magic blast animations.
     [ ] Game title page w/ selecting arrow and font.
-    [ ] Fix transition tiles.
+    [ ] Fix transition tiles (?).
     [ ] Bosses.
     [ ] Add tile for holes in the ground.
 
