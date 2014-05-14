@@ -24,6 +24,8 @@ public class RoadGenerator extends MapGenerator {
     
     public void recursiveRoad(int depth, int size, int x, int y, int sx, int sy, int ex, int ey, int sp, int ep) {
         
+        if(x == 3 && y == 3)
+            x = x;
         // DEBUGGING
         rects.add(new Rectangle(x*64,y*64,size*64,size*64));
         for (int i=0;i<3-depth;i++)
@@ -31,7 +33,7 @@ public class RoadGenerator extends MapGenerator {
         System.out.println(size + " " + x + " " + y);
         // END DEBUGGING
         
-        Point[] path = generatePath(sx,sy,ex,ey,sp,ep);
+        Point[] path = generatePath(sx,sy,ex,ey);
         
         if (depth == 0) {
             map[x][y] = Tile.DIRT_BASIC;
@@ -58,12 +60,12 @@ public class RoadGenerator extends MapGenerator {
         }
     }
     
-    private Point[] generatePath(int sx, int sy, int ex, int ey, int sp, int ep) {
+    private Point[] generatePath(int sx, int sy, int ex, int ey) {
         Point[] arr = null;
         
         // Ends are next to each other (forming V).
-        if (sx*ex+sy*ey == 2) {
-            switch ((int)(Math.random()*2)+1) {
+        if (sx == 0 && sy == 0) {
+            switch ((int)(Math.random()*3)) {
                 case 0:
                     arr = new Point[3];
                     arr[0] = new Point(0,0);
@@ -86,11 +88,17 @@ public class RoadGenerator extends MapGenerator {
                     break;
             }
             return arr;
-        } else if (sx*ex+sy*ey == 0) { // Going straight across.
+        } else if (sx == 0 && sy != 0) { // Going straight across.
             arr = new Point[3];
             arr[0] = new Point(0,1);
             arr[1] = new Point(1,1);
             arr[2] = new Point(2,1);
+            return arr;
+        } else if (sx != 0 && sy == 0) {
+            arr = new Point[3];
+            arr[0] = new Point(1, 0);
+            arr[1] = new Point(1, 1);
+            arr[2] = new Point(1, 2);
             return arr;
         }
         
