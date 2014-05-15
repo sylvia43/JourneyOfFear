@@ -36,13 +36,13 @@ public class RoadGenerator extends MapGenerator {
         else {
             Point[] path = generatePath(sx, sy, ex, ey);
             for(Point p : path)
-                map[30][30] = Tile.DIRT_BASIC;
+                map[sx+p.getX()][sy+p.getY()] = Tile.DIRT_BASIC;
         }          
     }
     
     private Point[] generatePath(int sx, int sy, int ex, int ey) {
         ArrayList<Point> arr = new ArrayList<>();
-        Point p = new Point(sx,sy,ex-sx+1,ey-sy+1);
+        Point p = new Point(0,0,3,3);
         while(!p.getSubPoints().isEmpty()) {
             arr.add(p);
             p = p.getSubPoint((int)(Math.random()*p.getSubPoints().size()));
