@@ -32,7 +32,7 @@ public class RoadGenerator extends MapGenerator {
         
         if(size != 1)
             for(int i = 0; i < 3; i++)
-                recursiveRoad(depth-1, size/3, sx + i * (size / 3), sy + i * (size / 3), ex + i * (size / 3), ey + i * (size / 3));
+                recursiveRoad(depth-1,size/3,sx+i*(size/3),sy+i*(size/3),ex+i*(size/3),ey+i*(size/3));
         else {
             Point[] path = generatePath(sx, sy, ex, ey);
             for(Point p : path) {
