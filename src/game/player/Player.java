@@ -154,8 +154,7 @@ public class Player extends GameObject implements Hittable {
         
         if (!abilityDodge.inUse())
             movePlayer(container.getInput(),delta);
-        
-        if (abilityDodge.inUse())
+        else
             invulnerable = true;
         
         resolveCollision();
