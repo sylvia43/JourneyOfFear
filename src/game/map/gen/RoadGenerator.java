@@ -30,17 +30,18 @@ public class RoadGenerator extends MapGenerator {
         System.out.println(size + " " + sx + " " + sy);
         // END DEBUGGING
         
-        if(size != 1)
-            for(int i = 0; i < 3; i++)
-                recursiveRoad(depth-1,size/3,sx+i*(size/3),sy+i*(size/3),ex+i*(size/3),ey+i*(size/3));
+        Point[] path = generatePath(sx, sy, ex, ey);
+        if(size != 1) {
+            for(Point p : path)
+                recursiveRoad(depth-1,size/3,sx+p.getX()*(size/3),sy+p.getY()*(size/3),ex+p.getX()*(size/3),ey+p.getY()*(size/3));
+        }
         else {
-            Point[] path = generatePath(sx, sy, ex, ey);
             for(Point p : path) {
                 if(sx+p.getX() >= 27 || sy+p.getY() >= 27)
                     return;
                 map[sx+p.getX()][sy+p.getY()] = Tile.DIRT_BASIC;
             }
-        }          
+        }
     }
     
     private Point[] generatePath(int sx, int sy, int ex, int ey) {
