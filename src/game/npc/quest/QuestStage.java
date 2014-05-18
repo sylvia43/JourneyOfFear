@@ -16,7 +16,7 @@ public class QuestStage {
         return quest.isComplete() ? nextPos : currentPos;
     }
     
-    public String getStatus() {
-        return quest.getMessage();
+    public Quest getQuest() {
+        return quest;
     }
 }

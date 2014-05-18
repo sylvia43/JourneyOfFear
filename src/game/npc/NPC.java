@@ -1,16 +1,21 @@
 package game.npc;
 
+import game.npc.npcutils.QuestGenerator;
+import game.npc.quest.QuestSequence;
 import game.npc.utils.Routine;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
 import game.state.StateSingleplayer;
 import game.util.GameObject;
+import game.util.resource.AnimationLibrary;
+import java.util.ArrayList;
+import java.util.List;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-public abstract class NPC extends GameObject {
+public class NPC extends GameObject {
     
     protected int x;
     protected int y;
@@ -23,7 +28,9 @@ public abstract class NPC extends GameObject {
     
     protected Routine routine;
     
-    protected final String name;
+    private List<QuestSequence> quests;
+    
+    protected String name;
     
     @Override public int getX() { return x; }
     @Override public int getY() { return y; }
@@ -35,7 +42,12 @@ public abstract class NPC extends GameObject {
     @Override public void setY(int y) { this.y = y; }
     
     protected EntitySprite sprite;
-        
+    
+    public ImageMask getCollisionMask() {
+        return sprite.getAnimationMask(spritePointer)
+                .getImageMask(sprite.getAnim(spritePointer).getFrame()).update(x-spriteWidth/2,y-spriteHeight/2);
+    }
+    
     public NPC() {
         this((int)(Math.random()*StateSingleplayer.WORLD_SIZE_X),
                 (int)(Math.random()*StateSingleplayer.WORLD_SIZE_Y));
@@ -47,6 +59,8 @@ public abstract class NPC extends GameObject {
         minimapColor = Color.blue;
         spritePointer = 0;
         name = "NPC";
+        quests = new ArrayList<QuestSequence>();
+        quests.add(QuestGenerator.generateQuest(this));
     }
     
     public void init() {
@@ -56,7 +70,11 @@ public abstract class NPC extends GameObject {
         spriteWidth = sprite.getAnim(spritePointer).getWidth() * 4;
     }
     
-    public abstract void update(int delta);
+    public void update(int delta) { };
+    
+    public QuestSequence converse() {
+        return quests.get(0);
+    }
     
     @Override
     public void render(Graphics g) {
@@ -66,7 +84,25 @@ public abstract class NPC extends GameObject {
         currentSprite.draw(x-spriteWidth/2,y-spriteHeight/2,64,64);
     }
     
-    protected abstract void initializeSprite();
+    protected void initializeSprite() {
+        sprite = new EntitySprite(4);
+        
+        Animation[] animList = {
+            AnimationLibrary.PLAYER_RIGHT.getAnim(),
+            AnimationLibrary.PLAYER_UP.getAnim(),
+            AnimationLibrary.PLAYER_LEFT.getAnim(),
+            AnimationLibrary.PLAYER_DOWN.getAnim()
+        };
+        sprite.setAnimations(animList);
+        
+        AnimationMask[] animMaskList = {
+            initializeMask(0),
+            initializeMask(1),
+            initializeMask(2),
+            initializeMask(3)
+        };
+        sprite.setMasks(animMaskList);
+    }
     
     protected AnimationMask initializeMask(int index) {
         int frames = sprite.getAnim(index).getFrameCount();

@@ -7,9 +7,12 @@ import game.environment.obstacle.Obstacle;
 import game.environment.obstacle.Tree;
 import game.hud.HUD;
 import game.hud.Minimap;
+import game.hud.QuestDisplay;
 import game.map.Area;
 import game.network.server.DataPacket;
 import game.network.server.EnemyPlayerData;
+import game.npc.NPC;
+import game.npc.quest.QuestSequence;
 import game.player.attack.Attack;
 import game.player.attack.AttackAxeCleave;
 import game.player.attack.AttackDaggerSlash;
@@ -57,7 +60,6 @@ public class Player extends GameObject implements Hittable {
     
     private int camX;
     private int camY;
-    private int delta;
     
     private int MAX_HEALTH = 40;
     private int currentHealth = MAX_HEALTH;
@@ -66,6 +68,7 @@ public class Player extends GameObject implements Hittable {
     
     private Area area;
     private List<HUD> hud;
+    private List<QuestSequence> quests;
     
     private int attackDirection;
     
@@ -145,11 +148,12 @@ public class Player extends GameObject implements Hittable {
         spriteHeight = sprite.getAnim(spritePointer).getHeight() * 4;
         spriteWidth = sprite.getAnim(spritePointer).getWidth() * 4;
         attack.init();
+        quests = new ArrayList<QuestSequence>();
         hud.add(new Minimap(true));
+        hud.add(new QuestDisplay(true,quests));
     }
     
     public void update(GameContainer container, int delta) {
-        this.delta = delta;
         resolveInvulnerability(delta); //and knockback
         
         if (!abilityDodge.inUse())
@@ -182,6 +186,12 @@ public class Player extends GameObject implements Hittable {
         
         for (Enemy e : area.getEnemies())
             attack.resolveAttackHit(e,x-spriteWidth/2,y-spriteHeight/2);
+        
+        for (NPC n : area.getNPCS()) {
+            if (n.getCollisionMask().intersects(getCollisionMask())) {
+                quests.add(n.converse());
+            }
+        }
         
         for (HUD h : hud)
             h.respondToUserInput(input);

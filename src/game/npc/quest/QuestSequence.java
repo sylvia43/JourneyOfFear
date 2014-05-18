@@ -13,13 +13,17 @@ public class QuestSequence {
         currentStage = 0;
     }
     
-    public String update() {
+    public void update() {
         currentStage = stages.get(currentStage).update();
-        return stages.get(currentStage).getStatus();
     }
     
     public void addStage(int pos, QuestStage stage) {
         stages.put(pos,stage);
+    }
+    
+    @Override
+    public String toString() {
+        return stages.get(currentStage).getQuest().toString();
     }
     
     // Dialogue needs to be stored here too.

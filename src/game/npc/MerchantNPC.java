@@ -5,12 +5,7 @@ import game.sprite.EntitySprite;
 import game.util.resource.AnimationLibrary;
 import org.newdawn.slick.Animation;
 
-public class MerchantNPC extends QuestNPC {
-    
-    @Override
-    public void update(int delta) {
-        
-    }
+public class MerchantNPC extends NPC {
     
     @Override
     protected void initializeSprite() {

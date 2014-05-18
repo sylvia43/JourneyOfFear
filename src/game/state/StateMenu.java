@@ -1,9 +1,7 @@
 package game.state;
 
 import game.Game;
-import game.error.ResourceException;
 import game.util.resource.ImageLibrary;
-import java.awt.Font;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -11,7 +9,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
-import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.MouseOverArea;
@@ -47,17 +44,6 @@ public class StateMenu extends BasicGameState implements ComponentListener {
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
         this.game = game;
-
-        Font awtFont = new Font("Times New Roman",Font.BOLD,24);
-        font = new UnicodeFont(awtFont);
-        font.getEffects().add(new ColorEffect(java.awt.Color.white));
-        font.addAsciiGlyphs();
-
-        try {
-            font.loadGlyphs();
-        } catch (SlickException e) {
-            throw new ResourceException("Error loading font: " + e);
-        }
         
         buttonSingle = ImageLibrary.BUTTON_SINGLE.getImage();
         buttonMulti = ImageLibrary.BUTTON_MULTI.getImage();
