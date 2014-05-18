@@ -8,7 +8,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.MouseOverArea;
@@ -24,7 +23,6 @@ public class StateMenu extends BasicGameState implements ComponentListener {
     
     private MouseOverArea[] areas = new MouseOverArea[4];
     private Image background;
-    private UnicodeFont font;
     
     public static final int AREA_SINGLEPLAYER = 0;
     public static final int AREA_MULTIPLAYER = 1;
