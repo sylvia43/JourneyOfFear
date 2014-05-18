@@ -29,6 +29,7 @@ public class NPC extends GameObject {
     protected Routine routine;
     
     private List<QuestSequence> quests;
+    protected boolean questRequested = true;
     
     protected String name;
     
@@ -73,7 +74,12 @@ public class NPC extends GameObject {
     public void update(int delta) { };
     
     public QuestSequence converse() {
-        return quests.get(0);
+        if(questRequested) {
+            questRequested = quests.get(0).isComplete();
+            return quests.get(0);
+        }
+        questRequested = quests.get(0).isComplete();
+        return null;
     }
     
     @Override

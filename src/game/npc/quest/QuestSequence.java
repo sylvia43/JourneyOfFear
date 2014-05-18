@@ -21,6 +21,10 @@ public class QuestSequence {
         stages.put(pos,stage);
     }
     
+    public boolean isComplete() {
+        return (currentStage + 1) == stages.size();
+    }
+    
     @Override
     public String toString() {
         return stages.get(currentStage).getQuest().toString();

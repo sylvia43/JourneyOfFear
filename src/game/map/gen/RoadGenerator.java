@@ -23,6 +23,9 @@ public class RoadGenerator extends MapGenerator {
     }
     
     public void recursiveRoad(int depth, int size, int sx, int sy, int ex, int ey) {
+        if(size == 0)
+            return;
+        
         // DEBUGGING
         if (StateSingleplayer.DEBUG_MODE) {
             rects.add(new Rectangle(sx*64,sy*64,size*64,size*64));
@@ -33,63 +36,71 @@ public class RoadGenerator extends MapGenerator {
         // END DEBUGGING
         
         Point[] path = generatePath(sx, sy, ex, ey);
-        if(size != 1) {
+        if(size != 1)
             for(Point p : path)
                 recursiveRoad(depth-1,size/3,sx+p.getX()*(size/3),sy+p.getY()*(size/3),ex+p.getX()*(size/3),ey+p.getY()*(size/3));
-        }
-        else {
-            for(Point p : path) {
-                if(sx+p.getX() >= 27 || sy+p.getY() >= 27)
-                    return;
+        else
+            for(Point p : path)
                 map[sx+p.getX()][sy+p.getY()] = Tile.DIRT_BASIC;
-            }
-        }
     }
     
+    
+    
     private Point[] generatePath(int sx, int sy, int ex, int ey) {
-        ArrayList<Point> arr = new ArrayList<>();
-        while(arr.size() != 3 && arr.size() != 4) {
-            arr = new ArrayList<>();
-            Point p = new Point(0,0,3,3);
-            while(!p.getSubPoints().isEmpty()) {
-                arr.add(p);
-                p = p.getSubPoint((int)(Math.random()*p.getSubPoints().size()));
+        Point[] arr = null;
+        if(sx == ex) {
+            arr = new Point[] {
+                new Point(0, 0),
+                new Point(0, 1),
+                new Point(0, 2)
+            };
+        } else if(sy == ey) {
+            arr = new Point[] {
+                new Point(0, 0),
+                new Point(1, 0),
+                new Point(2, 0)
+            };
+        } else {
+            switch((int)(Math.random()*3)) {
+                case 0:
+                    arr = new Point[] {
+                        new Point(0, 0),
+                        new Point(1, 1),
+                        new Point(2, 2)
+                    };
+                    break;
+                case 1:
+                    arr = new Point[] {
+                        new Point(0, 0),
+                        new Point(1, 0),
+                        new Point(2, 1),
+                        new Point(2, 2)
+                    };
+                    break;
+                case 2:
+                    arr = new Point[] {
+                        new Point(0, 0),
+                        new Point(0, 1),
+                        new Point(1, 2),
+                        new Point(2, 2)
+                    };
+                    break;
             }
-            if(arr.isEmpty())
-                arr.add(p);
         }
-        return arr.toArray(new Point[arr.size()]);
+        return arr;
     }
     
     class Point {
         
         private final int x;
         private final int y;
-        private ArrayList<Point> subPoints;
         
         public int getX() { return x; }
         public int getY() { return y; }
-        public ArrayList<Point> getSubPoints() { return subPoints; }
-        public Point getSubPoint(int index) { return subPoints.get(index); }
         
         public Point(int x, int y) {
             this.x = x;
             this.y = y;
-        }
-        
-        public Point(int x, int y, int xbound, int ybound) {
-            this.x = x;
-            this.y = y;
-            subPoints = new ArrayList<>();
-            setupPoints(xbound, ybound);
-        }
-        
-        private void setupPoints(int xbound, int ybound) {
-            for(int i = 0; i < 2; i++)
-                for(int j = 0; j < 2; j++)
-                    if(!(i == 0 && j == 0))
-                        if(x+i < xbound && y+j < ybound)
-                            subPoints.add(new Point(x+i,y+j,xbound,ybound));
         }
     }
 }
