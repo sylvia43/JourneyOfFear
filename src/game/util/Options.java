@@ -17,6 +17,7 @@ public enum Options {
     SWITCH_WEAPON(Input.KEY_O),
     
     OPEN_MINIMAP(Input.KEY_M),
+    OPEN_QUEST_DISPLAY(Input.KEY_U),
     
     DODGE(Input.KEY_SPACE);
     

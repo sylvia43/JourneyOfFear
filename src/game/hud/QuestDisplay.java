@@ -27,7 +27,7 @@ public class QuestDisplay extends PassiveHUD {
     
     @Override
     public void respondToUserInput(Input in) {
-        if (in.isKeyPressed(Options.OPEN_MINIMAP.key()))
+        if (in.isKeyPressed(Options.OPEN_QUEST_DISPLAY.key()))
             visible = !visible;
     }
     
@@ -42,12 +42,14 @@ public class QuestDisplay extends PassiveHUD {
         
         int posX = camX+5;
         int posY = camY+5;
-        int width = (int)(2.3*viewX)/5;
+        int width = (int)(2.3*viewX)/6;
         int height = (int)(((double)worldY/worldX)*(2.3*viewX)/4);
         
         g.fillRect(posX,posY,width,height);
         
         g.setFont(FontLibrary.QUEST_FONT.getFont());
+        
+        g.setColor(FONT_WHITE);
         
         for (int i=0;i<Math.min(quests.size(),10);i++) {
             QuestSequence q = quests.get(i);
