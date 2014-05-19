@@ -193,7 +193,14 @@ public class Player extends GameObject implements Hittable {
             for (NPC n : area.getNPCS()) {
                 if (n.getCollisionMask().intersects(getCollisionMask())) {
                     QuestSequence q = n.converse();
-                    if(q != null)
+                    boolean questGiven = false;
+                    for (QuestSequence qq : quests) {
+                        if (q == qq) { // Should owrk.
+                            questGiven = true;
+                            break;
+                        }
+                    }
+                    if (!questGiven)
                         quests.add(q);
                 }
             }
