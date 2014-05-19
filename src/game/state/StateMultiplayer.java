@@ -1,9 +1,8 @@
 package game.state;
 
-import game.Game;
 import game.enemy.EnemyPlayer;
+import game.error.NetworkException;
 import game.network.client.NetworkHandler;
-import game.util.Logger;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +35,7 @@ public class StateMultiplayer extends StateSingleplayer {
         try {
             network = new NetworkHandler(ip,port,player,enemies);
         } catch (UnknownHostException e) {
-            Logger.log(e);
-            Game.exitGame(e);
+            throw new NetworkException(e);
         }
         network.start();
     }
