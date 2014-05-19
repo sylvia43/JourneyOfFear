@@ -67,8 +67,8 @@ public class NPC extends GameObject {
     public void init() {
         initializeSprite();
         spritePointer = 3;
-        spriteHeight = sprite.getAnim(spritePointer).getHeight() * 4;
-        spriteWidth = sprite.getAnim(spritePointer).getWidth() * 4;
+        spriteHeight = sprite.getAnim(spritePointer).getHeight()*4;
+        spriteWidth = sprite.getAnim(spritePointer).getWidth()*4;
     }
     
     public void update(int delta) { };

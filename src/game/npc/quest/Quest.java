@@ -7,6 +7,6 @@ public abstract class Quest {
     
     @Override
     public String toString() {
-        return "[" + (isComplete()?"x":" ") + "] " + getMessage();
+        return getMessage();
     }
 }

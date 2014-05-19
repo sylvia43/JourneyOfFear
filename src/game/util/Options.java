@@ -15,6 +15,7 @@ public enum Options {
     ATTACK_RIGHT(Input.KEY_RIGHT),
     
     SWITCH_WEAPON(Input.KEY_O),
+    INTERACT(Input.KEY_E),
     
     OPEN_MINIMAP(Input.KEY_M),
     OPEN_QUEST_DISPLAY(Input.KEY_U),

@@ -19,7 +19,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class StateSingleplayer extends BasicGameState {
     
-    public static final boolean DEBUG_MODE = true;
+    public static final boolean DEBUG_MODE = false;
     public static final boolean DEBUG_COLLISION = false;
     public static final int VIEW_SIZE_X = 640;
     public static final int VIEW_SIZE_Y = 512;

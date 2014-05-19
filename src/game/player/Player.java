@@ -187,11 +187,13 @@ public class Player extends GameObject implements Hittable {
         for (Enemy e : area.getEnemies())
             attack.resolveAttackHit(e,x-spriteWidth/2,y-spriteHeight/2);
         
-        for (NPC n : area.getNPCS()) {
-            if (n.getCollisionMask().intersects(getCollisionMask())) {
-                QuestSequence q = n.converse();
-                if(q != null)
-                    quests.add(q);
+        if (input.isKeyPressed(Options.INTERACT.key())) {
+            for (NPC n : area.getNPCS()) {
+                if (n.getCollisionMask().intersects(getCollisionMask())) {
+                    QuestSequence q = n.converse();
+                    if(q != null)
+                        quests.add(q);
+                }
             }
         }
         
