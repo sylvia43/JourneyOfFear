@@ -11,7 +11,8 @@ public class TalkQuest extends Quest {
         this.target = target;
     }
     
-    // Called by NPC, this object is passed by Player on conversing.
+    // This TalkQuest is passed by Player on conversing with an NPC. The NPC
+    // calls this method. SEE I CAN DOCUMENT (but not spell it).
     public void update() {
         complete = true;
     }

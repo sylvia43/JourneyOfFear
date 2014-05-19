@@ -73,7 +73,10 @@ public class NPC extends GameObject {
     public void update(int delta) { };
     
     public QuestSequence converse() {
-        return quests.get(0);
+        if (!quests.get(0).isAccepted())
+            return quests.get(0).accept();
+        else
+            return quests.get(0).update();
     }
     
     @Override
