@@ -63,6 +63,10 @@ public abstract class Enemy extends GameObject implements Hittable {
     public int getHitDamage() { return hitDamage; }
     public abstract String getName(); //Name of enemy
     
+    public void kill() {
+        player.resolveKill(this);
+    }
+    
     public boolean isType(EnemyType type) { return types.contains(type); }
     
     @Override

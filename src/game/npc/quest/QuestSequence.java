@@ -13,6 +13,10 @@ public class QuestSequence {
         currentStage = 0;
     }
     
+    public QuestStage getCurrentStage() {
+        return stages.get(currentStage);
+    }
+    
     public void update() {
         currentStage = stages.get(currentStage).update();
     }

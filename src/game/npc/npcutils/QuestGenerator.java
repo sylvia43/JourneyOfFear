@@ -12,7 +12,7 @@ public class QuestGenerator {
     public static QuestSequence generateQuest(NPC npc) {
         QuestSequence quest = new QuestSequence();
         
-        KillQuest killQuest = new KillQuest(EnemyType.BLOB,5);
+        KillQuest killQuest = new KillQuest(EnemyType.BLOB,1);
         TalkQuest talkQuest = new TalkQuest(npc);
         
         quest.addStage(0,new QuestStage(killQuest,0,1));

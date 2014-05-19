@@ -12,6 +12,8 @@ import game.map.Area;
 import game.network.server.DataPacket;
 import game.network.server.EnemyPlayerData;
 import game.npc.NPC;
+import game.npc.quest.KillQuest;
+import game.npc.quest.Quest;
 import game.npc.quest.QuestSequence;
 import game.player.attack.Attack;
 import game.player.attack.AttackAxeCleave;
@@ -197,6 +199,9 @@ public class Player extends GameObject implements Hittable {
             }
         }
         
+        for (QuestSequence q : quests)
+            q.update();
+        
         for (HUD h : hud)
             h.respondToUserInput(input);
     }
@@ -209,6 +214,18 @@ public class Player extends GameObject implements Hittable {
         attack.render(x-spriteWidth/2,y-spriteHeight/2);
         if (StateSingleplayer.DEBUG_MODE)
             renderDebugInfo(g);
+    }
+    
+    public void resolveKill(Enemy e) {
+        String message = null;
+        for (QuestSequence qs : quests) {
+            Quest q = qs.getCurrentStage().getQuest();
+            if (q instanceof KillQuest) {
+                KillQuest kq = (KillQuest) q;
+                message = kq.update(e);
+            }
+        }
+        System.out.println(message);
     }
     
     public void renderHealth() {

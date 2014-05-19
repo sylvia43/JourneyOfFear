@@ -104,6 +104,7 @@ public class Area {
     }
     
     public Enemy removeEnemy(Enemy e) {
+        e.kill();
         enemies.remove(e);
         objects.remove(e);
         return e;
