@@ -225,7 +225,6 @@ public class Player extends GameObject implements Hittable {
                 message = kq.update(e);
             }
         }
-        System.out.println(message);
     }
     
     public void renderHealth() {

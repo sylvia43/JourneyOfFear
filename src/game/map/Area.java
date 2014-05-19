@@ -104,7 +104,6 @@ public class Area {
     }
     
     public Enemy removeEnemy(Enemy e) {
-        e.kill();
         enemies.remove(e);
         objects.remove(e);
         return e;
@@ -138,6 +137,7 @@ public class Area {
         for (Enemy e : newCurrentAreaEnemyList) {
             if (e.readyToDie()) {
                 removeEnemy(e);
+                e.kill();
                 e = null;
                 continue;
             }
