@@ -2,6 +2,7 @@ package game.npc.quest;
 
 import game.npc.NPC;
 
+/** Quest to converse with an NPC. */
 public class TalkQuest extends Quest {
     
     private NPC target;
@@ -11,8 +12,10 @@ public class TalkQuest extends Quest {
         this.target = target;
     }
     
-    // This TalkQuest is passed by Player on conversing with an NPC. The NPC
-    // calls this method. SEE I CAN DOCUMENT (but not spell it).
+    /**
+     * This TalkQuest is passed by Player on conversing with an NPC. The NPC
+     * calls this method.
+     */
     public void update() {
         complete = true;
     }

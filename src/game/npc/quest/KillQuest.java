@@ -3,6 +3,7 @@ package game.npc.quest;
 import game.enemy.Enemy;
 import game.enemy.EnemyType;
 
+/** Quest to kill monster(s). */
 public class KillQuest extends Quest {
     
     private EnemyType type;

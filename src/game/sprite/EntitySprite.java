@@ -2,6 +2,7 @@ package game.sprite;
 
 import org.newdawn.slick.Animation;
 
+/** Stores Animations and Masks for an entity (such as an npc, player, or enemy). */
 public class EntitySprite {
     
     private Animation[] animation;

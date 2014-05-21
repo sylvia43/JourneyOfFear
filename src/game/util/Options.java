@@ -2,6 +2,7 @@ package game.util;
 
 import org.newdawn.slick.Input;
 
+/** Wrapper around inputs to be easily modifiable. */
 public enum Options {
     
     MOVE_UP(Input.KEY_W),

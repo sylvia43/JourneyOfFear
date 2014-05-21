@@ -4,6 +4,7 @@ import game.error.ResourceException;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 
+/** Stores animations. */
 public enum AnimationLibrary {
     
     // Player sprites.

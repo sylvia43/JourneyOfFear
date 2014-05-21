@@ -4,6 +4,7 @@ import game.state.StateSingleplayer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
+/** Stores a collision mask for an Image. */
 public class ImageMask {
     
     private boolean[][] mask;

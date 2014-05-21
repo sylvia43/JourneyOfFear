@@ -4,6 +4,7 @@ import game.error.ResourceException;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
+/** I'm bored of typing this, but here it is: Stores sounds. */
 public enum SoundLibrary {
     
     SWORD_SWING_1("swing1.ogg"),

@@ -1,10 +1,9 @@
 package game.sprite;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-/**
- * Stores a rectangle by its vertices (not width/height).
- */
+/** Stores a rectangle by its vertices (not width/height). */
 public class Rectangle {
     
     private int x1,x2,y1,y2;
@@ -47,13 +46,15 @@ public class Rectangle {
         return intersectsShifted(other,0,0);
     }
     
+    // I don't even.
     public int intersectsShifted(Rectangle other, int dx, int dy) {
         return (x1<other.getX2()+dx && x2>other.getX1()+dx && y1<other.getY2()+dy && y2>other.getY1()+dy)
                 ? 2 : (x1==other.getX2()+dx || x2==other.getX1()+dx || y1==other.getY2()+dy || y2==other.getY1()+dy)
                 ? 1 : 0;
     }
     
-    public void render(Graphics g) {
+    public void render(Graphics g, Color c) {
+        g.setColor(c);
         g.drawRect(x1,y1,x2-x1,y2-y1);
     }
     

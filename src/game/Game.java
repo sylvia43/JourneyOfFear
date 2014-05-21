@@ -9,6 +9,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+/** You probably shouldn't be modifying this class. */
 public class Game extends StateBasedGame {
     
     public static final int STATE_MENU = 0;

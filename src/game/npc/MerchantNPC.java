@@ -5,6 +5,7 @@ import game.sprite.EntitySprite;
 import game.util.resource.AnimationLibrary;
 import org.newdawn.slick.Animation;
 
+/** An NPC that sells stuff. Even more surprise. */
 public class MerchantNPC extends NPC {
     
     @Override

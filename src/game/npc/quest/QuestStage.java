@@ -1,5 +1,6 @@
 package game.npc.quest;
 
+/** Stores a Quest and the index of the next stage in the sequence. */
 public class QuestStage {
     
     private Quest quest;
@@ -12,6 +13,7 @@ public class QuestStage {
         this.nextPos = nextPos;
     }
     
+    /** @return The position of the correct QuestStage (this or next if done). */
     public int update() {
         return quest.isComplete() ? nextPos : currentPos;
     }

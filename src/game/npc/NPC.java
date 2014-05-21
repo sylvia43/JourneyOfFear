@@ -1,8 +1,8 @@
 package game.npc;
 
 import game.npc.npcutils.QuestGenerator;
+import game.npc.npcutils.Routine;
 import game.npc.quest.QuestSequence;
-import game.npc.utils.Routine;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
@@ -15,6 +15,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+/** An NPC. *gasp*/
 public class NPC extends GameObject {
     
     protected int x;
@@ -73,10 +74,12 @@ public class NPC extends GameObject {
     public void update(int delta) { };
     
     public QuestSequence converse() {
+        QuestSequence q = quests.get(0);
         if (!quests.get(0).isAccepted())
-            return quests.get(0).accept();
+            q.accept();
         else
-            return quests.get(0).update();
+            q.update();
+        return q;
     }
     
     @Override

@@ -1,5 +1,6 @@
 package game.error;
 
+/** Represents a networking exception, will halt the program. */
 public class NetworkException extends RuntimeException {
     public NetworkException() { super(); }
     public NetworkException(String s) { super(s); }

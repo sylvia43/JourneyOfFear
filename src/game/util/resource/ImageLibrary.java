@@ -4,6 +4,7 @@ import game.error.ResourceException;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+/** Stores Images. */
 public enum ImageLibrary {
     
     // Menu buttons.

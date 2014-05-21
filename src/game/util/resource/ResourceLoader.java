@@ -7,6 +7,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 
+/** Loads resources. */
 public class ResourceLoader {
     
     public static Sound initializeSound(String filepath) throws SlickException {

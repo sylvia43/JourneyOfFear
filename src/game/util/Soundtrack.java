@@ -2,6 +2,7 @@ package game.util;
 
 import game.util.resource.MusicLibrary;
 
+/** Plays muzak, probably buggy. */
 public class Soundtrack {
     
     private int currentTrackIndex = -1;

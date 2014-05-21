@@ -4,6 +4,7 @@ import game.map.Area;
 import game.player.Player;
 import org.newdawn.slick.Graphics;
 
+/** Much render. Such wow. */
 public class Renderer {
         
     private final int viewX;

@@ -42,6 +42,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+/** Not even going to try... Mostly self-explanatory anyway... */
 public class Player extends GameObject implements Hittable {
 
     private EntitySprite sprite;
@@ -443,7 +444,7 @@ public class Player extends GameObject implements Hittable {
         attack.renderDebugInfo(camX+10,camY+66,g);
         if (StateMultiplayer.DEBUG_COLLISION) {
             getCollisionMask().render(g);
-            collisionMask.render(g);
+            collisionMask.render(g,Color.blue);
             attack.renderMask(x-spriteWidth/2,y-spriteHeight/2,g);
         }
         g.drawRect(x-8,y-8,16,16);

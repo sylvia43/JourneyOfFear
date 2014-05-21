@@ -1,5 +1,6 @@
 package game.sprite;
 
+/** Represents a hittable object. */
 public interface Hittable {
     
     public int getX();

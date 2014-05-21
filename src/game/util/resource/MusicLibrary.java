@@ -3,6 +3,7 @@ package game.util.resource;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 
+/** Stores music. */
 public enum MusicLibrary {
     
     DEMON_WITHIN("demon_within.ogg"),
@@ -57,9 +58,11 @@ public enum MusicLibrary {
         this.filepath = filepath;
     }
     
+    /** My first thread ^_^ */
     public void playMusic() {
         queued = true;
         Thread bindMusic = new Thread(new Runnable() {
+            @Override
             public void run() {
                 loading = true;
                 long start = System.currentTimeMillis();

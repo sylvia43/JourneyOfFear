@@ -6,10 +6,10 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ColorEffect;
 
+/** Stores fonts. */
 public enum FontLibrary {
     
     // Menu buttons.
-// Menu buttons.
     TIMES_NEW_ROMAN_LARGE("Times New Roman",24),
     QUEST_FONT("Arial Narrow",18);
     

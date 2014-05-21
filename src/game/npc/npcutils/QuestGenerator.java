@@ -7,8 +7,13 @@ import game.npc.quest.QuestSequence;
 import game.npc.quest.QuestStage;
 import game.npc.quest.TalkQuest;
 
+/** Used to generate quests by NPC's. */
 public class QuestGenerator {
     
+    /** Generates a quest.
+     * @param npc The NPC object.
+     * @return A new QuestSequence object.
+     */
     public static QuestSequence generateQuest(NPC npc) {
         QuestSequence quest = new QuestSequence();
         

@@ -37,7 +37,7 @@ public class Tree extends SolidObstacle {
             g.setColor(Color.cyan);
             mask.render(g);
             g.setColor(Color.red);
-            collisionMask.render(g);
+            collisionMask.render(g,Color.red);
         }
     }
     
