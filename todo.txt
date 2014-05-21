@@ -95,7 +95,8 @@ Key:
     [x] Lots of music.
     [x] Unelectric sound effects.
     [x] Boss themes.
-    [ ] More music.
+    [x] Send Chad's music.
+    [/] More music.
     [ ] More attack sounds.
     [ ] Bow pull sounds.
     [ ] Bow shoot sounds.
