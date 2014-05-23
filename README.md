@@ -1,11 +1,7 @@
 Journey of Fear
 ===============
 
-All the source code and assets for Journey of Fear. It's kinda a mess but it's all here.
-
-Our releases will be out of date and in developer mode, sorry.
-
-Preliminary multiplayer will be coming out soon (hopefully). We still have a significant amount of kinks to work out (you try writing a server in Java) but we're getting there!
+All the source code and assets for the Java game Journey of Fear.
 
 Resources:
 
@@ -25,5 +21,3 @@ Current contributors:
 | Tarik         | Programming   |
 | Joshua        | Art   |
 | David         | Sound and Music   |
-
-Thanks to Daniel (MrSnrhms) and Brennan (Brennan-S) for minor help with programming.
