@@ -13,6 +13,8 @@ import org.newdawn.slick.Graphics;
 
 public class EnemyMutant extends AttackingEnemy {
     
+    public static final int difficulty = 6;
+    
     protected static final int DIR_SWITCH_SPEED = 500;
     protected int dirChangeCounter = 0;
     

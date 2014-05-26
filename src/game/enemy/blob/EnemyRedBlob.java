@@ -10,6 +10,8 @@ import org.newdawn.slick.Color;
 
 public class EnemyRedBlob extends Enemy implements EnemyBlob {
     
+    public static final int difficulty = 1;
+    
     public EnemyRedBlob(Player player) {
         super(player);
         types.add(EnemyType.BLOB);

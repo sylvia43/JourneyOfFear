@@ -2,7 +2,11 @@ package game.state;
 
 import game.enemy.EnemyPlayer;
 import game.error.NetworkException;
+import game.map.Area;
 import game.network.client.NetworkHandler;
+import game.player.Player;
+import static game.state.StateSingleplayer.WORLD_SIZE_X;
+import static game.state.StateSingleplayer.WORLD_SIZE_Y;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,5 +61,11 @@ public class StateMultiplayer extends StateSingleplayer {
             g.fillRect((int)(posX + width*((double)e.getX())/WORLD_SIZE_X), 
                     (int)(posY + height*((double)e.getY())/WORLD_SIZE_Y),3,3);    
         }
+    }
+    
+    @Override
+    protected void setupArea(GameContainer container, Player player) {
+        currentArea = new Area(WORLD_SIZE_X,WORLD_SIZE_Y,container,player);
+        player.setArea(currentArea);
     }
 }

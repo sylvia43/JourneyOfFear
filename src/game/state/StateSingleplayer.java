@@ -104,7 +104,7 @@ public class StateSingleplayer extends BasicGameState {
         }
     }
     
-    private void setupArea(GameContainer container, Player player) {
+    protected void setupArea(GameContainer container, Player player) {
         currentArea = new Area(WORLD_SIZE_X,WORLD_SIZE_Y,container,player);
         player.setArea(currentArea);
     }

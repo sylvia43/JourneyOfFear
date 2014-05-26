@@ -1,6 +1,9 @@
 package game.enemy;
 
 import game.ability.Ability;
+import game.enemy.blob.EnemyGreenBlob;
+import game.enemy.blob.EnemyRedBlob;
+import game.enemy.humanoid.EnemyMutant;
 import game.player.Player;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
@@ -15,6 +18,8 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 public abstract class Enemy extends GameObject implements Hittable {
+    
+    public static final int difficulty = 1;
     
     protected EntitySprite sprite;
     protected String spritepath;
@@ -201,5 +206,30 @@ public abstract class Enemy extends GameObject implements Hittable {
         knockbackDX=(int)(mult*KNOCKBACK_DISTANCE*Math.cos(Math.atan2(dy,dx)));
         knockbackDY=(int)(mult*KNOCKBACK_DISTANCE*Math.sin(Math.atan2(dy,dx)));
         stunTimer = STUN_DURATION;
+    }
+    
+    public static Enemy getEnemyByDifficulty(int d, Player p) {
+        
+        // Version One
+        if (d < EnemyRedBlob.difficulty)
+            return new EnemyRedBlob(p);
+        if (d < EnemyGreenBlob.difficulty)
+            return new EnemyGreenBlob(p);
+        if (d < EnemyMutant.difficulty)
+            return new EnemyMutant(p);
+        
+        // Default case.
+        
+        // Version Two
+        switch (d) {
+            case EnemyRedBlob.difficulty:
+                return new EnemyRedBlob(p);
+            case EnemyGreenBlob.difficulty:
+                return new EnemyGreenBlob(p);
+            case EnemyMutant.difficulty:
+                return new EnemyMutant(p);
+            default:
+                // Default case;
+        }
     }
 }

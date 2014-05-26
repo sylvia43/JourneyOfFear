@@ -16,6 +16,8 @@ import org.newdawn.slick.Graphics;
 
 public class EnemyGreenBlob extends AttackingEnemy implements EnemyBlob {
     
+    public static final int difficulty = 3;
+    
     protected static final int DIR_SWITCH_SPEED = 500;
     protected int dirChangeCounter = 0;
     
