@@ -13,6 +13,8 @@ import game.state.StateMultiplayer;
 import game.util.GameObject;
 import game.util.resource.SoundLibrary;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -64,6 +66,7 @@ public abstract class Enemy extends GameObject implements Hittable {
         enemyTypes.add(EnemyRedBlob.class);
         enemyTypes.add(EnemyGreenBlob.class);
         enemyTypes.add(EnemyMutant.class);
+        Collections.sort(enemyTypes,new EnemyDifficultyComparator());
     }
     
     //Getters. These methods probably can be left alone.
@@ -220,7 +223,26 @@ public abstract class Enemy extends GameObject implements Hittable {
     public static Enemy getEnemyByDifficulty(int d, Player p) {
         
         for (Class<? extends Enemy> c : enemyTypes) {
-            c.getField("difficulty");
+            int diff;
+            try {
+                diff = c.getField("difficulty").getInt(null);
+            } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+            throw new RuntimeException("Programming error: Enemy.getEnemyByDifficulty in java.enemy.Enemy.");
+            }
+            if (diff == d)
+                return c.newInstance();
+        }
+    }
+}
+
+class EnemyDifficultyComparator implements Comparator<Class<? extends Enemy>> {
+    
+    @Override
+    public int compare(Class<? extends Enemy> c1, Class<? extends Enemy> c2) {
+        try {
+            return Integer.compare(c1.getField("difficulty").getInt(null),c2.getField("difficulty").getInt(null));
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+            throw new RuntimeException("Programming error: EnemyDifficultyComparator.compare in java.enemy.Enemy.");
         }
     }
 }
