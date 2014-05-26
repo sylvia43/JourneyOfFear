@@ -44,6 +44,9 @@ public class ObjectFactory {
     public List<Obstacle> getObstacles(Player player, List<Enemy> enemies) {
         List<Obstacle> obstacles = new ArrayList<Obstacle>();
         
+        if (!type.obstacles)
+            return obstacles;
+        
         obstacles.add(new Spikes(player,enemies));           
         obstacles.add(new GreenSlimeSpawner(player,enemies));
         obstacles.add(new PinkSlimeSpawner(player,enemies));
