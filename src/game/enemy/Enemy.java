@@ -57,11 +57,13 @@ public abstract class Enemy extends GameObject implements Hittable {
     protected List<EnemyType> types;
     protected List<Ability> abilities;
     
-    private static final List<? extends Enemy> enemyTypes;
+    private static final List<Class<? extends Enemy>> enemyTypes;
     
     static {
         enemyTypes = new ArrayList<>();
         enemyTypes.add(EnemyRedBlob.class);
+        enemyTypes.add(EnemyGreenBlob.class);
+        enemyTypes.add(EnemyMutant.class);
     }
     
     //Getters. These methods probably can be left alone.
@@ -217,24 +219,8 @@ public abstract class Enemy extends GameObject implements Hittable {
     
     public static Enemy getEnemyByDifficulty(int d, Player p) {
         
-        // Version Two
-        switch (d) {
-            case EnemyRedBlob.difficulty:
-                return new EnemyRedBlob(p);
-            case EnemyGreenBlob.difficulty:
-                return new EnemyGreenBlob(p);
-            case EnemyMutant.difficulty:
-                return new EnemyMutant(p);
+        for (Class<? extends Enemy> c : enemyTypes) {
+            c.getField("difficulty");
         }
-        
-        // Version One
-        if (d < EnemyRedBlob.difficulty)
-            return new EnemyRedBlob(p);
-        if (d < EnemyGreenBlob.difficulty)
-            return new EnemyRedBlob(p);
-        if (d < EnemyMutant.difficulty)
-            return new EnemyGreenBlob(p);
-        
-        return new EnemyMutant(p);
     }
 }
