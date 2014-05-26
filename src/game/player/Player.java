@@ -349,14 +349,14 @@ public class Player extends GameObject implements Hittable {
         }
         
         int steps = (int) (delta*speed);
-        int actualSteps = 0;
+        int actualSteps = steps;
         
         for (Obstacle o : area.getObstacles()) {
             if (!(o instanceof Tree))
                 continue;
             Tree tree = (Tree) o;
             int newSteps = tree.canMoveSteps(collisionMask,steps,dx,dy);
-            if (newSteps>actualSteps)
+            if (newSteps<actualSteps)
                 actualSteps = newSteps;
         }
         
