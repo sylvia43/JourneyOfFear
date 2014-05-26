@@ -3,6 +3,8 @@ package game.state;
 import game.enemy.EnemyPlayer;
 import game.error.NetworkException;
 import game.map.Area;
+import game.map.gen.ObjectFactory;
+import game.map.gen.ObjectFactoryType;
 import game.network.client.NetworkHandler;
 import game.player.Player;
 import static game.state.StateSingleplayer.WORLD_SIZE_X;
@@ -65,7 +67,8 @@ public class StateMultiplayer extends StateSingleplayer {
     
     @Override
     protected void setupArea(GameContainer container, Player player) {
-        currentArea = new Area(WORLD_SIZE_X,WORLD_SIZE_Y,container,player);
+        currentArea = new Area(WORLD_SIZE_X,WORLD_SIZE_Y,container,player,
+                new ObjectFactory(ObjectFactoryType.BLANK_MULTIPLAYER));
         player.setArea(currentArea);
     }
 }

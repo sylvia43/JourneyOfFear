@@ -3,6 +3,8 @@ package game.state;
 import game.enemy.Enemy;
 import game.environment.obstacle.Obstacle;
 import game.map.Area;
+import game.map.gen.ObjectFactory;
+import game.map.gen.ObjectFactoryType;
 import game.map.gen.RoadGenerator;
 import game.npc.NPC;
 import game.player.Player;
@@ -105,7 +107,8 @@ public class StateSingleplayer extends BasicGameState {
     }
     
     protected void setupArea(GameContainer container, Player player) {
-        currentArea = new Area(WORLD_SIZE_X,WORLD_SIZE_Y,container,player);
+        currentArea = new Area(WORLD_SIZE_X,WORLD_SIZE_Y,container,player,
+                new ObjectFactory(ObjectFactoryType.DEFAULT_TESTING));
         player.setArea(currentArea);
     }
     

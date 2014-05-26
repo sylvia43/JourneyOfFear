@@ -1,14 +1,8 @@
 package game.map;
 
 import game.enemy.Enemy;
-import game.enemy.blob.EnemyGreenBlob;
-import game.enemy.blob.EnemyRedBlob;
-import game.enemy.humanoid.EnemyMutant;
-import game.environment.hazard.Spikes;
 import game.environment.obstacle.Obstacle;
-import game.environment.obstacle.Tree;
-import game.environment.spawner.GreenSlimeSpawner;
-import game.environment.spawner.PinkSlimeSpawner;
+import game.map.gen.ObjectFactory;
 import game.npc.NPC;
 import game.player.Player;
 import game.util.GameObject;
@@ -35,7 +29,9 @@ public class Area {
     private final int height;
     
     private GameContainer container;
-    private final Player player;
+    private Player player;
+    
+    private ObjectFactory factory;
     
     public Tile getTile(int x, int y) { return map.getTile(x,y); }
     public TiledMap getMap() { return map; }
@@ -49,11 +45,12 @@ public class Area {
     public int getHeight() { return height; }
     
     // Move adding of creatues out of here; need a factory.
-    public Area(int width, int height, GameContainer container, Player player) {
+    public Area(int width, int height, GameContainer container, Player player, ObjectFactory factory) {
         this.player = player;
         this.container = container;
         this.width = width;
         this.height = height;
+        this.factory = factory;
         
         adjacent = new Area[4];
         enemies = new ArrayList<Enemy>();
@@ -66,17 +63,14 @@ public class Area {
         
         objects.add(player);
         
-        addEnemy(new EnemyRedBlob(player)).init();
-        addEnemy(new EnemyGreenBlob(player)).init();
+        for (Enemy e : factory.getEnemies(player))
+            addEnemy(e).init();
         
-        addEnemy(new EnemyMutant(player)).init();
+        for (NPC n : factory.getNPCS())
+            addNPC(n).init();
         
-        addNPC(new NPC()).init();
-        
-        addObstacle(new Spikes(player,enemies));           
-        addObstacle(new GreenSlimeSpawner(player,enemies));
-        addObstacle(new PinkSlimeSpawner(player,enemies));
-        addObstacle(new Tree());           
+        for (Obstacle o : factory.getObstacles(player,enemies))
+            addObstacle(o);
     }
     
     public NPC addNPC(NPC n) {
@@ -123,7 +117,7 @@ public class Area {
         Area adjacentArea = adjacent[index];
         if (adjacentArea != null)
             return adjacentArea;
-        adjacentArea = new Area(width,height,container,player);
+        adjacentArea = new Area(width,height,container,player,factory);
         adjacentArea.setAdjacent(this,(index+2)%4);
         adjacent[index] = adjacentArea;
         return adjacentArea;
