@@ -12,4 +12,3 @@ small_well
 		.___.
 		.....
 endvault
-
