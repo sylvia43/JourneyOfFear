@@ -46,8 +46,8 @@ public class QuestDisplay extends PassiveHUD {
         int height = (int)(((double)worldY/worldX)*(2.3*viewX)/4);
         
         g.fillRect(posX,posY,width,height);
-        
-        g.setFont(FontLibrary.QUEST_FONT.getFont());
+                        
+        g.setFont(FontLibrary.PIXEL_FONT.getFont());
         
         g.setColor(FONT_WHITE);
         
