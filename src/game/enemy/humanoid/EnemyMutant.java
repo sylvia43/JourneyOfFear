@@ -25,7 +25,7 @@ public class EnemyMutant extends AttackingEnemy {
         types.add(EnemyType.MUTANT);
         types.add(EnemyType.ATTACKING);
         hitDamage = 4;
-        attack = AttackAxeCleave.create().setAttackRest(500);
+        attack = AttackAxeCleave.create();
         speed = 0.0625;
         health = 50;
         minimapColor = new Color(95,124,112);
