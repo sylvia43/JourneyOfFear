@@ -2,11 +2,12 @@ package game.network.server;
 
 public class DataPacket {
 
-    public static final int MAX_SIZE = 12;
+    public static final int MAX_SIZE = 16;
     
-    public static final int ID = 0;
-    public static final int X = 4;
-    public static final int Y = 8;
+    public static final int TYPE = 0;
+    public static final int ID = 4;
+    public static final int X = 8;
+    public static final int Y = 12;
     
     private byte[] data;
         
@@ -17,9 +18,16 @@ public class DataPacket {
     // Called by server send thread.
     public DataPacket(EnemyPlayerData e) {
         data = new byte[MAX_SIZE];
+        add(0,TYPE);
         add(e.getId(),ID);
         add(e.getX(),X);
         add(e.getY(),Y);
+    }
+    
+    public DataPacket(int id) {
+        data = new byte[MAX_SIZE];
+        add(1,TYPE);
+        add(id,ID);
     }
         
     public void add(int i, int pos) {
@@ -47,7 +55,7 @@ public class DataPacket {
     }
     
     public void update(EnemyPlayerData e) {
-        e.setX(this.get(X));
-        e.setY(this.get(Y));
+        e.setX(get(X));
+        e.setY(get(Y));
     }
 }

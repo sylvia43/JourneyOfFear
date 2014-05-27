@@ -28,14 +28,16 @@ public class NetworkHandler {
     private int myClientId;
     private long responseTime = -1;
     
-    public NetworkHandler(String newIp, int newPort, Player localPlayer, List<EnemyPlayer> newEnemies) throws UnknownHostException {
+    public NetworkHandler(String newIp, int newPort, Player localPlayer,
+            List<EnemyPlayer> newEnemies) throws UnknownHostException {
         this.enemies = newEnemies;
         this.ip = InetAddress.getByName(newIp);
         this.port = newPort;
         this.player = localPlayer;
     }
     
-    public void terminate() {
+    public void terminate(String s) {
+        System.out.println("ERROR: " + s);
         running = false;
     }
     
@@ -43,7 +45,6 @@ public class NetworkHandler {
         try {
             socket = new DatagramSocket();
         } catch (SocketException e) {
-            terminate();
             throw new NetworkException("Error creating socket: " + e);
         }
         
@@ -59,17 +60,28 @@ public class NetworkHandler {
                     try {
                         socket.receive(recvPacket);
                     } catch (IOException e) {
-                        terminate();
-                        throw new NetworkException("Error receiving packet: " + e);
+                        terminate("Error receiving packet: " + e);
                     }
                     responseTime = System.currentTimeMillis();
                     DataPacket recvDataPacket = new DataPacket(recvData);
-
-                    if (recvDataPacket.getClient() == myClientId)
+                    
+                    int packetId = recvDataPacket.getClient();
+                    
+                    if (packetId == myClientId)
                         continue;
-
+                    
+                    if (recvDataPacket.get(DataPacket.TYPE) == 1) {
+                        for (EnemyPlayer e : enemies) {
+                            System.out.println(e.getId());
+                            if (e.getId() == packetId) {
+                                enemies.remove(e);
+                            }
+                        }
+                        continue;
+                    }
+                    
                     boolean updated = false;
-
+                    
                     for (EnemyPlayer e : enemies) {
                         if (recvDataPacket.getClient() == e.getId()) {
                             e.setX(recvDataPacket.get(DataPacket.X));
@@ -78,10 +90,10 @@ public class NetworkHandler {
                             break;
                         }
                     }
-
+                    
                     if (updated)
                         continue;
-
+                    
                     enemies.add(new EnemyPlayer(recvDataPacket.getClient(),
                             recvDataPacket.get(DataPacket.X),recvDataPacket.get(DataPacket.Y)));
                 }
@@ -92,19 +104,17 @@ public class NetworkHandler {
         send = new Thread(new Runnable() {
             @Override
             public void run() {
-                byte[] sendData = new byte[DataPacket.MAX_SIZE];
+                byte[] sendData;
                 while (running) {
                     if (responseTime != -1 && System.currentTimeMillis()-responseTime > 1000) {
-                        System.out.println("Disconnecting.");
-                        terminate();
+                        terminate("Disconnecting.");
                     }
                     sendData = player.getBytes(myClientId);
                     DatagramPacket sendPacket = new DatagramPacket(sendData,sendData.length,ip,port);
                     try {
                         socket.send(sendPacket);
                     } catch (IOException e) {
-                        terminate();
-                        throw new NetworkException("Error sending packet: " + e);
+                        terminate("Error sending packet: " + e);
                     }
                 }
                 if (socket != null && !socket.isClosed()) {
@@ -121,30 +131,26 @@ public class NetworkHandler {
         try {
             handshakeSocket = new Socket(ip.getHostAddress(),port);
         } catch (IOException e) {
-            terminate();
             if (e.getMessage().equals("Connection refused: connect"))
                 throw new NetworkException("No server at " + ip + ":" + port);
             else
                 throw new NetworkException("Error creating TCP socket: " + e);
         }
-        
+
         InputStream in = null;
         try {
             in = handshakeSocket.getInputStream();
         } catch (IOException e) {
-            terminate();
             throw new NetworkException("Error getting input stream: " + e);
         }
         try {
             myClientId = in.read();
         } catch (IOException e) {
-            terminate();
             throw new NetworkException("Error recieving handshake data: " + e);
         }
         try {
             handshakeSocket.close();
         } catch (IOException e) {
-            terminate();
             throw new NetworkException("Error closing handshake socket: " + e);
         }
     }

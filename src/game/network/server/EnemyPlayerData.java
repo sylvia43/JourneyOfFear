@@ -14,9 +14,28 @@ public class EnemyPlayerData {
     public void setY(int y) { this.y = y; }
     public void setId(int id) { this.id = id; }
     
+    public EnemyPlayerData(int id) {
+        this.id = id;
+    } 
+    
     public EnemyPlayerData(int id, int x, int y) {
         this.x = x;
         this.y = y;
         this.id = id;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || !(o instanceof EnemyPlayerData))
+            return false;
+        
+        return ((EnemyPlayerData) o).getId() == id;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + this.id;
+        return hash;
     }
 }

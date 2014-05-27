@@ -10,8 +10,8 @@ import game.player.Player;
 import static game.state.StateSingleplayer.WORLD_SIZE_X;
 import static game.state.StateSingleplayer.WORLD_SIZE_Y;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -37,7 +37,7 @@ public class StateMultiplayer extends StateSingleplayer {
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
         super.enter(container,game);
-        enemies = new ArrayList<EnemyPlayer>();
+        enemies = new CopyOnWriteArrayList<EnemyPlayer>();
         try {
             network = new NetworkHandler(ip,port,player,enemies);
         } catch (UnknownHostException e) {
@@ -50,8 +50,10 @@ public class StateMultiplayer extends StateSingleplayer {
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         super.render(container,game,g);
         
-        for (EnemyPlayer e : enemies)
+        for (EnemyPlayer e : enemies) {
+            System.out.println(e.getId());
             e.render(container,g);
+        }
         
         int posX = (int)(7.5 *VIEW_SIZE_X)/10 + camX;
         int posY = (int)(.75 *VIEW_SIZE_Y)/10 + camY;

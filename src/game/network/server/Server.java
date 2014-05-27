@@ -1,6 +1,5 @@
 package game.network.server;
 
-import game.error.NetworkException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.DatagramPacket;
@@ -11,9 +10,11 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Server {
@@ -24,6 +25,7 @@ public class Server {
     private int clientCounter = 0;
     private Map<Integer,Long> ping;
     private List<Integer> killIds;
+    private Queue<Integer> deleteQueue;
     private long currentIteration;
     private boolean running = true;
     
@@ -35,12 +37,14 @@ public class Server {
     public Server(int port) {
         players = new CopyOnWriteArrayList<EnemyPlayerData>();
         ping = new ConcurrentHashMap<Integer,Long>();
+        deleteQueue = new ConcurrentLinkedQueue<Integer>();
         killIds = new ArrayList<Integer>();
         System.out.println("Set port.");
         this.port = port;
     }
     
-    public void terminate() {
+    public void terminate(String s) {
+        System.out.println("ERROR: " + s);
         running = false;
     }
     
@@ -50,6 +54,8 @@ public class Server {
     
     public void killId(int id) {
         killIds.remove(new Integer(id));
+        players.remove(new EnemyPlayerData(id));
+        deleteQueue.add(id);
     }
     
     public void start() {
@@ -58,11 +64,10 @@ public class Server {
         try {
             socket = new DatagramSocket(port);
         } catch (SocketException e) {
-            terminate();
             if (e.getMessage().equals("Address already in use: Cannot bind"))
-                throw new NetworkException("Error: There is already a socket on port " + port + "!");
+                terminate("Error: There is already a socket on port " + port + "!");
             else
-                throw new NetworkException("Error creating socket: " + e);
+                terminate("Error creating socket: " + e);
         }
         
         System.out.println("Started server.");
@@ -74,35 +79,34 @@ public class Server {
                 try {
                     socket = new ServerSocket(port);
                 } catch (IOException e) {
-                    terminate();
-                    throw new NetworkException("Error creating TCP socket: " + e);
+                    terminate("Error creating TCP socket: " + e);
                 }
                 while (running) {
-                    Socket clientSocket = null;
+                    Socket clientSocket;
                     try {
                         clientSocket = socket.accept();
                     } catch (IOException e) {
-                        terminate();
-                        throw new NetworkException("Error accepting socket: " + e);
+                        System.out.println("Error accepting socket: " + e);
+                        continue;
                     }
-                    OutputStream out = null;
+                    OutputStream out;
                     try {
                         out = clientSocket.getOutputStream();
                     } catch (IOException e) {
-                        terminate();
-                        throw new NetworkException("Error getting output stream: " + e);
+                        System.out.println("Error getting output stream: " + e);
+                        continue;
                     }
                     try {
                         out.write(clientCounter);
                     } catch (IOException e) {
-                        terminate();
-                        throw new NetworkException("Error sending handshake data: " + e);
+                        System.out.println("Error sending handshake data: " + e);
+                        continue;
                     }
                     try {
                         clientSocket.close();
                     } catch (IOException e) {
-                        terminate();
-                        throw new NetworkException("Error closing handshake socket: " + e);
+                        System.out.println("Error closing handshake socket: " + e);
+                        continue;
                     }
                     ping.put(clientCounter,currentIteration);
                     System.out.println("New client! " + clientCounter);
@@ -142,8 +146,7 @@ public class Server {
                     try {
                         socket.receive(recvPacket);
                     } catch (IOException e) {
-                        terminate();
-                        throw new NetworkException("Unable to receive data: " + e);
+                        terminate("Unable to receive data: " + e);
                     }
                     
                     packet = new DataPacket(recvPacket.getData());
@@ -165,7 +168,7 @@ public class Server {
                     players.add(new EnemyPlayerData(clientId,packet.get(DataPacket.X),packet.get(DataPacket.Y)));
                     
                     new Thread(new ServerSendThread(players,socket,Server.this,
-                            recvPacket.getAddress(),recvPacket.getPort(),clientId)).start();
+                            recvPacket.getAddress(),deleteQueue,recvPacket.getPort(),clientId)).start();
                 }
             }
         });
