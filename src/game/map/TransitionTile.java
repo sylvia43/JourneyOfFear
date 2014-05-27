@@ -7,8 +7,8 @@ public class TransitionTile extends Tile {
     
     private int size;
     
-    protected TransitionTile(ImageLibrary image, int size) {
-        super(image);
+    protected TransitionTile(ImageLibrary image, int chance, int size, TileType... types) {
+        super(image,chance,types);
         this.size = size;
     }
 

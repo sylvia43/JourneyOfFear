@@ -1,0 +1,15 @@
+# Mostly for testing purposes.
+# Small Well - anubiann00b
+startvault
+small_well
+		. GRASS
+		_ COBBLE
+		W WATER
+
+		.....
+		.___.
+		._W_.
+		.___.
+		.....
+endvault
+
