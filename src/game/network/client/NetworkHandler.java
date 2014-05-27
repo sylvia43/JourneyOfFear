@@ -72,7 +72,6 @@ public class NetworkHandler {
                     
                     if (recvDataPacket.get(DataPacket.TYPE) == 1) {
                         for (EnemyPlayer e : enemies) {
-                            System.out.println(e.getId());
                             if (e.getId() == packetId) {
                                 enemies.remove(e);
                             }

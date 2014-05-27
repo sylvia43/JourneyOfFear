@@ -58,4 +58,8 @@ public class DataPacket {
         e.setX(get(X));
         e.setY(get(Y));
     }
+
+    public EnemyPlayerData getPlayer() {
+        return new EnemyPlayerData(get(ID),get(X),get(Y));
+    }
 }

@@ -165,7 +165,7 @@ public class Server {
                     if (updated)
                         continue;
                     
-                    players.add(new EnemyPlayerData(clientId,packet.get(DataPacket.X),packet.get(DataPacket.Y)));
+                    players.add(packet.getPlayer());
                     
                     new Thread(new ServerSendThread(players,socket,Server.this,
                             recvPacket.getAddress(),deleteQueue,recvPacket.getPort(),clientId)).start();
