@@ -61,8 +61,8 @@ public class StateMultiplayer extends StateSingleplayer {
         
         for (EnemyPlayer e : enemies) {
             g.setColor(Color.orange);
-            g.fillRect((int)(posX + width*((double)e.x)/WORLD_SIZE_X), 
-                    (int)(posY + height*((double)e.y)/WORLD_SIZE_Y),3,3);    
+            g.fillRect((int)(posX + width*((double)e.data.x)/WORLD_SIZE_X), 
+                    (int)(posY + height*((double)e.data.y)/WORLD_SIZE_Y),3,3);    
         }
     }
     
