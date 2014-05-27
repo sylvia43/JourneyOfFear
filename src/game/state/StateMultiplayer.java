@@ -51,7 +51,6 @@ public class StateMultiplayer extends StateSingleplayer {
         super.render(container,game,g);
         
         for (EnemyPlayer e : enemies) {
-            System.out.println(e.getId());
             e.render(container,g);
         }
         
@@ -62,8 +61,8 @@ public class StateMultiplayer extends StateSingleplayer {
         
         for (EnemyPlayer e : enemies) {
             g.setColor(Color.orange);
-            g.fillRect((int)(posX + width*((double)e.getX())/WORLD_SIZE_X), 
-                    (int)(posY + height*((double)e.getY())/WORLD_SIZE_Y),3,3);    
+            g.fillRect((int)(posX + width*((double)e.x)/WORLD_SIZE_X), 
+                    (int)(posY + height*((double)e.y)/WORLD_SIZE_Y),3,3);    
         }
     }
     

@@ -2,17 +2,10 @@ package game.network.server;
 
 public class EnemyPlayerData {
     
-    private int x;
-    private int y;
-    private int id;
-    
-    public int getX() { return x; }
-    public int getY() { return y; }
-    public int getId() { return id; }
-    
-    public void setX(int x) { this.x = x; }
-    public void setY(int y) { this.y = y; }
-    public void setId(int id) { this.id = id; }
+    public int x;
+    public int y;
+    public int id;
+    public int dir;
     
     public EnemyPlayerData(int id) {
         this.id = id;
@@ -29,7 +22,7 @@ public class EnemyPlayerData {
         if (o == null || !(o instanceof EnemyPlayerData))
             return false;
         
-        return ((EnemyPlayerData) o).getId() == id;
+        return ((EnemyPlayerData) o).id == id;
     }
 
     @Override

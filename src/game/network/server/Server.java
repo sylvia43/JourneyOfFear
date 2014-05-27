@@ -154,7 +154,7 @@ public class Server {
                     
                     updated = false;
                     for (EnemyPlayerData e : players) {
-                        if (e.getId() == clientId) {
+                        if (e.id == clientId) {
                             ping.put(clientId,currentIteration);
                             packet.update(e);
                             updated = true;

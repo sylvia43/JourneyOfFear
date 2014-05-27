@@ -15,6 +15,6 @@ public class EnemyPlayer extends EnemyPlayerData {
     public void render(GameContainer container, Graphics g) {
         Animation anim = AnimationLibrary.ENEMY_PLAYER_PLACEHOLDER.getAnim();
         anim.setCurrentFrame(0);
-        anim.draw(getX(),getY(),64,64);
+        anim.draw(x,y,64,64);
     }
 }

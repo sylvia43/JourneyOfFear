@@ -1,13 +1,16 @@
 package game.network.server;
 
+import game.player.Player;
+
 public class DataPacket {
 
-    public static final int MAX_SIZE = 16;
+    public static final int MAX_SIZE = 20;
     
     public static final int TYPE = 0;
     public static final int ID = 4;
     public static final int X = 8;
     public static final int Y = 12;
+    public static final int DIR = 16;
     
     private byte[] data;
         
@@ -15,19 +18,31 @@ public class DataPacket {
         this.data = data;
     }
     
-    // Called by server send thread.
-    public DataPacket(EnemyPlayerData e) {
+    private DataPacket() {
         data = new byte[MAX_SIZE];
-        add(0,TYPE);
-        add(e.getId(),ID);
-        add(e.getX(),X);
-        add(e.getY(),Y);
     }
     
-    public DataPacket(int id) {
-        data = new byte[MAX_SIZE];
-        add(1,TYPE);
+    private DataPacket(int type, int id, int x, int y, int dir) {
+        this();
+        add(type,TYPE);
         add(id,ID);
+        add(x,X);
+        add(y,Y);
+        add(dir,DIR);
+    }
+    
+    // Called by server send thread.
+    public DataPacket(EnemyPlayerData e) {
+        this(0,e.id,e.x,e.y,e.dir);
+    }
+    
+    public DataPacket(Player p, int id) {
+        this(0,id,p.getX(),p.getY(),p.getDir());
+    }
+    
+    /** Packet to send disconnect to client. */
+    public DataPacket(int id) {
+        this(1,id,0,0,0);
     }
         
     public void add(int i, int pos) {
@@ -55,8 +70,9 @@ public class DataPacket {
     }
     
     public void update(EnemyPlayerData e) {
-        e.setX(get(X));
-        e.setY(get(Y));
+        e.x = get(X);
+        e.y = get(Y);
+        e.dir = get(DIR);
     }
 
     public EnemyPlayerData getPlayer() {

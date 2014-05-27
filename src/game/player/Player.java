@@ -10,7 +10,6 @@ import game.hud.Minimap;
 import game.hud.QuestDisplay;
 import game.map.Area;
 import game.network.server.DataPacket;
-import game.network.server.EnemyPlayerData;
 import game.npc.NPC;
 import game.npc.quest.KillQuest;
 import game.npc.quest.Quest;
@@ -95,6 +94,8 @@ public class Player extends GameObject implements Hittable {
     @Override public int getY() { return y; }
     @Override public int getDepth() { return y; }
     
+    public int getDir() { return spritePointer; }
+    
     private static final Color COLOR = Color.green;
     
     @Override
@@ -113,8 +114,7 @@ public class Player extends GameObject implements Hittable {
     }
     
     public byte[] getBytes(int id) {
-        DataPacket packet = new DataPacket(new EnemyPlayerData(id,x,y));
-        return packet.getBytes();
+        return new DataPacket(this,id).getBytes();
     }
     
     public Attack getAttack() {
