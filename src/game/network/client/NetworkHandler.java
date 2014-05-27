@@ -72,7 +72,7 @@ public class NetworkHandler {
                     
                     if (recvDataPacket.get(DataPacket.TYPE) == 1) {
                         for (EnemyPlayer e : enemies) {
-                            if (e.id == packetId) {
+                            if (e.data.id == packetId) {
                                 enemies.remove(e);
                             }
                         }
@@ -82,8 +82,8 @@ public class NetworkHandler {
                     boolean updated = false;
                     
                     for (EnemyPlayer e : enemies) {
-                        if (packetId == e.id) {
-                            recvDataPacket.update(e);
+                        if (packetId == e.data.id) {
+                            recvDataPacket.update(e.data);
                             updated = true;
                             break;
                         }
@@ -92,8 +92,7 @@ public class NetworkHandler {
                     if (updated)
                         continue;
                     
-                    enemies.add(new EnemyPlayer(recvDataPacket.getClient(),
-                            recvDataPacket.get(DataPacket.X),recvDataPacket.get(DataPacket.Y)));
+                    enemies.add(new EnemyPlayer(recvDataPacket.getPlayer()));
                 }
             }
         });

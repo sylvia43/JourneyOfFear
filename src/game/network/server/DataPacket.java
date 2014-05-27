@@ -76,6 +76,6 @@ public class DataPacket {
     }
 
     public EnemyPlayerData getPlayer() {
-        return new EnemyPlayerData(get(ID),get(X),get(Y));
+        return new EnemyPlayerData(get(ID),get(X),get(Y),get(DIR));
     }
 }

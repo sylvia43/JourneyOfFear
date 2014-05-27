@@ -11,10 +11,11 @@ public class EnemyPlayerData {
         this.id = id;
     } 
     
-    public EnemyPlayerData(int id, int x, int y) {
+    public EnemyPlayerData(int id, int x, int y, int dir) {
         this.x = x;
         this.y = y;
         this.id = id;
+        this.dir = dir;
     }
     
     @Override
