@@ -97,11 +97,12 @@ Key:
     [x] Boss themes.
     [x] Send Chad's music.
     [/] More music.
-    [ ] More attack sounds.
-    [ ] Bow pull sounds.
-    [ ] Bow shoot sounds.
-    [ ] Player death sound.
-
+    [/] More attack sounds.
+    [/] Bow pull sounds.
+    [/] Bow shoot sounds.
+    [/] Player death sound.
+    Note: the bow sounds won't be made by me, it'll be some royalty free stock sound effects that I'll sample slice.
+    
   Multiplayer:
     [x] Sending of data.
     [x] Elimination of duplicates.
