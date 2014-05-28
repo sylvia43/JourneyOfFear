@@ -43,8 +43,8 @@ public class Minimap extends PassiveHUD {
         
         for (GameObject o : currentArea.getObjects()) {
             g.setColor(o.getColor());
-            g.fillRect(1+(int)(posX+width*((double)o.getX())/worldX), 
-                    1+(int)(posY+height*((double)o.getY())/worldY),
+            g.fillRect((int)(posX+(width-o.getMiniWidth())*((double)o.getX())/worldX),
+                    (int)(posY+(height-o.getMiniHeight())*((double)o.getY())/worldY),
                     o.getMiniWidth(),o.getMiniHeight());
         }
     }
