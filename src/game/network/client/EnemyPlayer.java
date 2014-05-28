@@ -1,12 +1,13 @@
-package game.enemy;
+package game.network.client;
 
 import game.network.server.EnemyPlayerData;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
 import game.util.resource.AnimationLibrary;
+import java.util.ArrayList;
+import java.util.List;
 import org.newdawn.slick.Animation;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 /** Wrapper around EnemyPlayerData for client to render. */
@@ -18,21 +19,55 @@ public class EnemyPlayer {
     private int spriteWidth;
     private boolean initialized = false;
     
+    private List<Animation> attacks;
+    private List<AnimationLibrary> attackRaw;
+    private Animation attack;
+    
     public EnemyPlayer(EnemyPlayerData data) {
         this.data = data;
+        attackRaw = new ArrayList<AnimationLibrary>();
+        attacks = new ArrayList<Animation>();
+        attacks.add(null);
+        attacks.add(null);
+        attacks.add(null);
+        attackRaw.add(AnimationLibrary.ATTACK_AXE_CLEAVE);
+        attackRaw.add(AnimationLibrary.ATTACK_SWORD_SLASH);
+        attackRaw.add(AnimationLibrary.ATTACK_DAGGER_SLASH);
     }
     
-    public void render(GameContainer container, Graphics g) {
+    public void render(Graphics g) {
+        
+        EnemyPlayerData localData = new EnemyPlayerData(data);
+        
         if (!initialized) {
             initializeSprite();
-            spriteHeight = sprite.getAnim(data.dir).getHeight() * 4;
-            spriteWidth = sprite.getAnim(data.dir).getWidth() * 4;
+            spriteHeight = sprite.getAnim(localData.dir).getHeight() * 4;
+            spriteWidth = sprite.getAnim(localData.dir).getWidth() * 4;
             initialized = true;
         }
         
-        sprite.getAnim(data.dir).setCurrentFrame(data.frame);
+        sprite.getAnim(localData.dir).setCurrentFrame(localData.frame);
+        sprite.getAnim(localData.dir).draw(localData.x-spriteHeight/2,localData.y-spriteWidth/2,64,64);
         
-        sprite.getAnim(data.dir).draw(data.x-spriteHeight/2,data.y-spriteWidth/2,64,64);
+        if (data.weapFrame == -1)
+            return;
+        
+        if (attacks.get(localData.weapType) == null) {
+            attacks.set(localData.weapType,attackRaw.get(localData.weapType).getAnim());
+        }
+        
+        attack = attacks.get(localData.weapType);
+        attack.stop();
+        attack.setCurrentFrame(localData.weapFrame);
+        
+        if (localData.weapType != 0)
+            attack.draw(localData.x-spriteHeight/2-4*attack.getWidth()/3,
+                    localData.y-spriteWidth/2-4*attack.getHeight()/3,
+                    attack.getWidth()*4,attack.getWidth()*4);
+        else
+            attack.draw(localData.x-spriteHeight/2-96,
+                    localData.y-spriteWidth/2-96,
+                    attack.getWidth()*4,attack.getWidth()*4);
     }
     
     protected void initializeSprite() {

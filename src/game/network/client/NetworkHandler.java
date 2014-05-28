@@ -1,6 +1,5 @@
 package game.network.client;
 
-import game.enemy.EnemyPlayer;
 import game.error.NetworkException;
 import game.network.server.DataPacket;
 import game.player.Player;

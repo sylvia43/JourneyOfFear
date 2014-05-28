@@ -37,6 +37,8 @@ public abstract class Attack {
     public Attack setSwingEndRest(int swingEndRest) { this.swingEndRest = swingEndRest; return this; }
     public Attack setAttackRest(int attackRest) { this.attackRest = attackRest; return this; }
     
+    public int getFrame() { return anim.getFrame(); }
+    
     public boolean canAttack() {
         return !attacking && attackDelay<1;
     }
@@ -79,5 +81,9 @@ public abstract class Attack {
             g.setColor(Color.red);
             getMask(x,y).render(g);
         }
+    }
+
+    public boolean isAnimInitialized() {
+        return anim != null;
     }
 }

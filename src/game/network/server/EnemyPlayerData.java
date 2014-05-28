@@ -7,17 +7,26 @@ public class EnemyPlayerData {
     public int id;
     public int dir;
     public int frame;
+    public int weapType;
+    public int weapFrame;
     
     public EnemyPlayerData(int id) {
         this.id = id;
     } 
     
-    public EnemyPlayerData(int id, int x, int y, int dir, int frame) {
+    public EnemyPlayerData(EnemyPlayerData e) {
+        this(e.id,e.x,e.y,e.dir,e.frame,e.weapType,e.weapFrame);
+    }
+    
+    public EnemyPlayerData(int id, int x, int y, int dir, int frame, int weapType,
+            int weapFrame) {
         this.x = x;
         this.y = y;
         this.id = id;
         this.dir = dir;
         this.frame = frame;
+        this.weapType = weapType;
+        this.weapFrame = weapFrame;
     }
     
     @Override

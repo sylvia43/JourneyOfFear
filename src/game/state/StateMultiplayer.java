@@ -1,10 +1,10 @@
 package game.state;
 
-import game.enemy.EnemyPlayer;
 import game.error.NetworkException;
 import game.map.Area;
 import game.map.gen.ObjectFactory;
 import game.map.gen.ObjectFactoryType;
+import game.network.client.EnemyPlayer;
 import game.network.client.NetworkHandler;
 import game.player.Player;
 import static game.state.StateSingleplayer.WORLD_SIZE_X;
@@ -48,11 +48,15 @@ public class StateMultiplayer extends StateSingleplayer {
     
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        super.render(container,game,g);
+        translateView(g);
+        renderer.renderMap(g);
         
-        for (EnemyPlayer e : enemies) {
-            e.render(container,g);
-        }
+        for (EnemyPlayer e : enemies)
+            e.render(g);
+        
+        renderer.renderObjects(g);
+        
+        player.renderHUD(g);
         
         int posX = (int)(7.5 *VIEW_SIZE_X)/10 + camX;
         int posY = (int)(.75 *VIEW_SIZE_Y)/10 + camY;
@@ -61,8 +65,8 @@ public class StateMultiplayer extends StateSingleplayer {
         
         for (EnemyPlayer e : enemies) {
             g.setColor(Color.orange);
-            g.fillRect((int)(posX + width*((double)e.data.x)/WORLD_SIZE_X), 
-                    (int)(posY + height*((double)e.data.y)/WORLD_SIZE_Y),3,3);    
+            g.fillRect((int)(posX+(width-3)*((double)e.data.x)/StateSingleplayer.WORLD_SIZE_X),
+                    (int)(posY+(height-3)*((double)e.data.y)/StateSingleplayer.WORLD_SIZE_Y),3,3);
         }
     }
     

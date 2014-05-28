@@ -129,6 +129,12 @@ public class Player extends GameObject implements Hittable {
         return attackIndex;
     }
     
+    public int getAttackFrame() {
+        if (attack.isAnimInitialized() && attack.isAttacking())
+            return attack.getFrame();
+        return -1;
+    }
+    
     @Override public void setX(int x) { this.x = x; }
     @Override public void setY(int y) { this.y = y; }
     

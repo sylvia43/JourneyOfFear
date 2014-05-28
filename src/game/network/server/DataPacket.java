@@ -4,7 +4,7 @@ import game.player.Player;
 
 public class DataPacket {
 
-    public static final int MAX_SIZE = 24;
+    public static final int MAX_SIZE = 32;
     
     public static final int TYPE = 0;
     public static final int ID = 4;
@@ -12,6 +12,8 @@ public class DataPacket {
     public static final int Y = 12;
     public static final int DIR = 16;
     public static final int FRAME = 20;
+    public static final int W_TYPE = 24;
+    public static final int W_FRAME = 28;
     
     private byte[] data;
         
@@ -23,7 +25,8 @@ public class DataPacket {
         data = new byte[MAX_SIZE];
     }
     
-    private DataPacket(int type, int id, int x, int y, int dir, int animFrame) {
+    private DataPacket(int type, int id, int x, int y, int dir, int animFrame,
+            int weaponType, int weaponFrame) {
         this();
         add(type,TYPE);
         add(id,ID);
@@ -31,15 +34,17 @@ public class DataPacket {
         add(y,Y);
         add(dir,DIR);
         add(animFrame,FRAME);
+        add(weaponType,W_TYPE);
+        add(weaponFrame,W_FRAME);
     }
     
     // Called by server send thread.
     public DataPacket(EnemyPlayerData e) {
-        this(0,e.id,e.x,e.y,e.dir,e.frame);
+        this(0,e.id,e.x,e.y,e.dir,e.frame,e.weapType,e.weapFrame);
     }
     
     public DataPacket(Player p, int id) {
-        this(0,id,p.getX(),p.getY(),p.getDir(),p.getFrame());
+        this(0,id,p.getX(),p.getY(),p.getDir(),p.getFrame(),p.getAttackIndex(),p.getAttackFrame());
     }
     
     public void update(EnemyPlayerData e) {
@@ -47,15 +52,17 @@ public class DataPacket {
         e.y = get(Y);
         e.dir = get(DIR);
         e.frame = get(FRAME);
+        e.weapType = get(W_TYPE);
+        e.weapFrame = get(W_FRAME);
     }
 
     public EnemyPlayerData getPlayer() {
-        return new EnemyPlayerData(get(ID),get(X),get(Y),get(DIR),get(FRAME));
+        return new EnemyPlayerData(get(ID),get(X),get(Y),get(DIR),get(FRAME),get(W_TYPE),get(W_FRAME));
     }
     
     /** Packet to send disconnect to client. */
     public DataPacket(int id) {
-        this(1,id,0,0,0,0);
+        this(1,id,0,0,0,0,0,0);
     }
         
     public void add(int i, int pos) {

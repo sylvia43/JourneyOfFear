@@ -21,6 +21,8 @@ public class Game extends StateBasedGame {
     public static final int VIEW_SIZE_X = 640;
     public static final int VIEW_SIZE_Y = 512;
     
+    public static final boolean SKIP = true;
+    
     public Game() {
         super("Journey of Fear");
     }
@@ -36,10 +38,13 @@ public class Game extends StateBasedGame {
     
     @Override
     public void initStatesList(GameContainer container) throws SlickException {
-        this.addState(new StateMenu(STATE_MENU));
-        this.addState(new StateSingleplayer(STATE_SINGLEPLAYER));
-        this.addState(new StateMultiplayer(STATE_MULTIPLAYER));
-        this.addState(new StateServerSelect(STATE_SERVER_SELECT));
+        if (SKIP)
+            addState(new StateMultiplayer(STATE_MULTIPLAYER));
+        addState(new StateMenu(STATE_MENU));
+        addState(new StateSingleplayer(STATE_SINGLEPLAYER));
+        if (!SKIP)
+            addState(new StateMultiplayer(STATE_MULTIPLAYER));
+        addState(new StateServerSelect(STATE_SERVER_SELECT));
     }
     
     /** Sets up the window. */

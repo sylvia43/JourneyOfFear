@@ -67,4 +67,8 @@ public enum AnimationLibrary {
         }
         return anim.copy();  
     }
+
+    public boolean isInitialized() {
+        return image != null;
+    }
 }

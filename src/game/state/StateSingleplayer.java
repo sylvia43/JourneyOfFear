@@ -123,7 +123,7 @@ public class StateSingleplayer extends BasicGameState {
         player.updateViewPort(camX,camY);
     }
     
-    private void translateView(Graphics g) {
+    protected void translateView(Graphics g) {
         g.translate(-(float)camX,-(float)camY);
     }
     
