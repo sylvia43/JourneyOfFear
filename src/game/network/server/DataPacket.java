@@ -4,13 +4,14 @@ import game.player.Player;
 
 public class DataPacket {
 
-    public static final int MAX_SIZE = 20;
+    public static final int MAX_SIZE = 24;
     
     public static final int TYPE = 0;
     public static final int ID = 4;
     public static final int X = 8;
     public static final int Y = 12;
     public static final int DIR = 16;
+    public static final int FRAME = 20;
     
     private byte[] data;
         
@@ -22,27 +23,39 @@ public class DataPacket {
         data = new byte[MAX_SIZE];
     }
     
-    private DataPacket(int type, int id, int x, int y, int dir) {
+    private DataPacket(int type, int id, int x, int y, int dir, int animFrame) {
         this();
         add(type,TYPE);
         add(id,ID);
         add(x,X);
         add(y,Y);
         add(dir,DIR);
+        add(animFrame,FRAME);
     }
     
     // Called by server send thread.
     public DataPacket(EnemyPlayerData e) {
-        this(0,e.id,e.x,e.y,e.dir);
+        this(0,e.id,e.x,e.y,e.dir,e.frame);
     }
     
     public DataPacket(Player p, int id) {
-        this(0,id,p.getX(),p.getY(),p.getDir());
+        this(0,id,p.getX(),p.getY(),p.getDir(),p.getFrame());
+    }
+    
+    public void update(EnemyPlayerData e) {
+        e.x = get(X);
+        e.y = get(Y);
+        e.dir = get(DIR);
+        e.frame = get(FRAME);
+    }
+
+    public EnemyPlayerData getPlayer() {
+        return new EnemyPlayerData(get(ID),get(X),get(Y),get(DIR),get(FRAME));
     }
     
     /** Packet to send disconnect to client. */
     public DataPacket(int id) {
-        this(1,id,0,0,0);
+        this(1,id,0,0,0,0);
     }
         
     public void add(int i, int pos) {
@@ -67,15 +80,5 @@ public class DataPacket {
     
     public int getClient() {
         return get(ID);
-    }
-    
-    public void update(EnemyPlayerData e) {
-        e.x = get(X);
-        e.y = get(Y);
-        e.dir = get(DIR);
-    }
-
-    public EnemyPlayerData getPlayer() {
-        return new EnemyPlayerData(get(ID),get(X),get(Y),get(DIR));
     }
 }

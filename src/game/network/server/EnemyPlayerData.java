@@ -6,16 +6,18 @@ public class EnemyPlayerData {
     public int y;
     public int id;
     public int dir;
+    public int frame;
     
     public EnemyPlayerData(int id) {
         this.id = id;
     } 
     
-    public EnemyPlayerData(int id, int x, int y, int dir) {
+    public EnemyPlayerData(int id, int x, int y, int dir, int frame) {
         this.x = x;
         this.y = y;
         this.id = id;
         this.dir = dir;
+        this.frame = frame;
     }
     
     @Override

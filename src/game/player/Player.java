@@ -117,6 +117,10 @@ public class Player extends GameObject implements Hittable {
         return new DataPacket(this,id).getBytes();
     }
     
+    public int getFrame() {
+        return sprite.getAnim(spritePointer).getFrame();
+    }
+    
     public Attack getAttack() {
         return attack;
     }
@@ -220,8 +224,7 @@ public class Player extends GameObject implements Hittable {
     
     @Override
     public void render(Graphics g) {
-        Animation currentSprite = sprite.getAnim(spritePointer);
-        currentSprite.draw(x-spriteWidth/2,y-spriteHeight/2,64,64,damageBlink?Color.red:Color.white);
+        sprite.getAnim(spritePointer).draw(x-spriteWidth/2,y-spriteHeight/2,64,64,damageBlink?Color.red:Color.white);
         renderHealth();
         attack.render(x-spriteWidth/2,y-spriteHeight/2);
         if (StateSingleplayer.DEBUG_MODE)

@@ -30,6 +30,8 @@ public class EnemyPlayer {
             initialized = true;
         }
         
+        sprite.getAnim(data.dir).setCurrentFrame(data.frame);
+        
         sprite.getAnim(data.dir).draw(data.x-spriteHeight/2,data.y-spriteWidth/2,64,64);
     }
     
@@ -41,6 +43,9 @@ public class EnemyPlayer {
             AnimationLibrary.PLAYER_LEFT.getAnim(),
             AnimationLibrary.PLAYER_DOWN.getAnim(),
         };
+        for (Animation a : animList) {
+            a.stop();
+        }
         sprite.setAnimations(animList);
         initializeMask();
     }

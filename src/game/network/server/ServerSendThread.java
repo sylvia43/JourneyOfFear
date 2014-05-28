@@ -39,6 +39,12 @@ public class ServerSendThread implements Runnable {
                 break;
             }
             
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException e) {
+                System.out.println("Interrupted: " + e);
+            }
+            
             if (deleteQueue.size() > 0) {
                 data = new DataPacket(deleteQueue.poll()).getBytes();
                 DatagramPacket packet = new DatagramPacket(data,data.length,destIp,destPort);

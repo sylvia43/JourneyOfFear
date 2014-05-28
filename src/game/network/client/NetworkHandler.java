@@ -106,6 +106,13 @@ public class NetworkHandler {
                     if (responseTime != -1 && System.currentTimeMillis()-responseTime > 1000) {
                         terminate("Disconnecting.");
                     }
+                    
+                    try {
+                        Thread.sleep(5);
+                    } catch (InterruptedException e) {
+                        System.out.println("Interrupted: " + e);
+                    }
+                    
                     sendData = player.getBytes(myClientId);
                     DatagramPacket sendPacket = new DatagramPacket(sendData,sendData.length,ip,port);
                     try {
