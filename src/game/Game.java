@@ -21,7 +21,7 @@ public class Game extends StateBasedGame {
     public static final int VIEW_SIZE_X = 640;
     public static final int VIEW_SIZE_Y = 512;
     
-    public static final boolean SKIP = true;
+    public static final boolean SKIP = false;
     
     public Game() {
         super("Journey of Fear");
