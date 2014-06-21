@@ -70,11 +70,9 @@ public class NetworkHandler {
                         continue;
                     
                     if (recvDataPacket.get(DataPacket.TYPE) == 1) {
-                        for (EnemyPlayer e : enemies) {
-                            if (e.data.id == packetId) {
+                        for (EnemyPlayer e : enemies)
+                            if (e.data.id == packetId)
                                 enemies.remove(e);
-                            }
-                        }
                         continue;
                     }
                     
