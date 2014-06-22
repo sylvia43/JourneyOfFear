@@ -8,29 +8,29 @@ import org.newdawn.slick.Graphics;
 
 public abstract class Attack {
         
-    protected Animation anim;
+    public Animation anim;
     
-    protected int x = 0;
-    protected int y = 0;
+    public int x = 0;
+    public int y = 0;
     
     public abstract ImageMask getMask(int x, int y);
     public abstract void init();
     public abstract void attack(int direction, boolean sound);
     
-    protected double knockback;
-    protected int damage;
+    public double knockback;
+    public int damage;
     
-    protected int swingEndRest;
-    protected int attackRest;
+    public int swingEndRest;
+    public int attackRest;
     
-    protected boolean attacking;
-    protected int attackTimer;
-    protected int attackDelay;
+    public boolean attacking;
+    public int attackTimer;
+    public int attackDelay;
     
-    protected int currentAttackId = 0;
-    protected int attackId = 0;
+    public int currentAttackId = 0;
+    public int attackId = 0;
     
-    protected int targetDirection = 0;
+    public int targetDirection = 0;
     
     public Attack setDamage(int damage) { this.damage = damage; return this; }
     public Attack setKnockback(int knockback) { this.knockback = knockback; return this; }

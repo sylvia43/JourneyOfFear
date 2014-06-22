@@ -1,6 +1,10 @@
 package game.network.client;
 
 import game.network.server.EnemyPlayerData;
+import game.player.attack.Attack;
+import game.player.attack.AttackAxeCleave;
+import game.player.attack.AttackDaggerSlash;
+import game.player.attack.AttackSwordSlash;
 import game.sprite.AnimationMask;
 import game.sprite.EntitySprite;
 import game.sprite.ImageMask;
@@ -19,24 +23,28 @@ public class EnemyPlayer {
     private int spriteWidth;
     private boolean initialized = false;
     
-    private List<Animation> attacks;
-    private List<AnimationLibrary> attackRaw;
-    private Animation attack;
+    private List<Attack> attacks;
+    private Attack attack;
     
-    public EnemyPlayer(EnemyPlayerData data) {
-        this.data = data;
-        attackRaw = new ArrayList<AnimationLibrary>();
-        attacks = new ArrayList<Animation>();
-        attacks.add(null);
-        attacks.add(null);
-        attacks.add(null);
-        attackRaw.add(AnimationLibrary.ATTACK_AXE_CLEAVE);
-        attackRaw.add(AnimationLibrary.ATTACK_SWORD_SLASH);
-        attackRaw.add(AnimationLibrary.ATTACK_DAGGER_SLASH);
+    public EnemyPlayer(EnemyPlayerData newData) {
+        data = newData;
+        attacks = new ArrayList<Attack>();
+        attacks.add(AttackAxeCleave.create());
+        attacks.add(AttackSwordSlash.create());
+        attacks.add(AttackDaggerSlash.create());
+        attack = attacks.get(data.weapType);
+    }
+    
+    public ImageMask getCollisionMask() {
+        return sprite.getAnimationMask(data.dir)
+                .getImageMask(sprite.getAnim(data.dir).getFrame()).update(data.x-spriteWidth/2,data.y-spriteHeight/2);
+    }
+
+    public ImageMask getAttackMask() {
+        return null;//attack.getMask(data.x-spriteWidth/2,data.y-spriteHeight/2);
     }
     
     public void render(Graphics g) {
-        
         EnemyPlayerData localData = new EnemyPlayerData(data);
         
         if (!initialized) {
@@ -49,25 +57,34 @@ public class EnemyPlayer {
         sprite.getAnim(localData.dir).setCurrentFrame(localData.frame);
         sprite.getAnim(localData.dir).draw(localData.x-spriteHeight/2,localData.y-spriteWidth/2,64,64);
         
-        if (data.weapFrame == -1)
+        if (localData.weapFrame == -1)
             return;
         
-        if (attacks.get(localData.weapType) == null) {
-            attacks.set(localData.weapType,attackRaw.get(localData.weapType).getAnim());
-        }
         
         attack = attacks.get(localData.weapType);
-        attack.stop();
-        attack.setCurrentFrame(localData.weapFrame);
         
+        if (attacks.get(localData.weapType).anim == null) {
+            attack.init();
+        }
+        
+        attack.attacking = true;
+        
+        attack = attacks.get(localData.weapType);
+        attack.anim.stop();
+        attack.anim.setCurrentFrame(localData.weapFrame);
+        
+        attack.render(localData.x-spriteWidth/2,localData.y-spriteHeight/2);
+        
+        /*
         if (localData.weapType != 0)
-            attack.draw(localData.x-spriteHeight/2-4*attack.getWidth()/3,
-                    localData.y-spriteWidth/2-4*attack.getHeight()/3,
-                    attack.getWidth()*4,attack.getWidth()*4);
+            attack.anim.draw(localData.x-spriteHeight/2-4*attack.anim.getWidth()/3,
+                    localData.y-spriteWidth/2-4*attack.anim.getHeight()/3,
+                    attack.anim.getWidth()*4,attack.anim.getWidth()*4);
         else
-            attack.draw(localData.x-spriteHeight/2-96,
+            attack.anim.draw(localData.x-spriteHeight/2-96,
                     localData.y-spriteWidth/2-96,
-                    attack.getWidth()*4,attack.getWidth()*4);
+                    attack.anim.getWidth()*4,attack.anim.getWidth()*4);
+        */
     }
     
     protected void initializeSprite() {
