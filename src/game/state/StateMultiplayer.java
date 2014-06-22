@@ -47,6 +47,15 @@ public class StateMultiplayer extends StateSingleplayer {
     }
     
     @Override
+    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+        super.update(container,game,delta);
+        for (EnemyPlayer e : enemies) {
+            e.attack.resolveAttackHit(player,e.data.x,e.data.y);
+            //player.re
+        }
+    }
+    
+    @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         translateView(g);
         renderer.renderMap(g);

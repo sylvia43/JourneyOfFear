@@ -24,7 +24,7 @@ public class EnemyPlayer {
     private boolean initialized = false;
     
     private List<Attack> attacks;
-    private Attack attack;
+    public Attack attack;
     
     public EnemyPlayer(EnemyPlayerData newData) {
         data = newData;
@@ -41,7 +41,7 @@ public class EnemyPlayer {
     }
 
     public ImageMask getAttackMask() {
-        return null;//attack.getMask(data.x-spriteWidth/2,data.y-spriteHeight/2);
+        return attack.getMask(data.x-spriteWidth/2,data.y-spriteHeight/2);
     }
     
     public void render(Graphics g) {
@@ -57,17 +57,17 @@ public class EnemyPlayer {
         sprite.getAnim(localData.dir).setCurrentFrame(localData.frame);
         sprite.getAnim(localData.dir).draw(localData.x-spriteHeight/2,localData.y-spriteWidth/2,64,64);
         
-        if (localData.weapFrame == -1)
+        if (localData.weapFrame == -1) {
+            attack.attacking = false;
             return;
-        
+        }
+        attack.attacking = true;
         
         attack = attacks.get(localData.weapType);
         
         if (attacks.get(localData.weapType).anim == null) {
             attack.init();
         }
-        
-        attack.attacking = true;
         
         attack = attacks.get(localData.weapType);
         attack.anim.stop();
