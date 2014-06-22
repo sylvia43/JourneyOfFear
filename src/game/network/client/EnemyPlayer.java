@@ -65,9 +65,8 @@ public class EnemyPlayer {
         
         attack = attacks.get(localData.weapType);
         
-        if (attacks.get(localData.weapType).anim == null) {
+        if (attacks.get(localData.weapType).anim == null)
             attack.init();
-        }
         
         attack = attacks.get(localData.weapType);
         attack.anim.stop();
