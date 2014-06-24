@@ -28,6 +28,7 @@ public abstract class GameObject implements Comparable<GameObject> {
     
     public abstract int getDepth();
     
+    /** Draws the object. */
     public abstract void render(Graphics g);
     
     /**
