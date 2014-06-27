@@ -22,7 +22,7 @@ public class QuestDisplay extends PassiveHUD {
     
     @Override
     public int getDepth() {
-        return -1;
+        return 0;
     }
     
     @Override

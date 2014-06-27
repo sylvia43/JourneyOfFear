@@ -1,8 +1,10 @@
 package game.hud;
 
+import game.environment.obstacle.Sign;
 import game.map.Area;
 import game.player.Player;
 import game.state.StateSingleplayer;
+import game.util.resource.FontLibrary;
 import org.newdawn.slick.Graphics;
 
 public class MessageWindow extends PassiveHUD {
@@ -30,12 +32,14 @@ public class MessageWindow extends PassiveHUD {
         int worldX = StateSingleplayer.WORLD_SIZE_X;
         int worldY = StateSingleplayer.WORLD_SIZE_Y;
         
-        int posX = (int)(7.5*viewX)/10+camX;
-        int posY = (int)(.75*viewY)/10+camY;
+        int posX = 10 + camX;
+        int posY = viewY/2 + camY;
         int width = (int)(2.3*viewX)/10;
         int height = (int)(((double)worldY/worldX)*(2.3*viewX)/10);
         
-        //g.fillRect(posX,posY,width,height);
+        g.setColor(Sign.signMinimapColor);
+        g.fillRect(posX,posY,width,height);
+        g.setFont(FontLibrary.PIXEL_FONT.getFont());
         g.setColor(FONT_WHITE);
         g.drawString(message,posX,posY);
     }
