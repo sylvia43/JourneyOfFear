@@ -43,7 +43,7 @@ public enum AnimationLibrary {
     GREEN_SLIME_PIT(ImageLibrary.GREEN_SLIME_PIT,332,16,16),
     PINK_SLIME_PIT(ImageLibrary.PINK_SLIME_PIT,332,16,16),
     TREE_LARGE(ImageLibrary.TREE_LARGE,332,64,48),
-    SIGN_SMALL(ImageLibrary.SIGN_SMALL,1,16,24);
+    SIGN_SMALL(ImageLibrary.SIGN_SMALL,1,16,16);
     
     private ImageLibrary image;
     private Animation anim;
