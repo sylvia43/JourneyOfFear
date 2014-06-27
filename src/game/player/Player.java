@@ -50,7 +50,7 @@ public class Player extends GameObject implements Hittable {
     private Attack attack;
     private int attackIndex;
         
-    private int spritePointer;
+    private int directionFacing;
     
     private int x = 640;
     private int y = 512;
@@ -94,7 +94,7 @@ public class Player extends GameObject implements Hittable {
     @Override public int getY() { return y; }
     @Override public int getDepth() { return y; }
     
-    public int getDir() { return spritePointer; }
+    public int getDir() { return directionFacing; }
     
     private static final Color COLOR = Color.green;
     
@@ -105,8 +105,8 @@ public class Player extends GameObject implements Hittable {
     
     @Override
     public ImageMask getCollisionMask() {
-        return sprite.getAnimationMask(spritePointer)
-                .getImageMask(sprite.getAnim(spritePointer).getFrame()).update(x-spriteWidth/2,y-spriteHeight/2);
+        return sprite.getAnimationMask(directionFacing)
+                .getImageMask(sprite.getAnim(directionFacing).getFrame()).update(x-spriteWidth/2,y-spriteHeight/2);
     }
 
     public ImageMask getAttackMask() {
@@ -118,7 +118,7 @@ public class Player extends GameObject implements Hittable {
     }
     
     public int getFrame() {
-        return sprite.getAnim(spritePointer).getFrame();
+        return sprite.getAnim(directionFacing).getFrame();
     }
     
     public Attack getAttack() {
@@ -157,9 +157,9 @@ public class Player extends GameObject implements Hittable {
         hearts[2] = ImageLibrary.HEART_2.getImage();
         hearts[3] = ImageLibrary.HEART_3.getImage();
         hearts[4] = ImageLibrary.HEART_4.getImage();
-        spritePointer = 3;
-        spriteHeight = sprite.getAnim(spritePointer).getHeight() * 4;
-        spriteWidth = sprite.getAnim(spritePointer).getWidth() * 4;
+        directionFacing = 3;
+        spriteHeight = sprite.getAnim(directionFacing).getHeight() * 4;
+        spriteWidth = sprite.getAnim(directionFacing).getWidth() * 4;
         attack.init();
         quests = new ArrayList<QuestSequence>();
         hud.add(new Minimap(true));
@@ -230,7 +230,7 @@ public class Player extends GameObject implements Hittable {
     
     @Override
     public void render(Graphics g) {
-        sprite.getAnim(spritePointer).draw(x-spriteWidth/2,y-spriteHeight/2,64,64,damageBlink?Color.red:Color.white);
+        sprite.getAnim(directionFacing).draw(x-spriteWidth/2,y-spriteHeight/2,64,64,damageBlink?Color.red:Color.white);
         renderHealth();
         attack.render(x-spriteWidth/2,y-spriteHeight/2);
         if (StateSingleplayer.DEBUG_MODE)
@@ -312,8 +312,8 @@ public class Player extends GameObject implements Hittable {
     
     private void movePlayer(Input input, int delta) {
         if (stunTimer>0) {
-            sprite.getAnim(spritePointer).setCurrentFrame(1);
-            sprite.getAnim(spritePointer).stop();
+            sprite.getAnim(directionFacing).setCurrentFrame(1);
+            sprite.getAnim(directionFacing).stop();
             x+=(knockbackDX*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER);
             y+=(knockbackDY*stunTimer)/(KNOCKBACK_DISTANCE*KNOCKBACK_MULTIPLIER);
             return;
@@ -344,7 +344,7 @@ public class Player extends GameObject implements Hittable {
         
         for (int i=0;i<4;i++) {
             if (pr[i])
-                spritePointer = i;
+                directionFacing = i;
             else
                 sprite.getAnim(i).stop();
             if (hl[i]) {
@@ -352,7 +352,7 @@ public class Player extends GameObject implements Hittable {
                 dx += i%2==0 ? 1-i : 0;
                 dy += i%2==1 ? i-2 : 0;
                 if (!hl[(i+1)%4] && !hl[(i+2)%4] && !hl[(i+3)%4])
-                    spritePointer = i;
+                    directionFacing = i;
             } else
                 sprite.getAnim(i).setCurrentFrame(1);
         }
@@ -376,8 +376,8 @@ public class Player extends GameObject implements Hittable {
             if ((actualSteps*dx!=0 || actualSteps*dy!=0)) {
                 abilityDodge.use(actualSteps*dx,actualSteps*dy);
             } else {
-                int ndx = spritePointer==0?1:(spritePointer==2?-1:0);
-                int ndy = spritePointer==3?1:(spritePointer==1?-1:0);
+                int ndx = directionFacing==0?1:(directionFacing==2?-1:0);
+                int ndy = directionFacing==3?1:(directionFacing==1?-1:0);
                 abilityDodge.use(ndx,ndy);
             }
         }
