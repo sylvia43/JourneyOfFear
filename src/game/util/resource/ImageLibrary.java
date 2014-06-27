@@ -55,6 +55,7 @@ public enum ImageLibrary {
     GREEN_SLIME_PIT("environment/greenslimepit.png"),
     PINK_SLIME_PIT("environment/pinkslimepit.png"),
     TREE_LARGE("tiles/objects/tree_large.png"),
+    SIGN_SMALL("tiles/objects/sign_small.png"),
     
     // Tiles.
     TEST("tiles/test_blank.png"),

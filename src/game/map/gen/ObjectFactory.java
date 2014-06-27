@@ -3,6 +3,7 @@ package game.map.gen;
 import game.enemy.Enemy;
 import game.environment.hazard.Spikes;
 import game.environment.obstacle.Obstacle;
+import game.environment.obstacle.Sign;
 import game.environment.obstacle.Tree;
 import game.environment.spawner.GreenSlimeSpawner;
 import game.environment.spawner.PinkSlimeSpawner;
@@ -11,7 +12,7 @@ import game.player.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Generates Enemies, NPCs, and Obstacles.  */
+/** Generates Enemies, NPCs, and Obstacles. */
 public class ObjectFactory {
     
     private ObjectFactoryType type;
@@ -44,13 +45,13 @@ public class ObjectFactory {
     public List<Obstacle> getObstacles(Player player, List<Enemy> enemies) {
         List<Obstacle> obstacles = new ArrayList<Obstacle>();
         
-        if (!type.obstacles)
-            return obstacles;
-        
-        obstacles.add(new Spikes(player,enemies));           
-        obstacles.add(new GreenSlimeSpawner(player,enemies));
-        obstacles.add(new PinkSlimeSpawner(player,enemies));
-        obstacles.add(new Tree());
+        if (type.obstacles) {
+            obstacles.add(new Spikes(player,enemies));           
+            obstacles.add(new GreenSlimeSpawner(player,enemies));
+            obstacles.add(new PinkSlimeSpawner(player,enemies));
+            obstacles.add(new Tree());
+            obstacles.add(new Sign());
+        }
         
         return obstacles;
     }

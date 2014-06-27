@@ -4,10 +4,7 @@ import game.map.Area;
 import game.sprite.ImageMask;
 import game.sprite.Rectangle;
 import game.state.StateMultiplayer;
-import game.state.StateSingleplayer;
 import game.util.resource.AnimationLibrary;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
 
 public class Tree extends SolidObstacle {
     
@@ -28,18 +25,6 @@ public class Tree extends SolidObstacle {
     
     @Override
     public void update(int delta, Area currentArea) { }
-    
-    @Override
-    public void render(Graphics g) {
-        sprite.draw(x-spriteWidth/2,y-spriteHeight/2,256,192);
-        
-        if (StateSingleplayer.DEBUG_COLLISION) {
-            g.setColor(Color.cyan);
-            mask.render(g);
-            g.setColor(Color.red);
-            collisionMask.render(g,Color.red);
-        }
-    }
     
     @Override
     protected void initializeSprite() {
