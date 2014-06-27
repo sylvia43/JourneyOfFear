@@ -34,7 +34,6 @@ public class QuestDisplay extends PassiveHUD {
     @Override
     public void display(Graphics g, Player player, Area currentArea, int camX, int camY) {
         int viewX = StateSingleplayer.VIEW_SIZE_X;
-        int viewY = StateSingleplayer.VIEW_SIZE_Y;
         int worldX = StateSingleplayer.WORLD_SIZE_X;
         int worldY = StateSingleplayer.WORLD_SIZE_Y;
         

@@ -1,5 +1,7 @@
 package game.environment.obstacle;
 
+import game.hud.HUD;
+import game.hud.MessageWindow;
 import game.map.Area;
 import game.sprite.ImageMask;
 import game.state.StateMultiplayer;
@@ -29,5 +31,9 @@ public class Sign extends Obstacle {
         mask = new ImageMask(sprite.getImage(0),x,y);
         spriteWidth = sprite.getImage(0).getWidth()*4;
         spriteHeight = sprite.getImage(0).getHeight()*4;
+    }
+
+    public HUD getHUD() {
+        return new MessageWindow("Hello!");
     }
 }

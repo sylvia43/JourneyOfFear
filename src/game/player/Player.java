@@ -4,8 +4,10 @@ import game.ability.Ability;
 import game.ability.AbilityDodge;
 import game.enemy.Enemy;
 import game.environment.obstacle.Obstacle;
+import game.environment.obstacle.Sign;
 import game.environment.obstacle.Tree;
 import game.hud.HUD;
+import game.hud.MessageWindow;
 import game.hud.Minimap;
 import game.hud.QuestDisplay;
 import game.map.Area;
@@ -69,7 +71,7 @@ public class Player extends GameObject implements Hittable {
     private static Image[] hearts;
     
     private Area area;
-    private List<HUD> hud;
+    private List<HUD> huds;
     private List<QuestSequence> quests;
     
     private int attackDirection;
@@ -145,7 +147,7 @@ public class Player extends GameObject implements Hittable {
         attacks.add(AttackDaggerSlash.create());
         attackIndex = 0;
         attack = attacks.get(0);
-        hud = new ArrayList<HUD>();
+        huds = new ArrayList<HUD>();
         abilityDodge = new AbilityDodge(16);
     }
     
@@ -162,8 +164,8 @@ public class Player extends GameObject implements Hittable {
         spriteWidth = sprite.getAnim(directionFacing).getWidth() * 4;
         attack.init();
         quests = new ArrayList<QuestSequence>();
-        hud.add(new Minimap(true));
-        hud.add(new QuestDisplay(true,quests));
+        huds.add(new Minimap(true));
+        huds.add(new QuestDisplay(true,quests));
     }
     
     public void update(GameContainer container, int delta) {
@@ -200,8 +202,34 @@ public class Player extends GameObject implements Hittable {
         for (Enemy e : area.getEnemies())
             attack.resolveAttackHit(e,x-spriteWidth/2,y-spriteHeight/2);
         
-        if (input.isKeyPressed(Options.INTERACT.key())) {
+        // Resolve collision with Signs.
+        boolean foundInteractableObstacle = false;
+        for (Obstacle o : area.getObstacles()) {
+            if (!(o instanceof Sign))
+                continue;
+            Sign s = (Sign)o;
+
+            if (s.getCollisionMask().intersects(getCollisionMask())) {
+                boolean alreadyOpen = false;
+                for (HUD h : huds) {
+                    if (h instanceof MessageWindow) {
+                        alreadyOpen = true;
+                        break;
+                    }
+                }
+                if (!alreadyOpen) {
+                    huds.add(s.getHUD());
+                    foundInteractableObstacle = true;
+                    break;
+                }
+            }
+        }
+        
+        // Resolve interaction with NPC's.
+        if (input.isKeyDown(Options.INTERACT.key())) {
             for (NPC n : area.getNPCS()) {
+                if (foundInteractableObstacle)
+                    break;
                 if (n.getCollisionMask().intersects(getCollisionMask())) {
                     QuestSequence q = n.converse();
                     if (q.isComplete()) {
@@ -224,7 +252,7 @@ public class Player extends GameObject implements Hittable {
         for (QuestSequence q : quests)
             q.update();
         
-        for (HUD h : hud)
+        for (HUD h : huds)
             h.respondToUserInput(input);
     }
     
@@ -265,9 +293,9 @@ public class Player extends GameObject implements Hittable {
     }
     
     public void renderHUD(Graphics g) {
-        Collections.sort(hud);
+        Collections.sort(huds);
         
-        for (HUD h : hud)
+        for (HUD h : huds)
             if (h.isVisible())
                 h.display(g,this,area,camX,camY);
     }
