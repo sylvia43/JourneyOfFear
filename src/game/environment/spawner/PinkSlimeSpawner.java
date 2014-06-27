@@ -22,7 +22,9 @@ public class PinkSlimeSpawner extends Spawner {
     protected void initializeSprite() {
         sprite = AnimationLibrary.PINK_SLIME_PIT.getAnim();
         mask = new ImageMask(sprite.getImage(0),x,y);
-        this.sprite.setDuration(0,1000);
+        sprite.setDuration(0,1000);
+        spriteWidth = sprite.getImage(0).getWidth()*4;
+        spriteHeight = sprite.getImage(0).getHeight()*4;
     }
     
     @Override
