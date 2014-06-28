@@ -1,6 +1,5 @@
 package game.hud;
 
-import static game.hud.HUD.BACKGROUND_BLACK;
 import game.map.Area;
 import game.npc.quest.QuestSequence;
 import game.player.Player;
@@ -37,7 +36,7 @@ public class QuestDisplay extends PassiveHUD {
         int worldX = StateSingleplayer.WORLD_SIZE_X;
         int worldY = StateSingleplayer.WORLD_SIZE_Y;
         
-        g.setColor(BACKGROUND_BLACK);
+        g.setColor(HUD.BACKGROUND_BLACK);
         
         int posX = camX+5;
         int posY = camY+5;
@@ -46,7 +45,7 @@ public class QuestDisplay extends PassiveHUD {
         
         g.fillRect(posX,posY,width,height);
                         
-        g.setFont(FontLibrary.PIXEL_FONT.getFont());
+        g.setFont(FontLibrary.PIXEL_FONT_LARGE.getFont());
         
         g.setColor(FONT_WHITE);
         

@@ -1,10 +1,10 @@
 package game.hud;
 
-import game.environment.obstacle.TechSign;
 import game.map.Area;
 import game.player.Player;
 import game.state.StateSingleplayer;
 import game.util.resource.FontLibrary;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 public class MessageWindow extends PassiveHUD {
@@ -12,6 +12,7 @@ public class MessageWindow extends PassiveHUD {
     private String message;
     private int duration;
     private int timer;
+    public static final Color BACKGROUND_COLOR = new Color(185,147,66,128);
     
     private MessageWindow(boolean visible) {
         super(visible);
@@ -30,7 +31,6 @@ public class MessageWindow extends PassiveHUD {
     }
     
     public boolean update(int delta) {
-        System.out.println(timer);
         timer -= delta;
         return timer<0;
     }
@@ -42,14 +42,14 @@ public class MessageWindow extends PassiveHUD {
         int worldX = StateSingleplayer.WORLD_SIZE_X;
         int worldY = StateSingleplayer.WORLD_SIZE_Y;
         
-        int posX = 10 + camX;
-        int posY = viewY/2 + camY;
-        int width = (int)(2.3*viewX)/10;
-        int height = (int)(((double)worldY/worldX)*(2.3*viewX)/10);
+        int posX = camX+5;
+        int posY = camY + (int)(((double)worldY/worldX)*(2.3*viewX)/4)+10;
+        int width = (int)(2.3*viewX)/6;
+        int height = (int)(((double)worldY/worldX)*(2.3*viewX)/8);
         
-        g.setColor(TechSign.SIGN_COLOR);
+        g.setColor(BACKGROUND_COLOR);
         g.fillRect(posX,posY,width,height);
-        g.setFont(FontLibrary.PIXEL_FONT.getFont());
+        g.setFont(FontLibrary.PIXEL_FONT_SMALL.getFont());
         g.setColor(FONT_WHITE);
         g.drawString(message,posX,posY);
     }

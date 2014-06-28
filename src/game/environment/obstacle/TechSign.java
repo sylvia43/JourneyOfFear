@@ -10,7 +10,7 @@ import org.newdawn.slick.Color;
 
 public class TechSign extends Obstacle {
     
-    public static final Color SIGN_COLOR = new Color(185,147,66);
+    public static final Color MINIMAP_COLOR = new Color(185,147,66);
     private MessageWindow messageWindow;
     private boolean messageOpen;
     
@@ -22,7 +22,7 @@ public class TechSign extends Obstacle {
     public TechSign(int x, int y) {
         super(x,y);
         messageOpen = false;
-        minimapColor = SIGN_COLOR;
+        minimapColor = MINIMAP_COLOR;
     }
     
     @Override
