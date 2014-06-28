@@ -12,8 +12,8 @@ public enum FontLibrary {
     // Menu buttons.
     TIMES_NEW_ROMAN_LARGE("Times New Roman",24,true),
     QUEST_FONT("Arial Narrow",18,true),
-    PIXEL_FONT_LARGE("pixel_font.ttf",36,false),
-    PIXEL_FONT_SMALL("pixel_font.ttf",24,false);
+    PIXEL_FONT_LARGE("kongtext.ttf",16,false),
+    PIXEL_FONT_SMALL("kongtext.ttf",12,false);
     
     private UnicodeFont font;
     private String name;
@@ -52,6 +52,7 @@ public enum FontLibrary {
                 }
             }
         }
+        font.setPaddingRight(-1);
         return font;
     }
 }

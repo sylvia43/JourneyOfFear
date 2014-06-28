@@ -42,7 +42,8 @@ public class TechSign extends Obstacle {
 
     public HUD getMessageWindow() {
         if (messageWindow == null)
-            messageWindow = new MessageWindow("You're reading\na sign!",500);
+            messageWindow = new MessageWindow("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
+                                          + "\nmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",500);
         return messageWindow;
     }
     
