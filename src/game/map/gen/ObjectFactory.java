@@ -3,7 +3,7 @@ package game.map.gen;
 import game.enemy.Enemy;
 import game.environment.hazard.Spikes;
 import game.environment.obstacle.Obstacle;
-import game.environment.obstacle.Sign;
+import game.environment.obstacle.TechSign;
 import game.environment.obstacle.Tree;
 import game.environment.spawner.GreenSlimeSpawner;
 import game.environment.spawner.PinkSlimeSpawner;
@@ -50,7 +50,7 @@ public class ObjectFactory {
             obstacles.add(new GreenSlimeSpawner(player,enemies));
             obstacles.add(new PinkSlimeSpawner(player,enemies));
             obstacles.add(new Tree());
-            obstacles.add(new Sign());
+            obstacles.add(new TechSign());
         }
         
         return obstacles;

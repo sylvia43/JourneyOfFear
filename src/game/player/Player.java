@@ -4,10 +4,9 @@ import game.ability.Ability;
 import game.ability.AbilityDodge;
 import game.enemy.Enemy;
 import game.environment.obstacle.Obstacle;
-import game.environment.obstacle.Sign;
+import game.environment.obstacle.TechSign;
 import game.environment.obstacle.Tree;
 import game.hud.HUD;
-import game.hud.MessageWindow;
 import game.hud.Minimap;
 import game.hud.QuestDisplay;
 import game.map.Area;
@@ -203,33 +202,28 @@ public class Player extends GameObject implements Hittable {
             attack.resolveAttackHit(e,x-spriteWidth/2,y-spriteHeight/2);
         
         // Resolve collision with Signs.
-        boolean foundInteractableObstacle = false;
         for (Obstacle o : area.getObstacles()) {
-            if (!(o instanceof Sign))
+            if (!(o instanceof TechSign))
                 continue;
-            Sign s = (Sign)o;
-
+            TechSign s = (TechSign)o;
+            
             if (s.getCollisionMask().intersects(getCollisionMask())) {
-                boolean alreadyOpen = false;
-                for (HUD h : huds) {
-                    if (h instanceof MessageWindow) {
-                        alreadyOpen = true;
-                        break;
-                    }
+                if (!s.messageWindowOpen()) {
+                    s.openWindow();
+                    huds.add(s.getMessageWindow());
                 }
-                if (!alreadyOpen) {
-                    huds.add(s.getHUD());
-                    foundInteractableObstacle = true;
-                    break;
-                }
+                s.resetTimer();
+            }
+            
+            if (s.updateMessageWindow(delta)) {
+                s.closeWindow();
+                huds.remove(s.getMessageWindow());
             }
         }
         
         // Resolve interaction with NPC's.
         if (input.isKeyDown(Options.INTERACT.key())) {
             for (NPC n : area.getNPCS()) {
-                if (foundInteractableObstacle)
-                    break;
                 if (n.getCollisionMask().intersects(getCollisionMask())) {
                     QuestSequence q = n.converse();
                     if (q.isComplete()) {
@@ -238,7 +232,7 @@ public class Player extends GameObject implements Hittable {
                     }
                     boolean questGiven = false;
                     for (QuestSequence qq : quests) {
-                        if (q == qq) { // Should owrk.
+                        if (q == qq) { // Should work.
                             questGiven = true;
                             break;
                         }
