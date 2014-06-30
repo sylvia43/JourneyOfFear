@@ -38,14 +38,17 @@ public class MessageWindow extends PassiveHUD {
     @Override
     public void display(Graphics g, Player player, Area currentArea, int camX, int camY) {
         int viewX = StateSingleplayer.VIEW_SIZE_X;
-        int viewY = StateSingleplayer.VIEW_SIZE_Y;
         int worldX = StateSingleplayer.WORLD_SIZE_X;
         int worldY = StateSingleplayer.WORLD_SIZE_Y;
         
         int posX = camX+5;
-        int posY = camY + (int)(((double)worldY/worldX)*(2.3*viewX)/4)+10;
         int width = (int)(2.3*viewX)/6;
         int height = (int)(((double)worldY/worldX)*(2.3*viewX)/8);
+        
+        int posY = camY + 5;
+        
+        if (player.isQuestDisplayOpen())
+            posY = camY + (int)(((double)worldY/worldX)*(2.3*viewX)/4)+10;
         
         g.setColor(BACKGROUND_COLOR);
         g.fillRect(posX,posY,width,height);

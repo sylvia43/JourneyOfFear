@@ -70,6 +70,8 @@ public class Player extends GameObject implements Hittable {
     private static Image[] hearts;
     
     private Area area;
+    private QuestDisplay questDisplay;
+    private Minimap minimap;
     private List<HUD> huds;
     private List<QuestSequence> quests;
     
@@ -163,8 +165,8 @@ public class Player extends GameObject implements Hittable {
         spriteWidth = sprite.getAnim(directionFacing).getWidth() * 4;
         attack.init();
         quests = new ArrayList<QuestSequence>();
-        huds.add(new Minimap(true));
-        huds.add(new QuestDisplay(true,quests));
+        huds.add((minimap = new Minimap(true)));
+        huds.add((questDisplay = new QuestDisplay(true,quests)));
     }
     
     public void update(GameContainer container, int delta) {
@@ -479,5 +481,9 @@ public class Player extends GameObject implements Hittable {
             attack.renderMask(x-spriteWidth/2,y-spriteHeight/2,g);
         }
         g.drawRect(x-8,y-8,16,16);
+    }
+
+    public boolean isQuestDisplayOpen() {
+        return questDisplay.isVisible();
     }
 }
