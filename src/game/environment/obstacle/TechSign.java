@@ -42,8 +42,8 @@ public class TechSign extends Obstacle {
 
     public HUD getMessageWindow() {
         if (messageWindow == null)
-            messageWindow = new MessageWindow("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
-                                          + "\nmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",500);
+            messageWindow = new MessageWindow("Hello! This is some information!"
+                                          + "\nMore info yo.",500);
         return messageWindow;
     }
     

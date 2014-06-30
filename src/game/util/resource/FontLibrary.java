@@ -52,7 +52,6 @@ public enum FontLibrary {
                 }
             }
         }
-        font.setPaddingRight(-1);
         return font;
     }
 }
