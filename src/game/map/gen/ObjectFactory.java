@@ -50,7 +50,7 @@ public class ObjectFactory {
             obstacles.add(new GreenSlimeSpawner(player,enemies));
             obstacles.add(new PinkSlimeSpawner(player,enemies));
             obstacles.add(new Tree());
-            obstacles.add(new TechSign());
+            obstacles.add(new TechSign("123456789112345678921234567890"));
         }
         
         return obstacles;

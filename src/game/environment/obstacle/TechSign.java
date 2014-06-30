@@ -13,16 +13,19 @@ public class TechSign extends Obstacle {
     public static final Color MINIMAP_COLOR = new Color(185,147,66);
     private MessageWindow messageWindow;
     private boolean messageOpen;
+    private String message;
     
-    public TechSign() {
+    // Approximatly 20 characters wide.
+    public TechSign(String s) {
         this((int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y)),
-                (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y)));
+                (int)(Math.random()*(StateMultiplayer.WORLD_SIZE_Y)),s);
     }
 
-    public TechSign(int x, int y) {
+    public TechSign(int x, int y, String s) {
         super(x,y);
         messageOpen = false;
         minimapColor = MINIMAP_COLOR;
+        message = s;
     }
     
     @Override
@@ -42,8 +45,7 @@ public class TechSign extends Obstacle {
 
     public HUD getMessageWindow() {
         if (messageWindow == null)
-            messageWindow = new MessageWindow("Hello! This is some information!"
-                                          + "\nMore info yo.",500);
+            messageWindow = new MessageWindow(message,500);
         return messageWindow;
     }
     
