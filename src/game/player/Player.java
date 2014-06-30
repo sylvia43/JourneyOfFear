@@ -7,6 +7,7 @@ import game.environment.obstacle.Obstacle;
 import game.environment.obstacle.TechSign;
 import game.environment.obstacle.Tree;
 import game.hud.HUD;
+import game.hud.MessageWindow;
 import game.hud.Minimap;
 import game.hud.QuestDisplay;
 import game.map.Area;
@@ -72,7 +73,8 @@ public class Player extends GameObject implements Hittable {
     private Area area;
     private QuestDisplay questDisplay;
     private Minimap minimap;
-    private List<HUD> huds;
+    private MessageWindow messageWindow;
+    private List<HUD> hudsRenderList;
     private List<QuestSequence> quests;
     
     private int attackDirection;
@@ -148,7 +150,7 @@ public class Player extends GameObject implements Hittable {
         attacks.add(AttackDaggerSlash.create());
         attackIndex = 0;
         attack = attacks.get(0);
-        huds = new ArrayList<HUD>();
+        hudsRenderList = new ArrayList<HUD>();
         abilityDodge = new AbilityDodge(16);
     }
     
@@ -165,8 +167,9 @@ public class Player extends GameObject implements Hittable {
         spriteWidth = sprite.getAnim(directionFacing).getWidth() * 4;
         attack.init();
         quests = new ArrayList<QuestSequence>();
-        huds.add((minimap = new Minimap(true)));
-        huds.add((questDisplay = new QuestDisplay(true,quests)));
+        minimap = new Minimap(true);
+        questDisplay = new QuestDisplay(true,quests);
+        messageWindow = new MessageWindow("",-1);
     }
     
     public void update(GameContainer container, int delta) {
@@ -208,18 +211,15 @@ public class Player extends GameObject implements Hittable {
             if (!(o instanceof TechSign))
                 continue;
             TechSign s = (TechSign)o;
+            MessageWindow m = s.getMessageWindow();
             
             if (s.getCollisionMask().intersects(getCollisionMask())) {
-                if (!s.messageWindowOpen()) {
-                    s.openWindow();
-                    huds.add(s.getMessageWindow());
-                }
-                s.resetTimer();
+                m.resetTimer();
+                messageWindow = m;
             }
             
-            if (s.updateMessageWindow(delta)) {
+            if (m.update(delta)) {
                 s.closeWindow();
-                huds.remove(s.getMessageWindow());
             }
         }
         
@@ -248,7 +248,13 @@ public class Player extends GameObject implements Hittable {
         for (QuestSequence q : quests)
             q.update();
         
-        for (HUD h : huds)
+        hudsRenderList.clear();
+        
+        hudsRenderList.add(minimap);
+        hudsRenderList.add(questDisplay);
+        hudsRenderList.add(messageWindow);
+        
+        for (HUD h : hudsRenderList)
             h.respondToUserInput(input);
     }
     
@@ -289,9 +295,9 @@ public class Player extends GameObject implements Hittable {
     }
     
     public void renderHUD(Graphics g) {
-        Collections.sort(huds);
+        Collections.sort(hudsRenderList);
         
-        for (HUD h : huds)
+        for (HUD h : hudsRenderList)
             if (h.isVisible())
                 h.display(g,this,area,camX,camY);
     }

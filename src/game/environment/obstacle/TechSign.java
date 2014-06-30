@@ -1,6 +1,5 @@
 package game.environment.obstacle;
 
-import game.hud.HUD;
 import game.hud.MessageWindow;
 import game.map.Area;
 import game.sprite.ImageMask;
@@ -43,7 +42,7 @@ public class TechSign extends Obstacle {
         spriteHeight = sprite.getImage(0).getHeight()*4;
     }
 
-    public HUD getMessageWindow() {
+    public MessageWindow getMessageWindow() {
         if (messageWindow == null)
             messageWindow = new MessageWindow(message,1000);
         return messageWindow;

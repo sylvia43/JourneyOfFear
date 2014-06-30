@@ -26,6 +26,11 @@ public class MessageWindow extends PassiveHUD {
     }
     
     @Override
+    public boolean isVisible() {
+        return super.isVisible() && timer>=0;
+    }
+    
+    @Override
     public int getDepth() {
         return -1;
     }
