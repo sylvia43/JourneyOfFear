@@ -173,8 +173,9 @@ public class Player extends GameObject implements Hittable {
     }
     
     public void update(GameContainer container, int delta) {
-        resolveInvulnerability(delta); //and knockback
+        resolveInvulnerability(delta);
         
+        // Move unless dodging.
         if (!abilityDodge.inUse())
             movePlayer(container.getInput(),delta);
         else
@@ -184,14 +185,17 @@ public class Player extends GameObject implements Hittable {
         collisionMask.set(x-spriteWidth/2,y-spriteHeight/2,x+spriteWidth/2,y+spriteHeight/2);
         Input input = container.getInput();
         
+        // Switch weapon.
         if (input.isKeyPressed(Options.SWITCH_WEAPON.key())) {
             attackIndex = (attackIndex+attacks.size()+1)%attacks.size();
             attack = attacks.get(attackIndex);
             attack.init();
         }
         
+        // Update dodge.
         abilityDodge.update(delta,this,stunTimer>0);
         
+        // Check if new attack is needed.
         if ((input.isKeyDown(Options.ATTACK_UP.key())
                 || input.isKeyDown(Options.ATTACK_DOWN.key())
                 || input.isKeyDown(Options.ATTACK_LEFT.key())
@@ -201,31 +205,34 @@ public class Player extends GameObject implements Hittable {
             attack.attack(attackDirection,true);
         }
         
+        // Update the attack.
         attack.update(delta,x-spriteWidth/2,y-spriteHeight/2);
         
+        // Check if the attack hits an enemy.
         for (Enemy e : area.getEnemies())
             attack.resolveAttackHit(e,x-spriteWidth/2,y-spriteHeight/2);
         
-        // Resolve collision with Signs.
+        // Update interactions with Obstacles as needed.
         for (Obstacle o : area.getObstacles()) {
-            if (!(o instanceof TechSign))
-                continue;
-            TechSign s = (TechSign)o;
-            MessageWindow m = s.getMessageWindow();
-            
-            if (s.getCollisionMask().intersects(getCollisionMask())) {
-                m.resetTimer();
-                messageWindow = m;
-            }
-            
-            if (m.update(delta)) {
-                s.closeWindow();
+            // Resolve collision with Signs.
+            if (o instanceof TechSign) {
+                TechSign s = (TechSign)o;
+                MessageWindow m = s.getMessageWindow();
+
+                if (s.getCollisionMask().intersects(getCollisionMask())) {
+                    m.resetTimer();
+                    messageWindow = m;
+                }
+
+                if (m.update(delta))
+                    s.closeWindow();
             }
         }
         
-        // Resolve interaction with NPC's.
-        if (input.isKeyDown(Options.INTERACT.key())) {
-            for (NPC n : area.getNPCS()) {
+        // Update interactions with NPCs as needed.
+        for (NPC n : area.getNPCS()) {
+            // Resolve interaction with NPC's.
+            if (input.isKeyDown(Options.INTERACT.key())) {
                 if (n.getCollisionMask().intersects(getCollisionMask())) {
                     QuestSequence newQuest = n.converse();
                     if (newQuest.isComplete()) {
@@ -245,15 +252,15 @@ public class Player extends GameObject implements Hittable {
             }
         }
         
+        // Update quests.
         for (QuestSequence q : quests)
             q.update();
         
+        // Reinitialize HUD's to render.
         hudsRenderList.clear();
-        
         hudsRenderList.add(minimap);
         hudsRenderList.add(questDisplay);
         hudsRenderList.add(messageWindow);
-        
         for (HUD h : hudsRenderList)
             h.respondToUserInput(input);
     }
