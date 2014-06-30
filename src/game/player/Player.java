@@ -227,20 +227,20 @@ public class Player extends GameObject implements Hittable {
         if (input.isKeyDown(Options.INTERACT.key())) {
             for (NPC n : area.getNPCS()) {
                 if (n.getCollisionMask().intersects(getCollisionMask())) {
-                    QuestSequence q = n.converse();
-                    if (q.isComplete()) {
-                        quests.remove(q);
+                    QuestSequence newQuest = n.converse();
+                    if (newQuest.isComplete()) {
+                        quests.remove(newQuest);
                         continue;
                     }
                     boolean questGiven = false;
-                    for (QuestSequence qq : quests) {
-                        if (q == qq) { // Should work.
+                    for (QuestSequence currentQuests : quests) {
+                        if (newQuest == currentQuests) {
                             questGiven = true;
                             break;
                         }
                     }
                     if (!questGiven)
-                        quests.add(q);
+                        quests.add(newQuest);
                 }
             }
         }
