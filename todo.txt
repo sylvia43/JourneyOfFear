@@ -96,10 +96,10 @@ Key:
     [x] Unelectric sound effects.
     [x] Boss themes.
     [x] Send Chad's music.
-    [/] More music.
-    [ ] More attack sounds.
-    [ ] Bow pull sounds.
-    [ ] Bow shoot sounds.
+    [x] More music.
+    [x] More attack sounds.
+    [/] Bow pull sounds.
+    [/] Bow shoot sounds.
     [ ] Player death sound.
 
   Multiplayer:
