@@ -58,34 +58,33 @@ public enum MusicLibrary {
         this.filepath = filepath;
     }
     
-    /** My first thread ^_^ */
+/** My first thread ^_^ */
     public void playMusic() {
-    	queued = true;
-		Thread bindMusic = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				boolean playing = false;
-				if (playing == false) {
-					loading = true;
-					if (!bound())
-						bind();
-					try {
-						// Delay of 2 seconds between songs
-						Thread.sleep(2000);
-						music.play(1.0f, VOLUME);
-						// Delay after starting to ensure that getPosition()
-						// returns > 0.0f
-						Thread.sleep(2000);
-					} catch (InterruptedException e) {
-						System.out.println("Error playing music: " + e);
-					}
-					loading = false;
-					playing = music.playing();
-				}
-
-				queued = false;
-			}
-		});
-		bindMusic.start();
-    }
+        queued = true;
+        Thread bindMusic = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean playing = false;
+                if (playing == false) {
+                    loading = true;
+                    if (!bound())
+                        bind();
+                    try {
+                        // Delay of 2 seconds between songs
+                        Thread.sleep(2000);
+                        music.play(1.0f, VOLUME);
+                        // Delay after starting to ensure that getPosition()
+                        // returns > 0.0f
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        System.out.println("Error playing music: " + e);
+                    }
+                    loading = false;
+                    playing = music.playing();
+                }
+                queued = false;
+            }
+        });
+        bindMusic.start();
+        }
 }
