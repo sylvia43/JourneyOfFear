@@ -32,7 +32,7 @@ public enum MusicLibrary {
     }
     
     private boolean bound() { return music!=null; }
-    public boolean isPlaying() { return (bound()&&music.playing()) || queued; }
+    public boolean isPlaying() { return (bound() && music.playing() && music.getPosition() != 0.0f) || queued; }
     public boolean isPaused() { return music != null && music.playing(); }
     
     public void pause() { music.pause(); }
@@ -58,28 +58,33 @@ public enum MusicLibrary {
         this.filepath = filepath;
     }
     
-    /** My first thread ^_^ */
+/** My first thread ^_^ */
     public void playMusic() {
         queued = true;
         Thread bindMusic = new Thread(new Runnable() {
             @Override
             public void run() {
-                loading = true;
-                long start = System.currentTimeMillis();
-                if (!bound())
-                    bind();
-                long end = System.currentTimeMillis();
-                if ((end-start)<2000) {
+                boolean playing = false;
+                if (playing == false) {
+                    loading = true;
+                    if (!bound())
+                        bind();
                     try {
-                        Thread.sleep(2000-end+start);
+                        // Delay of 2 seconds between songs
+                        Thread.sleep(2000);
+                        music.play(1.0f, VOLUME);
+                        // Delay after starting to ensure that getPosition()
+                        // returns > 0.0f
+                        Thread.sleep(2000);
                     } catch (InterruptedException e) {
                         System.out.println("Error playing music: " + e);
                     }
+                    loading = false;
+                    playing = music.playing();
                 }
-                music.play(1.0f,VOLUME);
-                loading = false;
+                queued = false;
             }
         });
         bindMusic.start();
-    }
+        }
 }
