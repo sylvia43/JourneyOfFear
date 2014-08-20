@@ -31,7 +31,7 @@ public enum MusicLibrary {
         return loading;
     }
     
-    private boolean bound() { return music!=null; }
+    private boolean bound() { return music != null; }
     public boolean isPlaying() { return (bound() && music.playing() && music.getPosition() != 0.0f) || queued; }
     public boolean isPaused() { return music != null && music.playing(); }
     
@@ -58,14 +58,14 @@ public enum MusicLibrary {
         this.filepath = filepath;
     }
     
-/** My first thread ^_^ */
+    /** My first thread ^_^ */
     public void playMusic() {
         queued = true;
         Thread bindMusic = new Thread(new Runnable() {
             @Override
             public void run() {
                 boolean playing = false;
-                if (playing == false) {
+                if (!playing) {
                     loading = true;
                     if (!bound())
                         bind();
@@ -86,5 +86,5 @@ public enum MusicLibrary {
             }
         });
         bindMusic.start();
-        }
+    }
 }
